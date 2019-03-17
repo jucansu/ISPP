@@ -1,0 +1,13 @@
+# target programming lamguage
+language: java
+
+# JDK versios support
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+addons:
+  postgresql: "9.2.1"
+sudo: required
+
+services:
+  - postgresql
