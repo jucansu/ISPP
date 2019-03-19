@@ -11,8 +11,8 @@
 
 	<!-- Artifact identification and properties -->
 
-	<groupId>Trond.com</groupId>
-	<artifactId>Trond</artifactId>
+	<groupId>Acme.com</groupId>
+	<artifactId>AcmeTesting</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -22,8 +22,8 @@
 
 	<!-- Indexing information -->
 
-	<name>Trond</name>
-	<url>http://www.trond.com</url>
+	<name>Acme Testing</name>
+	<url>http://www.acme-testing.com</url>
 
 	<!-- Build commands -->
 

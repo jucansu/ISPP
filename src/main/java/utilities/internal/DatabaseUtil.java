@@ -46,13 +46,13 @@ import domain.DomainEntity;
 
 public class DatabaseUtil {
 
-	// Constructor ------------------------------------------------------------
+	// Constructor 
 
 	public DatabaseUtil() {
 	}
 
 
-	// Internal state ---------------------------------------------------------
+	// Internal state 
 
 	// private PersistenceProviderResolver	resolver;
 	// private List<PersistenceProvider>	providers;
@@ -68,7 +68,7 @@ public class DatabaseUtil {
 	private EntityTransaction		entityTransaction;
 
 
-	// Internal state ---------------------------------------------------------
+	// Internal state 
 
 	public String getDatabaseName() {
 		return this.databaseName;
@@ -78,7 +78,7 @@ public class DatabaseUtil {
 		return this.databaseDialectName;
 	}
 
-	// Business methods -------------------------------------------------------
+	// Business methods 
 
 	public void initialise() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		// this.resolver = PersistenceProviderResolverHolder.getPersistenceProviderResolver();
@@ -117,17 +117,27 @@ public class DatabaseUtil {
 	}
 
 	public void recreateDatabase() throws Throwable {
-		List<String> databaseScript;
+		final List<String> databaseScript;
+		List<String> databaseScript2;
+		List<String> databaseScript3;
 		List<String> schemaScript;
 		String[] statements;
 
 		databaseScript = new ArrayList<String>();
-		databaseScript.add(String.format("drop database if exists `%s`;", this.databaseName));
-		databaseScript.add(String.format("create database `%s`;", this.databaseName));
+		databaseScript.add(String.format("DO $$ DECLARE r RECORD; BEGIN FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP EXECUTE 'DROP TABLE IF EXISTS '  ||quote_ident(r.tablename)||  ' CASCADE'; END LOOP; END $$;",
+			this.databaseName));
 		this.executeScript(databaseScript);
 
+		databaseScript3 = new ArrayList<String>();
+		databaseScript3.add(String.format("drop database if exists %s;", this.databaseName));
+		this.executeScript(databaseScript3);
+
+		databaseScript2 = new ArrayList<String>();
+		databaseScript2.add(String.format("create database %s;", this.databaseName));
+		this.executeScript(databaseScript2);
+
 		schemaScript = new ArrayList<String>();
-		schemaScript.add(String.format("use `%s`;", this.databaseName));
+		//		schemaScript.add(String.format("\\connect %s;", this.databaseName));
 		statements = this.configuration.generateSchemaCreationScript(this.databaseDialect);
 		for (final String statement : statements)
 			schemaScript.add(String.format("%s;", statement));
@@ -195,7 +205,7 @@ public class DatabaseUtil {
 		this.entityManager.flush();
 	}
 
-	// Ancillary methods ------------------------------------------------------
+	// Ancillary methods
 
 	protected Configuration buildConfiguration() {
 		Configuration result;
@@ -243,13 +253,13 @@ public class DatabaseUtil {
 			@Override
 			public void execute(final Connection connection) throws SQLException {
 				Statement statement;
+				connection.setAutoCommit(true);
 
 				//System.out.println();
 				statement = connection.createStatement();
 				for (final String line : script)
 					//System.out.println(line);
 					statement.execute(line);
-				connection.commit();
 				//System.out.println();
 			}
 		});
