@@ -23,7 +23,9 @@
 
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%><form:form action="j_spring_security_check" modelAttribute="credentials">    <form:label path="username">
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%><form:form action="j_spring_security_check" modelAttribute="credentials">    
+
+	<form:label path="username">
 
         <spring:message code="security.username" />
 
@@ -33,7 +35,9 @@
 
     <form:errors class="error" path="username" />
 
-    <br />    <form:label path="password">
+    <br />    
+    
+    <form:label path="password">
 
         <spring:message code="security.password" />
 

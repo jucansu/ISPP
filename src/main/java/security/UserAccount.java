@@ -29,6 +29,7 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -62,6 +63,7 @@ public class UserAccount extends DomainEntity implements UserDetails {    // Con
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
 	@Override
+	@Email
 	public String getUsername() {
 
 		return this.username;
@@ -159,4 +161,5 @@ public class UserAccount extends DomainEntity implements UserDetails {    // Con
 		// TODO Auto-generated method stub
 
 	}
+
 }
