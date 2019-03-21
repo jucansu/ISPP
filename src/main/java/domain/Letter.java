@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Message extends DomainEntity {
+public class Letter extends DomainEntity {
 
 	//Attributes
 

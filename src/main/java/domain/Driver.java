@@ -11,6 +11,9 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -19,13 +22,14 @@ public class Driver extends Actor {
 	//Attributes
 	private Double				cash;
 	private CreditCard			creditCard;
+	private String		bankAccountNumber;
 	private Boolean				pets;
 	private Boolean				smoke;
 	private Boolean				music;
 	private Boolean				childs;
 
 	//Relationships
-	private Collection<Reserve>	reserves;
+	private Collection<Route>	routes;
 	private Collection<Comment>	comments;
 
 
@@ -43,6 +47,12 @@ public class Driver extends Actor {
 		return this.creditCard;
 	}
 
+	@NotBlank
+	@Pattern(regexp = "/^ES/d{22}$/", message = "Invalid Spain Bank Number")
+	public String getBankAccountNumber() {
+		return this.bankAccountNumber;
+	}
+	
 	@NotNull
 	public Boolean getPets() {
 		return this.pets;
@@ -65,9 +75,9 @@ public class Driver extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "passenger")
-	public Collection<Reserve> getReserves() {
-		return this.reserves;
+	@OneToMany(mappedBy = "route")
+	public Collection<Route> getRoutes() {
+		return this.routes;
 	}
 
 	@Valid
@@ -99,12 +109,16 @@ public class Driver extends Actor {
 		this.music = music;
 	}
 
+	public void setBankAccountNumber(final String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
+	}
+
 	public void setChilds(final Boolean childs) {
 		this.childs = childs;
 	}
 
-	public void setReserves(final Collection<Reserve> reserves) {
-		this.reserves = reserves;
+	public void setRoutes(final Collection<Route> routes) {
+		this.routes = routes;
 	}
 
 	public void setComments(final Collection<Comment> comments) {

@@ -7,8 +7,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.URL;
 
 import security.UserAccount;
@@ -22,7 +25,15 @@ public class Actor extends DomainEntity {    //Attributes
 
 	private String		surname;
 
-	private String		email;
+	private String		country;
+	
+	private String		city;
+	
+	private String		phone;
+	
+	private Double		mediumStars;
+	
+	private Integer		numberOfTrips;
 
 	private UserAccount	userAccount;
 
@@ -38,11 +49,10 @@ public class Actor extends DomainEntity {    //Attributes
 		return this.surname;
 
 	}
-	@URL
 	@NotBlank
-	public String getEmail() {
+	public String getCountry() {
 
-		return this.email;
+		return this.country;
 
 	}
 
@@ -52,7 +62,33 @@ public class Actor extends DomainEntity {    //Attributes
 
 		return this.userAccount;
 
-	}    //Setters    public void setName(final String name) {
+	}
+	
+	@NotBlank
+	public String getCity() {
+		return city;
+	}
+
+	@NotBlank
+	@Pattern(regexp = "/^[67]{1}[0-9]{8}$/", message = "Invalid Phone Number")
+	public String getPhone() {
+		return phone;
+	}
+
+	@Range(min = (long) 0.0, max = (long) 5.0)
+	public Double getMediumStars() {
+		return mediumStars;
+	}
+	
+	@Min(0)
+	public Integer getNumberOfTrips() {
+		return numberOfTrips;
+	}
+
+	
+	
+	
+	//Setters    public void setName(final String name) {
 	public void setName(final String name) {
 
 		this.name = name;
@@ -63,9 +99,9 @@ public class Actor extends DomainEntity {    //Attributes
 		this.surname = surname;
 
 	}
-	public void setEmail(final String email) {
+	public void setCountry(final String country) {
 
-		this.email = email;
+		this.country = country;
 
 	}
 
@@ -74,5 +110,23 @@ public class Actor extends DomainEntity {    //Attributes
 		this.userAccount = userAccount;
 
 	}
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	public void setMediumStars(Double mediumStars) {
+		this.mediumStars = mediumStars;
+	}
+	
+	public void setNumberOfTrips(Integer numberOfTrips) {
+		this.numberOfTrips = numberOfTrips;
+	}
+	
+
 
 }

@@ -11,6 +11,9 @@ import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -39,7 +42,9 @@ public class Passenger extends Actor {
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
-
+	
+	@NotBlank
+	@Pattern(regexp = "/^ES/d{22}$/", message = "Invalid Spain Bank Number")
 	public String getBankAccountNumber() {
 		return this.bankAccountNumber;
 	}

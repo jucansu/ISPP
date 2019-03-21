@@ -25,7 +25,7 @@ public class Comment extends DomainEntity {
 	private Date		date;
 	private Double		star;
 	private String		text;
-	private String		bankAccountNumber;
+
 
 	//Relationships
 
@@ -51,11 +51,6 @@ public class Comment extends DomainEntity {
 	@Range(min = 0, max = 5)
 	public Double getStar() {
 		return this.star;
-	}
-
-	@NotBlank
-	public String getBankAccountNumber() {
-		return this.bankAccountNumber;
 	}
 
 	@Valid
@@ -84,10 +79,6 @@ public class Comment extends DomainEntity {
 
 	public void setText(final String text) {
 		this.text = text;
-	}
-
-	public void setBankAccountNumber(final String bankAccountNumber) {
-		this.bankAccountNumber = bankAccountNumber;
 	}
 
 	public void setDriver(final Driver driver) {

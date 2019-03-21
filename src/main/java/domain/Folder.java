@@ -25,7 +25,7 @@ public class Folder extends DomainEntity {
 	//Relationships
 
 	private Actor				actor;
-	private Collection<Message>	messages;
+	private Collection<Letter>	messages;
 
 
 	//Getter
@@ -48,7 +48,7 @@ public class Folder extends DomainEntity {
 
 	@Valid
 	@ManyToMany
-	public Collection<Message> getMessages() {
+	public Collection<Letter> getMessages() {
 		return this.messages;
 	}
 
@@ -66,7 +66,7 @@ public class Folder extends DomainEntity {
 		this.actor = actor;
 	}
 
-	public void setMessages(final Collection<Message> messages) {
+	public void setMessages(final Collection<Letter> messages) {
 		this.messages = messages;
 	}
 }
