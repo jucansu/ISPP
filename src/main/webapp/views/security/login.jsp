@@ -1,4 +1,5 @@
- <%--
+
+<%--
 
 * login.jsp
 
@@ -15,56 +16,77 @@
 * http://www.tdg-seville.info/License.html
 
 --%>
-<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%><%@taglib prefix="jstl"    uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%><%@taglib prefix="jstl"
+	uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"
+	uri="http://www.springframework.org/security/tags"%>
 
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%><form:form action="j_spring_security_check" modelAttribute="credentials">    
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%><form:form
+	action="j_spring_security_check" modelAttribute="credentials">
 
-	<form:label path="username">
+	<spring:url value="/styles/login.css" var="logincss" />
+	<link href="${logincss}" rel="stylesheet" />
+	<script src="${logincss}"></script>
 
-        <spring:message code="security.username" />
 
-    </form:label>
+	<div class="wrapper fadeInDown">
+		<div id="formContent">
+			<!-- Tabs Titles -->
 
-    <form:input path="username" />    
+			<!-- Icon -->
+			<div class="fadeIn first">
+				<img src="images/logoicon.png" />
+			</div>
 
-    <form:errors class="error" path="username" />
+			<!-- Login Form -->
+			<form:form action="j_spring_security_check"
+				modelAttribute="credentials">
+				<form:input path="username" type="text" id="login"
+					class="fadeIn second" name="login" placeholder="email" />
+				<form:errors class="error" path="username" />
+				<form:input path="password" type="password" id="password"
+					class="fadeIn third" name="login" autocomplete="new-password"
+					placeholder="password" />
+				<form:errors class="error" path="password" />
+				<input type="submit" class="fadeIn fourth" value="Entrar">
 
-    <br />    
-    
-    <form:label path="password">
+				<jstl:if test="${showError == true}">
+					<div class="error">
+						<spring:message code="security.login.failed" />
+					</div>
+				</jstl:if>
+			</form:form>
+			
+			<ul id="formFooter">
+				<li><a class="underlineHover" href="#">Create new account as driver</a></li>
+				<li><a class="underlineHover" href="#">Create new account as passenger</a></li>
+			</ul>
 
-        <spring:message code="security.password" />
 
-    </form:label>
 
-    <form:password path="password" />    
+		</div>
+	</div>
 
-    <form:errors class="error" path="password" />
 
-    <br />
+	<jstl:if test="${showError == true}">
 
-    
+		<div class="error">
 
-    <jstl:if test="${showError == true}">
+			<spring:message code="security.login.failed" />
 
-        <div class="error">
+		</div>
 
-            <spring:message code="security.login.failed" />
+	</jstl:if>
 
-        </div>
 
-    </jstl:if>
 
-    
 
-    <input type="submit" value="<spring:message code="security.login" />" />
 
-    
 
 </form:form>
