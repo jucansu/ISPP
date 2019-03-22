@@ -55,7 +55,6 @@ public class ActorService {
 		Assert.notNull(actor);
 		Assert.notNull(actor.getName());
 		Assert.notNull(actor.getSurname());
-		Assert.notNull(actor.getEmail());
 
 		final Actor result;
 
