@@ -13,3 +13,5 @@ lib
 .settings
 .metadata
 bin
+
+sh.exe.stackdump
