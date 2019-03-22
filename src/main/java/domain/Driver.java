@@ -31,6 +31,7 @@ public class Driver extends Actor {
 	//Relationships
 	private Collection<Route>	routes;
 	private Collection<Comment>	comments;
+	private Collection<Vehicle>	vehicles;
 
 
 	//Getter
@@ -86,6 +87,13 @@ public class Driver extends Actor {
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
+	
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "driver")
+	public Collection<Vehicle> getVehicles() {
+		return this.vehicles;
+	}
 
 	//Setter
 
@@ -125,4 +133,7 @@ public class Driver extends Actor {
 		this.comments = comments;
 	}
 
+	public void setVehicles(final Collection<Vehicle> vehicles) {
+		this.vehicles = vehicles;
+	}
 }
