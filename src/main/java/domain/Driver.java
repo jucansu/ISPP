@@ -7,7 +7,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -22,7 +21,7 @@ public class Driver extends Actor {
 	//Attributes
 	private Double				cash;
 	private CreditCard			creditCard;
-	private String		bankAccountNumber;
+	private String				bankAccountNumber;
 	private Boolean				pets;
 	private Boolean				smoke;
 	private Boolean				music;
@@ -43,7 +42,6 @@ public class Driver extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToOne(mappedBy = "passenger")
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
@@ -53,7 +51,7 @@ public class Driver extends Actor {
 	public String getBankAccountNumber() {
 		return this.bankAccountNumber;
 	}
-	
+
 	@NotNull
 	public Boolean getPets() {
 		return this.pets;
@@ -76,18 +74,18 @@ public class Driver extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "route")
+	@OneToMany(mappedBy = "driver")
 	public Collection<Route> getRoutes() {
 		return this.routes;
 	}
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "passenger")
+	@OneToMany(mappedBy = "driver")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
-	
+
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "driver")

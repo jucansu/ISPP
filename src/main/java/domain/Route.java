@@ -113,14 +113,14 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "Route")
+	@OneToMany(mappedBy = "route")
 	public Collection<ControlPoint> getControlPoints() {
 		return this.controlPoints;
 	}
 
 	@Valid
 	@NotNull
-	@OneToMany(mappedBy = "Route")
+	@OneToMany(mappedBy = "route")
 	public Collection<Reserve> getReserves() {
 		return this.reserves;
 	}

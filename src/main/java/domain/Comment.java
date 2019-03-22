@@ -26,7 +26,6 @@ public class Comment extends DomainEntity {
 	private Double		star;
 	private String		text;
 
-
 	//Relationships
 
 	private Passenger	passenger;

@@ -7,7 +7,6 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -38,11 +37,10 @@ public class Passenger extends Actor {
 
 	@Valid
 	@NotNull
-	@OneToOne(mappedBy = "passenger")
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
-	
+
 	@NotBlank
 	@Pattern(regexp = "/^ES/d{22}$/", message = "Invalid Spain Bank Number")
 	public String getBankAccountNumber() {

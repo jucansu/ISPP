@@ -6,8 +6,6 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -77,7 +75,7 @@ public class Letter extends DomainEntity {
 	}
 	@NotNull
 	@Valid
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToOne(optional = false)
 	public Folder getFolder() {
 		return this.folder;
 	}
@@ -117,7 +115,7 @@ public class Letter extends DomainEntity {
 		this.isReport = isReport;
 	}
 
-	public void setBoxes(final Folder folder) {
+	public void setFolder(final Folder folder) {
 		this.folder = folder;
 	}
 
