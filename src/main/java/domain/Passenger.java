@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -42,7 +41,7 @@ public class Passenger extends Actor {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "/^ES/d{22}$/", message = "Invalid Spain Bank Number")
+	//	@Pattern(regexp = "/^ES[0-9]{22}$/", message = "Invalid Spain Bank Number")
 	public String getBankAccountNumber() {
 		return this.bankAccountNumber;
 	}

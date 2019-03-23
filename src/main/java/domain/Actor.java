@@ -8,10 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
+
 import security.UserAccount;
 
 @Entity
@@ -20,19 +20,12 @@ import security.UserAccount;
 public class Actor extends DomainEntity {    //Attributes   
 
 	private String		name;
-
 	private String		surname;
-
 	private String		country;
-	
 	private String		city;
-	
 	private String		phone;
-	
 	private Double		mediumStars;
-	
 	private Integer		numberOfTrips;
-
 	private UserAccount	userAccount;
 
 
@@ -61,31 +54,28 @@ public class Actor extends DomainEntity {    //Attributes
 		return this.userAccount;
 
 	}
-	
+
 	@NotBlank
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	@NotBlank
-	@Pattern(regexp = "/^[67]{1}[0-9]{8}$/", message = "Invalid Phone Number")
+	//	@Pattern(regexp = "/^[0-9]{9}$/", message = "Invalid Phone Number")
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
 	@Range(min = (long) 0.0, max = (long) 5.0)
 	public Double getMediumStars() {
-		return mediumStars;
-	}
-	
-	@Min(0)
-	public Integer getNumberOfTrips() {
-		return numberOfTrips;
+		return this.mediumStars;
 	}
 
-	
-	
-	
+	@Min(0)
+	public Integer getNumberOfTrips() {
+		return this.numberOfTrips;
+	}
+
 	//Setters    public void setName(final String name) {
 	public void setName(final String name) {
 
@@ -108,23 +98,21 @@ public class Actor extends DomainEntity {    //Attributes
 		this.userAccount = userAccount;
 
 	}
-	
-	public void setCity(String city) {
+
+	public void setCity(final String city) {
 		this.city = city;
 	}
-	
-	public void setPhone(String phone) {
+
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
-	
-	public void setMediumStars(Double mediumStars) {
+
+	public void setMediumStars(final Double mediumStars) {
 		this.mediumStars = mediumStars;
 	}
-	
-	public void setNumberOfTrips(Integer numberOfTrips) {
+
+	public void setNumberOfTrips(final Integer numberOfTrips) {
 		this.numberOfTrips = numberOfTrips;
 	}
-	
-
 
 }

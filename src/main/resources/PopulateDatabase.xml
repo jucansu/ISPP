@@ -12,7 +12,7 @@
 
 	<!-- User accounts -->
 
-	<bean id="userAccount1" class="security.UserAccount">
+	<bean id="userAccount001" class="security.UserAccount">
 		<property name="username" value="admin@gmail.com" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
@@ -24,27 +24,9 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="super@gmail.com" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="DRIVER" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="PASSENGER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="driver1@gmail.com" />
-		<property name="password" value="b85aef08608180db9d4ddad38ae40545" />
+	<bean id="userAccount002" class="security.UserAccount">
+		<property name="username" value="driver@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -54,9 +36,9 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount4" class="security.UserAccount">
+	<bean id="userAccount003" class="security.UserAccount">
 		<property name="username" value="passenger1@gmail.com" />
-		<property name="password" value="31d087d1d02e86ab7a25d13a7f7c61d1" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -65,9 +47,31 @@
 			</list>
 		</property>
 	</bean>
-
-
 
 	<!-- Other domain beans come here -->
 
+	<bean id="passenger001" class="domain.Passenger">
+		<property name="name" value="Manolo" />
+		<property name="surname" value="González" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="666555444" />
+		<property name="cash" value="0.0" />
+		<property name="bankAccountNumber" value="ES1625536357297081489945" />
+
+		<property name="creditCard" ref="creditCard01"/>
+		<property name="userAccount" ref="userAccount003" />
+		
+		<property name="reserves"><list></list></property>
+		<property name="comments"><list></list></property>
+	</bean>
+	
+	<bean id="creditCard01" class="domain.CreditCard">
+		<property name="number" value="4622016636569655" />
+		<property name="expMonth" value="06" />
+		<property name="expYear" value="2019" />
+		<property name="cvv" value="294" />
+	</bean>
+	
+	
 </beans>
