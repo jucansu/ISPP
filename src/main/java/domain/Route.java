@@ -37,6 +37,7 @@ public class Route extends DomainEntity {
 	private Double						pricePerPassenger;
 	private String						details;
 	private LuggageSize					maxLugagge;
+	private Boolean						isCancelled;
 
 	//Relationships
 
@@ -102,6 +103,11 @@ public class Route extends DomainEntity {
 	@NotNull
 	public LuggageSize getMaxLugagge() {
 		return this.maxLugagge;
+	}
+
+	@NotNull
+	public Boolean getIsCancelled() {
+		return this.isCancelled;
 	}
 
 	@Valid
@@ -176,6 +182,10 @@ public class Route extends DomainEntity {
 
 	public void setMaxLugagge(final LuggageSize maxLugagge) {
 		this.maxLugagge = maxLugagge;
+	}
+
+	public void setIsCancelled(final Boolean isCancelled) {
+		this.isCancelled = isCancelled;
 	}
 
 }
