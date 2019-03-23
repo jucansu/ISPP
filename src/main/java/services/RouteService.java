@@ -11,7 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.RouteRepository;
 import domain.Driver;
-import domain.Reserve;
+import domain.Reservation;
 import domain.Route;
 
 @Service
@@ -36,7 +36,7 @@ public class RouteService {
 
 		final Driver d = (Driver) this.actorService.findByPrincipal();
 		r.setDriver(d);
-		r.setReserves(new ArrayList<Reserve>());
+		r.setReservations(new ArrayList<Reservation>());
 
 		return r;
 	}
@@ -76,10 +76,10 @@ public class RouteService {
 	//		//Assertion that the user deleting this note has the correct privilege.
 	//
 	//		Assert.isTrue(this.actorService.findByPrincipal().getId() == route.getDriver().getId());
-	//		//Also, we delete the reserves related with the deleted route
-	//		if (!(route.getReserves().isEmpty()))
-	//			for (final Reserve r : route.getReserves())
-	//				this.reserveService.delete(r);
+	//		//Also, we delete the reservations related with the deleted route
+	//		if (!(route.getReservations().isEmpty()))
+	//			for (final Reservation r : route.getReservations())
+	//				this.reservationService.delete(r);
 	//
 	//		this.routeRepository.delete(route);
 	//	}

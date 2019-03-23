@@ -18,6 +18,9 @@
 	">
 
 	<util:list id="converters">
+	
+		<bean class="converters.ReservationToStringConverter" />
+		<bean class="converters.StringToReservationConverter" />
 		<!-- 
 			Add your own converters using entries of the following form: 
 			<bean class="converters.Class1ToClass2" /> 
