@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
@@ -61,7 +62,7 @@ public class Actor extends DomainEntity {    //Attributes
 	}
 
 	@NotBlank
-	//	@Pattern(regexp = "/^[0-9]{9}$/", message = "Invalid Phone Number")
+	@Pattern(regexp = "^[0-9]{9}$", message = "Invalid Phone Number")
 	public String getPhone() {
 		return this.phone;
 	}
