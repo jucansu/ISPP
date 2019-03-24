@@ -766,7 +766,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -790,7 +790,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -815,7 +815,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -840,7 +840,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -865,7 +865,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -890,7 +890,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -914,7 +914,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -939,7 +939,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -964,7 +964,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -989,7 +989,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1013,7 +1013,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1038,7 +1038,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1063,7 +1063,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1088,7 +1088,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1113,7 +1113,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1137,7 +1137,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1162,7 +1162,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1187,7 +1187,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1212,7 +1212,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1236,7 +1236,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1261,7 +1261,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1286,7 +1286,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1311,7 +1311,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1335,7 +1335,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1360,7 +1360,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1385,7 +1385,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1409,7 +1409,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1434,7 +1434,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1458,7 +1458,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1482,7 +1482,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1507,7 +1507,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1531,7 +1531,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1556,7 +1556,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1580,7 +1580,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1604,7 +1604,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1629,7 +1629,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1653,7 +1653,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1677,7 +1677,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1701,7 +1701,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1726,7 +1726,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1750,7 +1750,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1774,7 +1774,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1798,7 +1798,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1823,7 +1823,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1847,7 +1847,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1871,7 +1871,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1896,7 +1896,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1921,7 +1921,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1945,7 +1945,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>
@@ -1969,7 +1969,7 @@
 		<property name="controlPoints">
 			<list></list>
 		</property>
-		<property name="reserves">
+		<property name="reservations">
 			<list></list>
 		</property>
 	</bean>

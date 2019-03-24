@@ -39,7 +39,7 @@ public class ReservationService {
 	private RouteService			routeService;
 
 
-	@Autowired
+	//	@Autowired
 	//	private PassengerService		passengerService;	//TODO: a espera de que se cree
 	//Constructor
 	public ReservationService() {

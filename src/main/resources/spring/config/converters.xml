@@ -26,8 +26,8 @@
 		<bean class="converters.StringToControlPointConverter" />
 		<bean class="converters.DriverToStringConverter" />
 		<bean class="converters.StringToDriverConverter" />
-		<bean class="converters.ReserveToStringConverter" />
-		<bean class="converters.StringToReserveConverter" />
+		<bean class="converters.ReservationToStringConverter" />
+		<bean class="converters.StringToReservationConverter" />
 		
 
 	</util:list>
