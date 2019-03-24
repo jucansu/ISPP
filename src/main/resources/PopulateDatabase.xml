@@ -291,6 +291,217 @@
 		</property>
 	</bean>
 
+	<!-- Passengers (1-10) -->
+
+	<bean id="passenger1" class="domain.Passenger">
+		<property name="name" value="Jaime" />
+		<property name="surname" value="Domínguez" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="779551026" />
+		<property name="cash" value="60" />
+		<property name="bankAccountNumber" value="ES6170279191772075991648" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount1" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger2" class="domain.Passenger">
+		<property name="name" value="Zoe" />
+		<property name="surname" value="Serrano" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="697213671" />
+		<property name="cash" value="100" />
+		<property name="bankAccountNumber" value="ES3293447996695807451411" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount2" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger3" class="domain.Passenger">
+		<property name="name" value="Marco" />
+		<property name="surname" value="Romero" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="701596732" />
+		<property name="cash" value="94" />
+		<property name="bankAccountNumber" value="ES9606226496575100727184" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount3" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger4" class="domain.Passenger">
+		<property name="name" value="Olivia" />
+		<property name="surname" value="Montero" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="641476019" />
+		<property name="cash" value="5" />
+		<property name="bankAccountNumber" value="ES7812968779063792137127" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount4" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger5" class="domain.Passenger">
+		<property name="name" value="Oliver" />
+		<property name="surname" value="Ibáñez" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="642704524" />
+		<property name="cash" value="83" />
+		<property name="bankAccountNumber" value="ES2777991736484525289538" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount5" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger6" class="domain.Passenger">
+		<property name="name" value="Aina" />
+		<property name="surname" value="Molina" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="651064863" />
+		<property name="cash" value="53" />
+		<property name="bankAccountNumber" value="ES7324544754801367451350" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount6" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger7" class="domain.Passenger">
+		<property name="name" value="África" />
+		<property name="surname" value="Vargas" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="606262338" />
+		<property name="cash" value="18" />
+		<property name="bankAccountNumber" value="ES5219624286908448914677" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount7" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger8" class="domain.Passenger">
+		<property name="name" value="Álex" />
+		<property name="surname" value="Ortiz" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="603376876" />
+		<property name="cash" value="58" />
+		<property name="bankAccountNumber" value="ES7665031962535014951827" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount8" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger9" class="domain.Passenger">
+		<property name="name" value="Noah" />
+		<property name="surname" value="Ortega" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="625450949" />
+		<property name="cash" value="2" />
+		<property name="bankAccountNumber" value="ES7419842078714396440225" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount9" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="passenger10" class="domain.Passenger">
+		<property name="name" value="Aurora" />
+		<property name="surname" value="Guerrero" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="646837169" />
+		<property name="cash" value="89" />
+		<property name="bankAccountNumber" value="ES2704799124276930411457" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount10" />
+
+		<property name="reservations">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+	</bean>
+
 	<!-- Drivers (11-20) -->
 
 	<bean id="driver11" class="domain.Driver">
