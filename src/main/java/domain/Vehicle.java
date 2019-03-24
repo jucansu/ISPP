@@ -81,7 +81,6 @@ public class Vehicle extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "vehicle")
 	public Collection<Route> getRoutes() {
 		return this.routes;

@@ -87,7 +87,7 @@ public class Route extends DomainEntity {
 		return this.avaliableSeats;
 	}
 
-	@NotNull
+	
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;

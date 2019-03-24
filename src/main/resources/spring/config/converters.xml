@@ -18,10 +18,17 @@
 	">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
+		<bean class="converters.RouteToStringConverter" />
+		<bean class="converters.StringToRouteConverter" />
+		<bean class="converters.VehicleToStringConverter" />
+		<bean class="converters.StringToVehicleConverter" />
+		<bean class="converters.ControlPointToStringConverter" />
+		<bean class="converters.StringToControlPointConverter" />
+		<bean class="converters.DriverToStringConverter" />
+		<bean class="converters.StringToDriverConverter" />
+		<bean class="converters.ReserveToStringConverter" />
+		<bean class="converters.StringToReserveConverter" />
+		
 	</util:list>
 	
 </beans>

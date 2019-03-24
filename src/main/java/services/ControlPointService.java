@@ -58,6 +58,14 @@ public class ControlPointService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == controlPoint.getRoute().getDriver().getId());
 
 		final ControlPoint saved = this.controlPointRepository.save(controlPoint);
+		
+		Route route = controlPoint.getRoute();
+		Collection<ControlPoint> controls = route.getControlPoints();
+		controls.add(saved);
+		
+		this.routeService.save(route);
+		
+		
 
 		return saved;
 	}
@@ -69,6 +77,12 @@ public class ControlPointService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == controlPoint.getRoute().getDriver().getId());
 
 		this.controlPointRepository.delete(controlPoint);
+		
+		Route route = controlPoint.getRoute();
+		Collection<ControlPoint> controls = route.getControlPoints();
+		controls.remove(controlPoint);
+		
+		this.routeService.save(route);
 
 	}
 
