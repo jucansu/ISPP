@@ -30,5 +30,10 @@
 		<put-attribute name="title" value="Mostrar Ruta" />
 		<put-attribute name="body" value="/views/route/display.jsp" />
 	</definition>
+
+	<definition name="route/search" extends="master.page">
+		<put-attribute name="title" value="Buscar ruta" />
+		<put-attribute name="body" value="/views/route/search.jsp" />
+	</definition>
 	
 </tiles-definitions>

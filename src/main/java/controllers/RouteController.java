@@ -2,9 +2,10 @@
 package controllers;
 
 import java.util.Collection;
-import org.springframework.util.Assert;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,9 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.RouteService;
-import controllers.AbstractController;
+import domain.Finder;
 import domain.Route;
-
 
 @Controller
 @RequestMapping("/route")
@@ -31,7 +31,6 @@ public class RouteController extends AbstractController {
 	public RouteController() {
 		super();
 	}
-
 
 	// Listing -------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -64,23 +63,16 @@ public class RouteController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchView() {
+		final ModelAndView result;
+		Finder finder;
 
-	
+		finder = new Finder();
+		result = new ModelAndView("route/search");
+		result.addObject("finder", finder);
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		return result;
+	}
+
 }
