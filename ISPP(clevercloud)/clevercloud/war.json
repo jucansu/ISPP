@@ -1,15 +1,13 @@
 {
+ 	"build": {
+		"type": "maven",
+		"goal": "package"
+	},
 	"deploy":{
 		"container": "TOMCAT7",
 		"war": [{
 			"file": "ISPP.war",
-			"context": "/"
-				
+			"context": "/"	
 		}]
-	}
-
-	 "build": {
-		"type": "maven",
-		"goal": "package"
 	}
 }
