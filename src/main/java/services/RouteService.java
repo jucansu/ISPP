@@ -5,13 +5,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Date;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.decimal4j.util.DoubleRounder;
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +70,8 @@ public class RouteService {
 		Assert.notNull(r);
 		Double distance = 0.0;
 		Double price = 0.0;
-		
-		Assert.isTrue(r.getDepartureDate().after(Date.valueOf(LocalDate.now())));
+		Date date = new Date();
+		Assert.isTrue(r.getDepartureDate().after(date));
 
 		//Assertion that the user modifying this task has the correct privilege.
 		if(r.getId()!=0){
