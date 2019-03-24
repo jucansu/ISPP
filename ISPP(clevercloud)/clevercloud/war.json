@@ -4,6 +4,7 @@
 		"war": [{
 			"file": "ISPP.war",
 			"context": "/"
-		}]
+		}],
+		"goal": "java"
 	}
 }
