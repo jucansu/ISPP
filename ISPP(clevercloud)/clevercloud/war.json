@@ -3,7 +3,8 @@
 		"container": "TOMCAT7",
 		"war": [{
 			"file": "ISPP.war",
-			"context": "/"
+			"context": "/",
+			"goal": "package"
 		}],
 	}
 
