@@ -4,7 +4,6 @@ package controllers;
 import java.util.Collection;
 
 import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -15,10 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.RouteService;
-import domain.Finder;
 import domain.LuggageSize;
 import domain.Route;
 import domain.VehicleType;
+import forms.FinderForm;
 
 @Controller
 @RequestMapping("/route")
@@ -67,20 +66,29 @@ public class RouteController extends AbstractController {
 		return result;
 	}
 
-	//Finder 
+	//Route Searching
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView searchView() {
+		final ModelAndView result;
+		FinderForm finderForm;
 
-	@RequestMapping(value = "/listAll", method = RequestMethod.POST, params = "search")
-	public ModelAndView search(@RequestParam final LocalDateTime departureDate, final LocalTime arrivalTime, final String origin, final String destination, final VehicleType vehicleType, final Integer aviableSeats, final LuggageSize luggageSize,
-		final Boolean pets, final Boolean childs, final Boolean smoke, final Boolean music) {
+		finderForm = new FinderForm();
+		result = new ModelAndView("route/search");
+		result.addObject("finderForm", finderForm);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST, params = "search")
+	public ModelAndView search(@RequestParam final LocalDateTime departureDate, final String origin, final String destination, final VehicleType vehicleType, final Integer aviableSeats, final LuggageSize luggageSize, final Boolean pets,
+		final Boolean childs, final Boolean smoke, final Boolean music) {
 		ModelAndView result;
 		Collection<Route> routes;
-		final Finder finder = new Finder();
 
-		routes = this.routeService.finderSearch(departureDate, arrivalTime, origin, destination, vehicleType, aviableSeats, luggageSize, pets, childs, smoke, music);
+		routes = this.routeService.finderSearch(departureDate, origin, destination, vehicleType, aviableSeats, luggageSize, pets, childs, smoke, music);
 		result = new ModelAndView("route/listAll");
 		result.addObject("routes", routes);
 		result.addObject("requestURI", "artist/route.do");
-		result.addObject("finder", finder);
 
 		return result;
 	}

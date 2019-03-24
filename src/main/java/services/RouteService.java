@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.decimal4j.util.DoubleRounder;
 import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,11 +169,11 @@ public class RouteService {
 
 	//Finder 
 
-	public Collection<Route> finderSearch(final LocalDateTime departureDate, final LocalTime arrivalTime, final String origin, final String destination, final VehicleType vehicleType, final Integer aviableSeats, final LuggageSize luggageSize,
-		final Boolean pets, final Boolean childs, final Boolean smoke, final Boolean music) {
+	public Collection<Route> finderSearch(final LocalDateTime departureDate, final String origin, final String destination, final VehicleType vehicleType, final Integer aviableSeats, final LuggageSize luggageSize, final Boolean pets, final Boolean childs,
+		final Boolean smoke, final Boolean music) {
 		Collection<Route> result;
 
-		result = this.routeRepository.finderSearch(departureDate, arrivalTime, origin, destination, vehicleType, aviableSeats, luggageSize, pets, childs, smoke, music);
+		result = this.routeRepository.finderSearch(departureDate, origin, destination, vehicleType, aviableSeats, luggageSize, pets, childs, smoke, music);
 
 		return result;
 	}

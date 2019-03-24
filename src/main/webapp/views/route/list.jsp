@@ -20,17 +20,21 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="routes" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
+<display:table name="routes" id="row" pagesize="4" class="displaytag"
+	requestURI="${requestURI}">
 
-	<spring:message code="route.distance" var = "auMomentCreated" />
-	<display:column property="distance" title="${auMomentCreated}" sortable="true"/>
-	
-	<spring:message code="route.price" var = "auTitle" />
-	<display:column property="pricePerPassenger" title="${auTitle}" sortable="true"/>
+	<spring:message code="route.distance" var="auMomentCreated" />
+	<display:column property="distance" title="${auMomentCreated}"
+		sortable="true" />
+
+	<spring:message code="route.price" var="auTitle" />
+	<display:column property="pricePerPassenger" title="${auTitle}"
+		sortable="true" />
 
 </display:table>
 
 
 <security:authorize access="hasRole('DRIVER')">
-	<a href="route/driver/create.do"> <spring:message code="route.create"/></a>
+	<a href="route/driver/create.do"> <spring:message
+			code="route.create" /></a>
 </security:authorize>
