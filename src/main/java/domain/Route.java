@@ -15,7 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,7 +29,7 @@ public class Route extends DomainEntity {
 	private Date						departureDate;
 	private String						origin;
 	private String						destination;
-	private Integer						stimatedDuration;
+	private Integer						estimatedDuration;
 	private String						daysRepeat;
 	private Integer						avaliableSeats;
 	private Double						distance;
@@ -42,8 +41,9 @@ public class Route extends DomainEntity {
 	//Relationships
 
 	private Driver						driver;
+	private Vehicle						vehicle;
 	private Collection<ControlPoint>	controlPoints;
-	private Collection<Reservation>		reservations;
+	private Collection<Reserve>			reserves;
 
 
 	//Getter
@@ -54,7 +54,6 @@ public class Route extends DomainEntity {
 		return this.daysRepeat;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
@@ -73,12 +72,12 @@ public class Route extends DomainEntity {
 
 	@NotNull
 	@Min(value = 1)
-	public Integer getStimatedDuration() {
-		return this.stimatedDuration;
+	public Integer getEstimatedDuration() {
+		return this.estimatedDuration;
 	}
 
 	@Min(value = 0)
-	@Digits(fraction = 2, integer = 4)
+	@Digits(fraction = 2, integer = 8)
 	public Double getDistance() {
 		return this.distance;
 	}
@@ -88,13 +87,12 @@ public class Route extends DomainEntity {
 		return this.avaliableSeats;
 	}
 
-	@NotNull
+	
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;
 	}
 
-	@NotBlank
 	public String getDetails() {
 		return this.details;
 	}
@@ -119,16 +117,21 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
+	public Vehicle getVehicle() {
+		return this.vehicle;
+	}
+
+	@Valid
 	@OneToMany(mappedBy = "route")
 	public Collection<ControlPoint> getControlPoints() {
 		return this.controlPoints;
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "route")
-	public Collection<Reservation> getReservations() {
-		return this.reservations;
+	public Collection<Reserve> getReserves() {
+		return this.reserves;
 	}
 
 	//Setter
@@ -145,8 +148,8 @@ public class Route extends DomainEntity {
 		this.destination = destination;
 	}
 
-	public void setStimatedDuration(final Integer stimatedDuration) {
-		this.stimatedDuration = stimatedDuration;
+	public void setEstimatedDuration(final Integer estimatedDuration) {
+		this.estimatedDuration = estimatedDuration;
 	}
 
 	public void setDaysRepeat(final String daysRepeat) {
@@ -164,8 +167,8 @@ public class Route extends DomainEntity {
 	public void setControlPoints(final Collection<ControlPoint> controlPoints) {
 		this.controlPoints = controlPoints;
 	}
-	public void setReservations(final Collection<Reservation> reservations) {
-		this.reservations = reservations;
+	public void setReserves(final Collection<Reserve> reserves) {
+		this.reserves = reserves;
 	}
 
 	public void setAvaliableSeats(final Integer avaliableSeats) {
@@ -186,6 +189,10 @@ public class Route extends DomainEntity {
 
 	public void setIsCancelled(final Boolean isCancelled) {
 		this.isCancelled = isCancelled;
+	}
+
+	public void setVehicle(final Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 }
