@@ -19,13 +19,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Passenger extends Actor {
 
 	//Attributes
-	private Double				cash;
-	private CreditCard			creditCard;
-	private String				bankAccountNumber;
+	private Double					cash;
+	private CreditCard				creditCard;
+	private String					bankAccountNumber;
 
 	//Relationships
-	private Collection<Reserve>	reserves;
-	private Collection<Comment>	comments;
+	private Collection<Reservation>	reservations;
+	private Collection<Comment>		comments;
 
 
 	//Getter
@@ -50,8 +50,8 @@ public class Passenger extends Actor {
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "passenger")
-	public Collection<Reserve> getReserves() {
-		return this.reserves;
+	public Collection<Reservation> getReservations() {
+		return this.reservations;
 	}
 
 	@Valid
@@ -67,8 +67,8 @@ public class Passenger extends Actor {
 		this.cash = cash;
 	}
 
-	public void setReserves(final Collection<Reserve> reserves) {
-		this.reserves = reserves;
+	public void setReservations(final Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	public void setComments(final Collection<Comment> comments) {

@@ -43,7 +43,7 @@ public class Route extends DomainEntity {
 	private Driver						driver;
 	private Vehicle						vehicle;
 	private Collection<ControlPoint>	controlPoints;
-	private Collection<Reserve>			reserves;
+	private Collection<Reservation>		reservations;
 
 
 	//Getter
@@ -87,7 +87,6 @@ public class Route extends DomainEntity {
 		return this.avaliableSeats;
 	}
 
-	
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;
@@ -130,8 +129,8 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@OneToMany(mappedBy = "route")
-	public Collection<Reserve> getReserves() {
-		return this.reserves;
+	public Collection<Reservation> getReservations() {
+		return this.reservations;
 	}
 
 	//Setter
@@ -167,8 +166,8 @@ public class Route extends DomainEntity {
 	public void setControlPoints(final Collection<ControlPoint> controlPoints) {
 		this.controlPoints = controlPoints;
 	}
-	public void setReserves(final Collection<Reserve> reserves) {
-		this.reserves = reserves;
+	public void setReservations(final Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 	public void setAvaliableSeats(final Integer avaliableSeats) {
