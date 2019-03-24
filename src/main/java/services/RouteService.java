@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.decimal4j.util.DoubleRounder;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +23,10 @@ import org.springframework.util.Assert;
 import repositories.RouteRepository;
 import domain.ControlPoint;
 import domain.Driver;
+import domain.LuggageSize;
 import domain.Reservation;
 import domain.Route;
+import domain.VehicleType;
 
 @Service
 @Transactional
@@ -162,6 +166,17 @@ public class RouteService {
 
 		}
 		return DoubleRounder.round(price, 2);
+	}
+
+	//Finder 
+
+	public Collection<Route> finderSearch(final LocalDateTime departureDate, final LocalTime arrivalTime, final String origin, final String destination, final VehicleType vehicleType, final Integer aviableSeats, final LuggageSize luggageSize,
+		final Boolean pets, final Boolean childs, final Boolean smoke, final Boolean music) {
+		Collection<Route> result;
+
+		result = this.routeRepository.finderSearch(departureDate, arrivalTime, origin, destination, vehicleType, aviableSeats, luggageSize, pets, childs, smoke, music);
+
+		return result;
 	}
 
 }
