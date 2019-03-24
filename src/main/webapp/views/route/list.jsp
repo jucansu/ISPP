@@ -20,15 +20,36 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="routes" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
+<%-- <display:table name="routes" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
 
-	<spring:message code="route.distance" var = "auMomentCreated" />
-	<display:column property="distance" title="${auMomentCreated}" sortable="true"/>
+	<spring:message code="route.origin" var = "auMomentCreated" />
+	<display:column property="origin" title="${auMomentCreated}" sortable="true"/>
 	
-	<spring:message code="route.price" var = "auTitle" />
-	<display:column property="pricePerPassenger" title="${auTitle}" sortable="true"/>
+	<spring:message code="route.destination" var = "auTitle" />
+	<display:column property="destination" title="${auTitle}" sortable="true"/>
 
-</display:table>
+</display:table> --%>
+
+<spring:url value="/styles/route.css" var="routecss" />
+	<link href="${routecss}" rel="stylesheet" />
+	<script src="${routecss}"></script>
+
+<jstl:forEach var="route" items="${routes }">
+	<div class="route">
+		<div class="title">
+			<div class="origin"><jstl:out value="${route.origin }"></jstl:out></div>
+			<div class="to"></div>
+			<div class="destination"><jstl:out value="${route.destination }"></jstl:out></div>
+		</div>
+		<jstl:out value="${route.departureDate}"></jstl:out>
+		<jstl:out value="${route.avaliableSeats}"></jstl:out>
+	</div>
+</jstl:forEach>
+<div class="endList">
+	<div class="circle pink"></div>
+	<div class="circle blue"></div>
+	<div class="circle green"></div>
+</div>
 
 
 <security:authorize access="hasRole('DRIVER')">

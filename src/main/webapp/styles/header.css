@@ -1,16 +1,18 @@
 @CHARSET "ISO-8859-1";
 
-img{
+.logo img{
 	width: 120px;
+	position: relative;
+	left: -75px;
+	margin: 10px;
 }
+
 
 .headerContent{
 	display: flex;
 	background-color: #fa3274;
-    width: 80%;
     height: 45px;	
     padding: 5px;
-    margin: 0 auto;
 }
 
 .menuIcon, .fa{
@@ -22,6 +24,12 @@ img{
 	height: 5px;
 	background-color: black;
 	margin: 6px 0;
+}
+
+.user{
+	position: absolute;
+    right: 0;
+    margin-right: 12%;
 }
 
 

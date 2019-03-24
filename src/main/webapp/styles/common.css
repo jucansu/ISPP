@@ -8,6 +8,11 @@
  * 
  */
 
+body{
+	width: 80%;
+	margin: 0 auto;
+}
+
 .error {
 	color: red;
 	font-weight: bolder;
