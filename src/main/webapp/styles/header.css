@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+img{
+	width: 120px;
+}
+
+.headerContent{
+	display: flex;
+	background-color: #fa3274;
+    width: 80%;
+    height: 45px;	
+    padding: 5px;
+    margin: 0 auto;
+}
+
+.menuIcon, .fa{
+	margin: 0 5px;
+}
+
+.hamburguer{
+	width: 35px;
+	height: 5px;
+	background-color: black;
+	margin: 6px 0;
+}
+
+
