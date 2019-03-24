@@ -28,9 +28,9 @@
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close">
 		<property name="driverClass" value="org.postgresql.Driver" />
-		<property name="jdbcUrl" value="bkv4fk37oqhlzkabfpux-postgresql.services.clever-cloud.com" />
-		<property name="user" value="uun5lbpurfbp7k49nv97" />
-		<property name="password" value="I1S4eZrzx3K9XsgIlqcD" />
+		<property name="jdbcUrl" value="bpmtkvhmeizdxxy8mtx2-postgresql.services.clever-cloud.com" />
+		<property name="user" value="ugpdqhdopulclst7kdeh" />
+		<property name="password" value="K5GUBjCHXWz170rMifhk" />
 		<property name="minPoolSize" value="1" />
 		<property name="maxPoolSize" value="5" />
 	</bean>
