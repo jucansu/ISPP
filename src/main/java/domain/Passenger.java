@@ -42,7 +42,7 @@ public class Passenger extends Actor {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^ES[0-9]{22}$", message = "Invalid Spain Bank Number")
+	@Pattern(regexp = "^ES\\d{22}$", message = "Invalid Spain Bank Number")
 	public String getBankAccountNumber() {
 		return this.bankAccountNumber;
 	}

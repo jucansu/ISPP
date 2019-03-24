@@ -21,72 +21,72 @@ import org.hibernate.validator.constraints.URL;
 public class Vehicle extends DomainEntity {
 
 	//Attributes
-	
-	private String model;
-	
-	private String vehicleBrand;
-	
-	private String image;
-	
-	private int  seatsCapacity;
-	
-	private VehicleType type;
-	
-	private String plate;
-	
-	private String description;
+
+	private String				model;
+
+	private String				vehicleBrand;
+
+	private String				image;
+
+	private int					seatsCapacity;
+
+	private VehicleType			type;
+
+	private String				plate;
+
+	private String				description;
 
 	//Relationships
 
-	private Driver	driver;
-	
-	private Collection<Route> routes;
+	private Driver				driver;
+
+	private Collection<Route>	routes;
 
 
 	//Getters
 
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	
+
 	@NotBlank
-	@Pattern(regexp= "([A-Z]{1,2})?/d{4}([A-Z]{2,3})", message  = "Invalid Plate")
+	@Pattern(regexp = "^([A-Z]{1,2})?\\d{4}([A-Z]{2,3})$", message = "Invalid Plate")
 	public String getPlate() {
-		return plate;
+		return this.plate;
 	}
 
 	@NotNull
 	public VehicleType getType() {
-		return type;
+		return this.type;
 	}
-	
+
 	@Min(value = 2)
 	public int getSeatsCapacity() {
-		return seatsCapacity;
+		return this.seatsCapacity;
 	}
-	
+
 	@URL
 	public String getImage() {
-		return image;
+		return this.image;
 	}
 
 	@NotBlank
 	public String getVehicleBrand() {
-		return vehicleBrand;
+		return this.vehicleBrand;
 	}
-	
+
 	@NotBlank
 	public String getModel() {
-		return model;
+		return this.model;
 	}
-	
+
 	@Valid
 	@NotNull
 	@OneToMany(mappedBy = "vehicle")
 	public Collection<Route> getRoutes() {
 		return this.routes;
 	}
-	
+
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
@@ -96,46 +96,38 @@ public class Vehicle extends DomainEntity {
 
 	//Setters
 
-	public void setModel(String model) {
+	public void setModel(final String model) {
 		this.model = model;
 	}
 
-
-
-	public void setVehicleBrand(String vehicleBrand) {
+	public void setVehicleBrand(final String vehicleBrand) {
 		this.vehicleBrand = vehicleBrand;
 	}
 
-
-
-	public void setImage(String image) {
+	public void setImage(final String image) {
 		this.image = image;
 	}
 
-	public void setSeatsCapacity(int seatsCapacity) {
+	public void setSeatsCapacity(final int seatsCapacity) {
 		this.seatsCapacity = seatsCapacity;
 	}
 
-
-
-	public void setType(VehicleType type) {
+	public void setType(final VehicleType type) {
 		this.type = type;
 	}
 
-
-	public void setPlate(String plate) {
+	public void setPlate(final String plate) {
 		this.plate = plate;
 	}
 
-
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	public void setDriver(final Driver driver) {
 		this.driver = driver;
 	}
-	
+
 	public void setRoutes(final Collection<Route> routes) {
 		this.routes = routes;
 	}

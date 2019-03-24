@@ -93,7 +93,6 @@ public class Route extends DomainEntity {
 		return this.pricePerPassenger;
 	}
 
-
 	public String getDetails() {
 		return this.details;
 	}
@@ -115,7 +114,7 @@ public class Route extends DomainEntity {
 	public Driver getDriver() {
 		return this.driver;
 	}
-	
+
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
@@ -149,8 +148,8 @@ public class Route extends DomainEntity {
 		this.destination = destination;
 	}
 
-	public void setEstimatedDuration(final Integer stimatedDuration) {
-		this.estimatedDuration = stimatedDuration;
+	public void setEstimatedDuration(final Integer estimatedDuration) {
+		this.estimatedDuration = estimatedDuration;
 	}
 
 	public void setDaysRepeat(final String daysRepeat) {
@@ -191,7 +190,7 @@ public class Route extends DomainEntity {
 	public void setIsCancelled(final Boolean isCancelled) {
 		this.isCancelled = isCancelled;
 	}
-	
+
 	public void setVehicle(final Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}

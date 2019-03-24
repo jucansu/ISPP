@@ -10,9 +10,10 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
-	<!-- User accounts -->
+	<!-- USER ACCOUNTS (0)ADMIN (1-10)PASSENGER (11-20)DRIVER -->
+	<!-- Password: admin/admin otros/Temporal01 -->
 
-	<bean id="userAccount001" class="security.UserAccount">
+	<bean id="userAccount0" class="security.UserAccount">
 		<property name="username" value="admin@gmail.com" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
@@ -24,19 +25,7 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount002" class="security.UserAccount">
-		<property name="username" value="driver@gmail.com" />
-		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="DRIVER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount003" class="security.UserAccount">
+	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="passenger1@gmail.com" />
 		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
 		<property name="authorities">
@@ -48,30 +37,698 @@
 		</property>
 	</bean>
 
-	<!-- Other domain beans come here -->
 
-	<bean id="passenger001" class="domain.Passenger">
-		<property name="name" value="Manolo" />
-		<property name="surname" value="González" />
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="passenger2@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="passenger3@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="passenger4@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="passenger5@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="passenger6@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="passenger7@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="passenger8@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="passenger9@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="passenger10@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PASSENGER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="driver11@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="driver12@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="driver13@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount14" class="security.UserAccount">
+		<property name="username" value="driver14@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="driver15@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount16" class="security.UserAccount">
+		<property name="username" value="driver16@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount17" class="security.UserAccount">
+		<property name="username" value="driver17@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount18" class="security.UserAccount">
+		<property name="username" value="driver18@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount19" class="security.UserAccount">
+		<property name="username" value="driver19@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="userAccount20" class="security.UserAccount">
+		<property name="username" value="driver20@gmail.com" />
+		<property name="password" value="1148d7fd446c9a3f86abaf7991390b7e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="DRIVER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<!-- Drivers (11-20) -->
+
+	<bean id="driver11" class="domain.Driver">
+		<property name="name" value="Luca" />
+		<property name="surname" value="Peña" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="666555444" />
-		<property name="cash" value="0.0" />
-		<property name="bankAccountNumber" value="ES1625536357297081489945" />
+		<property name="phone" value="451138799" />
+		<property name="cash" value="45" />
+		<property name="bankAccountNumber" value="ES1829216117674191633053" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="true" />
+		<property name="music" value="false" />
+		<property name="childs" value="true" />
 
-		<property name="creditCard" ref="creditCard01"/>
-		<property name="userAccount" ref="userAccount003" />
-		
-		<property name="reserves"><list></list></property>
-		<property name="comments"><list></list></property>
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount11" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list>
+			</list>
+		</property>
 	</bean>
-	
-	<bean id="creditCard01" class="domain.CreditCard">
+
+
+	<bean id="driver12" class="domain.Driver">
+		<property name="name" value="Jaime" />
+		<property name="surname" value="Martínez" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="428241459" />
+		<property name="cash" value="76" />
+		<property name="bankAccountNumber" value="ES7320097318918893313981" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="true" />
+		<property name="music" value="true" />
+		<property name="childs" value="true" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount12" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver13" class="domain.Driver">
+		<property name="name" value="Alberto" />
+		<property name="surname" value="Santiago" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="433910517" />
+		<property name="cash" value="89" />
+		<property name="bankAccountNumber" value="ES3235220312704515373037" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="true" />
+		<property name="music" value="true" />
+		<property name="childs" value="true" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount13" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver14" class="domain.Driver">
+		<property name="name" value="Martina" />
+		<property name="surname" value="Martínez" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="176264465" />
+		<property name="cash" value="96" />
+		<property name="bankAccountNumber" value="ES5160716616941847591760" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="false" />
+		<property name="music" value="false" />
+		<property name="childs" value="false" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount14" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver15" class="domain.Driver">
+		<property name="name" value="Jan" />
+		<property name="surname" value="Aguilar" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="685060307" />
+		<property name="cash" value="11" />
+		<property name="bankAccountNumber" value="ES9532173909444342354627" />
+		<property name="pets" value="true" />
+		<property name="smoke" value="false" />
+		<property name="music" value="false" />
+		<property name="childs" value="false" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount15" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver16" class="domain.Driver">
+		<property name="name" value="Blanca" />
+		<property name="surname" value="Giménez" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="504799180" />
+		<property name="cash" value="73" />
+		<property name="bankAccountNumber" value="ES8417162882567092435509" />
+		<property name="pets" value="true" />
+		<property name="smoke" value="false" />
+		<property name="music" value="false" />
+		<property name="childs" value="true" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount16" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver17" class="domain.Driver">
+		<property name="name" value="Carmen" />
+		<property name="surname" value="Duran" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="352869489" />
+		<property name="cash" value="94" />
+		<property name="bankAccountNumber" value="ES8042970941936368029157" />
+		<property name="pets" value="true" />
+		<property name="smoke" value="true" />
+		<property name="music" value="true" />
+		<property name="childs" value="true" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount17" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver18" class="domain.Driver">
+		<property name="name" value="Inés" />
+		<property name="surname" value="Santana" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="153614275" />
+		<property name="cash" value="87" />
+		<property name="bankAccountNumber" value="ES3524416428520426886063" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="false" />
+		<property name="music" value="true" />
+		<property name="childs" value="true" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount18" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver19" class="domain.Driver">
+		<property name="name" value="Andrea" />
+		<property name="surname" value="Santos" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="828922149" />
+		<property name="cash" value="39" />
+		<property name="bankAccountNumber" value="ES6647370418461551555701" />
+		<property name="pets" value="true" />
+		<property name="smoke" value="false" />
+		<property name="music" value="true" />
+		<property name="childs" value="false" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount19" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="driver20" class="domain.Driver">
+		<property name="name" value="Bruno" />
+		<property name="surname" value="Iglesias" />
+		<property name="country" value="Spain" />
+		<property name="city" value="Seville" />
+		<property name="phone" value="407534877" />
+		<property name="cash" value="70" />
+		<property name="bankAccountNumber" value="ES3738947125552449626504" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="true" />
+		<property name="music" value="true" />
+		<property name="childs" value="false" />
+
+		<property name="creditCard" ref="creditCard1" />
+		<property name="userAccount" ref="userAccount20" />
+
+		<property name="routes">
+			<list></list>
+		</property>
+		<property name="comments">
+			<list></list>
+		</property>
+		<property name="vehicles">
+			<list></list>
+		</property>
+	</bean>
+
+	<!-- Credit Cards -->
+
+	<bean id="creditCard1" class="domain.CreditCard">
 		<property name="number" value="4622016636569655" />
 		<property name="expMonth" value="06" />
 		<property name="expYear" value="2019" />
 		<property name="cvv" value="294" />
 	</bean>
-	
-	
+
+	<!-- Vehicles (1-10) (driver11-20) -->
+
+	<bean id="vehicle1" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver11" />
+	</bean>
+
+	<bean id="vehicle2" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver12" />
+	</bean>
+
+	<bean id="vehicle3" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver13" />
+	</bean>
+
+	<bean id="vehicle4" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver14" />
+	</bean>
+
+	<bean id="vehicle5" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver15" />
+	</bean>
+
+	<bean id="vehicle6" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver16" />
+	</bean>
+
+	<bean id="vehicle7" class="domain.Vehicle">
+		<property name="model" value="pro" />
+		<property name="vehicleBrand" value="Volvo" />
+		<property name="image"
+			value="http://www.chennaikidsrideoncarwholesale.com/wp-content/uploads/2018/02/Baybee-Buddy-Electric-Ride-on-Toy-Car-3.jpg" />
+		<property name="seatsCapacity" value="5" />
+		<property name="type" value="CAR" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver17" />
+	</bean>
+
+	<bean id="vehicle8" class="domain.Vehicle">
+		<property name="model" value="junior" />
+		<property name="vehicleBrand" value="Piaggio" />
+		<property name="image"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_DfZtGaoAj4tqm3nARxLtqkImfKpo0q7AYk9HwUKTOTq7cqQ" />
+		<property name="seatsCapacity" value="2" />
+		<property name="type" value="BIKE" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="WASD" />
+
+		<property name="driver" ref="driver18" />
+	</bean>
+
+	<bean id="vehicle9" class="domain.Vehicle">
+		<property name="model" value="junior" />
+		<property name="vehicleBrand" value="Piaggio" />
+		<property name="image"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_DfZtGaoAj4tqm3nARxLtqkImfKpo0q7AYk9HwUKTOTq7cqQ" />
+		<property name="seatsCapacity" value="2" />
+		<property name="type" value="BIKE" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="QWERTY" />
+
+		<property name="driver" ref="driver19" />
+	</bean>
+
+	<bean id="vehicle10" class="domain.Vehicle">
+		<property name="model" value="junior" />
+		<property name="vehicleBrand" value="Piaggio" />
+		<property name="image"
+			value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSq_DfZtGaoAj4tqm3nARxLtqkImfKpo0q7AYk9HwUKTOTq7cqQ" />
+		<property name="seatsCapacity" value="2" />
+		<property name="type" value="BIKE" />
+		<property name="plate" value="AB1234XY" />
+		<property name="description" value="QWERTY" />
+
+		<property name="driver" ref="driver20" />
+	</bean>
+
+	<!-- Routes -->
+
+	<bean id="route1" class="domain.Route">
+		<property name="departureDate" value="25/03/2019 15:00" />
+		<property name="origin" value="Los Arcos, Sevilla" />
+		<property name="destination" value="Reina Mercedes, Sevilla" />
+		<property name="estimatedDuration" value="25" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="4.7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value=""/>
+		<property name="maxLugagge" value="SMALL" />
+
+		<property name="driver" ref="driver11" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
 </beans>
