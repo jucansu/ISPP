@@ -1,10 +1,13 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -36,6 +39,8 @@ public class Vehicle extends DomainEntity {
 	//Relationships
 
 	private Driver	driver;
+	
+	private Collection<Route> routes;
 
 
 	//Getters
@@ -45,7 +50,7 @@ public class Vehicle extends DomainEntity {
 	}
 	
 	@NotBlank
-	@Pattern(regexp= "/^([A-Z]{1,2})?/d{4}([A-Z]{2,3})$/", message  = "Invalid Plate")
+	@Pattern(regexp= "([A-Z]{1,2})?/d{4}([A-Z]{2,3})", message  = "Invalid Plate")
 	public String getPlate() {
 		return plate;
 	}
@@ -75,6 +80,12 @@ public class Vehicle extends DomainEntity {
 		return model;
 	}
 	
+	@Valid
+	@NotNull
+	@OneToMany(mappedBy = "vehicle")
+	public Collection<Route> getRoutes() {
+		return this.routes;
+	}
 	
 	@Valid
 	@NotNull
@@ -123,5 +134,9 @@ public class Vehicle extends DomainEntity {
 
 	public void setDriver(final Driver driver) {
 		this.driver = driver;
+	}
+	
+	public void setRoutes(final Collection<Route> routes) {
+		this.routes = routes;
 	}
 }
