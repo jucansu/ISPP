@@ -10,6 +10,13 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
+	<!-- Indice: Para encontrar una sección usar Ctrl + F -->
+	<!-- UserAccounts -->
+	<!-- Drivers -->
+	<!-- CreditCards -->
+	<!-- Vehicles -->
+	<!-- Routes -->
+
 	<!-- USER ACCOUNTS (0)ADMIN (1-10)PASSENGER (11-20)DRIVER -->
 	<!-- Password: admin/admin otros/Temporal01 -->
 
@@ -291,7 +298,7 @@
 		<property name="surname" value="Peña" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="451138799" />
+		<property name="phone" value="651138799" />
 		<property name="cash" value="45" />
 		<property name="bankAccountNumber" value="ES1829216117674191633053" />
 		<property name="pets" value="false" />
@@ -310,6 +317,7 @@
 		</property>
 		<property name="vehicles">
 			<list>
+				<ref bean="vehicle1" />
 			</list>
 		</property>
 	</bean>
@@ -320,7 +328,7 @@
 		<property name="surname" value="Martínez" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="428241459" />
+		<property name="phone" value="628241459" />
 		<property name="cash" value="76" />
 		<property name="bankAccountNumber" value="ES7320097318918893313981" />
 		<property name="pets" value="false" />
@@ -348,7 +356,7 @@
 		<property name="surname" value="Santiago" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="433910517" />
+		<property name="phone" value="633910517" />
 		<property name="cash" value="89" />
 		<property name="bankAccountNumber" value="ES3235220312704515373037" />
 		<property name="pets" value="false" />
@@ -376,7 +384,7 @@
 		<property name="surname" value="Martínez" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="176264465" />
+		<property name="phone" value="676264465" />
 		<property name="cash" value="96" />
 		<property name="bankAccountNumber" value="ES5160716616941847591760" />
 		<property name="pets" value="false" />
@@ -432,7 +440,7 @@
 		<property name="surname" value="Giménez" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="504799180" />
+		<property name="phone" value="604799180" />
 		<property name="cash" value="73" />
 		<property name="bankAccountNumber" value="ES8417162882567092435509" />
 		<property name="pets" value="true" />
@@ -460,7 +468,7 @@
 		<property name="surname" value="Duran" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="352869489" />
+		<property name="phone" value="652869489" />
 		<property name="cash" value="94" />
 		<property name="bankAccountNumber" value="ES8042970941936368029157" />
 		<property name="pets" value="true" />
@@ -488,7 +496,7 @@
 		<property name="surname" value="Santana" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="153614275" />
+		<property name="phone" value="653614275" />
 		<property name="cash" value="87" />
 		<property name="bankAccountNumber" value="ES3524416428520426886063" />
 		<property name="pets" value="false" />
@@ -516,7 +524,7 @@
 		<property name="surname" value="Santos" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="828922149" />
+		<property name="phone" value="628922149" />
 		<property name="cash" value="39" />
 		<property name="bankAccountNumber" value="ES6647370418461551555701" />
 		<property name="pets" value="true" />
@@ -544,7 +552,7 @@
 		<property name="surname" value="Iglesias" />
 		<property name="country" value="Spain" />
 		<property name="city" value="Seville" />
-		<property name="phone" value="407534877" />
+		<property name="phone" value="607534877" />
 		<property name="cash" value="70" />
 		<property name="bankAccountNumber" value="ES3738947125552449626504" />
 		<property name="pets" value="false" />
@@ -588,6 +596,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver11" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle2" class="domain.Vehicle">
@@ -601,6 +612,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver12" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle3" class="domain.Vehicle">
@@ -614,6 +628,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver13" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle4" class="domain.Vehicle">
@@ -627,6 +644,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver14" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle5" class="domain.Vehicle">
@@ -640,6 +660,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver15" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle6" class="domain.Vehicle">
@@ -653,6 +676,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver16" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle7" class="domain.Vehicle">
@@ -666,6 +692,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver17" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle8" class="domain.Vehicle">
@@ -679,6 +708,9 @@
 		<property name="description" value="WASD" />
 
 		<property name="driver" ref="driver18" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle9" class="domain.Vehicle">
@@ -692,6 +724,9 @@
 		<property name="description" value="QWERTY" />
 
 		<property name="driver" ref="driver19" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
 	<bean id="vehicle10" class="domain.Vehicle">
@@ -705,23 +740,29 @@
 		<property name="description" value="QWERTY" />
 
 		<property name="driver" ref="driver20" />
+		<property name="routes">
+			<list></list>
+		</property>
 	</bean>
 
-	<!-- Routes -->
+	<!-- Routes (1-50) cada driver tiene 5, las 5 primeras son del driver11, 
+		las 5 siguientes del 12, etc... -->
 
 	<bean id="route1" class="domain.Route">
-		<property name="departureDate" value="25/03/2019 15:00" />
-		<property name="origin" value="Los Arcos, Sevilla" />
-		<property name="destination" value="Reina Mercedes, Sevilla" />
-		<property name="estimatedDuration" value="25" />
-		<property name="daysRepeat" value="MONDAY" />
-		<property name="avaliableSeats" value="1" />
-		<property name="distance" value="4.7" />
+		<property name="departureDate" value="8/13/2019 10:25" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="42" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="6" />
 		<property name="pricePerPassenger" value="1.1" />
-		<property name="details" value=""/>
-		<property name="maxLugagge" value="SMALL" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
 
 		<property name="driver" ref="driver11" />
+		<property name="vehicle" ref="vehicle1" />
 		<property name="controlPoints">
 			<list></list>
 		</property>
@@ -730,5 +771,1207 @@
 		</property>
 	</bean>
 
+
+	<bean id="route2" class="domain.Route">
+		<property name="departureDate" value="15/12/2019 20:20" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="27" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="4" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver11" />
+		<property name="vehicle" ref="vehicle1" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route3" class="domain.Route">
+		<property name="departureDate" value="7/6/2019 7:53" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="43" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver11" />
+		<property name="vehicle" ref="vehicle1" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route4" class="domain.Route">
+		<property name="departureDate" value="15/6/2019 23:34" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Macarena, Sevilla" />
+		<property name="estimatedDuration" value="35" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver11" />
+		<property name="vehicle" ref="vehicle1" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route5" class="domain.Route">
+		<property name="departureDate" value="14/11/2019 21:28" />
+		<property name="origin" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="destination"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="estimatedDuration" value="49" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver11" />
+		<property name="vehicle" ref="vehicle1" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route6" class="domain.Route">
+		<property name="departureDate" value="17/6/2019 23:20" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Macarena, Sevilla" />
+		<property name="estimatedDuration" value="28" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="6" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver12" />
+		<property name="vehicle" ref="vehicle2" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route7" class="domain.Route">
+		<property name="departureDate" value="17/10/2019 9:59" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="29" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver12" />
+		<property name="vehicle" ref="vehicle2" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route8" class="domain.Route">
+		<property name="departureDate" value="2/6/2019 24:18" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="estimatedDuration" value="24" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver12" />
+		<property name="vehicle" ref="vehicle2" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route9" class="domain.Route">
+		<property name="departureDate" value="19/10/2019 19:18" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="19" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="8" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver12" />
+		<property name="vehicle" ref="vehicle2" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route10" class="domain.Route">
+		<property name="departureDate" value="19/9/2019 16:9" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="39" />
+		<property name="daysRepeat" value="SUNDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="8" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver12" />
+		<property name="vehicle" ref="vehicle2" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route11" class="domain.Route">
+		<property name="departureDate" value="12/11/2019 20:27" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="45" />
+		<property name="daysRepeat" value="SUNDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="11" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver13" />
+		<property name="vehicle" ref="vehicle3" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route12" class="domain.Route">
+		<property name="departureDate" value="6/3/2019 7:32" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="20" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver13" />
+		<property name="vehicle" ref="vehicle3" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route13" class="domain.Route">
+		<property name="departureDate" value="10/9/2019 16:38" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="11" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver13" />
+		<property name="vehicle" ref="vehicle3" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route14" class="domain.Route">
+		<property name="departureDate" value="21/1/2019 17:57" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="45" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="6" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver13" />
+		<property name="vehicle" ref="vehicle3" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route15" class="domain.Route">
+		<property name="departureDate" value="28/10/2019 22:17" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="15" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver13" />
+		<property name="vehicle" ref="vehicle3" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route16" class="domain.Route">
+		<property name="departureDate" value="16/11/2019 23:46" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="43" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver14" />
+		<property name="vehicle" ref="vehicle4" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route17" class="domain.Route">
+		<property name="departureDate" value="10/2/2019 12:45" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Macarena, Sevilla" />
+		<property name="estimatedDuration" value="56" />
+		<property name="daysRepeat" value="SUNDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver14" />
+		<property name="vehicle" ref="vehicle4" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route18" class="domain.Route">
+		<property name="departureDate" value="4/4/2019 9:22" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="27" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver14" />
+		<property name="vehicle" ref="vehicle4" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route19" class="domain.Route">
+		<property name="departureDate" value="23/4/2019 8:35" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="46" />
+		<property name="daysRepeat" value="TUESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver14" />
+		<property name="vehicle" ref="vehicle4" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route20" class="domain.Route">
+		<property name="departureDate" value="14/2/2019 21:5" />
+		<property name="origin" value="Sevilla Este, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="25" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="6" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver14" />
+		<property name="vehicle" ref="vehicle4" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route21" class="domain.Route">
+		<property name="departureDate" value="4/12/2019 12:30" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Macarena, Sevilla" />
+		<property name="estimatedDuration" value="56" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver15" />
+		<property name="vehicle" ref="vehicle5" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route22" class="domain.Route">
+		<property name="departureDate" value="28/4/2019 24:1" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="57" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver15" />
+		<property name="vehicle" ref="vehicle5" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route23" class="domain.Route">
+		<property name="departureDate" value="23/12/2019 11:32" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="11" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver15" />
+		<property name="vehicle" ref="vehicle5" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route24" class="domain.Route">
+		<property name="departureDate" value="18/9/2019 8:11" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="13" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver15" />
+		<property name="vehicle" ref="vehicle5" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route25" class="domain.Route">
+		<property name="departureDate" value="10/2/2019 19:29" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="45" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="4" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver15" />
+		<property name="vehicle" ref="vehicle5" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route26" class="domain.Route">
+		<property name="departureDate" value="14/6/2019 12:44" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="23" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver16" />
+		<property name="vehicle" ref="vehicle6" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route27" class="domain.Route">
+		<property name="departureDate" value="26/4/2019 16:16" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="26" />
+		<property name="daysRepeat" value="SUNDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver16" />
+		<property name="vehicle" ref="vehicle6" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route28" class="domain.Route">
+		<property name="departureDate" value="11/10/2019 23:29" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="estimatedDuration" value="12" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="11" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver16" />
+		<property name="vehicle" ref="vehicle6" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route29" class="domain.Route">
+		<property name="departureDate" value="5/8/2019 13:15" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="20" />
+		<property name="daysRepeat" value="SUNDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="11" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver16" />
+		<property name="vehicle" ref="vehicle6" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route30" class="domain.Route">
+		<property name="departureDate" value="21/8/2019 10:61" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="17" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver16" />
+		<property name="vehicle" ref="vehicle6" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route31" class="domain.Route">
+		<property name="departureDate" value="23/1/2019 17:6" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="10" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="11" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver17" />
+		<property name="vehicle" ref="vehicle7" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route32" class="domain.Route">
+		<property name="departureDate" value="5/1/2019 19:8" />
+		<property name="origin" value="Sevilla Este, Sevilla" />
+		<property name="destination" value="Montequinto, Sevilla" />
+		<property name="estimatedDuration" value="18" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="4" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver17" />
+		<property name="vehicle" ref="vehicle7" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route33" class="domain.Route">
+		<property name="departureDate" value="20/5/2019 8:55" />
+		<property name="origin" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="26" />
+		<property name="daysRepeat" value="TUESDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver17" />
+		<property name="vehicle" ref="vehicle7" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route34" class="domain.Route">
+		<property name="departureDate" value="24/12/2019 24:15" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination" value="Montequinto, Sevilla" />
+		<property name="estimatedDuration" value="39" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="9" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver17" />
+		<property name="vehicle" ref="vehicle7" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route35" class="domain.Route">
+		<property name="departureDate" value="3/6/2019 9:41" />
+		<property name="origin" value="Sevilla Este, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="19" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="4" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver17" />
+		<property name="vehicle" ref="vehicle7" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route36" class="domain.Route">
+		<property name="departureDate" value="17/9/2019 24:0" />
+		<property name="origin"
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="56" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="11" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver18" />
+		<property name="vehicle" ref="vehicle8" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route37" class="domain.Route">
+		<property name="departureDate" value="7/8/2019 22:36" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="55" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="8" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="BIG" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver18" />
+		<property name="vehicle" ref="vehicle8" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route38" class="domain.Route">
+		<property name="departureDate" value="3/10/2019 13:55" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
+		<property name="estimatedDuration" value="40" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="8" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver18" />
+		<property name="vehicle" ref="vehicle8" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route39" class="domain.Route">
+		<property name="departureDate" value="7/8/2019 12:0" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="13" />
+		<property name="daysRepeat" value="SATURDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver18" />
+		<property name="vehicle" ref="vehicle8" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route40" class="domain.Route">
+		<property name="departureDate" value="1/7/2019 13:46" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="27" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="9" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver18" />
+		<property name="vehicle" ref="vehicle8" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route41" class="domain.Route">
+		<property name="departureDate" value="2/3/2019 16:51" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="22" />
+		<property name="daysRepeat" value="TUESDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver19" />
+		<property name="vehicle" ref="vehicle9" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route42" class="domain.Route">
+		<property name="departureDate" value="26/13/2019 14:39" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Torre Sevilla, Sevilla" />
+		<property name="estimatedDuration" value="55" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="4" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver19" />
+		<property name="vehicle" ref="vehicle9" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route43" class="domain.Route">
+		<property name="departureDate" value="9/13/2019 11:32" />
+		<property name="origin" value="Camas, Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="43" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver19" />
+		<property name="vehicle" ref="vehicle9" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route44" class="domain.Route">
+		<property name="departureDate" value="17/3/2019 18:37" />
+		<property name="origin" value="Macarena, Sevilla" />
+		<property name="destination"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="estimatedDuration" value="55" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="4" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver19" />
+		<property name="vehicle" ref="vehicle9" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route45" class="domain.Route">
+		<property name="departureDate" value="15/13/2019 7:27" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Macarena, Sevilla" />
+		<property name="estimatedDuration" value="39" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver19" />
+		<property name="vehicle" ref="vehicle9" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route46" class="domain.Route">
+		<property name="departureDate" value="2/7/2019 6:11" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="50" />
+		<property name="daysRepeat" value="WEDNESDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="9" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="NOTHING" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route47" class="domain.Route">
+		<property name="departureDate" value="13/5/2019 19:35" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Montequinto, Sevilla" />
+		<property name="estimatedDuration" value="50" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="5" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route48" class="domain.Route">
+		<property name="departureDate" value="24/13/2019 20:15" />
+		<property name="origin"
+			value="Reina Mercedes (Escuela de Arquitectura), Sevilla" />
+		<property name="destination" value="Sevilla Este, Sevilla" />
+		<property name="estimatedDuration" value="16" />
+		<property name="daysRepeat" value="THURSDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="10" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route49" class="domain.Route">
+		<property name="departureDate" value="2/12/2019 7:43" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="36" />
+		<property name="daysRepeat" value="FRIDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="3" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="SMALL" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
+
+
+	<bean id="route50" class="domain.Route">
+		<property name="departureDate" value="18/12/2019 11:46" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="42" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="avaliableSeats" value="1" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLugagge" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reserves">
+			<list></list>
+		</property>
+	</bean>
 
 </beans>
