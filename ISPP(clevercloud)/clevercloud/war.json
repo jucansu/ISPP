@@ -5,6 +5,10 @@
 			"file": "ISPP.war",
 			"context": "/"
 		}],
-		"goal": "java"
+	}
+
+	 "build": {
+		"type": "maven",
+		"goal": "package"
 	}
 }
