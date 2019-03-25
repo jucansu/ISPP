@@ -126,7 +126,7 @@ public class ReservationPassengerController extends AbstractController {
 
 		//------------Asientos restantes--------------------
 		routeAcceptedReservations = this.reservationService.findAcceptedReservationsByRoute(route.getId());
-		remainingSeats = route.getAvaliableSeats() - routeAcceptedReservations.size();
+		remainingSeats = route.getAvailableSeats() - routeAcceptedReservations.size();
 		//Comprobamos que haya asientos disponibles
 		Assert.isTrue(remainingSeats > 0);
 		//------------------------------------------------------

@@ -31,11 +31,11 @@ public class Route extends DomainEntity {
 	private String						destination;
 	private Integer						estimatedDuration;
 	private String						daysRepeat;
-	private Integer						avaliableSeats;
+	private Integer						availableSeats;
 	private Double						distance;
 	private Double						pricePerPassenger;
 	private String						details;
-	private LuggageSize					maxLugagge;
+	private LuggageSize					maxLuggage;
 	private Boolean						isCancelled;
 
 	//Relationships
@@ -83,8 +83,8 @@ public class Route extends DomainEntity {
 	}
 	@NotNull
 	@Min(value = 1)
-	public Integer getAvaliableSeats() {
-		return this.avaliableSeats;
+	public Integer getAvailableSeats() {
+		return this.availableSeats;
 	}
 
 	@Min(value = (long) 1.10)
@@ -98,8 +98,8 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
-	public LuggageSize getMaxLugagge() {
-		return this.maxLugagge;
+	public LuggageSize getMaxLuggage() {
+		return this.maxLuggage;
 	}
 
 	@NotNull
@@ -170,8 +170,8 @@ public class Route extends DomainEntity {
 		this.reservations = reservations;
 	}
 
-	public void setAvaliableSeats(final Integer avaliableSeats) {
-		this.avaliableSeats = avaliableSeats;
+	public void setAvailableSeats(final Integer availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public void setPricePerPassenger(final Double pricePerPassenger) {
@@ -182,8 +182,8 @@ public class Route extends DomainEntity {
 		this.details = details;
 	}
 
-	public void setMaxLugagge(final LuggageSize maxLugagge) {
-		this.maxLugagge = maxLugagge;
+	public void setMaxLuggage(final LuggageSize maxLuggage) {
+		this.maxLuggage = maxLuggage;
 	}
 
 	public void setIsCancelled(final Boolean isCancelled) {
