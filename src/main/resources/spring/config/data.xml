@@ -25,10 +25,12 @@
 	<jpa:repositories base-package="security" />
 
 	<!-- Data source -->
+	
+	<!-- postgresql://bpmtkvhmeizdxxy8mtx2-postgresql.services.clever-cloud.com:5432/bpmtkvhmeizdxxy8mtx2 -->
 
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close">
 		<property name="driverClass" value="org.postgresql.Driver" />
-		<property name="jdbcUrl" value="postgresql://bpmtkvhmeizdxxy8mtx2-postgresql.services.clever-cloud.com:5432/bpmtkvhmeizdxxy8mtx2" />
+		<property name="jdbcUrl" value="bpmtkvhmeizdxxy8mtx2-postgresql.services.clever-cloud.com" />
 		<property name="user" value="ugpdqhdopulclst7kdeh" />
 		<property name="password" value="K5GUBjCHXWz170rMifhk" />
 		<property name="minPoolSize" value="1" />
