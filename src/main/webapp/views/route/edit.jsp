@@ -62,11 +62,11 @@
 	<form:errors cssClass="error" path="daysRepeat"/>
 	<br/>
 	
-	<form:label path="avaliableSeats">
-		<spring:message code="route.avaliableSeats"/>
+	<form:label path="availableSeats">
+		<spring:message code="route.availableSeats"/>
 	</form:label>
-	<form:input path="avaliableSeats"/>
-	<form:errors cssClass="error" path="avaliableSeats"/>
+	<form:input path="availableSeats"/>
+	<form:errors cssClass="error" path="availableSeats"/>
 	<br/>
 	
 	<form:label path="details">
@@ -83,11 +83,11 @@
 	<form:errors cssClass="error" path="isCancelled"/>
 	<br/>
 	
-	<form:label path="maxLugagge">
-		<spring:message code="route.maxLugagge"/>
+	<form:label path="maxLuggage">
+		<spring:message code="route.maxLuggage"/>
 	</form:label>
-	<form:input path="maxLugagge"/>
-	<form:errors cssClass="error" path="maxLugagge"/>
+	<form:input path="maxLuggage"/>
+	<form:errors cssClass="error" path="maxLuggage"/>
 	<br/>
 	
 	<form:label path="vehicle">

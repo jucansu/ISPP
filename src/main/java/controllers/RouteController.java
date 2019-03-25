@@ -3,9 +3,12 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,6 +74,20 @@ public class RouteController extends AbstractController {
 		finder = new Finder();
 		result = new ModelAndView("route/search");
 		result.addObject("finder", finder);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ModelAndView searchResult(@Valid Finder finder, BindingResult bindingResult) {
+		ModelAndView result;
+		Collection<Route> routes;
+
+		//		routes = this.routeService.searchRoutes(finder);
+		routes = this.routeService.findAll();
+
+		result = new ModelAndView("route/searchResults");
+		result.addObject("routes", routes);
 
 		return result;
 	}

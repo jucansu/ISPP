@@ -13,7 +13,7 @@ public class Finder {
 	private String			origin;
 	private String			destination;
 	private VehicleType		vehicleType;
-	private Integer			aviableSeats;
+	private Integer			availableSeats;
 	private LuggageSize		luggageSize;
 	private Boolean			pets;
 	private Boolean			childs;
@@ -25,7 +25,7 @@ public class Finder {
 		return this.pets;
 	}
 
-	public void setPets(final Boolean pets) {
+	public void setPets(Boolean pets) {
 		this.pets = pets;
 	}
 
@@ -33,7 +33,7 @@ public class Finder {
 		return this.childs;
 	}
 
-	public void setChilds(final Boolean childs) {
+	public void setChilds(Boolean childs) {
 		this.childs = childs;
 	}
 
@@ -41,7 +41,7 @@ public class Finder {
 		return this.smoke;
 	}
 
-	public void setSmoke(final Boolean smoke) {
+	public void setSmoke(Boolean smoke) {
 		this.smoke = smoke;
 	}
 
@@ -49,7 +49,7 @@ public class Finder {
 		return this.music;
 	}
 
-	public void setMusic(final Boolean music) {
+	public void setMusic(Boolean music) {
 		this.music = music;
 	}
 
@@ -57,7 +57,7 @@ public class Finder {
 		return this.departureDate;
 	}
 
-	public void setDepartureDate(final LocalDateTime departureDate) {
+	public void setDepartureDate(LocalDateTime departureDate) {
 		this.departureDate = departureDate;
 	}
 
@@ -65,7 +65,7 @@ public class Finder {
 		return this.arrivalTime;
 	}
 
-	public void setArrivalTime(final LocalTime arrivalTime) {
+	public void setArrivalTime(LocalTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 
@@ -73,7 +73,7 @@ public class Finder {
 		return this.origin;
 	}
 
-	public void setOrigin(final String origin) {
+	public void setOrigin(String origin) {
 		this.origin = origin;
 	}
 
@@ -81,7 +81,7 @@ public class Finder {
 		return this.destination;
 	}
 
-	public void setDestination(final String destination) {
+	public void setDestination(String destination) {
 		this.destination = destination;
 	}
 
@@ -89,23 +89,23 @@ public class Finder {
 		return this.vehicleType;
 	}
 
-	public void setVehicleType(final VehicleType vehicleType) {
+	public void setVehicleType(VehicleType vehicleType) {
 		this.vehicleType = vehicleType;
 	}
 
-	public Integer getAviableSeats() {
-		return this.aviableSeats;
+	public Integer getAvailableSeats() {
+		return this.availableSeats;
 	}
 
-	public void setAviableSeats(final Integer aviableSeats) {
-		this.aviableSeats = aviableSeats;
+	public void setAvailableSeats(Integer availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public LuggageSize getLuggageSize() {
 		return this.luggageSize;
 	}
 
-	public void setLuggageSize(final LuggageSize luggageSize) {
+	public void setLuggageSize(LuggageSize luggageSize) {
 		this.luggageSize = luggageSize;
 	}
 

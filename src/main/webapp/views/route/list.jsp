@@ -42,7 +42,7 @@
 			<div class="destination"><jstl:out value="${route.destination }"></jstl:out></div>
 		</div>
 		<jstl:out value="${route.departureDate}"></jstl:out>
-		<jstl:out value="${route.avaliableSeats}"></jstl:out>
+		<jstl:out value="${route.availableSeats}"></jstl:out>
 	</div>
 </jstl:forEach>
 <div class="endList">

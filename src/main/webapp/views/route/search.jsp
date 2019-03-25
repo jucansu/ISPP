@@ -150,7 +150,7 @@
 
 		<div class="form-group col-md-6">
 			<label> Avaiable seats:</label>
-			<form:input type="number" code="location" path="aviableSeats"
+			<form:input type="number" code="location" path="availableSeats"
 				class="form-control" id="inputPassword4" />
 		</div>
 
