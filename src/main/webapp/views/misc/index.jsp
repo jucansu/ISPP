@@ -16,4 +16,12 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<jsp:forward page="/welcome/index.do" />
+
+<security:authorize access="hasAnyRole('PASSENGER', 'DRIVER', 'ADMIN')">
+<jsp:forward page="/route/list.do" />
+</security:authorize>
+
+
+<security:authorize access="isAnonymous()">
+<jsp:forward page="/security/login.do" />
+</security:authorize>
