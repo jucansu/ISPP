@@ -79,6 +79,9 @@ public class RouteService {
 		//Assertion that the user modifying this task has the correct privilege.
 
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
+
+		//Assertion that the avaliable seats  isn't a bigger value than the vehicle capacity
+		Assert.isTrue(r.getAvailableSeats() < r.getVehicle().getSeatsCapacity());
 		//
 		//		if (r.getId() == 0 || r.getControlPoints().size() < 2) {
 		//			r.setDestination("NONE");
