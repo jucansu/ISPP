@@ -1,6 +1,8 @@
 
 package domain;
 
+import java.util.Date;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
@@ -19,7 +21,7 @@ public class ControlPoint extends DomainEntity implements Comparable<ControlPoin
 
 	private String	location;
 	private Integer arrivalOrder;
-	private Integer arrivalTime;
+	private Date arrivalTime;
 	private Double 	distance;
 
 	//Relationships
@@ -47,8 +49,7 @@ public class ControlPoint extends DomainEntity implements Comparable<ControlPoin
 	}
 
 	@NotNull
-	@Min(1)
-	public Integer getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
@@ -71,7 +72,7 @@ public class ControlPoint extends DomainEntity implements Comparable<ControlPoin
 		this.distance = distance;
 	}
 	
-	public void setArrivalTime(Integer arrivalTime) {
+	public void setArrivalTime(Date arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 

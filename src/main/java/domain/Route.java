@@ -15,9 +15,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -60,12 +57,12 @@ public class Route extends DomainEntity {
 		return this.departureDate;
 	}
 
-	@NotBlank
+
 	public String getOrigin() {
 		return this.origin;
 	}
 
-	@NotBlank
+	
 	public String getDestination() {
 		return this.destination;
 	}
