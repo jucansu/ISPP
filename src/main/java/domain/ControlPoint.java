@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class ControlPoint extends DomainEntity {
+public class ControlPoint extends DomainEntity implements Comparable<ControlPoint>{
 
 	//Attributes
 
