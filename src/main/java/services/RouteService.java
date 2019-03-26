@@ -7,8 +7,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.decimal4j.util.DoubleRounder;
 import org.joda.time.LocalDateTime;
@@ -72,6 +74,7 @@ public class RouteService {
 		Assert.notNull(r);
 		Double distance = 0.0;
 		Double price = 0.0;
+		Integer estimatedDuration = 0;
 		Date date = new Date();
 		Assert.isTrue(r.getDepartureDate().after(date));
 
@@ -79,16 +82,22 @@ public class RouteService {
 		if (r.getId() != 0)
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
 
-		if (r.getId() == 0 || r.getControlPoints().isEmpty()) {
-			distance = this.getDistance(r.getOrigin(), r.getDestination());
-			price = this.getPrice(distance);
-		} else {
+		if (r.getId() == 0 || r.getControlPoints().size() < 2) {
+			r.setDestination("NONE");
+			r.setOrigin("NONE");
+		} else if(r.getControlPoints().size()>=2){
 			List<ControlPoint> cps = new ArrayList<ControlPoint>(r.getControlPoints());
-			distance = this.getDistance(r.getOrigin(), cps.get(0).getText());
-			for (int a = 0; a < r.getControlPoints().size(); a++)
-				distance = distance + this.getDistance(cps.get(a).getText(), cps.get(a + 1).getText());
-			distance = distance + this.getDistance(cps.get(cps.size() - 1).getText(), r.getDestination());
+			Collections.sort(cps);
+			
+			for (int a = 0; a < r.getControlPoints().size()-1; a++){
+				long diffInMillies = cps.get(a+1).getArrivalTime().getTime() - cps.get(a).getArrivalTime().getTime();
+				estimatedDuration = (int) (estimatedDuration + TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MINUTES));
+				distance = distance + this.getDistance(cps.get(a).getLocation(), cps.get(a + 1).getLocation());
+			}
 			price = this.getPrice(distance);
+			
+			r.setOrigin(cps.get(0).getLocation());
+			r.setDestination(cps.get(cps.size()-1).getLocation());
 		}
 		r.setPricePerPassenger(price);
 		r.setDistance(distance);
@@ -97,6 +106,8 @@ public class RouteService {
 
 		return saved;
 	}
+	
+	
 	public void cancel(Route r) {
 		Assert.notNull(r);
 
@@ -152,7 +163,7 @@ public class RouteService {
 		return DoubleRounder.round(value, 2);
 
 	}
-
+	
 	public Double getPrice(Double distance) {
 		Double price = 0.0;
 		Double price3km = 0.33;

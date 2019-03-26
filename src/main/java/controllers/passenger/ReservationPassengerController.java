@@ -120,7 +120,7 @@ public class ReservationPassengerController extends AbstractController {
 
 		if (route.getControlPoints() != null && !route.getControlPoints().isEmpty())
 			for (final ControlPoint c : route.getControlPoints())
-				places.add(c.getText());
+				places.add(c.getLocation());
 		places.add(route.getDestination());
 		//-----------------------------------------------------
 
