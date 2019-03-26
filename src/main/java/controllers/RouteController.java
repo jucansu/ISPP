@@ -51,8 +51,8 @@ public class RouteController extends AbstractController {
 
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@RequestParam final int routeID) {
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int routeID) {
 
 		ModelAndView result;
 		Route route;
@@ -79,7 +79,7 @@ public class RouteController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ModelAndView searchResult(@Valid Finder finder, BindingResult bindingResult) {
+	public ModelAndView searchResult(@Valid final Finder finder, final BindingResult bindingResult) {
 		ModelAndView result;
 		Collection<Route> routes;
 

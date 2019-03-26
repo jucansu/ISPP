@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -81,6 +82,8 @@ public class RouteDriverController extends AbstractController {
 			Assert.isTrue(route.getDriver().getId() == this.actorService.findByPrincipal().getId());
 
 		ModelAndView result;
+		for (final ObjectError oe : binding.getAllErrors())
+			System.out.println(oe);
 		if (binding.hasErrors()) {
 			System.out.println(binding.getAllErrors());
 			result = this.createEditModelAndView(route);
