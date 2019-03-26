@@ -48,8 +48,8 @@ public class Route extends DomainEntity {
 
 	//Getter
 
-	@NotBlank
-	@Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY")
+	//@NotBlank
+	//@Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY|NOTHING")
 	public String getDaysRepeat() {
 		return this.daysRepeat;
 	}
