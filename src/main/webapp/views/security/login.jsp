@@ -68,25 +68,7 @@
 				<li><a class="underlineHover" href="#">Create new account as passenger</a></li>
 			</ul>
 
-
-
 		</div>
 	</div>
-
-
-	<jstl:if test="${showError == true}">
-
-		<div class="error">
-
-			<spring:message code="security.login.failed" />
-
-		</div>
-
-	</jstl:if>
-
-
-
-
-
 
 </form:form>

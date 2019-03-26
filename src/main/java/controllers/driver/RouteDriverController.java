@@ -1,25 +1,26 @@
 
 package controllers.driver;
 
+import java.util.Collection;
+import java.util.Date;
+
 import javax.validation.Valid;
 
-
-
-
-import org.springframework.util.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import security.UserAccount;
 import services.ActorService;
 import services.RouteService;
 import controllers.AbstractController;
 import domain.Driver;
 import domain.Route;
-
 
 @Controller
 @RequestMapping("/route/driver")
@@ -37,6 +38,29 @@ public class RouteDriverController extends AbstractController {
 		super();
 	}
 
+	// Listing active routes by driver-------------------------------------
+	@RequestMapping(value = "/listActive", method = RequestMethod.GET)
+	public ModelAndView listActiveRoutesByDriver() {
+		ModelAndView result;
+		Collection<Route> routes;
+		Driver driver;
+		UserAccount ua;
+
+		ua = LoginService.getPrincipal();
+		driver = (Driver) this.actorService.findByUserAccount(ua);
+		Assert.notNull(driver);
+
+		routes = this.routeService.findActiveRoutesByDriver(driver.getId(), new Date());
+
+		result = new ModelAndView("route/list");
+		result.addObject("routes", routes);
+		result.addObject("driver", driver);
+		result.addObject("requestURI", "route/driver/listActive.do");
+
+		return result;
+
+	}
+
 	// Creation ---------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
@@ -52,17 +76,15 @@ public class RouteDriverController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
-		
-		if(route.getId()!= 0){
+
+		if (route.getId() != 0)
 			Assert.isTrue(route.getDriver().getId() == this.actorService.findByPrincipal().getId());
-		} 
-		
-		ModelAndView result;		
-		if (binding.hasErrors()){
+
+		ModelAndView result;
+		if (binding.hasErrors()) {
 			System.out.println(binding.getAllErrors());
 			result = this.createEditModelAndView(route);
-		}
-		else{
+		} else
 			try {
 				this.routeService.save(route);
 				result = new ModelAndView("redirect:/route/list.do");
@@ -70,7 +92,6 @@ public class RouteDriverController extends AbstractController {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(route, "driver.commit.error");
 			}
-		}
 		return result;
 	}
 
@@ -86,8 +107,8 @@ public class RouteDriverController extends AbstractController {
 	private ModelAndView createEditModelAndView(final Route route, final String message) {
 		ModelAndView result;
 		String requestURI;
-		
-		Driver driver = (Driver) this.actorService.findByPrincipal();
+
+		final Driver driver = (Driver) this.actorService.findByPrincipal();
 
 		requestURI = "route/driver/edit.do";
 		result = new ModelAndView("route/driver/create");
@@ -98,24 +119,5 @@ public class RouteDriverController extends AbstractController {
 
 		return result;
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

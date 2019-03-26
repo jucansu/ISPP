@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -51,18 +52,16 @@ public class Route extends DomainEntity {
 		return this.daysRepeat;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}
 
-
 	public String getOrigin() {
 		return this.origin;
 	}
 
-	
 	public String getDestination() {
 		return this.destination;
 	}

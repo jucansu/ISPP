@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -13,7 +14,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.decimal4j.util.DoubleRounder;
-import org.joda.time.LocalDateTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ import domain.Driver;
 import domain.Finder;
 import domain.LuggageSize;
 import domain.Reservation;
+import domain.ReservationStatus;
 import domain.Route;
 import domain.VehicleType;
 
@@ -48,9 +49,9 @@ public class RouteService {
 	//Simple CRUD methods
 
 	public Route create() {
-		Route r = new Route();
+		final Route r = new Route();
 
-		Driver d = (Driver) this.actorService.findByPrincipal();
+		final Driver d = (Driver) this.actorService.findByPrincipal();
 		r.setDriver(d);
 
 		r.setReservations(new ArrayList<Reservation>());
@@ -60,7 +61,7 @@ public class RouteService {
 		return r;
 	}
 
-	public Route findOne(int id) {
+	public Route findOne(final int id) {
 		Assert.notNull(id);
 
 		return this.routeRepository.findOne(id);
@@ -70,12 +71,12 @@ public class RouteService {
 		return this.routeRepository.findAll();
 	}
 
-	public Route save(Route r) {
+	public Route save(final Route r) {
 		Assert.notNull(r);
 		Double distance = 0.0;
 		Double price = 0.0;
 		Integer estimatedDuration = 0;
-		Date date = new Date();
+		final Date date = new Date();
 		Assert.isTrue(r.getDepartureDate().after(date));
 
 		//Assertion that the user modifying this task has the correct privilege.
@@ -85,30 +86,29 @@ public class RouteService {
 		if (r.getId() == 0 || r.getControlPoints().size() < 2) {
 			r.setDestination("NONE");
 			r.setOrigin("NONE");
-		} else if(r.getControlPoints().size()>=2){
-			List<ControlPoint> cps = new ArrayList<ControlPoint>(r.getControlPoints());
+		} else if (r.getControlPoints().size() >= 2) {
+			final List<ControlPoint> cps = new ArrayList<ControlPoint>(r.getControlPoints());
 			Collections.sort(cps);
-			
-			for (int a = 0; a < r.getControlPoints().size()-1; a++){
-				long diffInMillies = cps.get(a+1).getArrivalTime().getTime() - cps.get(a).getArrivalTime().getTime();
+
+			for (int a = 0; a < r.getControlPoints().size() - 1; a++) {
+				final long diffInMillies = cps.get(a + 1).getArrivalTime().getTime() - cps.get(a).getArrivalTime().getTime();
 				estimatedDuration = (int) (estimatedDuration + TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MINUTES));
 				distance = distance + this.getDistance(cps.get(a).getLocation(), cps.get(a + 1).getLocation());
 			}
 			price = this.getPrice(distance);
-			
+
 			r.setOrigin(cps.get(0).getLocation());
-			r.setDestination(cps.get(cps.size()-1).getLocation());
+			r.setDestination(cps.get(cps.size() - 1).getLocation());
 		}
 		r.setPricePerPassenger(price);
 		r.setDistance(distance);
 
-		Route saved = this.routeRepository.save(r);
+		final Route saved = this.routeRepository.save(r);
 
 		return saved;
 	}
-	
-	
-	public void cancel(Route r) {
+
+	public void cancel(final Route r) {
 		Assert.notNull(r);
 
 		//Assertion that the user deleting this task has the correct privilege.
@@ -133,46 +133,46 @@ public class RouteService {
 	//		this.routeRepository.delete(route);
 	//	}
 
-	public Double getDistance(String origin, String destination) {
+	public Double getDistance(final String origin, final String destination) {
 		Double value = 0.0;
 		try {
-			String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + origin.replaceAll(" ", "+") + "&destination=" + destination.replaceAll(" ", "+") + "&key=AIzaSyAKoI-jZJQyPjIp1XGUSsbWh47JBix7qws";
-			URL obj = new URL(url);
-			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			final String url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + origin.replaceAll(" ", "+") + "&destination=" + destination.replaceAll(" ", "+") + "&key=AIzaSyAKoI-jZJQyPjIp1XGUSsbWh47JBix7qws";
+			final URL obj = new URL(url);
+			final HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("User-Agent", "Mozilla/5.0");
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			final BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
+			final StringBuffer response = new StringBuffer();
 			while ((inputLine = in.readLine()) != null)
 				response.append(inputLine);
 			in.close();
 
-			JSONObject myResponse = new JSONObject(response.toString());
+			final JSONObject myResponse = new JSONObject(response.toString());
 
-			JSONArray routes = myResponse.getJSONArray("routes");
-			JSONObject obj1 = routes.getJSONObject(0);
-			JSONArray dst = obj1.getJSONArray("legs");
-			JSONObject obj2 = dst.getJSONObject(0);
-			JSONObject obj3 = obj2.getJSONObject("distance");
+			final JSONArray routes = myResponse.getJSONArray("routes");
+			final JSONObject obj1 = routes.getJSONObject(0);
+			final JSONArray dst = obj1.getJSONArray("legs");
+			final JSONObject obj2 = dst.getJSONObject(0);
+			final JSONObject obj3 = obj2.getJSONObject("distance");
 			value = obj3.getDouble("value");
 			value = value / 1000;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return DoubleRounder.round(value, 2);
 
 	}
-	
-	public Double getPrice(Double distance) {
+
+	public Double getPrice(final Double distance) {
 		Double price = 0.0;
-		Double price3km = 0.33;
-		Double profit = 0.10;
+		final Double price3km = 0.33;
+		final Double profit = 0.10;
 		if (distance < 9.0)
 			price = 1 + profit;
 		else {
-			String str = String.valueOf(distance / 3);
-			Integer intNumber = Integer.parseInt(str.substring(0, str.indexOf('.')));
+			final String str = String.valueOf(distance / 3);
+			final Integer intNumber = Integer.parseInt(str.substring(0, str.indexOf('.')));
 			price = intNumber * price3km + profit;
 
 		}
@@ -181,22 +181,59 @@ public class RouteService {
 
 	//Finder 
 
-	public Collection<Route> searchRoutes(Finder finder) {
+	public Collection<Route> searchRoutes(final Finder finder) {
 		Collection<Route> result;
 
-		LocalDateTime departureDate = finder.getDepartureDate();
-		String origin = finder.getOrigin();
-		String destination = finder.getDestination();
-		VehicleType vehicleType = finder.getVehicleType();
-		Integer availableSeats = finder.getAvailableSeats();
-		LuggageSize luggageSize = finder.getLuggageSize();
-		Boolean pets = finder.getPets();
-		Boolean childs = finder.getChilds();
-		Boolean smoke = finder.getSmoke();
-		Boolean music = finder.getMusic();
+		final Date departureDate = finder.getDepartureDate();
+		final String origin = finder.getOrigin();
+		final String destination = finder.getDestination();
+		final VehicleType vehicleType = finder.getVehicleType();
+		final Integer availableSeats = finder.getAvailableSeats();
+		final LuggageSize luggageSize = finder.getLuggageSize();
+		final Boolean pets = finder.getPets();
+		final Boolean childs = finder.getChilds();
+		final Boolean smoke = finder.getSmoke();
+		final Boolean music = finder.getMusic();
 
-		result = this.routeRepository.searchRoutes(null, null, null, null, null, null, pets, childs, smoke, music);
+		//result = this.routeRepository.searchRoutes(null, null, null, null, null, null, pets, childs, smoke, music);
+		result = this.routeRepository.findAll();
 
 		return result;
 	}
+
+	public Collection<Route> findActiveRoutesByPassenger(final int passengerId, final ReservationStatus statusCancelled, final ReservationStatus statusRejected) {
+		Assert.isTrue(passengerId != 0);
+		Assert.notNull(statusCancelled);
+
+		Collection<Route> routes, result;
+		final Date now = new Date();
+
+		routes = this.routeRepository.findActiveRoutesByPassenger(passengerId, statusCancelled, statusRejected);
+		result = new ArrayList<Route>();
+		for (final Route r : routes) {
+			final Calendar date = Calendar.getInstance();
+			date.setTime(r.getDepartureDate());
+			final long departureDateMilis = date.getTimeInMillis();
+			final Date arrivalDate = new Date(departureDateMilis + (r.getEstimatedDuration() * 60000));
+			System.out.println("--------------");
+			System.out.println(r.getDepartureDate() + "->" + arrivalDate);
+
+			if (arrivalDate.after(now))
+				result.add(r);
+		}
+
+		return result;
+	}
+
+	public Collection<Route> findActiveRoutesByDriver(final int driverId, final Date now) {
+		Assert.isTrue(driverId != 0);
+		Assert.notNull(now);
+
+		Collection<Route> result;
+
+		result = this.routeRepository.findActiveRoutesByDriver(driverId, now);
+
+		return result;
+	}
+
 }

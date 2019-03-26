@@ -17,11 +17,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<security:authorize access="hasAnyRole('PASSENGER', 'DRIVER', 'ADMIN')">
+<security:authorize access="hasRole('ADMIN')">
 <jsp:forward page="/route/list.do" />
 </security:authorize>
 
+<security:authorize access="hasRole('DRIVER')">
+<jsp:forward page="/route/driver/listActive.do" />
+</security:authorize>
+
+<security:authorize access="hasRole('PASSENGER')">
+<jsp:forward page="/route/passenger/listActive.do" />
+</security:authorize>
 
 <security:authorize access="isAnonymous()">
 <jsp:forward page="/security/login.do" />
 </security:authorize>
+

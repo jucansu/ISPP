@@ -306,7 +306,10 @@
 		<property name="userAccount" ref="userAccount1" />
 
 		<property name="reservations">
-			<list></list>
+			<list>
+				<ref bean="reservation1"/>
+				<ref bean="reservation2"/>
+			</list>
 		</property>
 		<property name="comments">
 			<list></list>
@@ -978,7 +981,9 @@
 			<list></list>
 		</property>
 		<property name="reservations">
-			<list></list>
+			<list>
+				<ref bean="reservation1"/>
+			</list>
 		</property>
 	</bean>
 
@@ -1002,7 +1007,9 @@
 			<list></list>
 		</property>
 		<property name="reservations">
-			<list></list>
+			<list>
+				<ref bean="reservation2"/>
+			</list>
 		</property>
 	</bean>
 
@@ -2184,5 +2191,33 @@
 			<list></list>
 		</property>
 	</bean>
+
+	<!-- Reservations -->
+
+	<bean id="reservation1" class="domain.Reservation">
+		<property name="luggageSize" value="BIG" />
+		<property name="origin" value="Torre Sevilla, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="seat" value="1" />
+		<property name="price" value="1.1" />
+		<property name="status" value="ACCEPTED" />
+		
+		<property name="passenger" ref="passenger1" />
+		<property name="route" ref="route1" />
+	</bean>
+	
+	<bean id="reservation2" class="domain.Reservation">
+		<property name="luggageSize" value="BIG" />
+		<property name="origin" value="Montequinto, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="seat" value="1" />
+		<property name="price" value="1.1" />
+		<property name="status" value="CANCELLED" />
+		
+		<property name="passenger" ref="passenger1" />
+		<property name="route" ref="route2" />
+	</bean>
+	
+
 
 </beans>

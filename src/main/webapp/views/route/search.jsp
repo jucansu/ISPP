@@ -84,41 +84,26 @@
 			</div>
 		</div>
 
-
-		<div class="form-group col-md-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="inputPassword4"> Arrival time:</label>
-							<div class="input-group date" id="datetimepicker3"
-								data-target-input="nearest">
-								<input type="text" class="form-control datetimepicker-input"
-									data-target="#datetimepicker3" />
-								<div class="input-group-append" data-target="#datetimepicker3"
-									data-toggle="datetimepicker">
-									<div class="input-group-text">
-										<i class="fa fa-clock-o"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script type="text/javascript">
-						$(function() {
-							$('#datetimepicker3').datetimepicker({
-								format : 'LT'
-							});
-						});
-					</script>
-				</div>
-			</div>
-		</div>
-
 		<div class="form-group col-md-6">
 			<label for="inputPassword4"> Origen:</label>
 			<form:input code="location" path="origin" class="form-control"
 				id="inputPassword4" />
+		</div>
+		
+		<div>
+			<form:label path="originTime">
+				<spring:message code="origin.time" /> 
+			</form:label>
+			<form:input path="originTime" readonly="${readonly}" />
+			<form:errors path="originTime" cssClass="error" />
+		</div>
+		
+		<div>
+			<form:label path="destinationTime">
+				<spring:message code="destination.time" /> 
+			</form:label>
+			<form:input path="destinationTime" readonly="${readonly}" />
+			<form:errors path="destinationTime" cssClass="error" />
 		</div>
 
 		<div class="form-group col-md-6">
