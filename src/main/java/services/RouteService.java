@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -26,6 +27,7 @@ import domain.Driver;
 import domain.Finder;
 import domain.LuggageSize;
 import domain.Reservation;
+import domain.ReservationStatus;
 import domain.Route;
 import domain.VehicleType;
 
@@ -198,4 +200,40 @@ public class RouteService {
 
 		return result;
 	}
+
+	public Collection<Route> findActiveRoutesByPassenger(final int passengerId, final ReservationStatus statusCancelled, final ReservationStatus statusRejected) {
+		Assert.isTrue(passengerId != 0);
+		Assert.notNull(statusCancelled);
+
+		Collection<Route> routes, result;
+		final Date now = new Date();
+
+		routes = this.routeRepository.findActiveRoutesByPassenger(passengerId, statusCancelled, statusRejected);
+		result = new ArrayList<Route>();
+		for (final Route r : routes) {
+			final Calendar date = Calendar.getInstance();
+			date.setTime(r.getDepartureDate());
+			final long departureDateMilis = date.getTimeInMillis();
+			final Date arrivalDate = new Date(departureDateMilis + (r.getEstimatedDuration() * 60000));
+			System.out.println("--------------");
+			System.out.println(r.getDepartureDate() + "->" + arrivalDate);
+
+			if (arrivalDate.after(now))
+				result.add(r);
+		}
+
+		return result;
+	}
+
+	public Collection<Route> findActiveRoutesByDriver(final int driverId, final Date now) {
+		Assert.isTrue(driverId != 0);
+		Assert.notNull(now);
+
+		Collection<Route> result;
+
+		result = this.routeRepository.findActiveRoutesByDriver(driverId, now);
+
+		return result;
+	}
+
 }

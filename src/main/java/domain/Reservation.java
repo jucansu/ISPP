@@ -54,7 +54,7 @@ public class Reservation extends DomainEntity {
 		return this.luggage;
 	}
 
-	@NotBlank
+	@NotNull
 	@Min(value = 1)
 	public Integer getSeat() {
 		return this.seat;

@@ -3,7 +3,7 @@ package domain;
 
 public enum ReservationStatus {
 
-	PENDING("PENDING", 1), ACCEPTED("ACCEPTED", 2), CANCELLED("CANCELLED", 3);
+	PENDING("PENDING", 1), ACCEPTED("ACCEPTED", 2), CANCELLED("CANCELLED", 3), REJECTED("REJECTED", 4);
 
 	private int		id;
 	private String	name;

@@ -52,7 +52,9 @@
 		<security:intercept-url pattern="/route/driver/edit.do" access="hasRole('DRIVER')" /> 
 		<security:intercept-url pattern="/route/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/route/search.do" access="permitAll" />
-	
+		<security:intercept-url pattern="/route/driver/listActive.do" access="hasRole('DRIVER')" /> 
+
+		<security:intercept-url pattern="/route/passenger/listActive.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/reservation/passenger/create.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/reservation/display.do" access="permitAll" /> 
 		
