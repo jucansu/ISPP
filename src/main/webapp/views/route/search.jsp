@@ -59,10 +59,10 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="form-group">
-							<label for="inputPassword4"> Departure time:</label>
+							<label for="inputPassword4"> Departure time from:</label>
 							<div class="input-group date" id="datetimepicker3"
 								data-target-input="nearest">
-								<input type="text" class="form-control datetimepicker-input"
+								<form:input type="text" class="form-control datetimepicker-input" path="originTime"
 									data-target="#datetimepicker3" />
 								<div class="input-group-append" data-target="#datetimepicker3"
 									data-toggle="datetimepicker">
@@ -83,6 +83,36 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="form-group col-md-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							<label for="inputPassword4"> Departure time to:</label>
+							<div class="input-group date" id="datetimepicker32"
+								data-target-input="nearest">
+								<form:input type="text" class="form-control datetimepicker-input" path="destinationTime"
+									data-target="#datetimepicker32" />
+								<div class="input-group-append" data-target="#datetimepicker32"
+									data-toggle="datetimepicker">
+									<div class="input-group-text">
+										<i class="fa fa-clock-o"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script type="text/javascript">
+						$(function() {
+							$('#datetimepicker32').datetimepicker({
+								format : 'LT'
+							});
+						});
+					</script>
+				</div>
+			</div>
+		</div>
 
 		<div class="form-group col-md-6">
 			<label for="inputPassword4"> Origen:</label>
@@ -90,21 +120,8 @@
 				id="inputPassword4" />
 		</div>
 		
-		<div>
-			<form:label path="originTime">
-				<spring:message code="origin.time" /> 
-			</form:label>
-			<form:input path="originTime" readonly="${readonly}" />
-			<form:errors path="originTime" cssClass="error" />
-		</div>
 		
-		<div>
-			<form:label path="destinationTime">
-				<spring:message code="destination.time" /> 
-			</form:label>
-			<form:input path="destinationTime" readonly="${readonly}" />
-			<form:errors path="destinationTime" cssClass="error" />
-		</div>
+	
 
 		<div class="form-group col-md-6">
 			<label for="inputPassword4"> Destino:</label>
@@ -113,24 +130,14 @@
 		</div>
 		<div class="form-group col-md-10">
 			<label> Vehicle type:</label>
+		
+		<form:select path="vehicleType" class="form-control">
+					<form:option label="Any" value="Any" />
+					<form:option label="Bike" value="Bike" />
+					<form:option label="Car" value="Car" />
+				</form:select>
 		</div>
-		<div class="form-group col-md-3">
-			<div class="radio">
-				<label><input type="radio" name="vehicleType" checked>Any</label>
-			</div>
-		</div>
-		<div class="form-group col-md-3">
-
-			<div class="radio">
-				<label><input type="radio" name="vehicleType">Car</label>
-			</div>
-		</div>
-		<div class="form-group col-md-3">
-
-			<div class="radio">
-				<label><input type="radio" name="vehicleType">Bike</label>
-			</div>
-		</div>
+				
 
 
 		<div class="form-group col-md-6">
@@ -141,58 +148,41 @@
 
 		<div class="form-group col-md-10">
 			<label> Lugagge size:</label>
+		<form:select path="luggageSize" class="form-control">
+					<form:option label="Any" value="Any" />
+					<form:option label="Small" value="Small" />
+					<form:option label="Medium" value="Medium" />
+					<form:option label="Big" value="Big" />
+		</form:select>
 		</div>
-		<div class="form-group col-md-3">
-			<div class="radio">
-				<label><input type="radio" name="luggageSize" checked>Any</label>
-			</div>
-		</div>
-		<div class="form-group col-md-3">
-
-			<div class="radio">
-				<label><input type="radio" name="luggageSize">Small</label>
-			</div>
-		</div>
-		<div class="form-group col-md-3">
-
-			<div class="radio">
-				<label><input type="radio" name="luggageSize">Medium</label>
-			</div>
-		</div>
-
-		<div class="form-group col-md-3">
-
-			<div class="radio">
-				<label><input type="radio" name="luggageSize">Big</label>
-			</div>
-		</div>
+		
 
 		<div class="form-group col-md-3">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="pets"
-					id="defaultCheck1"> <label class="form-check-label"
+				<form:checkbox class="form-check-input"  value="true" path="pets"
+					id="defaultCheck1"/> <label class="form-check-label"
 					for="defaultCheck1"> Pets </label>
 			</div>
 		</div>
 
 		<div class="form-group col-md-3">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="childs"
-					id="defaultCheck1"> <label class="form-check-label"
+				<form:checkbox class="form-check-input"  value="true" path="childs"
+					id="defaultCheck1"/> <label class="form-check-label"
 					for="defaultCheck1"> Childs </label>
 			</div>
 		</div>
 		<div class="form-group col-md-3">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="smoke"
-					id="defaultCheck1"> <label class="form-check-label"
+				<form:checkbox class="form-check-input"  value="true" path="smoke"
+					id="defaultCheck1"/> <label class="form-check-label"
 					for="defaultCheck1"> Smoke </label>
 			</div>
 		</div>
 		<div class="form-group col-md-3">
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="Music"
-					id="defaultCheck1"> <label class="form-check-label"
+				<form:checkbox class="form-check-input"  value="true" path="music"
+					id="defaultCheck1"/> <label class="form-check-label"
 					for="defaultCheck1"> Music </label>
 			</div>
 		</div>
