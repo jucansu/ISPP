@@ -56,7 +56,7 @@
 			<script type="text/javascript">
 				$(function() {
 					$('#datetimepicker').datetimepicker({
-						format : 'DD/MM/YYYY HH:mm:ss',
+						format : 'DD/MM/YYYY HH:mm',
 						minDate : new Date()
 					});
 				});
@@ -104,6 +104,7 @@
 					<form:option label="Mediano" value="MEDIUM" />
 					<form:option label="Grande" value="BIG" />
 				</form:select>
+			
 				<form:errors cssClass="error" path="maxLuggage" />
 				<br />
 			</div>
