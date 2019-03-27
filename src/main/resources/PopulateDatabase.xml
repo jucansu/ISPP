@@ -963,7 +963,7 @@
 		las 5 siguientes del 12, etc... -->
 
 	<bean id="route1" class="domain.Route">
-		<property name="departureDate" value="8/13/2019 10:25" />
+		<property name="departureDate" value="8/12/2019 10:25" />
 		<property name="origin" value="Camas, Sevilla" />
 		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
 		<property name="estimatedDuration" value="42" />
