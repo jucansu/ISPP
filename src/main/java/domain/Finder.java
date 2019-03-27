@@ -80,7 +80,7 @@ public class Finder {
 	}
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}

@@ -134,6 +134,8 @@ public class RouteController extends AbstractController {
 		routes = this.routeService.searchRoutes(finder);
 		//routes = this.routeService.findAll();
 
+		System.out.println(finder.getDepartureDate() + "---" + finder.getLuggageSize() + "---" + finder.getVehicleType());
+
 		result = new ModelAndView("route/searchResults");
 		result.addObject("routes", routes);
 
