@@ -58,4 +58,14 @@ public class WelcomeController extends AbstractController {
 
 		return result;
 	}
+
+	// Terms of use
+	@RequestMapping("/termsAndConditions")
+	public ModelAndView dataProtection() {
+		ModelAndView result;
+
+		result = new ModelAndView("welcome/termsAndConditions");
+
+		return result;
+	}
 }

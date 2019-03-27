@@ -21,4 +21,13 @@
 		<put-attribute name="body" value="/views/welcome/index.jsp" />
 	</definition>
 	
+	<definition extends="master.page" name="welcome/termsAndConditions">
+
+		<put-attribute name="title" value="Terms and Conditions" />
+
+		<put-attribute name="body"
+			value="/views/welcome/termsAndConditions.jsp" />
+
+	</definition>
+	
 </tiles-definitions>
