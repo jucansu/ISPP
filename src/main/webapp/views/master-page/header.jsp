@@ -46,7 +46,35 @@ window.cookieconsent.initialise({
 <div class="logo">
 		<img src="images/logoicon.png"/>
 	</div>
-<nav class="navbar navbar-icon-top navbar-expand-lg" style="background-color: #fa3274;">
+	<div class="detalles-usuario">
+		<div class="messages">
+			<a class="nav-link" href="#"> <i class="far fa-envelope"> <span
+					class="badge badge-danger">11</span>
+			</i> Messages
+			</a>
+		</div>
+		<div class="notificaciones">
+		<a class="nav-link" href="#"> <i class="far fa-bell"> 
+			</i> Notifications
+			</a>
+		</div>
+		<div class="perfil">
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-user-circle"></i>
+          </i>
+          <spring:message
+						code="master.page.profile" /> (<security:authentication
+						property="principal.username" />)
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Visit my profile</a>
+          <a class="dropdown-item" href="#">Configuration</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a>
+        </div>
+		</div>
+	</div>
+	<nav class="navbar navbar-icon-top navbar-expand-lg" style="background-color: #fa3274;">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -68,12 +96,7 @@ window.cookieconsent.initialise({
         </div>
       </li> 
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="far fa-envelope">
-            <span class="badge badge-danger">11</span>
-          </i>
-          Messages
-        </a>
+        
       </li>
     
     </ul>
@@ -81,25 +104,35 @@ window.cookieconsent.initialise({
 
       
      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="far fa-user-circle"></i>
+        
+      </li>
+      
+    <security:authorize access="hasRole('PASSENGER')">
+    <div>
+    <li class="nav-item">
+        <a class="nav-link" href="/../route/search.do">
+          <i class="fa fa-search">
           </i>
-          <spring:message
-						code="master.page.profile" /> (<security:authentication
-						property="principal.username" />)
+         
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Visit my profile</a>
-          <a class="dropdown-item" href="#">Configuration</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a>
-        </div>
-      </li> 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+      </li>
+    </div>
+    </security:authorize>
   </div>
+  
+      <security:authorize access="hasRole('DRIVER')">
+    <div>
+   
+        <a class="nav-link" href="/../route/create.do">
+          <i class="fa fa-plus">
+          </i>
+         
+        </a>
+  
+    </div>
+    </security:authorize>
+  </div>
+  
 </nav>
 
 <nav class="navbar navbar-light" style="background-color: #fa3274;">
