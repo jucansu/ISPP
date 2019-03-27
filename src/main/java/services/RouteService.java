@@ -204,14 +204,13 @@ public class RouteService {
 		return result;
 	}
 
-	public Collection<Route> findActiveRoutesByPassenger(final int passengerId, final ReservationStatus statusCancelled, final ReservationStatus statusRejected) {
+	public Collection<Route> findActiveRoutesByPassenger(final int passengerId) {
 		Assert.isTrue(passengerId != 0);
-		Assert.notNull(statusCancelled);
 
 		Collection<Route> routes, result;
 		final Date now = new Date();
 
-		routes = this.routeRepository.findActiveRoutesByPassenger(passengerId, statusCancelled, statusRejected);
+		routes = this.routeRepository.findActiveRoutesByPassenger(passengerId, ReservationStatus.CANCELLED, ReservationStatus.REJECTED);
 		result = new ArrayList<Route>();
 		for (final Route r : routes) {
 			final Calendar date = Calendar.getInstance();
