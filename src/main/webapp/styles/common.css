@@ -22,3 +22,55 @@ body{
 	color: red;
 	font-weight: bolder;
 }
+
+.circle{
+	width: 15px;
+    height: 15px;
+	content:'';
+	position: relative;
+	margin:40px 4px;
+	border:1px solid black;
+	border-radius:100%
+}
+
+ /**** VAR. COLORS ****/
+
+.color_pink{
+	color: #FD497C;
+}
+
+.color_blue{
+	color: #00ACE2;
+}
+
+.color_green{
+	color: #87C32F;
+}
+
+.color_purple{
+	color: #B143DD;
+}
+
+.color_orange{
+	color: #FFA513;
+}
+
+.background_pink{
+	background-color: #FD497C;
+}
+
+.background_blue{
+	background-color: #00ACE2;
+}
+
+.background_green{
+	background-color: #87C32F;
+}
+
+.background_purple{
+	background-color: #B143DD;
+}
+
+.background_orange{
+	background-color: #FFA513;
+}

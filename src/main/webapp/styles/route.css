@@ -1,25 +1,18 @@
 @CHARSET "ISO-8859-1";
 
-h1{
+.active-routes{
 	color: white; 
 	text-transform: uppercase;
-	position: absolute;
-	text-align: center;
-	width: 80%;
-    margin: -47px auto;
+    position: relative;
+    top: -46px;
 }
 
 .route{
-	display:flex;
-	flex-direction: column;
-    align-items: center;
 	padding: 10px 0px;
 	border-bottom: 3px solid #ffa513;
 }
 
-
-
-.to {
+.to:after {
 	content:'';
 	padding: 2px;
     height: 2px;
@@ -28,41 +21,23 @@ h1{
 	border-right: 2px solid black;
 	border-top: 2px solid black;
 }
+/* .to:before{
+	content: '';
+	position: relative;
+	width: 3px;
+	padding: 2px;
+	background-color: black;
+} */
 
 .origin, .destination{
 	margin: 0 5px;
 	font-weight: bold;
+	color: black;
 }
-
-.title{
-	display: flex;
-	align-items: baseline;
-	justify-content: space-between;
-	/* width: 69%;	 */
-}
+/* modificar hover enlace? */
 
 .endList{
 	display: flex;
 	justify-content: center;
 }
 
-.circle{
-	width: 15px;
-    height: 15px;
-	content:'';
-	position: relative;
-	margin:40px 4px;
-	border:1px solid black;
-	border-radius:100%
-}
-.pink{
-	background-color: #fd497c;
-}
-
-.blue{
-	background-color: #00ace2;
-}
-
-.green{
-	background-color: #87c32f;
-}

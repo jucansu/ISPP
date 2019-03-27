@@ -34,21 +34,37 @@
 	<link href="${routecss}" rel="stylesheet" />
 	<script src="${routecss}"></script>
 
+<div class="text-center active-routes">
+	<h3>Active routes</h3>
+</div>
 <jstl:forEach var="route" items="${routes }">
-	<div class="route">
-		<div class="title">
-			<div class="origin"><jstl:out value="${route.origin }"></jstl:out></div>
-			<div class="to"></div>
-			<div class="destination"><jstl:out value="${route.destination }"></jstl:out></div>
+	<div class="title listRoute"></div>
+	<div class="route d-flex flex-column align-items-center">
+	<!-- AÑADIR ENLACE A RUTA  -->
+		<a class="stretched-link d-flex align-items-center justify-content-space-between flex-wrap" href="../route/display.do?routeId=${route.id }">
+			<div class="origin">
+				<jstl:out value="${route.origin }"></jstl:out>
+			</div>
+			<div class="to d-flex"></div>
+			<div class="destination">
+				<jstl:out value="${route.destination }"></jstl:out>
+			</div>
+		</a>
+		<div class="date-route">
+			<jstl:out value="${route.departureDate}"></jstl:out>
 		</div>
-		<jstl:out value="${route.departureDate}"></jstl:out>
-		<jstl:out value="${route.availableSeats}"></jstl:out>
+		<div class="available-seats d-flex">
+			<p>Available seats:</p>
+			<jstl:out value="${route.availableSeats}"></jstl:out>
+			<p>seats</p>
+		</div>
+
 	</div>
 </jstl:forEach>
 <div class="endList">
-	<div class="circle pink"></div>
-	<div class="circle blue"></div>
-	<div class="circle green"></div>
+	<div class="circle background_pink"></div>
+	<div class="circle background_blue"></div>
+	<div class="circle background_green"></div>
 </div>
 
 
