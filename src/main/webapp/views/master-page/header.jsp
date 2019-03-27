@@ -12,78 +12,89 @@
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 	<spring:url value="/styles/header.css" var="headercss" />
 	<link href="${headercss}" rel="stylesheet" />
 	<script src="${headercss}"></script>
 	
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class=header>
-	<div class="logo">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+ <div class="logo">
 		<img src="images/logoicon.png"/>
 	</div>
+<nav class="navbar navbar-light" style="background-color: #fa3274;">
+    <div class="container">
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>     
+        	 <ul class="navbar-nav ">
+                <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
+                <li class="nav-item dropdown">
+                
+                    <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Menu
+            </a>
+                    <div class="dropdown-menu" aria-labelledby="navDropDownLink">
+                        <a class="dropdown-item" href="#">Working on it</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Working on it</a>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Messages</a>
+                </li>
+                 </ul>
+                
+             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Alerts</a>
+                </li>
+            </ul>
 
-	<div class="headerContent">
-		<div class="menuIcon">
-			<div class="hamburguer"></div>
-			<div class="hamburguer"></div>
-			<div class="hamburguer"></div>
-		</div>
-		<i class="fa fa-envelope" style="font-size: 35px"> </i> <i
-			class="fa fa-bell" style="font-size: 35px"> </i>
-		<div class="user">
-			<div>
-				<ul id="jMenu">
-					<!-- Do not forget the "fNiv" class for the first level links !! -->
-					<security:authorize access="hasRole('ADMIN')">
-						<li><a class="fNiv"><spring:message
-									code="master.page.administrator" /></a>
-							<ul>
-								<%-- 
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>	 
-					--%>
-							</ul></li>
-					</security:authorize>
+            <form id="searchForm" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search route">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
 
-					<security:authorize access="hasRole('CUSTOMER')">
-						<li><a class="fNiv"><spring:message
-									code="master.page.customer" /></a>
-							<ul>
-								<%-- 
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>	 
-					--%>
-							</ul></li>
-					</security:authorize>
+            <ul class="navbar-nav ">
+                <!-- PROFILE DROPDOWN - scrolling off the page to the right -->
+                
+                 <a class="navbar-brand" href="#">
+    <img src="http://www.bobmazzo.com/wp-content/uploads/2009/07/bobmazzoCD.jpg" width="30" height="30" >
+</a>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navDropDownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Profile
+            </a>
+                    <div class="dropdown-menu" aria-labelledby="navDropDownLink">
+                        <a class="dropdown-item" href="#">Working on it!</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Working on it!</a>
+                    </div>
+                </li>
+            </ul>
 
-					<security:authorize access="isAnonymous()">
-						<li><a class="fNiv" href="security/login.do"><spring:message
-									code="master.page.login" /></a></li>
-					</security:authorize>
+        </div>
+    </div>
 
-					<security:authorize access="isAuthenticated()">
-						<li><a class="fNiv"> <spring:message
-									code="master.page.profile" /> (<security:authentication
-									property="principal.username" />)
-						</a>
-							<ul>
-								<%-- 
-					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li> 
-					--%>
-							</ul></li>
-					</security:authorize>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-</div>
+</nav>
 
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+<nav class="navbar navbar-light" style="background-color: #fa3274;">
+    <div class="container">
+  
+
+
+</nav>

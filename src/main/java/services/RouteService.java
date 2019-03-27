@@ -8,10 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import org.decimal4j.util.DoubleRounder;
 import org.json.JSONArray;
@@ -53,10 +50,11 @@ public class RouteService {
 
 		final Driver d = (Driver) this.actorService.findByPrincipal();
 		r.setDriver(d);
-
+		r.setIsCancelled(false);
 		r.setReservations(new ArrayList<Reservation>());
 		r.setControlPoints(new ArrayList<ControlPoint>());
-		r.setIsCancelled(false);
+		r.setDaysRepeat("");
+		r.setEstimatedDuration(1);
 
 		return r;
 	}
@@ -75,34 +73,39 @@ public class RouteService {
 		Assert.notNull(r);
 		Double distance = 0.0;
 		Double price = 0.0;
-		Integer estimatedDuration = 0;
 		final Date date = new Date();
 		Assert.isTrue(r.getDepartureDate().after(date));
 
 		//Assertion that the user modifying this task has the correct privilege.
-		if (r.getId() != 0)
-			Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
 
-		if (r.getId() == 0 || r.getControlPoints().size() < 2) {
-			r.setDestination("NONE");
-			r.setOrigin("NONE");
-		} else if (r.getControlPoints().size() >= 2) {
-			final List<ControlPoint> cps = new ArrayList<ControlPoint>(r.getControlPoints());
-			Collections.sort(cps);
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
 
-			for (int a = 0; a < r.getControlPoints().size() - 1; a++) {
-				final long diffInMillies = cps.get(a + 1).getArrivalTime().getTime() - cps.get(a).getArrivalTime().getTime();
-				estimatedDuration = (int) (estimatedDuration + TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MINUTES));
-				distance = distance + this.getDistance(cps.get(a).getLocation(), cps.get(a + 1).getLocation());
-			}
-			price = this.getPrice(distance);
-
-			r.setOrigin(cps.get(0).getLocation());
-			r.setDestination(cps.get(cps.size() - 1).getLocation());
-		}
+		//Assertion that the avaliable seats  isn't a bigger value than the vehicle capacity
+		Assert.isTrue(r.getAvailableSeats() < r.getVehicle().getSeatsCapacity());
+		//
+		//		if (r.getId() == 0 || r.getControlPoints().size() < 2) {
+		//			r.setDestination("NONE");
+		//			r.setOrigin("NONE");
+		//		} else if (r.getControlPoints().size() >= 2) {
+		//			final List<ControlPoint> cps = new ArrayList<ControlPoint>(r.getControlPoints());
+		//			Collections.sort(cps);
+		//
+		//			for (int a = 0; a < r.getControlPoints().size() - 1; a++) {
+		//				final long diffInMillies = cps.get(a + 1).getArrivalTime().getTime() - cps.get(a).getArrivalTime().getTime();
+		//				estimatedDuration = (int) (estimatedDuration + TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MINUTES));
+		//				distance = distance + this.getDistance(cps.get(a).getLocation(), cps.get(a + 1).getLocation());
+		//			}
+		//			price = this.getPrice(distance);
+		//
+		//			r.setOrigin(cps.get(0).getLocation());
+		//			r.setDestination(cps.get(cps.size() - 1).getLocation());
+		//		}
+		final String origin = r.getOrigin();
+		final String destination = r.getDestination();
+		distance = this.getDistance(origin, destination);
+		price = this.getPrice(distance);
 		r.setPricePerPassenger(price);
 		r.setDistance(distance);
-
 		final Route saved = this.routeRepository.save(r);
 
 		return saved;
