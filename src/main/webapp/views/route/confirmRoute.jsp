@@ -28,19 +28,39 @@
 
 
 
-	<jstl:out value="${msgPrice}" />:
-	<jstl:out value="${route.pricePerPassenger}" />
-	<br />
-	
-	<jstl:out value="${msgDistance}" />:
-	<jstl:out value="${route.distance}"/>
-	<br />
-	
-	
-<a href="route/list.do"><jstl:out value="${confirm}" /></a>
-		
-<spring:url var="deleteUrl" value="route/driver/delete.do">
+<center>
+	<div class="col-sm-10 text-center" style="padding-top: 20px;">
+		<h2>Do you want to confirm this route?</h2>
+	</div>
+</center>
+
+<center>
+	<div class="col-sm-6 text-center" style="padding-top: 20px;">
+		<h4><jstl:out value="${msgPrice}" />:</h4>
+		<h3><span class="badge badge-success"><jstl:out value="${route.pricePerPassenger}" /> &euro;</span></h3>
+		<br />
+	</div>
+</center>
+<center>
+	<div class="col-sm-6 text-center" style="padding-top: 20px;">
+		<h4><jstl:out value="${msgDistance}" />:</h4>
+		<h3><span class="badge badge-primary"><jstl:out value="${route.distance}" /></span></h3>
+		<br />
+	</div>
+</center>
+<center>
+	<div class="col-sm-6 text-center" style="padding-top: 20px;">
+		<a href="route/list.do" class="btn btn-success"><jstl:out value="${confirm}" /></a>
+
+		<spring:url var="deleteUrl" value="route/driver/delete.do">
 			<spring:param name="routeId" value="${route.id}" />
 		</spring:url>
-		<a href="${deleteUrl}" onclick="return confirm('${msgConfirm}')" ><jstl:out value="${cancel}" /></a>
+		<a href="${deleteUrl}" class="btn btn-danger" onclick="return confirm('${msgConfirm}')"><jstl:out
+				value="${cancel}" /></a>
+	</div>
+</center>
+
+
+
+
 
