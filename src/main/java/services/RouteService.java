@@ -122,6 +122,15 @@ public class RouteService {
 		this.routeRepository.save(r);
 	}
 
+	public void delete(final Route r) {
+		Assert.notNull(r);
+
+		//Assertion that the user deleting this task has the correct privilege.
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
+
+		this.routeRepository.delete(r);
+	}
+
 	//	public void delete2(Route route) {
 	//		Assert.notNull(route);
 	//

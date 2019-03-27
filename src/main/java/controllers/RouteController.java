@@ -155,6 +155,7 @@ public class RouteController extends AbstractController {
 
 	@RequestMapping(value = "/driver/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
+		Route saved;
 
 		if (route.getId() != 0)
 			Assert.isTrue(route.getDriver().getId() == this.actorService.findByPrincipal().getId());
@@ -167,12 +168,45 @@ public class RouteController extends AbstractController {
 			result = this.createEditModelAndView(route);
 		} else
 			try {
-				this.routeService.save(route);
-				result = new ModelAndView("redirect:/route/list.do");
+				saved = this.routeService.save(route);
+				result = new ModelAndView("redirect:/route/driver/confirmRoute.do?routeId=" + saved.getId());
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(route, "driver.commit.error");
 			}
+		return result;
+	}
+
+	@RequestMapping(value = "driver/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final Route route, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.routeService.delete(route);
+			result = new ModelAndView("redirect:create.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(route, "route.commit.error");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/driver/confirmRoute", method = RequestMethod.GET)
+	public ModelAndView confirmRoute(@RequestParam final int routeId) {
+		ModelAndView result;
+		Route route;
+		final Driver driver;
+		UserAccount ua;
+
+		ua = LoginService.getPrincipal();
+		driver = (Driver) this.actorService.findByUserAccount(ua);
+		Assert.notNull(driver);
+
+		route = this.routeService.findOne(routeId);
+
+		result = new ModelAndView("route/driver/confirmRoute");
+		result.addObject("route", route);
+		result.addObject("requestURI", "route/driver/confirmRoute.do");
+
 		return result;
 	}
 

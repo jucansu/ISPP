@@ -56,7 +56,7 @@
 			<script type="text/javascript">
 				$(function() {
 					$('#datetimepicker').datetimepicker({
-						format : 'DD/MM/YYYY HH:mm:ss',
+						format : 'DD/MM/YYYY HH:mm',
 						minDate : new Date()
 					});
 				});
@@ -94,15 +94,15 @@
 
 			<div class="form-group col-md-6">
 				<form:label path="maxLuggage">
-					<label> Tamaño equipaje permitido</label>
+					<label> Allowed luggage size</label>
 					<jstl:out value="${maxLuggage}" />:
 		</form:label>
 
 				<form:select path="maxLuggage" class="form-control" required="true">
-					<form:option label="Ninguno" value="NOTHING" />
-					<form:option label="Pequeño" value="SMALL" />
-					<form:option label="Mediano" value="MEDIUM" />
-					<form:option label="Grande" value="BIG" />
+					<form:option label="Nothing" value="NOTHING" />
+					<form:option label="Small" value="SMALL" />
+					<form:option label="Medium" value="MEDIUM" />
+					<form:option label="Big" value="BIG" />
 				</form:select>
 				<form:errors cssClass="error" path="maxLuggage" />
 				<br />
@@ -143,7 +143,9 @@
 
 			<div class="form-group col-md-6 text-center">
 				<input type="submit" name="save" class="btn btn-success"
-					value="<spring:message code="route.save" />" />
+					value="<spring:message code="route.save" />" 
+					onclick="javascript: relativeRedir('route/driver/confirmRoute.do');"
+					/>
 				<jstl:if test="${route.id!=0}">
 					<input type="submit" name="Abort Route"
 						value="<spring:message code="route.abort" />" />
