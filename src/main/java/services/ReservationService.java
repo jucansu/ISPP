@@ -132,6 +132,24 @@ public class ReservationService {
 
 		return result;
 	}
+	
+	// Esta función solo se debe llamar desde RouteService.cancel(route), ya que las
+	// comprobaciones se hacen en el cancel y las condiciones del autoReject no son
+	// exactamente las mismas que cuando un driver rechaza una solicitud manualmente
+	public void autoReject(Route route) {
+		Assert.notNull(route);
+		
+		Collection<Reservation> reservations = findReservationsByRouteAndStatusPendingOrAccepted(route.getId());
+		
+		if (!reservations.isEmpty()) {
+			for (Reservation r : reservations) {
+				r.setStatus(ReservationStatus.REJECTED);
+			}
+			
+			reservationRepository.save(reservations);
+			reservationRepository.flush();
+		}
+	}
 
 	//TODO: Puede que no esté lo bastante pulido, pero como lo mio (Jesus) y Juanma es sobre Crear Reservas pues xd
 	public void delete(final Reservation reservation) {
@@ -185,6 +203,16 @@ public class ReservationService {
 
 		result = this.reservationRepository.findReservationsByRoute(routeId);
 
+		return result;
+	}
+	
+	public Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(int routeId) {
+		Assert.isTrue(routeId != 0);
+		
+		Collection<Reservation> result;
+		
+		result = reservationRepository.findReservationsByRouteAndStatusPendingOrAccepted(routeId, ReservationStatus.PENDING, ReservationStatus.ACCEPTED);
+		
 		return result;
 	}
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.Reservation;
+import domain.ReservationStatus;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
@@ -17,4 +18,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
 	@Query("select r from Reservation r where r.route.id=?1")
 	Collection<Reservation> findReservationsByRoute(int routeId);
+	
+	@Query("select r from Reservation r where r.route.id=?1 and (r.status=?2 or r.status=?3)")
+	Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(int routeId, ReservationStatus pending, ReservationStatus accepted);
+	
 }

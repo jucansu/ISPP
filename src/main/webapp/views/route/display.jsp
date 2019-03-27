@@ -10,16 +10,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<dl>
-	<spring:message code="route.distance" var="audMoment"/>
-	<dt><jstl:out value="${audMoment}" /></dt>
-	<dd><jstl:out value="${route.distance}"/> </dd>
 	
-	<spring:message code="route.price" var="audTitle"/>
-	<dt><jstl:out value="${audTitle}" /></dt>
-	<dd><jstl:out value="${route.pricePerPassenger}"/> </dd>
-	
-	
-	
-</dl>
-
+	<jstl:out value="${route.id}"/><br />
+	<jstl:out value="${route.origin}"/><br />
+	<jstl:out value="${route.destination}"/><br />
+	<jstl:out value="${route.departureDate}"/><br />
+	<jstl:out value="${route.isCancelled}"/><br />
