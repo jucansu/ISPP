@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.TreeSet;
 
 import org.decimal4j.util.DoubleRounder;
 import org.json.JSONArray;
@@ -20,13 +22,14 @@ import org.springframework.util.Assert;
 
 import repositories.RouteRepository;
 import domain.ControlPoint;
-import domain.Driver;
 import domain.Finder;
 import domain.LuggageSize;
 import domain.Reservation;
 import domain.ReservationStatus;
 import domain.Route;
 import domain.VehicleType;
+import forms.ControlPointFormCreate;
+import forms.RouteForm;
 
 @Service
 @Transactional
@@ -35,12 +38,15 @@ public class RouteService {
 	//Managed repository
 
 	@Autowired
-	private RouteRepository	routeRepository;
+	private RouteRepository		routeRepository;
 
 	//Supporting services
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+
+	@Autowired
+	private ControlPointService	controlPointService;
 
 
 	//Simple CRUD methods
@@ -48,17 +54,16 @@ public class RouteService {
 	public Route create() {
 		final Route r = new Route();
 
-		final Driver d = (Driver) this.actorService.findByPrincipal();
-		r.setDriver(d);
+		//		final Driver d = (Driver) this.actorService.findByPrincipal();
+		//		r.setDriver(d);
 		r.setIsCancelled(false);
 		r.setReservations(new ArrayList<Reservation>());
-		r.setControlPoints(new ArrayList<ControlPoint>());
+		r.setControlPoints(new TreeSet<ControlPoint>());
 		r.setDaysRepeat("");
 		r.setEstimatedDuration(1);
 
 		return r;
 	}
-
 	public Route findOne(final int id) {
 		Assert.notNull(id);
 
@@ -238,4 +243,41 @@ public class RouteService {
 		return result;
 	}
 
+	// Construct
+
+	public RouteForm construct(final Route route) {
+		final RouteForm routeForm = new RouteForm();
+		routeForm.setId(route.getId());
+		routeForm.setAvailableSeats(route.getAvailableSeats());
+		if (route.getControlPoints().isEmpty()) {
+			routeForm.setOrigin(this.controlPointService.constructCreate(this.controlPointService.create()));
+			final ControlPoint cp = this.controlPointService.create();
+			cp.setArrivalOrder(1);
+			routeForm.setDestination(this.controlPointService.constructCreate(cp));
+			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
+		}
+		else {
+			final LinkedList<ControlPoint> cps = new LinkedList<ControlPoint>(route.getControlPoints());
+			routeForm.setOrigin(this.controlPointService.constructCreate(cps.removeFirst()));
+			routeForm.setDestination(this.controlPointService.constructCreate(cps.removeLast()));
+			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
+
+			for (final ControlPoint cp : cps) {
+				routeForm.getControlpoints().add(this.controlPointService.constructCreate(cp));
+			}
+		}
+		routeForm.setDepartureDate(route.getDepartureDate());
+		routeForm.setDetails(route.getDetails());
+		routeForm.setDistance(route.getDistance());
+		routeForm.setMaxLuggage(route.getMaxLuggage());
+		routeForm.setPricePerPassenger(route.getPricePerPassenger());
+		routeForm.setVehicle(route.getVehicle());
+
+		return routeForm;
+	}
+	
+	public Route reconstruct(RouteForm routeForm) {
+		return null;
+	}
+	
 }

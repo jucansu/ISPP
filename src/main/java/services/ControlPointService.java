@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.springframework.util.Assert;
 
 import repositories.ControlPointRepository;
 import domain.ControlPoint;
-import domain.Driver;
 import domain.Route;
+import forms.ControlPointFormCreate;
 
 @Service
 @Transactional
@@ -36,24 +37,33 @@ public class ControlPointService {
 
 	//Simple CRUD methods
 
-	public ControlPoint create(final int routeId) {
-
+	public ControlPoint create() {
 		final ControlPoint c = new ControlPoint();
-		
-		final Route route = this.routeService.findOne(routeId);
-		c.setRoute(route);
-		
-		Driver driver = (Driver) this.actorService.findByPrincipal();
-		Assert.isTrue(route.getDriver().getId() == driver.getId());
-		
-		if(route.getControlPoints().isEmpty()){
-			c.setArrivalOrder(0);
-		} else{
-			c.setArrivalOrder(route.getControlPoints().size());
-		}
+		c.setArrivalTime(new Date());
 
 		return c;
 	}
+
+	/*
+	 * public ControlPoint create(final int routeId) {
+	 * 
+	 * final ControlPoint c = new ControlPoint();
+	 * 
+	 * final Route route = this.routeService.findOne(routeId);
+	 * c.setRoute(route);
+	 * 
+	 * Driver driver = (Driver) this.actorService.findByPrincipal();
+	 * Assert.isTrue(route.getDriver().getId() == driver.getId());
+	 * 
+	 * if(route.getControlPoints().isEmpty()){
+	 * c.setArrivalOrder(0);
+	 * } else{
+	 * c.setArrivalOrder(route.getControlPoints().size());
+	 * }
+	 * 
+	 * return c;
+	 * }
+	 */
 
 	public Collection<ControlPoint> findAll() {
 		return this.controlPointRepository.findAll();
@@ -70,25 +80,22 @@ public class ControlPointService {
 
 		//Assertion that the user deleting this note has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == controlPoint.getRoute().getDriver().getId());
-		Route route = controlPoint.getRoute();
-		Collection<ControlPoint> controls = route.getControlPoints();
-		
-		List<ControlPoint> cps = new ArrayList<ControlPoint>(controls);
+		final Route route = controlPoint.getRoute();
+		final Collection<ControlPoint> controls = route.getControlPoints();
+
+		final List<ControlPoint> cps = new ArrayList<ControlPoint>(controls);
 		cps.add(controlPoint);
 		Collections.sort(cps);
-		
-		if(cps.size() <= 1 || cps.indexOf(controlPoint) != 0){
+
+		if (cps.size() <= 1 || cps.indexOf(controlPoint) != 0)
 			controlPoint.setDistance(0.0);
-		} else {
-			controlPoint.setDistance(routeService.getDistance(cps.get(cps.indexOf(controlPoint)-1).getLocation(), controlPoint.getLocation()));
-		}
-		
+		else
+			controlPoint.setDistance(this.routeService.getDistance(cps.get(cps.indexOf(controlPoint) - 1).getLocation(), controlPoint.getLocation()));
+
 		final ControlPoint saved = this.controlPointRepository.save(controlPoint);
 		controls.add(saved);
-		
+
 		this.routeService.save(route);
-		
-		
 
 		return saved;
 	}
@@ -100,46 +107,57 @@ public class ControlPointService {
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == controlPoint.getRoute().getDriver().getId());
 
 		this.controlPointRepository.delete(controlPoint);
-		
-		Route route = controlPoint.getRoute();
-		Collection<ControlPoint> controls = route.getControlPoints();
+
+		final Route route = controlPoint.getRoute();
+		final Collection<ControlPoint> controls = route.getControlPoints();
 		controls.remove(controlPoint);
-		
-		if(route.getControlPoints().size()>=2){
-		List<ControlPoint> cps = new ArrayList<ControlPoint>(controls);
-		Collections.sort(cps);
-		int order = 0;
-		for(ControlPoint a : cps){
-			a.setArrivalOrder(order);
-			order++;
-			this.controlPointRepository.save(a);
+
+		if (route.getControlPoints().size() >= 2) {
+			final List<ControlPoint> cps = new ArrayList<ControlPoint>(controls);
+			Collections.sort(cps);
+			int order = 0;
+			for (final ControlPoint a : cps) {
+				a.setArrivalOrder(order);
+				order++;
+				this.controlPointRepository.save(a);
 			}
 		}
-		
+
 		this.routeService.save(route);
 
 	}
-	
-	
-	public Double getDistanceTwoPoints(ControlPoint start, ControlPoint end , Route c){
+
+	public Double getDistanceTwoPoints(final ControlPoint start, final ControlPoint end, final Route c) {
 		Assert.isTrue(c.getControlPoints().contains(start) && c.getControlPoints().contains(end));
-		List<ControlPoint> cps = new ArrayList<ControlPoint>(c.getControlPoints());
+		final List<ControlPoint> cps = new ArrayList<ControlPoint>(c.getControlPoints());
 		Collections.sort(cps);
 		Double distance = 0.0;
 		int ok = 0;
-		for(ControlPoint a : cps){
-			if(a.equals(start)|| a.equals(end)){
-				if(ok >= 1){
+		for (final ControlPoint a : cps)
+			if (a.equals(start) || a.equals(end)) {
+				if (ok >= 1)
 					distance = distance + a.getDistance();
-				}
 				ok++;
-				if(ok < 2){
+				if (ok < 2)
 					break;
-				}
 			}
-		}
 		return distance;
-		
+
+	}
+
+	public ControlPointFormCreate constructCreate(final ControlPoint controlPoint) {
+		final ControlPointFormCreate form = new ControlPointFormCreate();
+		form.setLocation(controlPoint.getLocation());
+		form.setArrivalOrder(controlPoint.getArrivalOrder());
+		if (controlPoint.getRoute() == null) {
+			form.setEstimatedTime(0);
+		}
+		else {
+			// TODO
+			form.setEstimatedTime(0);
+		}
+		form.setDistance(controlPoint.getDistance());
+		return form;
 	}
 
 }
