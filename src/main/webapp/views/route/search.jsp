@@ -32,7 +32,7 @@
 							<label for="inputPassword4"> Departure date:</label>
 							<div class="input-group date" id="datetimepicker4"
 								data-target-input="nearest">
-								<input type="text" class="form-control datetimepicker-input"
+								<form:input path="departureDate" type="text" class="form-control datetimepicker-input"
 									data-target="#datetimepicker4" />
 								<div class="input-group-append" data-target="#datetimepicker4"
 									data-toggle="datetimepicker">
@@ -46,7 +46,7 @@
 					<script type="text/javascript">
 						$(function() {
 							$('#datetimepicker4').datetimepicker({
-								format : 'DD/MM/YYYY HH:mm:ss'
+								format : 'DD/MM/YYYY HH:mm'
 							});
 						});
 					</script>

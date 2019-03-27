@@ -131,8 +131,8 @@ public class RouteController extends AbstractController {
 		ModelAndView result;
 		Collection<Route> routes;
 
-		//		routes = this.routeService.searchRoutes(finder);
-		routes = this.routeService.findAll();
+		routes = this.routeService.searchRoutes(finder);
+		//routes = this.routeService.findAll();
 
 		result = new ModelAndView("route/searchResults");
 		result.addObject("routes", routes);

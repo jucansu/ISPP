@@ -79,6 +79,8 @@ public class Finder {
 		this.music = music;
 	}
 
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}

@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 
 import org.decimal4j.util.DoubleRounder;
+import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -185,9 +187,14 @@ public class RouteService {
 	//Finder 
 
 	public Collection<Route> searchRoutes(final Finder finder) {
+		Assert.notNull(finder);
 		Collection<Route> result;
+		final Collection<Route> acum;
+		Collection<Route> allRoutes;
 
 		final Date departureDate = finder.getDepartureDate();
+		final LocalTime timeStart = finder.getOriginTime();
+		final LocalTime timeEnds = finder.getDestinationTime();
 		final String origin = finder.getOrigin();
 		final String destination = finder.getDestination();
 		final VehicleType vehicleType = finder.getVehicleType();
@@ -198,12 +205,53 @@ public class RouteService {
 		final Boolean smoke = finder.getSmoke();
 		final Boolean music = finder.getMusic();
 
-		//result = this.routeRepository.searchRoutes(null, null, null, null, null, null, pets, childs, smoke, music);
-		result = this.routeRepository.findAll();
+		//Diferenciamos entre si está todo el formulario a null o no, si es así devolvemos todas las rutas
+
+		if (departureDate == null && timeStart == null && timeEnds == null && (origin == null || origin.isEmpty())
+			&& (destination == null || destination.isEmpty() && vehicleType == null && availableSeats == null && luggageSize == null && pets == null && childs == null && smoke == null && music == null)) {
+
+			allRoutes = new HashSet<Route>();
+			allRoutes = this.routeRepository.findAll();
+
+			Assert.notNull(allRoutes);
+			result = allRoutes;
+		} else { //En el caso de que haya algo que no sea null, se empieza el filtraje
+
+			acum = new HashSet<Route>();
+
+			//Primero vamos a filtrar por fecha
+
+			if (departureDate != null) {
+
+				allRoutes = new HashSet<Route>();
+				allRoutes = this.routeRepository.searchRoutes(origin, destination, vehicleType, availableSeats, luggageSize, pets, childs, smoke, music);
+
+				for (final Route r : allRoutes)
+					if (r.getDepartureDate().equals(departureDate))
+						acum.add(r);
+
+			}
+
+			//Vamos a filtrar primero por el rango de tiempo en el que tienen que estar las rutas
+
+			if (timeStart != null && timeEnds == null)
+				acum.addAll(this.routeRepository.findRoutesByTimeStart(timeStart));
+			else if (timeStart == null && timeEnds != null)
+				acum.addAll(this.routeRepository.findRoutesByTimeEnd(timeEnds));
+			else if (timeStart != null && timeEnds != null)
+				acum.addAll(this.routeRepository.findRoutesByTimeRange(timeStart, timeEnds));
+
+			//Ahora añadimos el resto de filtros
+
+			result = acum;
+
+		}
+
+		//result = this.routeRepository.searchRoutes(departureDate);
+		//result = this.routeRepository.findAll(); 
 
 		return result;
 	}
-
 	public Collection<Route> findActiveRoutesByPassenger(final int passengerId) {
 		Assert.isTrue(passengerId != 0);
 
