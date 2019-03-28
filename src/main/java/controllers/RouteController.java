@@ -88,11 +88,16 @@ public class RouteController extends AbstractController {
 		ModelAndView result;
 		Collection<Route> routes;
 
-		//		routes = this.routeService.searchRoutes(finder);
-		routes = this.routeService.findAll();
+		try {
+			routes = this.routeService.searchRoutes(finder);
+			result = new ModelAndView("route/searchResults");
+			result.addObject("routes", routes);
 
-		result = new ModelAndView("route/searchResults");
-		result.addObject("routes", routes);
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.searchView();
+			result.addObject(finder);
+		}
 
 		return result;
 	}
