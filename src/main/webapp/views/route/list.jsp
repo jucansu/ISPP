@@ -69,5 +69,5 @@
 
 
 <security:authorize access="hasRole('DRIVER')">
-	<a href="route/driver/create.do"> <spring:message code="route.create"/></a>
+	<a href="route/driver/create.do" class="btn btn-success btn-circle btn-xl"><i class="fas fa-plus fa-2x"></i></a>
 </security:authorize>
