@@ -7,15 +7,20 @@
  * http://www.tdg-seville.info/License.html
  * 
  */
-
+@import url(https://fonts.googleapis.com/css?family=Poppins);
 body{
 	width: 80%;
 	margin: 0 auto;
+	font-family: "Poppins", sans-serif;
 }
 
 .error {
 	color: red;
 	font-weight: bolder;
+}
+
+.text{
+	font-family: "Poppins", sans-serif;
 }
 
 .message {

@@ -104,6 +104,7 @@
 					<form:option label="Medium" value="MEDIUM" />
 					<form:option label="Big" value="BIG" />
 				</form:select>
+			
 				<form:errors cssClass="error" path="maxLuggage" />
 				<br />
 			</div>

@@ -52,7 +52,7 @@ public class Route extends DomainEntity {
 		return this.daysRepeat;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
 		return this.departureDate;
