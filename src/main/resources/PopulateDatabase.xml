@@ -519,6 +519,7 @@
 		<property name="smoke" value="true" />
 		<property name="music" value="false" />
 		<property name="childs" value="true" />
+		<property name="mediumStars" value="3.5"/>
 
 		<property name="creditCard" ref="creditCard1" />
 		<property name="userAccount" ref="userAccount11" />
@@ -1065,7 +1066,8 @@
 
 
 	<bean id="route5" class="domain.Route">
-		<property name="departureDate" value="14/11/2019 21:28" />
+	<!--<property name="departureDate" value="14/11/2019 21:28" />  -->	
+		<property name="departureDate" value="11/14/2019 21:28" />
 		<property name="origin" value="Los Arcos, Avenida de Andalucía, Sevilla" />
 		<property name="destination"
 			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
@@ -2212,7 +2214,7 @@
 		<property name="destination" value="Camas, Sevilla" />
 		<property name="seat" value="1" />
 		<property name="price" value="1.1" />
-		<property name="status" value="CANCELLED" />
+		<property name="status" value="PENDING" />
 		
 		<property name="passenger" ref="passenger1" />
 		<property name="route" ref="route2" />

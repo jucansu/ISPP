@@ -69,6 +69,8 @@ public class Actor extends DomainEntity {    //Attributes
 
 	@Range(min = (long) 0.0, max = (long) 5.0)
 	public Double getMediumStars() {
+		if (this.mediumStars == null)
+			this.mediumStars = 0.0;
 		return this.mediumStars;
 	}
 

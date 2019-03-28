@@ -1,6 +1,9 @@
 
 package controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -20,9 +23,13 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.RouteService;
+import domain.Actor;
+import domain.Administrator;
 import domain.Driver;
 import domain.Finder;
 import domain.Passenger;
+import domain.Reservation;
+import domain.ReservationStatus;
 import domain.Route;
 
 @Controller
@@ -100,20 +107,73 @@ public class RouteController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int routeID) {
-
+	public ModelAndView display(@RequestParam final int routeId) {
 		ModelAndView result;
 		Route route;
+		Collection<Reservation> reservations, displayableReservations;
+		Integer occupiedSeats;
+		UserAccount ua;
+		Actor actor;
+		Integer rol = 0;
 
-		route = this.routeService.findOne(routeID);
+		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
 		result = new ModelAndView("route/display");
 
+		reservations = route.getReservations();
+		displayableReservations = new ArrayList<Reservation>();
+		occupiedSeats = 0;
+		ua = LoginService.getPrincipal();
+		actor = this.actorService.findByUserAccount(ua);
+		Assert.notNull(actor);
+
+		if (reservations != null && reservations.size() > 0)
+			for (final Reservation res : reservations) {
+				if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
+					occupiedSeats++;		//Contamos asientos ocupados
+					displayableReservations.add(res);	//añadimos las reservas aceptadas
+				}
+				if (actor instanceof Driver) {
+					final Driver driver = (Driver) actor;
+					if (route.getDriver().equals(driver)) {				//Si el conductor logeado es el de la ruta...
+						rol = 1;							//...se considerará como "conductor de la ruta"...
+						if (route.getDepartureDate().after(new Date()))	// ...y además si la ruta no ha empezado...
+							if (res.getStatus().equals(ReservationStatus.PENDING))
+								displayableReservations.add(res);	//...añadimos tambien reservas pendientes
+					}
+				}
+
+				if (actor instanceof Passenger) {					//Si el actor logueado es pasajero...
+					final Passenger passenger = (Passenger) actor;
+					for (final Reservation r : reservations)
+						//...y ha hecho alguna reserva en la ruta
+						if (r.getPassenger().equals(passenger)) {
+							rol = 2;		//...se considerara como "pasajero con reserva" 
+							result.addObject("reservation", r);
+							break;
+						}
+				}
+
+				if (actor instanceof Administrator)
+					rol = 3;
+			}
+
+		//----proceso para conseguir la fecha de llegada---
+		final Calendar date = Calendar.getInstance();
+		date.setTime(route.getDepartureDate());
+		final long departureDateMilis = date.getTimeInMillis();
+		final Date arrivalDate = new Date(departureDateMilis + route.getEstimatedDuration() * 60000);
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+		sdf.format(arrivalDate);
+		//------------------------------------------------
 		result.addObject("route", route);
+		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
+		result.addObject("arrivalDate", sdf.format(arrivalDate));
+		result.addObject("reservations", displayableReservations);
+		result.addObject("rol", rol);
 
 		return result;
 	}
-
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public ModelAndView searchView() {
 		final ModelAndView result;

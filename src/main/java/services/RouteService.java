@@ -217,9 +217,6 @@ public class RouteService {
 			date.setTime(r.getDepartureDate());
 			final long departureDateMilis = date.getTimeInMillis();
 			final Date arrivalDate = new Date(departureDateMilis + (r.getEstimatedDuration() * 60000));
-			System.out.println("--------------");
-			System.out.println(r.getDepartureDate() + "->" + arrivalDate);
-
 			if (arrivalDate.after(now))
 				result.add(r);
 		}
