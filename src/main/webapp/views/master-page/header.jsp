@@ -14,59 +14,134 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<head>
+<link rel="stylesheet" type="text/css"
+    href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+<script
+    src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+ "palette": {
+   "popup": {
+     "background": "#b143dd"
+   },
+   "button": {
+     "background": "#ffa513"
+   }
+ },
+ "theme": "edgeless",
+ "position": "bottom-right",
+      "content": {
+            "href": "welcome/termsAndConditions.do"
+          }
+})});
+</script>
+</head>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<security:authorize access="isAuthenticated()">
+<div class="logo">
+		<img src="images/logoicon.png"/>
+	</div>
+	<div class="detalles-usuario">
+		<div class="messages">
+			<a class="nav-link" href="#"> <i class="far fa-envelope"> <span
+					class="badge badge-danger">11</span>
+			</i> Messages
+			</a>
+		</div>
+		<div class="notificaciones">
+		<a class="nav-link" href="#"> <i class="far fa-bell"> 
+			</i> Notifications
+			</a>
+		</div>
+		<div class="perfil">
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="far fa-user-circle"></i>
+          </i>
+          <spring:message
+						code="master.page.profile" /> (<security:authentication
+						property="principal.username" />)
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Visit my profile</a>
+          <a class="dropdown-item" href="#">Configuration</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a>
+        </div>
+		</div>
+	</div>
+	<nav class="navbar navbar-icon-top navbar-expand-lg" style="background-color: #fa3274;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+     
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+          </i>
+          Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> 
+      <li class="nav-item">
+        
+      </li>
+    
+    </ul>
+    <ul class="navbar-nav ">
+
+      
+     <li class="nav-item dropdown">
+        
+      </li>
+      
+    <security:authorize access="hasRole('PASSENGER')">
+    <div>
+    <li class="nav-item">
+        <a class="nav-link" href="/../route/search.do">
+          <i class="fa fa-search">
+          </i>
+         
+        </a>
+      </li>
+    </div>
+    </security:authorize>
+  </div>
+  
+      <security:authorize access="hasRole('DRIVER')">
+    <div>
+   
+        <a class="nav-link" href="/../route/create.do">
+          <i class="fa fa-plus">
+          </i>
+         
+        </a>
+  
+    </div>
+    </security:authorize>
+  </div>
+  
+</nav>
+
+<nav class="navbar navbar-light" style="background-color: #fa3274;">
+    <div class="container">
+  
 
 
-<div>
-	<a href="#"><img src="images/logo.png" alt="Acme-Testing., Inc." /></a>
-</div>
-
-
-<div>
-	<ul id="jMenu">
-		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message code="master.page.administrator.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message code="master.page.customer.action.2" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-			<li>
-				<a class="fNiv"> 
-					<spring:message code="master.page.profile" /> 
-			        (<security:authentication property="principal.username" />)
-				</a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="profile/action-1.do"><spring:message code="master.page.profile.action.1" /></a></li>
-					<li><a href="profile/action-2.do"><spring:message code="master.page.profile.action.2" /></a></li>
-					<li><a href="profile/action-3.do"><spring:message code="master.page.profile.action.3" /></a></li>					
-					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
-				</ul>
-			</li>
-		</security:authorize>
-	</ul>
-</div>
-
-<div>
-	<a href="?language=en">en</a> | <a href="?language=es">es</a>
-</div>
-
+</nav>
+</security:authorize>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

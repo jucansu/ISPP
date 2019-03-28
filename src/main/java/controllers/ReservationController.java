@@ -1,5 +1,5 @@
 /*
- * ProfileController.java
+ * ReservationController.java
  * 
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/profile")
-public class ProfileController extends AbstractController {
+@RequestMapping("/reservation")
+public class ReservationController extends AbstractController {
 
-	// Action-1 ---------------------------------------------------------------		
+	// Display ---------------------------------------------------------------		
 
-	@RequestMapping("/action-1")
+	@RequestMapping("/display")
 	public ModelAndView action1() {
 		ModelAndView result;
 
-		result = new ModelAndView("profile/action-1");
+		result = new ModelAndView("reservation/action-1");
 
 		return result;
 	}
@@ -35,7 +35,7 @@ public class ProfileController extends AbstractController {
 	public ModelAndView action2() {
 		ModelAndView result;
 
-		result = new ModelAndView("profile/action-2");
+		result = new ModelAndView("reservation/action-2");
 
 		return result;
 	}

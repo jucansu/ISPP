@@ -13,20 +13,21 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Reserve extends DomainEntity {
+public class Reservation extends DomainEntity {
 
 	//Attributes
 
-	private LuggageSize	luggage;
-	private Double		price;
-	private String		origin;
-	private String		destination;
-	private Integer		seat;
+	private LuggageSize			luggage;
+	private Double				price;
+	private String				origin;
+	private String				destination;
+	private Integer				seat;
+	private ReservationStatus	status;
 
 	//Relationships
 
-	private Passenger	passenger;
-	private Route		route;
+	private Passenger			passenger;
+	private Route				route;
 
 
 	//Getters
@@ -53,7 +54,7 @@ public class Reserve extends DomainEntity {
 		return this.luggage;
 	}
 
-	@NotBlank
+	@NotNull
 	@Min(value = 1)
 	public Integer getSeat() {
 		return this.seat;
@@ -71,6 +72,11 @@ public class Reserve extends DomainEntity {
 	@ManyToOne(optional = false)
 	public Passenger getPassenger() {
 		return this.passenger;
+	}
+	@NotNull
+	@Valid
+	public ReservationStatus getStatus() {
+		return this.status;
 	}
 
 	//Setters
@@ -101,6 +107,10 @@ public class Reserve extends DomainEntity {
 
 	public void setPassenger(final Passenger passenger) {
 		this.passenger = passenger;
+	}
+
+	public void setStatus(final ReservationStatus status) {
+		this.status = status;
 	}
 
 }

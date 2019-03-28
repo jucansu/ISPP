@@ -1,0 +1,43 @@
+@CHARSET "ISO-8859-1";
+
+.active-routes{
+	color: white; 
+	text-transform: uppercase;
+    position: relative;
+    top: -46px;
+}
+
+.route{
+	padding: 10px 0px;
+	border-bottom: 3px solid #ffa513;
+}
+
+.to:after {
+	content:'';
+	padding: 2px;
+    height: 2px;
+    width: 2px;
+    transform: rotate(45deg);
+	border-right: 2px solid black;
+	border-top: 2px solid black;
+}
+/* .to:before{
+	content: '';
+	position: relative;
+	width: 3px;
+	padding: 2px;
+	background-color: black;
+} */
+
+.origin, .destination{
+	margin: 0 5px;
+	font-weight: bold;
+	color: black;
+}
+/* modificar hover enlace? */
+
+.endList{
+	display: flex;
+	justify-content: center;
+}
+

@@ -15,10 +15,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -30,78 +27,80 @@ public class Route extends DomainEntity {
 	private Date						departureDate;
 	private String						origin;
 	private String						destination;
-	private Integer						stimatedDuration;
+	private Integer						estimatedDuration;
 	private String						daysRepeat;
-	private Integer						avaliableSeats;
+	private Integer						availableSeats;
 	private Double						distance;
 	private Double						pricePerPassenger;
 	private String						details;
-	private LuggageSize					maxLugagge;
+	private LuggageSize					maxLuggage;
+	private Boolean						isCancelled;
 
 	//Relationships
 
 	private Driver						driver;
+	private Vehicle						vehicle;
 	private Collection<ControlPoint>	controlPoints;
-	private Collection<Reserve>			reserves;
+	private Collection<Reservation>		reservations;
 
 
 	//Getter
 
-	@NotBlank
-	@Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY")
+	//@NotBlank
+	//@Pattern(regexp = "MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY|NOTHING")
 	public String getDaysRepeat() {
 		return this.daysRepeat;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}
 
-	@NotBlank
 	public String getOrigin() {
 		return this.origin;
 	}
 
-	@NotBlank
 	public String getDestination() {
 		return this.destination;
 	}
 
 	@NotNull
 	@Min(value = 1)
-	public Integer getStimatedDuration() {
-		return this.stimatedDuration;
+	public Integer getEstimatedDuration() {
+		return this.estimatedDuration;
 	}
 
 	@Min(value = 0)
-	@Digits(fraction = 2, integer = 4)
+	@Digits(fraction = 2, integer = 8)
 	public Double getDistance() {
 		return this.distance;
 	}
 	@NotNull
 	@Min(value = 1)
-	public Integer getAvaliableSeats() {
-		return this.avaliableSeats;
+	public Integer getAvailableSeats() {
+		return this.availableSeats;
 	}
 
-	@NotNull
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;
 	}
 
-	@NotBlank
 	public String getDetails() {
 		return this.details;
 	}
 
 	@Valid
 	@NotNull
-	public LuggageSize getMaxLugagge() {
-		return this.maxLugagge;
+	public LuggageSize getMaxLuggage() {
+		return this.maxLuggage;
+	}
+
+	@NotNull
+	public Boolean getIsCancelled() {
+		return this.isCancelled;
 	}
 
 	@Valid
@@ -113,16 +112,21 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@NotNull
+	@ManyToOne(optional = false)
+	public Vehicle getVehicle() {
+		return this.vehicle;
+	}
+
+	@Valid
 	@OneToMany(mappedBy = "route")
 	public Collection<ControlPoint> getControlPoints() {
 		return this.controlPoints;
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "route")
-	public Collection<Reserve> getReserves() {
-		return this.reserves;
+	public Collection<Reservation> getReservations() {
+		return this.reservations;
 	}
 
 	//Setter
@@ -139,8 +143,8 @@ public class Route extends DomainEntity {
 		this.destination = destination;
 	}
 
-	public void setStimatedDuration(final Integer stimatedDuration) {
-		this.stimatedDuration = stimatedDuration;
+	public void setEstimatedDuration(final Integer estimatedDuration) {
+		this.estimatedDuration = estimatedDuration;
 	}
 
 	public void setDaysRepeat(final String daysRepeat) {
@@ -158,12 +162,12 @@ public class Route extends DomainEntity {
 	public void setControlPoints(final Collection<ControlPoint> controlPoints) {
 		this.controlPoints = controlPoints;
 	}
-	public void setReserves(final Collection<Reserve> reserves) {
-		this.reserves = reserves;
+	public void setReservations(final Collection<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
-	public void setAvaliableSeats(final Integer avaliableSeats) {
-		this.avaliableSeats = avaliableSeats;
+	public void setAvailableSeats(final Integer availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	public void setPricePerPassenger(final Double pricePerPassenger) {
@@ -174,8 +178,16 @@ public class Route extends DomainEntity {
 		this.details = details;
 	}
 
-	public void setMaxLugagge(final LuggageSize maxLugagge) {
-		this.maxLugagge = maxLugagge;
+	public void setMaxLuggage(final LuggageSize maxLuggage) {
+		this.maxLuggage = maxLuggage;
+	}
+
+	public void setIsCancelled(final Boolean isCancelled) {
+		this.isCancelled = isCancelled;
+	}
+
+	public void setVehicle(final Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 
 }

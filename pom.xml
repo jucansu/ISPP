@@ -131,6 +131,12 @@
 			<artifactId>spring-context</artifactId>
 			<version>4.0.0.RELEASE</version>
 		</dependency>
+		
+		<dependency>
+   			 <groupId>org.json</groupId>
+    		<artifactId>json</artifactId>
+    		<version>20180813</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -311,6 +317,12 @@
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>1.7.4</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.decimal4j</groupId>
+    		<artifactId>decimal4j</artifactId>
+    		<version>1.0.3</version>
 		</dependency>
 
 	</dependencies>
