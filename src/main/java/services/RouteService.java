@@ -246,21 +246,37 @@ public class RouteService {
 				if ((r.getIsCancelled() == false) && (r.getAvailableSeats() >= availableSeats || availableSeats == null) && (r.getMaxLuggage().equals(luggageSize) || luggageSize == null) && (r.getDriver().getChilds() == childs)
 					&& (r.getDriver().getSmoke() == smoke) && (r.getDriver().getMusic() == music) && (r.getDriver().getPets() == pets) && (r.getOrigin().toLowerCase().contains(origin.toLowerCase()) || origin.isEmpty())
 					&& (r.getDestination().toLowerCase().contains(destination.toLowerCase()) || destination.isEmpty()) && (r.getVehicle().getType().equals(vehicleType) || vehicleType == null)
-					&& (((rutaC.get(Calendar.DAY_OF_YEAR) == departureDateC.get(Calendar.DAY_OF_YEAR)) && (rutaC.get(Calendar.YEAR) == departureDateC.get(Calendar.YEAR))) || departureDate == null))
-					if ((timeEnds == null) && (rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()))
-						acum.add(r);
-					else if ((timeEnds == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
-						acum.add(r);
-					else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
-						acum.add(r);
-					else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
-						acum.add(r);
-					else if ((rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
-						acum.add(r);
-					else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
-						acum.add(r);
-					else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
-						acum.add(r);
+					&& (((rutaC.get(Calendar.DAY_OF_YEAR) == departureDateC.get(Calendar.DAY_OF_YEAR)) && (rutaC.get(Calendar.YEAR) == departureDateC.get(Calendar.YEAR))) || departureDate == null)) {
+
+					LocalTime departureTime = LocalTime.fromDateFields(r.getDepartureDate());
+
+					if (timeStart != null && departureTime.isBefore(timeStart)) {
+						continue;
+					}
+
+					if (timeEnds != null && departureTime.isAfter(timeEnds)) {
+						continue;
+					}
+
+					acum.add(r);
+
+				}
+
+				//				if ((timeEnds != null) && (rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()))
+				//
+				//					acum.add(r);
+				//				else if ((timeEnds == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
+				//					acum.add(r);
+				//				else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
+				//					acum.add(r);
+				//				else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
+				//					acum.add(r);
+				//				else if ((rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
+				//					acum.add(r);
+				//				else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
+				//					acum.add(r);
+				//				else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
+				//					acum.add(r);
 
 			}
 
