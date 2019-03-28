@@ -38,9 +38,10 @@ public class ReservationService {
 	@Autowired
 	private RouteService			routeService;
 
+	@Autowired
+	private PassengerService		passengerService;
 
-	//	@Autowired
-	//	private PassengerService		passengerService;	//TODO: a espera de que se cree
+
 	//Constructor
 	public ReservationService() {
 		super();
@@ -116,6 +117,12 @@ public class ReservationService {
 		//---------------------------------------------------------------------------------
 		Assert.isTrue(lastFiveMinutes.after(new Date()));
 
+		if (reservation.getStatus() == ReservationStatus.ACCEPTED) {
+
+			route.setAvailableSeats(route.getAvailableSeats() - reservation.getSeat());
+
+		}
+
 		//Al guardarse la reserva se añade a la lista de reservas de la ruta
 		reservationsRoute = route.getReservations();
 		reservationsRoute.add(reservation);
@@ -126,7 +133,7 @@ public class ReservationService {
 		reservationsPassenger = passenger.getReservations();
 		reservationsPassenger.add(reservation);
 		passenger.setReservations(reservationsPassenger);
-		//		this.passengerService.save(passenger);
+		this.passengerService.save(passenger);
 
 		result = this.reservationRepository.save(reservation);
 
@@ -156,7 +163,7 @@ public class ReservationService {
 		//Si se borra la reserva, se elimina de la lista de reservas del pasajero
 		reservationsPassenger = passenger.getReservations();
 		reservationsPassenger.remove(reservation);
-		//		this.passengerService.save(passenger);
+		this.passengerService.save(passenger);
 
 		//Si se borra la reserva, se elimina de la lista de reservas de la ruta
 		reservationsRoute = route.getReservations();

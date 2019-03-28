@@ -62,6 +62,7 @@ public class ReservationPassengerController extends AbstractController {
 	}
 
 	public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
+		Assert.isTrue(reservation.getRoute().getAvailableSeats() != 0, "The number of available seats is 0");
 		ModelAndView result;
 		Route route;
 
@@ -82,7 +83,7 @@ public class ReservationPassengerController extends AbstractController {
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	//  ---------------------------------------------------------------		
 
 	@RequestMapping("/action-2")
 	public ModelAndView action2() {
