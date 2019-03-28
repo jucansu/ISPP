@@ -153,6 +153,18 @@ public class RouteController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "driver/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int routeId) {
+		final ModelAndView result;
+		Route route;
+
+		route = this.routeService.findOne(routeId);
+		Assert.notNull(route);
+		result = this.createEditModelAndView(route);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/driver/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
 		Route saved;
