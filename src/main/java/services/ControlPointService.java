@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -158,6 +159,10 @@ public class ControlPointService {
 		}
 		form.setDistance(controlPoint.getDistance());
 		return form;
+	}
+	
+	public TreeSet<ControlPoint> reconstructCreate(Collection<ControlPointFormCreate> controlPoints) {
+		return null;
 	}
 
 }

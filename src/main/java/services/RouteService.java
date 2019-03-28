@@ -10,7 +10,9 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import org.decimal4j.util.DoubleRounder;
 import org.json.JSONArray;
@@ -22,6 +24,7 @@ import org.springframework.util.Assert;
 
 import repositories.RouteRepository;
 import domain.ControlPoint;
+import domain.Driver;
 import domain.Finder;
 import domain.LuggageSize;
 import domain.Reservation;
@@ -246,6 +249,7 @@ public class RouteService {
 	// Construct
 
 	public RouteForm construct(final Route route) {
+		Assert.notNull(route);
 		final RouteForm routeForm = new RouteForm();
 		routeForm.setId(route.getId());
 		routeForm.setAvailableSeats(route.getAvailableSeats());
@@ -276,8 +280,61 @@ public class RouteService {
 		return routeForm;
 	}
 	
-	public Route reconstruct(RouteForm routeForm) {
-		return null;
+	public Route reconstruct(RouteForm routeForm, Driver driver) {
+		Assert.notNull(routeForm);
+		Assert.notNull(driver);
+		Assert.isTrue(routeForm.getAvailableSeats() <= routeForm.getVehicle().getSeatsCapacity());
+		Assert.isTrue(routeForm.getDepartureDate().after(new Date(new Date().getTime() + 960000l))); // 16 minutos en ms
+		Assert.notNull(routeForm.getVehicle());
+		Assert.isTrue(routeForm.getVehicle().getDriver().getId() == driver.getId());
+		Assert.notNull(routeForm.getOrigin());
+		Assert.notNull(routeForm.getDestination());
+		
+		List<ControlPointFormCreate> cps = new ArrayList<ControlPointFormCreate>();
+		cps.add(routeForm.getOrigin());
+		for (ControlPointFormCreate cp : routeForm.getControlpoints()) {
+			routeForm.getControlpoints().add(cp);
+		}
+		cps.add(routeForm.getDestination());
+		TreeSet<ControlPoint> controlPoints = controlPointService.reconstructCreate(cps);
+		
+		double routeDistance = 0d;
+		int estimatedDuration = 0;
+		long lastTime = 0l;
+		for (ControlPoint cp : controlPoints) {
+			routeDistance += cp.getDistance();
+			if (lastTime != 0l) {
+				estimatedDuration += TimeUnit.MINUTES.convert(cp.getArrivalTime().getTime() - lastTime, TimeUnit.MILLISECONDS);
+			}
+			lastTime = cp.getArrivalTime().getTime();
+		}
+		
+		double pricePerPassenger = 1.10d;
+		if (routeDistance > 9d) {
+			pricePerPassenger += Math.floor(routeDistance - 9d) * 0.11d;
+		}
+
+		Route result = create();
+		
+		result.setAvailableSeats(routeForm.getAvailableSeats());
+		result.setDaysRepeat(null);
+		result.setDepartureDate(routeForm.getDepartureDate());
+		result.setDetails(routeForm.getDetails());
+		result.setDriver(driver);
+		result.setId(0);
+		result.setIsCancelled(false);
+		result.setVehicle(routeForm.getVehicle());
+		result.setVersion(0);
+		
+		result.setControlPoints(controlPoints);
+		result.setDestination(controlPoints.last().getLocation());
+		result.setDistance(routeDistance);
+		result.setEstimatedDuration(estimatedDuration);
+		result.setOrigin(controlPoints.first().getLocation());
+		result.setPricePerPassenger(pricePerPassenger);
+		result.setReservations(null);
+		
+		return result;
 	}
 	
 }

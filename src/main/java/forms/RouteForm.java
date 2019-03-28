@@ -18,7 +18,6 @@ public class RouteForm extends FormObject {
 		super();
 	}
 
-
 	private Date								departureDate;
 	private ControlPointFormCreate				origin;
 	private ControlPointFormCreate				destination;
@@ -28,7 +27,7 @@ public class RouteForm extends FormObject {
 	private Double								distance;
 	private Double								pricePerPassenger;
 	private Vehicle								vehicle;
-	private List<ControlPointFormCreate>	controlpoints;
+	private List<ControlPointFormCreate>		controlpoints;
 
 
 	// TODO PONER TAGS EN LOS getX de los atributos!!
