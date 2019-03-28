@@ -264,6 +264,45 @@ public class ReservationService {
 		return result;
 	}
 
-	//TODO: ¿Aceptar/Denegar reservas iria aqui?
-
+	public void acceptReservation(final int reservationId) {
+		Assert.isTrue(reservationId > 0);
+		Reservation reservation = this.findOne(reservationId);
+		Route route = reservation.getRoute();
+		
+		//Comprobamos que la ruta está en pendiente
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING));
+		
+		//Comprobamos que la ruta no ha empezado todavía
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+		
+		//Comprobamos que quedan plazas disponibles
+		Integer availableSeats = route.getAvailableSeats();
+		Integer countSeats = 0;
+		Integer totalSeats = 0;
+		
+		Collection<Reservation> reservations = new ArrayList<Reservation>();
+		reservations.addAll(this.findAcceptedReservationsByRoute(route.getId()));
+		
+		for(Reservation r: reservations){
+			countSeats = countSeats + r.getSeat();
+		}
+		totalSeats = availableSeats - countSeats;
+		Assert.isTrue(totalSeats >= 0);
+		
+		reservation.setStatus(ReservationStatus.ACCEPTED);
+		this.reservationRepository.save(reservation);
+	}
+	
+	public void rejectReservation(final int reservationId) {
+		Assert.isTrue(reservationId > 0);
+		Reservation reservation = this.findOne(reservationId);
+		Route route = reservation.getRoute();
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING) ||
+				reservation.getStatus().equals(ReservationStatus.ACCEPTED));
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+		
+		reservation.setStatus(ReservationStatus.REJECTED);
+		this.reservationRepository.save(reservation);
+	}
+	
 }

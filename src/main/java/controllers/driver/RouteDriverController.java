@@ -61,8 +61,9 @@ public class RouteDriverController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// Creation ---------------------------------------------------------------
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -75,8 +76,23 @@ public class RouteDriverController extends AbstractController {
 		return result;
 	}
 
+	// Edition ---------------------------------------------------------------
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int routeId) {
+		final ModelAndView result;
+		Route route;
+
+		route = this.routeService.findOne(routeId);
+		Assert.notNull(route);
+		result = this.createEditModelAndView(route);
+
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
+		Route saved;
 
 		if (route.getId() != 0)
 			Assert.isTrue(route.getDriver().getId() == this.actorService.findByPrincipal().getId());
@@ -89,15 +105,15 @@ public class RouteDriverController extends AbstractController {
 			result = this.createEditModelAndView(route);
 		} else
 			try {
-				this.routeService.save(route);
-				result = new ModelAndView("redirect:/route/list.do");
+				saved = this.routeService.save(route);
+				result = new ModelAndView("redirect:/route/driver/confirmRoute.do?routeId=" + saved.getId());
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(route, "driver.commit.error");
 			}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final int routeID) {
 		ModelAndView result;
@@ -105,17 +121,51 @@ public class RouteDriverController extends AbstractController {
 
 		route = this.routeService.findOne(routeID);
 		try {
-			routeService.cancel(route);
-			result = routeDisplayModelAndView(route, null);
-		}
-		catch (Throwable oops) {
+			this.routeService.cancel(route);
+			result = this.routeDisplayModelAndView(route, null);
+		} catch (final Throwable oops) {
 			oops.printStackTrace();
-			result = routeDisplayModelAndView(route, "driver.cancel.error");
+			result = this.routeDisplayModelAndView(route, "driver.cancel.error");
 		}
 
 		return result;
 	}
-	
+
+	// Delete/Confirm route ---------------------------------------------------------------
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final Route route, final BindingResult binding) {
+		ModelAndView result;
+
+		try {
+			this.routeService.delete(route);
+			result = new ModelAndView("redirect:create.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(route, "route.commit.error");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/confirmRoute", method = RequestMethod.GET)
+	public ModelAndView confirmRoute(@RequestParam final int routeId) {
+		ModelAndView result;
+		Route route;
+		final Driver driver;
+		UserAccount ua;
+
+		ua = LoginService.getPrincipal();
+		driver = (Driver) this.actorService.findByUserAccount(ua);
+		Assert.notNull(driver);
+
+		route = this.routeService.findOne(routeId);
+
+		result = new ModelAndView("route/driver/confirmRoute");
+		result.addObject("route", route);
+		result.addObject("requestURI", "route/driver/confirmRoute.do");
+
+		return result;
+	}
+
 	// Ancilliary methods ----------------------------------------------------------------
 	private ModelAndView createEditModelAndView(final Route route) {
 		ModelAndView result;
@@ -140,18 +190,18 @@ public class RouteDriverController extends AbstractController {
 
 		return result;
 	}
-	
-	private ModelAndView routeDisplayModelAndView(Route route, String message) {
+
+	private ModelAndView routeDisplayModelAndView(final Route route, final String message) {
 		ModelAndView result;
 		String requestURI;
-		
+
 		requestURI = "route/display.do";
 		result = new ModelAndView("route/display");
 		result.addObject("route", route);
 		result.addObject("message", message);
 		result.addObject("requestURI", requestURI);
-		
+
 		return result;
 	}
-	
+
 }

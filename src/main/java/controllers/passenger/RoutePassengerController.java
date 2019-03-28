@@ -1,3 +1,4 @@
+
 package controllers.passenger;
 
 import java.util.Collection;
@@ -20,7 +21,7 @@ import domain.Route;
 @Controller
 @RequestMapping("/route/passenger")
 public class RoutePassengerController extends AbstractController {
-	
+
 	// Services ---------------------------------------------------------------
 	@Autowired
 	private ActorService	actorService;
@@ -32,8 +33,8 @@ public class RoutePassengerController extends AbstractController {
 	public RoutePassengerController() {
 		super();
 	}
-	
-	@RequestMapping(value = "/listActive", method = RequestMethod.GET)
+
+	@RequestMapping(value = "passenger/listActive", method = RequestMethod.GET)
 	public ModelAndView listActiveRoutesByPassenger() {
 		ModelAndView result;
 		Collection<Route> routes;
@@ -53,5 +54,5 @@ public class RoutePassengerController extends AbstractController {
 
 		return result;
 	}
-	
+
 }
