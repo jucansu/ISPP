@@ -131,13 +131,16 @@ public class RouteController extends AbstractController {
 		ModelAndView result;
 		Collection<Route> routes;
 
-		for (final ObjectError oe : bindingResult.getAllErrors())
+		try {
+			routes = this.routeService.searchRoutes(finder);
+			result = new ModelAndView("route/searchResults");
+			result.addObject("routes", routes);
 
-			System.out.println(oe);
-
-		routes = this.routeService.searchRoutes(finder);
-		result = new ModelAndView("route/searchResults");
-		result.addObject("routes", routes);
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.searchView();
+			result.addObject(finder);
+		}
 
 		return result;
 	}
