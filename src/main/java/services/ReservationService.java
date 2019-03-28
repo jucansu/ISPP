@@ -236,6 +236,10 @@ public class ReservationService {
 		return result;
 	}
 
-	//TODO: ¿Aceptar/Denegar reservas iria aqui?
+	public void driverPickcedMe(final int reservationId) {
+		final Reservation reservation = this.reservationRepository.findOne(reservationId);
+
+		reservation.setDriverPickedMe(true);
+	}
 
 }

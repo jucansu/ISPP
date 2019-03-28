@@ -117,8 +117,10 @@ public class RouteController extends AbstractController {
 		Integer occupiedSeats;
 		UserAccount ua;
 		Actor actor;
-		Integer rol = 0;
+		Integer rol = 0;	//1->conductor de la ruta | 2->pasajero con reserva | 3-> pasajero sin reserva | 4->admin
 		Reservation reservation;
+		boolean startedRoute = false;
+		boolean hasPassed10Minutes = false;
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
@@ -156,12 +158,15 @@ public class RouteController extends AbstractController {
 						if (r.getPassenger().equals(passenger)) {
 							rol = 2;		//...se considerara como "pasajero con reserva" 
 							result.addObject("reservation", r);
+							if (route.getDepartureDate().before(new Date()))
+								startedRoute = true;
 							break;
-						}
+						} else
+							rol = 3;		//si no, se considera "pasajero sin reserva"
 				}
 
 				if (actor instanceof Administrator)
-					rol = 3;
+					rol = 4;
 			}
 
 		//----proceso para conseguir la fecha de llegada---
@@ -172,12 +177,20 @@ public class RouteController extends AbstractController {
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 		sdf.format(arrivalDate);
 		//------------------------------------------------
+
+		//----proceso para conseguir la fecha de salida + 10 minutos---
+		final Date tenMinutesAfterDeparture = new Date(departureDateMilis + 600000);
+		if (new Date().after(tenMinutesAfterDeparture))
+			hasPassed10Minutes = true;
+		//------------------------------------------------
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
 		result.addObject("arrivalDate", sdf.format(arrivalDate));
 		result.addObject("reservations", displayableReservations);
 		result.addObject("rol", rol);
-		result.addObject("reservation", reservation);
+		result.addObject("newReservation", reservation);
+		result.addObject("startedRoute", startedRoute);
+		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
 
 		return result;
 	}
