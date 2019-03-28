@@ -351,7 +351,9 @@
 		<property name="userAccount" ref="userAccount3" />
 
 		<property name="reservations">
-			<list></list>
+			<list>
+				<ref bean="reservation3"/>
+			</list>
 		</property>
 		<property name="comments">
 			<list></list>
@@ -1009,6 +1011,7 @@
 		<property name="reservations">
 			<list>
 				<ref bean="reservation2"/>
+				<ref bean="reservation3"/>
 			</list>
 		</property>
 	</bean>
@@ -2215,6 +2218,18 @@
 		<property name="status" value="CANCELLED" />
 		
 		<property name="passenger" ref="passenger1" />
+		<property name="route" ref="route2" />
+	</bean>
+	
+	<bean id="reservation3" class="domain.Reservation">
+		<property name="luggageSize" value="BIG" />
+		<property name="origin" value="Santa Justa, Sevilla" />
+		<property name="destination" value="Pino Montano, Sevilla" />
+		<property name="seat" value="2" />
+		<property name="price" value="2.1" />
+		<property name="status" value="PENDING" />
+		
+		<property name="passenger" ref="passenger3" />
 		<property name="route" ref="route2" />
 	</bean>
 	
