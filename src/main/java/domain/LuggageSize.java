@@ -3,7 +3,7 @@ package domain;
 
 public enum LuggageSize {
 
-	SMALL("SMALL", 1), MEDIUM("MEDIUM", 2), BIG("BIG", 3), NOTHING("NOTHING", 1);
+	SMALL("SMALL", 1), MEDIUM("MEDIUM", 2), BIG("BIG", 3), NOTHING("NOTHING", 4);
 
 	private int		id;
 	private String	name;

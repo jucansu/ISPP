@@ -188,6 +188,18 @@ public class RouteService {
 
 	public Collection<Route> searchRoutes(final Finder finder) {
 		Assert.notNull(finder);
+		Assert.isTrue(finder.getAvailableSeats() != null); //No podemos buscar rutas con asientos a null
+		Assert.isTrue(!finder.getOrigin().isEmpty() || !finder.getDestination().isEmpty()); // Cada vez que busquemos tenemos que tener puesto origen o destino
+		//Assert.isTrue(finder.getDestinationTime().isAfter(finder.getOriginTime())); //El tiempo maximo debe ser después que el minimo (faltaria comprobar qué pasa si en los dos casos hay el mismo valor)
+
+		if (finder.getDepartureDate() != null) { //Solamente podemos buscar rutas que sean del día actual hasta el futuro
+			final Calendar de = Calendar.getInstance();
+			final Calendar now = Calendar.getInstance();
+			de.setTime(finder.getDepartureDate());
+			now.setTime(new Date());
+			Assert.isTrue(de.get(Calendar.DAY_OF_YEAR) >= now.get(Calendar.DAY_OF_YEAR));
+		}
+
 		Collection<Route> result;
 		final Collection<Route> acum;
 		Collection<Route> allRoutes;
@@ -205,6 +217,11 @@ public class RouteService {
 		final Boolean smoke = finder.getSmoke();
 		final Boolean music = finder.getMusic();
 
+		final Calendar departureDateC = Calendar.getInstance();
+
+		if (departureDate != null)
+			departureDateC.setTime(departureDate);
+
 		//Diferenciamos entre si está todo el formulario a null o no, si es así devolvemos todas las rutas
 
 		if (departureDate == null && timeStart == null && timeEnds == null && (origin == null || origin.isEmpty())
@@ -218,37 +235,38 @@ public class RouteService {
 		} else { //En el caso de que haya algo que no sea null, se empieza el filtraje
 
 			acum = new HashSet<Route>();
+			allRoutes = new HashSet<Route>();
+			allRoutes = this.routeRepository.findAll();
 
-			//Primero vamos a filtrar por fecha
+			for (final Route r : allRoutes) {
 
-			if (departureDate != null) {
+				final Calendar rutaC = Calendar.getInstance();
+				rutaC.setTime(r.getDepartureDate());
 
-				allRoutes = new HashSet<Route>();
-				allRoutes = this.routeRepository.searchRoutes(origin, destination, vehicleType, availableSeats, luggageSize, pets, childs, smoke, music);
-
-				for (final Route r : allRoutes)
-					if (r.getDepartureDate().equals(departureDate))
+				if ((r.getIsCancelled() == false) && (r.getAvailableSeats() >= availableSeats || availableSeats == null) && (r.getMaxLuggage().equals(luggageSize) || luggageSize == null) && (r.getDriver().getChilds() == childs)
+					&& (r.getDriver().getSmoke() == smoke) && (r.getDriver().getMusic() == music) && (r.getDriver().getPets() == pets) && (r.getOrigin().toLowerCase().contains(origin.toLowerCase()) || origin.isEmpty())
+					&& (r.getDestination().toLowerCase().contains(destination.toLowerCase()) || destination.isEmpty()) && (r.getVehicle().getType().equals(vehicleType) || vehicleType == null)
+					&& (((rutaC.get(Calendar.DAY_OF_YEAR) == departureDateC.get(Calendar.DAY_OF_YEAR)) && (rutaC.get(Calendar.YEAR) == departureDateC.get(Calendar.YEAR))) || departureDate == null))
+					if ((timeEnds == null) && (rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()))
+						acum.add(r);
+					else if ((timeEnds == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
+						acum.add(r);
+					else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
+						acum.add(r);
+					else if ((timeStart == null) && (rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
+						acum.add(r);
+					else if ((rutaC.get(Calendar.HOUR_OF_DAY) > timeStart.getHourOfDay()) && (rutaC.get(Calendar.HOUR_OF_DAY) < timeEnds.getHourOfDay()))
+						acum.add(r);
+					else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeStart.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) >= timeStart.getMinuteOfHour()))
+						acum.add(r);
+					else if ((rutaC.get(Calendar.HOUR_OF_DAY) == timeEnds.getHourOfDay()) && (rutaC.get(Calendar.MINUTE) <= timeEnds.getMinuteOfHour()))
 						acum.add(r);
 
 			}
 
-			//Vamos a filtrar primero por el rango de tiempo en el que tienen que estar las rutas
-
-			if (timeStart != null && timeEnds == null)
-				acum.addAll(this.routeRepository.findRoutesByTimeStart(timeStart));
-			else if (timeStart == null && timeEnds != null)
-				acum.addAll(this.routeRepository.findRoutesByTimeEnd(timeEnds));
-			else if (timeStart != null && timeEnds != null)
-				acum.addAll(this.routeRepository.findRoutesByTimeRange(timeStart, timeEnds));
-
-			//Ahora añadimos el resto de filtros
-
 			result = acum;
 
 		}
-
-		//result = this.routeRepository.searchRoutes(departureDate);
-		//result = this.routeRepository.findAll(); 
 
 		return result;
 	}

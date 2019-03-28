@@ -32,65 +32,22 @@
 	<form:errors path="departureDate" cssClass="error" />
 	</div>
 	
-		<div class="form-group col-md-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="inputPassword4"> Departure time from:</label>
-							<div class="input-group date" id="datetimepicker3"
-								data-target-input="nearest">
-								<form:input type="text" class="form-control datetimepicker-input" path="originTime"
-									data-target="#datetimepicker3" />
-								<div class="input-group-append" data-target="#datetimepicker3"
-									data-toggle="datetimepicker">
-									<div class="input-group-text">
-										<i class="fa fa-clock-o"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script type="text/javascript">
-						$(function() {
-							$('#datetimepicker3').datetimepicker({
-								format : 'LT'
-							});
-						});
-					</script>
-				</div>
-			</div>
-		</div>
-		
-		<div class="form-group col-md-4">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group">
-							<label for="inputPassword4"> Departure time to:</label>
-							<div class="input-group date" id="datetimepicker32"
-								data-target-input="nearest">
-								<form:input type="text" class="form-control datetimepicker-input" path="destinationTime"
-									data-target="#datetimepicker32" />
-								<div class="input-group-append" data-target="#datetimepicker32"
-									data-toggle="datetimepicker">
-									<div class="input-group-text">
-										<i class="fa fa-clock-o"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<script type="text/javascript">
-						$(function() {
-							$('#datetimepicker32').datetimepicker({
-								format : 'LT'
-							});
-						});
-					</script>
-				</div>
-			</div>
-		</div>
+	<div>
+	<form:label path="originTime">
+		<spring:message code="origin.time" /> (HH:mm)
+	</form:label>
+	<form:input path="originTime" readonly="${readonly}" />
+	<form:errors path="originTime" cssClass="error" />
+	</div>
+	
+	<div>
+	<form:label path="destinationTime">
+		<spring:message code="destination.time" /> (HH:mm)
+	</form:label>
+	<form:input path="destinationTime" readonly="${readonly}" />
+	<form:errors path="destinationTime" cssClass="error" />
+	</div>
+
 
 		<div class="form-group col-md-6">
 			<label for="inputPassword4"> Origen:</label>
@@ -110,7 +67,6 @@
 			<label> Vehicle type:</label>
 		
 		<form:select path="vehicleType" class="form-control">
-					<form:option label="Any" value="ANY" />
 					<form:option label="Bike" value="BIKE" />
 					<form:option label="Car" value="CAR" />
 				</form:select>
@@ -127,7 +83,7 @@
 		<div class="form-group col-md-10">
 			<label> Lugagge size:</label>
 		<form:select path="luggageSize" class="form-control">
-					<form:option label="Any" value="ANY" />
+					<form:option label="Nothing" value="NOTHING" />
 					<form:option label="Small" value="SMALL" />
 					<form:option label="Medium" value="MEDIUM" />
 					<form:option label="Big" value="BIG" />

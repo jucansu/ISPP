@@ -741,8 +741,8 @@
 		<property name="phone" value="628922149" />
 		<property name="cash" value="39" />
 		<property name="bankAccountNumber" value="ES6647370418461551555701" />
-		<property name="pets" value="true" />
-		<property name="smoke" value="false" />
+		<property name="pets" value="false" />
+		<property name="smoke" value="true" />
 		<property name="music" value="true" />
 		<property name="childs" value="false" />
 
@@ -2170,12 +2170,12 @@
 
 
 	<bean id="route50" class="domain.Route">
-		<property name="departureDate" value="18/12/2019 11:46" />
+		<property name="departureDate" value="12/12/2019 12:30" />
 		<property name="origin" value="Torre Sevilla, Sevilla" />
 		<property name="destination" value="Camas, Sevilla" />
 		<property name="estimatedDuration" value="42" />
 		<property name="daysRepeat" value="MONDAY" />
-		<property name="availableSeats" value="1" />
+		<property name="availableSeats" value="4" />
 		<property name="distance" value="7" />
 		<property name="pricePerPassenger" value="1.1" />
 		<property name="details" value="" />
@@ -2184,6 +2184,29 @@
 
 		<property name="driver" ref="driver20" />
 		<property name="vehicle" ref="vehicle10" />
+		<property name="controlPoints">
+			<list></list>
+		</property>
+		<property name="reservations">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="route55" class="domain.Route">
+		<property name="departureDate" value="12/12/2019 14:30" />
+		<property name="origin" value="Gran Plaza, Sevilla" />
+		<property name="destination" value="Camas, Sevilla" />
+		<property name="estimatedDuration" value="42" />
+		<property name="daysRepeat" value="MONDAY" />
+		<property name="availableSeats" value="4" />
+		<property name="distance" value="7" />
+		<property name="pricePerPassenger" value="1.1" />
+		<property name="details" value="" />
+		<property name="maxLuggage" value="MEDIUM" />
+		<property name="isCancelled" value="false" />
+
+		<property name="driver" ref="driver20" />
+		<property name="vehicle" ref="vehicle9" />
 		<property name="controlPoints">
 			<list></list>
 		</property>
