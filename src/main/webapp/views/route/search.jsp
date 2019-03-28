@@ -67,8 +67,9 @@
 			<label> Vehicle type:</label>
 		
 		<form:select path="vehicleType" class="form-control">
-					<form:option label="Bike" value="BIKE" />
-					<form:option label="Car" value="CAR" />
+					<form:option label="Any" value="0" />
+					<form:option label="Car" value="1" />
+					<form:option label="Bike" value="2" />
 				</form:select>
 		</div>
 				

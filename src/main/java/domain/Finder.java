@@ -18,7 +18,7 @@ public class Finder {
 	private LocalTime	originTime;
 	private String		destination;
 	private LocalTime	destinationTime;
-	private VehicleType	vehicleType;
+	private Integer		vehicleType;
 	private Integer		availableSeats;
 	private LuggageSize	luggageSize;
 	private Boolean		pets;
@@ -33,7 +33,7 @@ public class Finder {
 		return this.originTime;
 	}
 
-	public void setOriginTime(final LocalTime originTime) {
+	public void setOriginTime(LocalTime originTime) {
 		this.originTime = originTime;
 	}
 
@@ -43,7 +43,7 @@ public class Finder {
 		return this.destinationTime;
 	}
 
-	public void setDestinationTime(final LocalTime destinationTime) {
+	public void setDestinationTime(LocalTime destinationTime) {
 		this.destinationTime = destinationTime;
 	}
 
@@ -51,7 +51,10 @@ public class Finder {
 		return this.pets;
 	}
 
-	public void setPets(final Boolean pets) {
+	public void setPets(Boolean pets) {
+		if (pets == null) {
+			pets = false;
+		}
 		this.pets = pets;
 	}
 
@@ -59,7 +62,10 @@ public class Finder {
 		return this.childs;
 	}
 
-	public void setChilds(final Boolean childs) {
+	public void setChilds(Boolean childs) {
+		if (childs == null) {
+			childs = false;
+		}
 		this.childs = childs;
 	}
 
@@ -67,7 +73,10 @@ public class Finder {
 		return this.smoke;
 	}
 
-	public void setSmoke(final Boolean smoke) {
+	public void setSmoke(Boolean smoke) {
+		if (smoke == null) {
+			smoke = false;
+		}
 		this.smoke = smoke;
 	}
 
@@ -75,7 +84,10 @@ public class Finder {
 		return this.music;
 	}
 
-	public void setMusic(final Boolean music) {
+	public void setMusic(Boolean music) {
+		if (music == null) {
+			music = false;
+		}
 		this.music = music;
 	}
 
@@ -85,7 +97,7 @@ public class Finder {
 		return this.departureDate;
 	}
 
-	public void setDepartureDate(final Date departureDate) {
+	public void setDepartureDate(Date departureDate) {
 		this.departureDate = departureDate;
 	}
 
@@ -93,23 +105,29 @@ public class Finder {
 		return this.origin;
 	}
 
-	public void setOrigin(final String origin) {
-		this.origin = origin;
+	public void setOrigin(String origin) {
+		if (origin == null) {
+			origin = "";
+		}
+		this.origin = origin.toLowerCase();
 	}
 
 	public String getDestination() {
 		return this.destination;
 	}
 
-	public void setDestination(final String destination) {
-		this.destination = destination;
+	public void setDestination(String destination) {
+		if (destination == null) {
+			destination = "";
+		}
+		this.destination = destination.toLowerCase();
 	}
 
-	public VehicleType getVehicleType() {
+	public Integer getVehicleType() {
 		return this.vehicleType;
 	}
 
-	public void setVehicleType(final VehicleType vehicleType) {
+	public void setVehicleType(Integer vehicleType) {
 		this.vehicleType = vehicleType;
 	}
 
@@ -117,7 +135,10 @@ public class Finder {
 		return this.availableSeats;
 	}
 
-	public void setAvailableSeats(final Integer availableSeats) {
+	public void setAvailableSeats(Integer availableSeats) {
+		if (availableSeats == null) {
+			availableSeats = 1;
+		}
 		this.availableSeats = availableSeats;
 	}
 
@@ -125,8 +146,24 @@ public class Finder {
 		return this.luggageSize;
 	}
 
-	public void setLuggageSize(final LuggageSize luggageSize) {
+	public void setLuggageSize(LuggageSize luggageSize) {
 		this.luggageSize = luggageSize;
+	}
+
+	public VehicleType getVehicleTypeById(int id) {
+		VehicleType res = null;
+
+		switch (id) {
+		case 1:
+			res = VehicleType.CAR;
+			break;
+
+		case 2:
+			res = VehicleType.BIKE;
+			break;
+		}
+
+		return res;
 	}
 
 }
