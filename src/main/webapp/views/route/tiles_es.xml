@@ -41,4 +41,9 @@
 		<put-attribute name="body" value="/views/route/searchResults.jsp" />
 	</definition>
 	
+	<definition name="reservation/passenger/create" extends="master.page">
+		<put-attribute name="title" value="Nueva Reserva" />
+		<put-attribute name="body" value="/views/route/display.jsp" />
+	</definition>
+	
 </tiles-definitions>

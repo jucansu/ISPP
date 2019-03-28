@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
+import services.ReservationService;
 import services.RouteService;
 import domain.Actor;
 import domain.Administrator;
@@ -38,9 +39,11 @@ public class RouteController extends AbstractController {
 
 	// Services ---------------------------------------------------------------
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 	@Autowired
-	private RouteService	routeService;
+	private RouteService		routeService;
+	@Autowired
+	private ReservationService	reservationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -115,10 +118,13 @@ public class RouteController extends AbstractController {
 		UserAccount ua;
 		Actor actor;
 		Integer rol = 0;
+		Reservation reservation;
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
 		result = new ModelAndView("route/display");
+		reservation = this.reservationService.create();
+		reservation.setRoute(route);
 
 		reservations = route.getReservations();
 		displayableReservations = new ArrayList<Reservation>();
@@ -171,6 +177,7 @@ public class RouteController extends AbstractController {
 		result.addObject("arrivalDate", sdf.format(arrivalDate));
 		result.addObject("reservations", displayableReservations);
 		result.addObject("rol", rol);
+		result.addObject("reservation", reservation);
 
 		return result;
 	}

@@ -10,7 +10,6 @@
 
 package controllers.passenger;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
@@ -28,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ReservationService;
 import services.RouteService;
 import controllers.AbstractController;
-import domain.ControlPoint;
 import domain.Reservation;
 import domain.Route;
 
@@ -108,33 +106,34 @@ public class ReservationPassengerController extends AbstractController {
 	private ModelAndView createEditModelAndView(final Reservation reservation, final String message) {
 		ModelAndView result;
 		Route route;
-		Collection<String> places;
+		//		Collection<String> places;
 		Collection<Reservation> routeAcceptedReservations;
 		Integer remainingSeats;
 
 		route = reservation.getRoute();
 
 		//---Lista de strings de lugares por donde pasa la ruta---
-		places = new ArrayList<String>();
-		places.add(route.getOrigin());
+		//		places = new ArrayList<String>();
+		//		places.add(route.getOrigin());
 
-		if (route.getControlPoints() != null && !route.getControlPoints().isEmpty())
-			for (final ControlPoint c : route.getControlPoints())
-				places.add(c.getLocation());
-		places.add(route.getDestination());
+		//	if (route.getControlPoints() != null && !route.getControlPoints().isEmpty())
+		//	for (final ControlPoint c : route.getControlPoints()) 
+		//		places.add(c.getLocation());
+		//		places.add(route.getDestination());
 		//-----------------------------------------------------
 
 		//------------Asientos restantes--------------------
 		routeAcceptedReservations = this.reservationService.findAcceptedReservationsByRoute(route.getId());
 		remainingSeats = route.getAvailableSeats() - routeAcceptedReservations.size();
+
 		//Comprobamos que haya asientos disponibles
 		Assert.isTrue(remainingSeats > 0);
 		//------------------------------------------------------
 
-		result = new ModelAndView("reservation/create");
+		result = new ModelAndView("reservation/passenger/create");
 		result.addObject("reservation", reservation);
 		result.addObject("route", route);
-		result.addObject("places", places);
+		//		result.addObject("places", places);
 		result.addObject("remainingSeats", remainingSeats);
 		result.addObject("message", message);
 
