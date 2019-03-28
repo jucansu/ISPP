@@ -36,12 +36,14 @@ public class RouteService {
 	//Managed repository
 
 	@Autowired
-	private RouteRepository	routeRepository;
+	private RouteRepository		routeRepository;
 
 	//Supporting services
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+	@Autowired
+	private ReservationService	reservationService;
 
 
 	//Simple CRUD methods
@@ -112,15 +114,33 @@ public class RouteService {
 		return saved;
 	}
 
-	public void cancel(Route r) {
+	public void cancel(final Route route) {
+		Assert.notNull(route);
+		Assert.notNull(route.getDriver());
+
+		// Comprobar que el usuario conectado es el propietario de la ruta
+		Assert.isTrue(this.actorService.findByPrincipal().getId() == route.getDriver().getId());
+		// Comprobar que la ruta no ha sido previamente cancelada
+		Assert.isTrue(!route.getIsCancelled());
+		// Comprobar que la ruta no ha comenzado o finalizado
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+
+		// Cancelar solicitudes pendientes y aceptadas
+		this.reservationService.autoReject(route);
+
+		route.setIsCancelled(true);
+
+		this.routeRepository.save(route);
+	}
+
+	public void delete(final Route r) {
+
 		Assert.notNull(r);
 
 		//Assertion that the user deleting this task has the correct privilege.
 		Assert.isTrue(this.actorService.findByPrincipal().getId() == r.getDriver().getId());
 
-		r.setIsCancelled(true);
-
-		this.routeRepository.save(r);
+		this.routeRepository.delete(r);
 	}
 
 	//	public void delete2(Route route) {
