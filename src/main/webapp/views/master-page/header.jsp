@@ -112,7 +112,7 @@ window.cookieconsent.initialise({
 				<security:authorize access="hasRole('PASSENGER')">
 					<div>
 						<li class="nav-item">
-							<a class="nav-link" href="/../route/search.do"> 
+							<a class="nav-link" href="/Trond/route/search.do"> 
 								<i class="fa fa-search"> </i>
 							</a>
 						</li>
