@@ -19,6 +19,7 @@
 <spring:url value="/styles/route.css" var="routecss" />
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
+<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
 <security:authorize access="hasRole('DRIVER')">
 	<center>
@@ -34,13 +35,15 @@
 			<form:hidden path="estimatedDuration" />
 			<form:hidden path="isCancelled" />
 
+
 			<div class="col-sm-6 text-center" style="padding-top: 20px;">
 				<div class="form-group">
 					<label for="inputPassword4"> Departure date:</label>
 					<div class="input-group date" id="datetimepicker"
 						data-target-input="nearest">
-						<form:input type="text" path="departureDate" class="form-control datetimepicker-input"
-							data-target="#datetimepicker4" />
+						<form:input type="text" path="departureDate"
+							class="form-control datetimepicker-input"
+							data-target="#datetimepicker1" required="true" />
 						<div class="input-group-append" data-target="#datetimepicker"
 							data-toggle="datetimepicker">
 							<div class="input-group-text">
@@ -52,17 +55,20 @@
 			</div>
 			<script type="text/javascript">
 				$(function() {
-					$('#datetimepicker4').datetimepicker({
-						format : 'L'
+					$('#datetimepicker').datetimepicker({
+						format : 'DD/MM/YYYY HH:mm',
+						minDate : new Date()
 					});
 				});
 			</script>
+
+
 
 			<div class="form-group col-md-6">
 				<form:label path="origin">
 					<spring:message code="route.origin" />:
 	</form:label>
-				<form:input path="origin" class="form-control" />
+				<form:input path="origin" class="form-control" required="true" />
 				<form:errors cssClass="error" path="origin" />
 				<br />
 			</div>
@@ -71,7 +77,7 @@
 				<form:label path="destination">
 					<spring:message code="route.destination" />:
 	</form:label>
-				<form:input path="destination" class="form-control" />
+				<form:input path="destination" class="form-control" required="true" />
 				<form:errors cssClass="error" path="destination" />
 				<br />
 			</div>
@@ -80,23 +86,25 @@
 				<form:label path="availableSeats">
 					<spring:message code="route.availableSeats" />:
 	</form:label>
-				<form:input type="number" path="availableSeats" class="form-control" />
+				<form:input type="number" path="availableSeats" class="form-control"
+					min="1" max="9" required="true" />
 				<form:errors cssClass="error" path="availableSeats" />
 				<br />
 			</div>
 
 			<div class="form-group col-md-6">
 				<form:label path="maxLuggage">
-					<label> Tamaño equipaje permitido</label>
+					<label> Allowed luggage size</label>
 					<jstl:out value="${maxLuggage}" />:
 		</form:label>
 
-				<form:select path="maxLuggage" class="form-control">
-					<form:option label="Ninguno" value="NOTHING" />
-					<form:option label="Pequeño" value="SMALL" />
-					<form:option label="Mediano" value="MEDIUM" />
-					<form:option label="Grande" value="BIG" />
+				<form:select path="maxLuggage" class="form-control" required="true">
+					<form:option label="Nothing" value="NOTHING" />
+					<form:option label="Small" value="SMALL" />
+					<form:option label="Medium" value="MEDIUM" />
+					<form:option label="Big" value="BIG" />
 				</form:select>
+			
 				<form:errors cssClass="error" path="maxLuggage" />
 				<br />
 			</div>
@@ -107,7 +115,8 @@
 				<form:select path="vehicle" class="form-control">
 					<form:option label="-------" value="0">
 					</form:option>
-					<form:options items="${vehicles}" itemLabel="model" itemValue="id" />
+					<form:options items="${vehicles}" itemLabel="model" itemValue="id"
+						required="true" />
 				</form:select>
 				<form:errors cssClass="error" path="vehicle" />
 				<br />
@@ -135,7 +144,9 @@
 
 			<div class="form-group col-md-6 text-center">
 				<input type="submit" name="save" class="btn btn-success"
-					value="<spring:message code="route.save" />" />
+					value="<spring:message code="route.save" />" 
+					onclick="javascript: relativeRedir('route/driver/confirmRoute.do');"
+					/>
 				<jstl:if test="${route.id!=0}">
 					<input type="submit" name="Abort Route"
 						value="<spring:message code="route.abort" />" />
