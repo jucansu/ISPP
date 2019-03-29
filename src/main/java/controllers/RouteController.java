@@ -123,12 +123,14 @@ public class RouteController extends AbstractController {
 								startedRoute = true;
 							break;
 						} else
-							rol = 3;		//si no, se considera "pasajero sin reserva"
+							rol = 3;
 				}
 
 				if (actor instanceof Administrator)
 					rol = 4;
 			}
+		else if (actor instanceof Passenger)
+			rol = 3;
 
 		//----proceso para conseguir la fecha de llegada---
 		final Calendar date = Calendar.getInstance();

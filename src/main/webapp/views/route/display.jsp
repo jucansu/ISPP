@@ -219,13 +219,15 @@
 					<jstl:if test="${res.status eq 'PENDING' }">
 						<spring:message code="route.reservation.accept"
 							var="acceptReservation" />
-						<a href="reservation/driver/accept.do?reservationId=${res.id}"><jstl:out
+						<a href="reservation/driver/acceptReservation.do?reservationId=${res.id}"><jstl:out
 								value="${acceptReservation}" /></a> |
 					</jstl:if>
+					<jstl:if test="${!(res.status eq 'ACCEPTED') }">
 					<spring:message code="route.reservation.reject"
 						var="rejectReservation" />
-					<a href="reservation/driver/reject.do?reservationId=${res.id}"><jstl:out
+					<a href="reservation/driver/rejectReservation.do?reservationId=${res.id}"><jstl:out
 							value="${rejectReservation}" /></a>
+					</jstl:if>
 				</jstl:if>
 			</security:authorize>
 
@@ -333,10 +335,14 @@
 
 	<jstl:if test="${rol==3}">
 
-		<form:form action="reservation/passenger/create.do"
-			modelAttribute="newReservation">
+<form:form action="reservation/passenger/create.do"	modelAttribute="newReservation">
 			<form:hidden path="id" />
 			<form:hidden path="version" />
+			<form:hidden path="passenger"/>
+			<form:hidden path="route"/>
+			<form:hidden path="driverPickedMe"/>
+			<form:hidden path="driverNoPickedMe"/>
+			<form:hidden path="status"/>
 
 
 			<form:label path="seat">
@@ -398,11 +404,7 @@
 		<script type="text/javascript">
 			function multiplicar() {
 
-				var result = document.getElementById("seatId").value * $
-				{
-					route.pricePerPassenger
-				}
-				;
+				var result = document.getElementById("seatId").value * ${route.pricePerPassenger};
 				document.getElementById("precioTotal").innerHTML = result.toFixed(2);
 			};
 		</script>

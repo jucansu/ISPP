@@ -17,6 +17,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Driver;
+import domain.LuggageSize;
 import domain.Passenger;
 import domain.Reservation;
 import domain.ReservationStatus;
@@ -50,7 +51,7 @@ public class ReservationService {
 	//CRUD
 
 	public Reservation create() {
-		final UserAccount ua;
+		//	final UserAccount ua;
 		//	Passenger passenger;
 		Reservation result;
 
@@ -61,6 +62,7 @@ public class ReservationService {
 		result = new Reservation();
 		//		result.setPassenger(passenger);
 		result.setStatus(ReservationStatus.PENDING);
+		result.setLuggageSize(LuggageSize.NOTHING);
 
 		return result;
 	}
@@ -93,7 +95,7 @@ public class ReservationService {
 		Assert.notNull(reservation.getLuggageSize());
 		Assert.notNull(reservation.getPrice());
 		Assert.notNull(reservation.getStatus());
-
+		System.out.println("HOLAAAAAAAAAAAAAA");
 		Reservation result;
 		UserAccount ua;
 		Passenger passenger;
@@ -281,6 +283,45 @@ public class ReservationService {
 
 		reservation.setDriverPickedMe(false);
 		reservation.setDriverNoPickedMe(true);
+	}
+
+	public void acceptReservation(final int reservationId) {
+		Assert.isTrue(reservationId > 0);
+		final Reservation reservation = this.findOne(reservationId);
+		final Route route = reservation.getRoute();
+
+		//Comprobamos que la ruta está en pendiente
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING));
+
+		//Comprobamos que la ruta no ha empezado todavía
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+
+		//Comprobamos que quedan plazas disponibles
+		final Integer availableSeats = route.getAvailableSeats();
+		Integer countSeats = 0;
+		Integer totalSeats = 0;
+
+		final Collection<Reservation> reservations = new ArrayList<Reservation>();
+		reservations.addAll(this.findAcceptedReservationsByRoute(route.getId()));
+
+		for (final Reservation r : reservations)
+			countSeats = countSeats + r.getSeat();
+		totalSeats = availableSeats - countSeats;
+		Assert.isTrue(totalSeats >= 0);
+
+		reservation.setStatus(ReservationStatus.ACCEPTED);
+		this.reservationRepository.save(reservation);
+	}
+
+	public void rejectReservation(final int reservationId) {
+		Assert.isTrue(reservationId > 0);
+		final Reservation reservation = this.findOne(reservationId);
+		final Route route = reservation.getRoute();
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING) || reservation.getStatus().equals(ReservationStatus.ACCEPTED));
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+
+		reservation.setStatus(ReservationStatus.REJECTED);
+		this.reservationRepository.save(reservation);
 	}
 
 }

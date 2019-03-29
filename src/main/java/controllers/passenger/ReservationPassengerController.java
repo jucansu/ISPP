@@ -65,16 +65,29 @@ public class ReservationPassengerController extends AbstractController {
 		ModelAndView result;
 		Route route;
 		Reservation reservation;
+		UserAccount ua;
+		Passenger passenger;
+
+		ua = LoginService.getPrincipal();
+		passenger = (Passenger) this.actorService.findByUserAccount(ua);
+		Assert.notNull(passenger);
 
 		route = this.routeService.findOne(routeId);
+		System.out.println("---------------------------------");
+
 		reservation = this.reservationService.create();
+		System.out.println("---------------------------------");
 		reservation.setRoute(route);
+		reservation.setPrice(route.getPricePerPassenger());
+		reservation.setPassenger(passenger);
+
+		System.out.println("--------" + reservation);
 
 		result = this.createEditModelAndView(reservation);
 
 		return result;
 	}
-
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
 		ModelAndView result;
 		Route route;

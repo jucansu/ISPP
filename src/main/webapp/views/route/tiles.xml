@@ -16,28 +16,28 @@
 	</definition>
 
 	<definition name="route/driver/create" extends="master.page">
-		<put-attribute name="title" value="Create Route" />
+<!-- 		<put-attribute name="title" value="Create Route" /> -->
 		<put-attribute name="body" value="/views/route/edit.jsp" />
 	</definition>
 	
 	<definition name="route/driver/confirmRoute" extends="master.page">
-		<put-attribute name="title" value="Confirm Route" />
+<!-- 		<put-attribute name="title" value="Confirm Route" /> -->
 		<put-attribute name="body" value="/views/route/confirmRoute.jsp" />
 	</definition>
 
 	<definition name="route/display" extends="master.page">
-		<put-attribute name="title" value="Display Route" />
+<!-- 		<put-attribute name="title" value="Display Route" /> -->
 		<put-attribute name="body" value="/views/route/display.jsp" />
 	</definition>
 
 
 	<definition name="route/search" extends="master.page">
-		<put-attribute name="title" value="Search route" />
+<!-- 		<put-attribute name="title" value="Search route" /> -->
 		<put-attribute name="body" value="/views/route/search.jsp" />
 	</definition>
 	
 	<definition name="route/searchResults" extends="master.page">
-		<put-attribute name="title" value="Search route - Results" />
+<!-- 		<put-attribute name="title" value="Search route - Results" /> -->
 		<put-attribute name="body" value="/views/route/searchResults.jsp" />
 	</definition>
 

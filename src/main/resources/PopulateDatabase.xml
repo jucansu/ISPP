@@ -351,7 +351,9 @@
 		<property name="userAccount" ref="userAccount3" />
 
 		<property name="reservations">
-			<list></list>
+			<list>
+				<ref bean="reservation3"/>
+			</list>
 		</property>
 		<property name="comments">
 			<list></list>
@@ -964,7 +966,7 @@
 		las 5 siguientes del 12, etc... -->
 
 	<bean id="route1" class="domain.Route">
-		<property name="departureDate" value="03/29/2019 10:45" />
+		<property name="departureDate" value="03/29/2019 12:04" />
 		<property name="origin" value="Camas, Sevilla" />
 		<property name="destination" value="Los Arcos, Avenida de Andalucía, Sevilla" />
 		<property name="estimatedDuration" value="42" />
@@ -1010,6 +1012,7 @@
 		<property name="reservations">
 			<list>
 				<ref bean="reservation2"/>
+				<ref bean="reservation3"/>
 			</list>
 		</property>
 	</bean>
@@ -2240,6 +2243,18 @@
 		<property name="status" value="PENDING" />
 		
 		<property name="passenger" ref="passenger1" />
+		<property name="route" ref="route2" />
+	</bean>
+	
+	<bean id="reservation3" class="domain.Reservation">
+		<property name="luggageSize" value="BIG" />
+		<property name="origin" value="Santa Justa, Sevilla" />
+		<property name="destination" value="Pino Montano, Sevilla" />
+		<property name="seat" value="2" />
+		<property name="price" value="2.1" />
+		<property name="status" value="PENDING" />
+		
+		<property name="passenger" ref="passenger3" />
 		<property name="route" ref="route2" />
 	</bean>
 	
