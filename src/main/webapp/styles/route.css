@@ -1,5 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+.items{
+	margin: 0 auto;
+}
+
 .active-routes{
 	color: white; 
 	text-transform: uppercase;

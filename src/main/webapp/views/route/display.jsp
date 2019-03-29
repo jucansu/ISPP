@@ -25,10 +25,10 @@
 	<jstl:out value="${route.destination}"/><br />
 	<jstl:out value="${route.departureDate}"/><br />
 	
-        <div class="container">
+        <div class="container ">
             <div class="col-md-12">
-                <center>
-                    <div class="col-md-6">
+                
+                    <div class="col-md-6 d-flex flex-column justify-content-xl-center">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
@@ -39,9 +39,9 @@
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                    <div class="panel-body">
-                                   			<jstl:out value="${route.origin}"/><br />
-											<jstl:out value="${route.destination}"/><br />
+                                    <div class="panel-body d-flex flex-row justify-content-xl-center">
+                                   			<p><jstl:out value="${route.origin}"/></p>
+											<p><jstl:out value="${route.destination}"/></p>
                                     </div>
                                 </div>
                             </div>
@@ -61,34 +61,34 @@
   													Preferences:
 							
                                         	<jstl:if test="${route.driver.pets == true}">
-                                        		<i class="fas fa-paw"></i>:<i class="fas fa-check"></i>
+                                        		<p>Pets</p>
                                         	</jstl:if>
                                         	
-                                        	<jstl:if test="${route.driver.pets == false}">
-                                        		<i class="fas fa-paw"></i>:<i class="fas fa-times"></i>
-                                        	</jstl:if>
+                                        	<%-- <jstl:if test="${route.driver.pets == false}">
+                                        		<p>Pets</p>
+                                        	</jstl:if> --%>
                                         	
                                         	<jstl:if test="${route.driver.music == true}">
-                                        		<i class="fas fa-music"></i>:<i class="fas fa-check"></i>
+                                        		<p>Music</p>
                                         	</jstl:if>
                                         	
-                                        	<jstl:if test="${route.driver.music == false}">
-                                        		<i class="fas fa-music"></i>:<i class="fas fa-times"></i>
-                                        	</jstl:if>
+                                        	<%-- <jstl:if test="${route.driver.music == false}">
+                                        		<p>Music</p>
+                                        	</jstl:if> --%>
                                         	
                                         	<jstl:if test="${route.driver.smoke == true}">
-                                        		<i class="fas fa-smoking"></i>:<i class="fas fa-check"></i>
+                                        		<p>Smoke</p>
                                         	</jstl:if>
                                         	
-                                        	<jstl:if test="${route.driver.smoke == false}">
-                                        		<i class="fas fa-smoking"></i>:<i class="fas fa-times"></i>
-                                        	</jstl:if>
+                                        	<%-- <jstl:if test="${route.driver.smoke == false}">
+                                        		<p>Smoke</p>
+                                        	</jstl:if> --%>
                                         	<jstl:if test="${route.driver.childs == true}">
-                                        		<i class="fas fa-baby"></i>:<i class="fas fa-check"></i>
+                                        		<p>Children</p>
                                         	</jstl:if>
-                                        	<jstl:if test="${route.driver.childs == false}">
-                                        		<i class="fas fa-baby"></i>:<i class="fas fa-times"></i>
-                                        	</jstl:if>
+                                        	<%-- <jstl:if test="${route.driver.childs == false}">
+                                        		<p>Children</p>
+                                        	</jstl:if> --%>
                                         	
                                         </div>
                                         
@@ -103,14 +103,51 @@
                                     </h4>
                                 </div>
                                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                    <div class="panel-body">
-                                       <jstl:out value="${route.availableSeats}"></jstl:out><br/>
-                                    </div>
-                                </div>
+								<div class="panel-body">
+									<%-- <jstl:out value="${route.availableSeats}"></jstl:out><br/> --%>
+									<p>
+										Origin: &nbsp
+										<jstl:out value="${route.origin }"></jstl:out>
+									</p>
+
+									<p>
+										Destination: &nbsp
+										<jstl:out value="${route.destination }"></jstl:out>
+									</p>
+
+									<p>Luggage: &nbsp</p>
+
+
+									<p>Seats: &nbsp <jstl:out value="${route.availableSeats}"></jstl:out><br/></p>
+
+
+									<p>
+										Total: &nbsp
+										<jstl:out value="${route.pricePerPassenger }"></jstl:out>
+										euros
+									</p>
+								</div>
+
+
+								<div class="cancelled">
+
+									<jstl:if test="${route.isCancelled == false }">
+
+										<jstl:if test="${route.availableSeats > 0 }">
+
+											<button class="btn" type="button">REQUEST</button>
+
+										</jstl:if>
+
+									</jstl:if>
+
+								</div>
+								</div>
+							</div>
                             </div>
                         </div>
                     </div>
-                </center>
+                
             </div>
         </div>
         </body>
