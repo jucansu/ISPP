@@ -1245,7 +1245,7 @@
 	<bean id="route12" class="domain.Route">
 		<property name="departureDate" value="6/3/2019 7:32" />
 		<property name="origin"
-			value="Ñervion Plaza, Calle Luis de Morales, Sevilla" />
+			value="Nervión Plaza, Calle Luis de Morales, Sevilla" />
 		<property name="destination" value="Torre Sevilla, Sevilla" />
 		<property name="estimatedDuration" value="20" />
 		<property name="daysRepeat" value="MONDAY" />
