@@ -149,8 +149,10 @@
 
 			<div class="form-group col-md-6 text-center">
 				<input type="submit" name="save" class="btn btn-success"
-					value="<spring:message code="route.save" />" 
+					value="<spring:message code="route.save" />"
+					 <jstl:if test="${route.id!=0}">
 					onclick="javascript: relativeRedir('route/driver/confirmRoute.do');"
+					</jstl:if>
 					/>
 				<%-- <jstl:if test="${route.id!=0}">
 					<input type="submit" name="Abort Route"
@@ -158,11 +160,12 @@
 				</jstl:if> --%>
 				
 					
+					
+					
+					<jstl:if test="${route.id!=0}">
 					<spring:url var="cancelUrl" value="route/driver/cancel.do">
 						<spring:param name="routeId" value="${route.id}" />
 					</spring:url>
-					
-					<jstl:if test="${route.id!=0}">
 					<a href="${cancelUrl}" class="btn btn-danger" ><jstl:out
 						value="${cancel}" />
 						</a>

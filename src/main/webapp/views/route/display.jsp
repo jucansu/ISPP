@@ -58,7 +58,7 @@
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
-                                        <jstl:out value="${route.driver.name}"/><br /><jstl:out value="${route.driver.surname}"/><br />
+                                        <jstl:out value="${route.driver.name}   "/><jstl:out value="${route.driver.surname}"/><br />
                                         
                                         <div class="preferences" style="width: 8rem;">
   													Preferences:
