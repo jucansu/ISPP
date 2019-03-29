@@ -90,10 +90,25 @@
                                         		<p>Children</p>
                                         	</jstl:if> --%>
                                         	
+                                        	<div class="luggage" style="width: 8rem;">
+                                        Luggage size:
+                                        <jstl:out value="${route.maxLuggage}"/><br />
+                                        </div>
+                                         <div class="Vehicle" style="width: 8rem;">
+                                        Vehicle:
+                                        <img src="${route.vehicle.image}" width="200" height="150"/>
+                                        <jstl:out value="${route.vehicle.type}"/><br />Model:
+                                        <jstl:out value="${route.vehicle.model}"/><br />Brand:
+                                        <jstl:out value="${route.vehicle.vehicleBrand}"/><br /> Plate:
+                                        <jstl:out value="${route.vehicle.plate}"/><br /> Description:
+                                        <jstl:out value="${route.vehicle.description}"/><br />
+                                        </div>
+                                        	
                                         </div>
                                         
                                 </div>
                             </div>
+                            
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingThree">
                                     <h4 class="panel-title">
@@ -151,3 +166,7 @@
             </div>
         </div>
         </body>
+        
+   <security:authorize access="hasRole('DRIVER')">
+   <button class="btn" type="button">CANCEL ROUTE</button>
+   </security:authorize>
