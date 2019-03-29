@@ -304,7 +304,7 @@ public class RouteService {
 		Assert.notNull(finder);
 
 		// Origen o destino deben estar presentes
-		Assert.isTrue(!(finder.getOrigin().isEmpty() && finder.getDestination().isEmpty()));
+		Assert.isTrue(!finder.getDestination().isEmpty());
 
 		// La hora minima de salida debe ser inferior a la hora máxima de salida
 		if (finder.getOriginTime() != null && finder.getDestinationTime() != null)
