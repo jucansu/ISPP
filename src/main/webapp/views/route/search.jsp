@@ -83,7 +83,7 @@
 			id="inputPassword4" required="true"/>
 	</div>
 	<div class="form-group col-md-10">
-		<label> <spring:message code="route.vehicleType" /></label>
+		<label> <spring:message code="route.vehicle.type" /></label>
 
 		<form:select path="vehicleType" class="form-control">
 			<form:option label="Any" value="0" />

@@ -219,14 +219,20 @@
 					<jstl:if test="${res.status eq 'PENDING' }">
 						<spring:message code="route.reservation.accept"
 							var="acceptReservation" />
-						<a href="reservation/driver/acceptReservation.do?reservationId=${res.id}"><jstl:out
-								value="${acceptReservation}" /></a> |
+						<form name="acceptReservation" method="POST" action="reservation/driver/acceptReservation.do?reservationId=${res.id}">
+							<button type="submit" name="acceptReservation" class="btn btn-primary">
+								<spring:message code="route.reservation.accept"/> 
+							</button>
+						</form>
 					</jstl:if>
 					<jstl:if test="${!(res.status eq 'ACCEPTED') }">
 					<spring:message code="route.reservation.reject"
 						var="rejectReservation" />
-					<a href="reservation/driver/rejectReservation.do?reservationId=${res.id}"><jstl:out
-							value="${rejectReservation}" /></a>
+						<form name="rejectReservation" method="POST" action="reservation/driver/rejectReservation.do?reservationId=${res.id}">
+							<button type="submit" name="rejectReservation" class="btn btn-primary">
+								<spring:message code="route.reservation.reject"/> 
+							</button>
+						</form>
 					</jstl:if>
 				</jstl:if>
 			</security:authorize>
@@ -236,6 +242,14 @@
 			<jstl:out value="----------------------------" />
 		</dd>
 	</jstl:if>
+	
+	<security:authorize access="hasRole('DRIVER')">
+	<spring:message code="route.cancel" var="cancelRoute"/>
+		<jstl:if test="${rol==1 }">
+			<dd><a href="route/driver/cancel.do?routeID=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
+		</jstl:if>
+	
+	</security:authorize>
 
 	<!-- (COMO PASAJERO) MENSAJE DE ESTADO DE LA RESERVA -->
 
@@ -249,9 +263,13 @@
 					<jstl:out value="${rrp}" />
 				</dd>
 				<dd>
-					<a
-						href="reservation/passenger/cancel.do?reservationId=${reservation.id}"><jstl:out
-							value="${reservCancel}" /></a>
+				
+					<form name="cancelReservation" method="POST" action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
+						<button type="submit" name="cancelReservation" class="btn btn-primary">
+							<spring:message code="route.reserv.cancel"/> 
+						</button>
+					</form>
+					
 				</dd>
 				<a></a>
 			</jstl:if>
@@ -302,7 +320,11 @@
 			<!-- SI EL VIAJE NO HA EMPEZADO, EL PASAJERO PUEDE CANCELAR LA RESERVA -->
 				<jstl:if test="${startedRoute == false }">
 					<dd>
-						<a href="reservation/passenger/cancel.do?reservationId=${reservation.id}"><jstl:out value="${reservCancel}" /></a>
+						<form name="cancelReservation" method="POST" action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
+						<button type="submit" name="cancelReservation" class="btn btn-primary">
+							<spring:message code="route.reserv.cancel"/> 
+						</button>
+					</form>
 					</dd>
 				</jstl:if>
 
