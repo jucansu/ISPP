@@ -246,7 +246,7 @@
 	<security:authorize access="hasRole('DRIVER')">
 	<spring:message code="route.cancel" var="cancelRoute"/>
 		<jstl:if test="${rol==1 }">
-			<dd><a href="route/driver/cancel.do?routeID=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
+			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
 		</jstl:if>
 	
 	</security:authorize>
