@@ -16,7 +16,7 @@
        
 <tiles-definitions>
 
-	<definition name="reservation/create" extends="master.page">	
+	<definition name="reservation/passenger/create" extends="master.page">	
 		<put-attribute name="title" value="Make a reservation" />
 		<put-attribute name="body" value="/views/reservation/create.jsp" />
 	</definition>

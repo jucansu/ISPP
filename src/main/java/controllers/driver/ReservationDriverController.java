@@ -37,43 +37,62 @@ public class ReservationDriverController extends AbstractController {
 	public ReservationDriverController() {
 		super();
 	}
-	
-	
+
 	// Accept Reservation ---------------------------------------------------------------		
 
-	@RequestMapping(value="/acceptReservation", method=RequestMethod.POST, params = "acceptReservation")
-	public ModelAndView acceptReservation(@RequestParam(defaultValue = "0") int reservationId){
+	@RequestMapping(value = "/acceptReservation", method = RequestMethod.GET)
+	//, params = "acceptReservation")
+	public ModelAndView acceptReservation(@RequestParam(defaultValue = "0") final int reservationId) {
 		ModelAndView res;
-		Reservation reservation = reservationService.findOne(reservationId);
-		Route route = reservation.getRoute();
+		final Reservation reservation = this.reservationService.findOne(reservationId);
+		final Route route = reservation.getRoute();
 
-		try{
+		try {
 			this.reservationService.acceptReservation(reservationId);
 			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
 
-		}catch (Exception e) {
+		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
 		}
-		
+
 		return res;
 	}
-	
-	// Reject Reservation ---------------------------------------------------------------
-	
-	@RequestMapping(value="/rejectReservation", method=RequestMethod.POST, params = "reservation")
-	public ModelAndView rejectReservation(@RequestParam(defaultValue = "0") int reservationId){
-		ModelAndView res;
-		Reservation reservation = reservationService.findOne(reservationId);
-		Route route = routeService.findOne(reservation.getRoute().getId());
 
-		try{
+	// Reject Reservation ---------------------------------------------------------------
+
+	@RequestMapping(value = "/rejectReservation", method = RequestMethod.GET)
+	public ModelAndView rejectReservation(@RequestParam(defaultValue = "0") final int reservationId) {
+		ModelAndView res;
+		final Reservation reservation = this.reservationService.findOne(reservationId);
+		final Route route = this.routeService.findOne(reservation.getRoute().getId());
+
+		try {
 			this.reservationService.rejectReservation(reservationId);
+			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
+
+		} catch (final Exception e) {
+			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
+		}
+
+		return res;
+	}
+
+	// Cancel Reservation ---------------------------------------------------------------
+
+	@RequestMapping(value = "/cancelReservation", method = RequestMethod.POST, params = "cancelReservation")
+	public ModelAndView cancelReservation(@RequestParam(defaultValue = "0") final int reservationId) {
+		ModelAndView res;
+		final Reservation reservation = this.reservationService.findOne(reservationId);
+		final Route route = this.routeService.findOne(reservation.getRoute().getId());
+
+		try {
+			this.reservationService.cancelReservation(reservationId);
 			res = new ModelAndView("redirect:/route/display.do" + route.getId());
 
-		}catch (Exception e) {
+		} catch (final Exception e) {
 			res = new ModelAndView("redirect:/route/display.do" + route.getId());
 		}
-		
+
 		return res;
 	}
 
