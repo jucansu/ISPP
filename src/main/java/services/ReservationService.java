@@ -17,6 +17,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Driver;
+import domain.LuggageSize;
 import domain.Passenger;
 import domain.Reservation;
 import domain.ReservationStatus;
@@ -38,9 +39,10 @@ public class ReservationService {
 	@Autowired
 	private RouteService			routeService;
 
+	@Autowired
+	private PassengerService		passengerService;
 
-	//	@Autowired
-	//	private PassengerService		passengerService;	//TODO: a espera de que se cree
+
 	//Constructor
 	public ReservationService() {
 		super();
@@ -49,17 +51,18 @@ public class ReservationService {
 	//CRUD
 
 	public Reservation create() {
-		UserAccount ua;
-		Passenger passenger;
+		//	final UserAccount ua;
+		//	Passenger passenger;
 		Reservation result;
 
-		ua = LoginService.getPrincipal();
-		passenger = (Passenger) this.actorService.findByUserAccount(ua);
-		Assert.notNull(ua);
+		//	ua = LoginService.getPrincipal();
+		//	passenger = (Passenger) this.actorService.findByUserAccount(ua);
+		//	Assert.notNull(ua);
 
 		result = new Reservation();
-		result.setPassenger(passenger);
+		//		result.setPassenger(passenger);
 		result.setStatus(ReservationStatus.PENDING);
+		result.setLuggageSize(LuggageSize.NOTHING);
 
 		return result;
 	}
@@ -104,7 +107,7 @@ public class ReservationService {
 		passenger = (Passenger) this.actorService.findByUserAccount(ua);
 		Assert.notNull(passenger);
 		Assert.isTrue(passenger.equals(reservation.getPassenger()));
-
+		reservation.setPassenger(passenger);
 		//Comprobamos que la solicitud no se manda 5 minutos antes de la hora de salida
 		route = reservation.getRoute();
 
@@ -116,6 +119,9 @@ public class ReservationService {
 		//---------------------------------------------------------------------------------
 		Assert.isTrue(lastFiveMinutes.after(new Date()));
 
+		if (reservation.getStatus() == ReservationStatus.ACCEPTED)
+			route.setAvailableSeats(route.getAvailableSeats() - reservation.getSeat());
+
 		//Al guardarse la reserva se añade a la lista de reservas de la ruta
 		reservationsRoute = route.getReservations();
 		reservationsRoute.add(reservation);
@@ -126,28 +132,27 @@ public class ReservationService {
 		reservationsPassenger = passenger.getReservations();
 		reservationsPassenger.add(reservation);
 		passenger.setReservations(reservationsPassenger);
-		//		this.passengerService.save(passenger);
+		this.passengerService.save(passenger);
 
 		result = this.reservationRepository.save(reservation);
 
 		return result;
 	}
-	
+
 	// Esta función solo se debe llamar desde RouteService.cancel(route), ya que las
 	// comprobaciones se hacen en el cancel y las condiciones del autoReject no son
 	// exactamente las mismas que cuando un driver rechaza una solicitud manualmente
-	public void autoReject(Route route) {
+	public void autoReject(final Route route) {
 		Assert.notNull(route);
-		
-		Collection<Reservation> reservations = findReservationsByRouteAndStatusPendingOrAccepted(route.getId());
-		
+
+		final Collection<Reservation> reservations = this.findReservationsByRouteAndStatusPendingOrAccepted(route.getId());
+
 		if (!reservations.isEmpty()) {
-			for (Reservation r : reservations) {
+			for (final Reservation r : reservations)
 				r.setStatus(ReservationStatus.REJECTED);
-			}
-			
-			reservationRepository.save(reservations);
-			reservationRepository.flush();
+
+			this.reservationRepository.save(reservations);
+			this.reservationRepository.flush();
 		}
 	}
 
@@ -174,9 +179,11 @@ public class ReservationService {
 		//Si se borra la reserva, se elimina de la lista de reservas del pasajero
 		reservationsPassenger = passenger.getReservations();
 		reservationsPassenger.remove(reservation);
-		//		this.passengerService.save(passenger);
+		this.passengerService.save(passenger);
 
 		//Si se borra la reserva, se elimina de la lista de reservas de la ruta
+		if (reservation.getStatus() == ReservationStatus.CANCELLED || reservation.getStatus() == ReservationStatus.REJECTED)
+			route.setAvailableSeats(route.getAvailableSeats() + reservation.getSeat());
 		reservationsRoute = route.getReservations();
 		reservationsRoute.remove(reservation);
 		this.routeService.save(route);
@@ -205,14 +212,14 @@ public class ReservationService {
 
 		return result;
 	}
-	
-	public Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(int routeId) {
+
+	public Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(final int routeId) {
 		Assert.isTrue(routeId != 0);
-		
+
 		Collection<Reservation> result;
-		
-		result = reservationRepository.findReservationsByRouteAndStatusPendingOrAccepted(routeId, ReservationStatus.PENDING, ReservationStatus.ACCEPTED);
-		
+
+		result = this.reservationRepository.findReservationsByRouteAndStatusPendingOrAccepted(routeId, ReservationStatus.PENDING, ReservationStatus.ACCEPTED);
+
 		return result;
 	}
 
@@ -264,57 +271,68 @@ public class ReservationService {
 		return result;
 	}
 
+	public void driverPickedMe(final int reservationId) {
+		final Reservation reservation = this.reservationRepository.findOne(reservationId);
+
+		reservation.setDriverPickedMe(true);
+		reservation.setDriverNoPickedMe(false);
+	}
+
+	public void driverNoPickedMe(final int reservationId) {
+		final Reservation reservation = this.reservationRepository.findOne(reservationId);
+
+		reservation.setDriverPickedMe(false);
+		reservation.setDriverNoPickedMe(true);
+	}
+
 	public void acceptReservation(final int reservationId) {
 		Assert.isTrue(reservationId > 0);
-		Reservation reservation = this.findOne(reservationId);
-		Route route = reservation.getRoute();
-		
+		final Reservation reservation = this.findOne(reservationId);
+		final Route route = reservation.getRoute();
+
 		//Comprobamos que la ruta está en pendiente
 		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING));
-		
+
 		//Comprobamos que la ruta no ha empezado todavía
 		Assert.isTrue(route.getDepartureDate().after(new Date()));
-		
+
 		//Comprobamos que quedan plazas disponibles
-		Integer availableSeats = route.getAvailableSeats();
+		final Integer availableSeats = route.getAvailableSeats();
 		Integer countSeats = 0;
 		Integer totalSeats = 0;
-		
-		Collection<Reservation> reservations = new ArrayList<Reservation>();
+
+		final Collection<Reservation> reservations = new ArrayList<Reservation>();
 		reservations.addAll(this.findAcceptedReservationsByRoute(route.getId()));
-		
-		for(Reservation r: reservations){
+
+		for (final Reservation r : reservations)
 			countSeats = countSeats + r.getSeat();
-		}
 		totalSeats = availableSeats - countSeats;
 		Assert.isTrue(totalSeats >= 0);
-		
+
 		reservation.setStatus(ReservationStatus.ACCEPTED);
 		this.reservationRepository.save(reservation);
 	}
-	
+
 	public void rejectReservation(final int reservationId) {
 		Assert.isTrue(reservationId > 0);
-		Reservation reservation = this.findOne(reservationId);
-		Route route = reservation.getRoute();
-		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING) ||
-				reservation.getStatus().equals(ReservationStatus.ACCEPTED));
+		final Reservation reservation = this.findOne(reservationId);
+		final Route route = reservation.getRoute();
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.PENDING) || reservation.getStatus().equals(ReservationStatus.ACCEPTED));
 		Assert.isTrue(route.getDepartureDate().after(new Date()));
-		
+
 		reservation.setStatus(ReservationStatus.REJECTED);
 		this.reservationRepository.save(reservation);
 	}
-	
+
 	public void cancelReservation(final int reservationId) {
 		Assert.isTrue(reservationId > 0);
-		Reservation reservation = this.findOne(reservationId);
-		Route route = reservation.getRoute();
-		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.ACCEPTED) ||
-				reservation.getStatus().equals(ReservationStatus.REJECTED));
+		final Reservation reservation = this.findOne(reservationId);
+		final Route route = reservation.getRoute();
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.ACCEPTED) || reservation.getStatus().equals(ReservationStatus.REJECTED));
 		Assert.isTrue(route.getDepartureDate().after(new Date()));
-		
+
 		reservation.setStatus(ReservationStatus.CANCELLED);
 		this.reservationRepository.save(reservation);
 	}
-	
+
 }

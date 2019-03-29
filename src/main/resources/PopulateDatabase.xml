@@ -6245,7 +6245,6 @@
 		<property name="destination" value="Gran Plaza, Sevilla" />
 		<property name="seat" value="1" />
 		<property name="status" value="PENDING" />
-
 		<property name="passenger" ref="passenger51" />
 		<property name="route" ref="route31" />
 	</bean>
@@ -6321,7 +6320,6 @@
 		<property name="destination" value="El Porvenir, Sevilla" />
 		<property name="seat" value="1" />
 		<property name="status" value="PENDING" />
-
 		<property name="passenger" ref="passenger55" />
 		<property name="route" ref="route9" />
 	</bean>

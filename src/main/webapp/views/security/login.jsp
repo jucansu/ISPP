@@ -63,10 +63,10 @@
 				</jstl:if>
 			</form:form>
 			
-			<ul id="formFooter">
+			<!-- <ul id="formFooter">
 				<li><a class="underlineHover" href="#">Create new account as driver</a></li>
 				<li><a class="underlineHover" href="#">Create new account as passenger</a></li>
-			</ul>
+			</ul> -->
 
 		</div>
 	</div>
