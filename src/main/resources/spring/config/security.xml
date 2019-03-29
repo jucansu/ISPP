@@ -49,8 +49,6 @@
 		<security:intercept-url pattern="/customer/action-2.do" access="hasRole('CUSTOMER')" /> 
 
 		<security:intercept-url pattern="/route/list.do" access="isAuthenticated()" /> 
-		<security:intercept-url pattern="/route/driver/create.do" access="hasRole('DRIVER')" /> 
-		<security:intercept-url pattern="/route/driver/edit.do" access="hasRole('DRIVER')" /> 
 		<security:intercept-url pattern="/route/driver/**" access="hasRole('DRIVER')" /> 
 		<security:intercept-url pattern="/route/display.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/route/search.do" access="isAuthenticated()" />
