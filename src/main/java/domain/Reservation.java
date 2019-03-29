@@ -17,7 +17,7 @@ public class Reservation extends DomainEntity {
 
 	//Attributes
 
-	private LuggageSize			luggage;
+	private LuggageSize			luggageSize;
 	private Double				price;
 	private String				origin;
 	private String				destination;
@@ -51,7 +51,7 @@ public class Reservation extends DomainEntity {
 	@NotNull
 	@Valid
 	public LuggageSize getLuggageSize() {
-		return this.luggage;
+		return this.luggageSize;
 	}
 
 	@NotNull
@@ -81,8 +81,8 @@ public class Reservation extends DomainEntity {
 
 	//Setters
 
-	public void setLuggageSize(final LuggageSize luggage) {
-		this.luggage = luggage;
+	public void setLuggageSize(final LuggageSize luggageSize) {
+		this.luggageSize = luggageSize;
 	}
 
 	public void setPrice(final Double price) {
