@@ -73,10 +73,8 @@
 	<div class="form-group col-md-6">
 		<label for="inputPassword4"> <spring:message code="route.origin" /> </label>
 		<form:input code="location" path="origin" class="form-control"
-			id="inputPassword4" required="false"/>
+			id="inputPassword4" />
 	</div>
-
-
 
 
 	<div class="form-group col-md-6">
