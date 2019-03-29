@@ -58,7 +58,7 @@
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
-                                        <jstl:out value="${route.driver.name}"/><br /><jstl:out value="${route.driver.surname}"/><br />
+                                        <jstl:out value="${route.driver.name}   "/><jstl:out value="${route.driver.surname}"/><br />
                                         
                                         <div class="preferences" style="width: 8rem;">
   													Preferences:
@@ -190,9 +190,17 @@
         </div>
         </body>
         
+  <%--  <security:authorize access="hasRole('DRIVER')">
+   <button class="btn" type="button">CANCEL ROUTE</button> --%>
    <security:authorize access="hasRole('DRIVER')">
-   <button class="btn" type="button">CANCEL ROUTE</button>
-   </security:authorize>
+	
+	<spring:message code="route.cancel" var="cancelRoute"/>
+		<jstl:if test="${rol==1 }">
+			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
+		</jstl:if>
+	
+	</security:authorize>
+
 
 	
 	
@@ -249,13 +257,7 @@
 		</dd>
 	</jstl:if>
 	
-	<security:authorize access="hasRole('DRIVER')">
-	<spring:message code="route.cancel" var="cancelRoute"/>
-		<jstl:if test="${rol==1 }">
-			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
-		</jstl:if>
 	
-	</security:authorize>
 
 	<!-- (COMO PASAJERO) MENSAJE DE ESTADO DE LA RESERVA -->
 
