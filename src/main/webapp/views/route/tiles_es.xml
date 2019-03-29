@@ -42,7 +42,7 @@
 	</definition>
 	
 	<definition name="reservation/passenger/create" extends="master.page">
-		<put-attribute name="title" value="Nueva Reserva" />
+		<put-attribute name="title" value="Mostrar Ruta" />
 		<put-attribute name="body" value="/views/route/display.jsp" />
 	</definition>
 	

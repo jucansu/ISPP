@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,15 +72,11 @@ public class ReservationPassengerController extends AbstractController {
 		Assert.notNull(passenger);
 
 		route = this.routeService.findOne(routeId);
-		System.out.println("---------------------------------");
 
 		reservation = this.reservationService.create();
-		System.out.println("---------------------------------");
 		reservation.setRoute(route);
 		reservation.setPrice(route.getPricePerPassenger());
 		reservation.setPassenger(passenger);
-
-		System.out.println("--------" + reservation);
 
 		result = this.createEditModelAndView(reservation);
 
@@ -92,16 +87,14 @@ public class ReservationPassengerController extends AbstractController {
 		ModelAndView result;
 		Route route;
 
-		for (final ObjectError oe : binding.getAllErrors())
-			System.out.println(oe);
-
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(reservation);
-		else
+			System.out.println(binding.getAllErrors());
+		} else
 			try {
-				this.reservationService.save(reservation);
 				route = reservation.getRoute();
-				result = new ModelAndView("route/passenger/display.do?routeId=" + route.getId());	//TODO: aun por ver adonde redirigira
+				this.reservationService.save(reservation);
+				result = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(reservation, "reservation.commit.error");

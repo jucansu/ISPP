@@ -269,13 +269,13 @@
 				<jstl:if test="${startedRoute == true }">
 					<spring:message code="route.driver.pick.up" var="pickup" />
 						<!--...Y SI EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "ME HA RECOGIDO"...-->
-					<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and hasPassed20Minutes eq false}">
+					<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
 					<dd>
 						<a href="reservation/passenger/driverPickUp.do?reservationId=${reservation.id}"><jstl:out value="${pickup}" /></a>
 					</dd>
 					</jstl:if>
 						<!-- ...PERO SI EL SISTEMA YA SABE QUE HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "ME HA RECOGIDO"-->
-					<jstl:if test="${(reservation.driverPickedMe eq true and reservation.driverNoPickedMe eq false) or hasPassed20Minutes eq true}">
+					<jstl:if test="${(reservation.driverPickedMe eq true and reservation.driverNoPickedMe eq false) or arrivalPlus10Min eq true}">
 					<dd>
 						<jstl:out value="${pickup}" />
 					</dd>
@@ -284,13 +284,13 @@
 					<jstl:if test="${hasPassed10Minutes == true }">
 						<spring:message code="route.driver.no.pick.up" var="nopickup" />
 							<!-- ...SI  EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "NO ME HA RECOGIDO"...-->
-						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and hasPassed20Minutes eq false}">
+						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
 							<dd>
 								<a href="reservation/passenger/driverNoPickUp.do?reservationId=${reservation.id}"><jstl:out value="${nopickup}" /></a>
 							</dd>
 						</jstl:if>
 						<!-- ...PERO SI EL SISTEMA YA SABE QUE NO HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "NO ME HA RECOGIDO"-->
-						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq true and hasPassed20Minutes eq false}">
+						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq true and arrivalPlus10Min eq false}">
 							<dd>
 								<jstl:out value="${nopickup}" />
 							</dd>
@@ -326,88 +326,15 @@
 		</jstl:if>
 	</security:authorize>
 
-
-</dl>
-
-<!-- FORMULARIO PARA CREAR RESERVA -->
-
-<security:authorize access="hasRole('PASSENGER')">
+	<security:authorize access="hasRole('PASSENGER')">
 
 	<jstl:if test="${rol==3}">
-
-<form:form action="reservation/passenger/create.do"	modelAttribute="newReservation">
-			<form:hidden path="id" />
-			<form:hidden path="version" />
-			<form:hidden path="passenger"/>
-			<form:hidden path="route"/>
-			<form:hidden path="driverPickedMe"/>
-			<form:hidden path="driverNoPickedMe"/>
-			<form:hidden path="status"/>
-
-
-			<form:label path="seat">
-				<spring:message code="route.request.seats" />: </form:label>
-			<form:select path="seat" onclick="multiplicar()" id="seatId">
-				<jstl:forEach var="x" begin="1" end="${remainingSeats}">
-					<form:option label="${x}" value="${x}">
-					</form:option>
-				</jstl:forEach>
-			</form:select>
-			<form:errors cssClass="error" path="seat" />
-			<br />
-
-
-
-			<form:label path="origin">
-				<spring:message code="route.origin" />: </form:label>
-			<form:select path="origin">
-				<form:option value="${route.origin }" />
-			</form:select>
-			<form:errors cssClass="error" path="origin" />
-			<br />
-
-			<form:label path="destination">
-				<spring:message code="route.destination" />: </form:label>
-			<form:select path="destination">
-				<form:option value="${route.destination}" />
-			</form:select>
-			<form:errors cssClass="error" path="destination" />
-			<br />
-
-			<form:label path="luggageSize">
-				<spring:message code="route.luggage" />: </form:label>
-			<form:select path="luggageSize">
-				<form:option label="---" value="0">
-				</form:option>
-				<form:options items="${luggageSizes}" itemValue="id" />
-			</form:select>
-			<form:errors cssClass="error" path="luggageSize" />
-			<br />
-
-			<form:label path="price">
-				<spring:message code="route.total" />: 
-	</form:label>
-			<p id="precioTotal"></p>
-			<br />
-
-
-
-			<input type="submit" name="save"
-				value="<spring:message code="route.save" />" />
-			<input type="button" name="cancel"
-				value="<spring:message code="route.cancel" />"
-				onclick="javascript: relativeRedir('route/passenger/listActive.do');" />
-			<br />
-
-		</form:form>
-
-		<script type="text/javascript">
-			function multiplicar() {
-
-				var result = document.getElementById("seatId").value * ${route.pricePerPassenger};
-				document.getElementById("precioTotal").innerHTML = result.toFixed(2);
-			};
-		</script>
+		<spring:message code="route.request.seats" var="createReserv"/>
+		<a href="reservation/passenger/create.do?routeId=${route.id }"><jstl:out value="${createReserv}"/></a>
 	</jstl:if>
-</security:authorize>
+	
+	</security:authorize>
+	
+
+</dl>
 

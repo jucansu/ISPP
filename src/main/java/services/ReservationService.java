@@ -95,7 +95,7 @@ public class ReservationService {
 		Assert.notNull(reservation.getLuggageSize());
 		Assert.notNull(reservation.getPrice());
 		Assert.notNull(reservation.getStatus());
-		System.out.println("HOLAAAAAAAAAAAAAA");
+
 		Reservation result;
 		UserAccount ua;
 		Passenger passenger;

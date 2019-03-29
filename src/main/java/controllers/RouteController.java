@@ -78,16 +78,19 @@ public class RouteController extends AbstractController {
 		UserAccount ua;
 		Actor actor;
 		Integer rol = 0;	//1->conductor de la ruta | 2->pasajero con reserva | 3-> pasajero sin reserva | 4->admin
-		Reservation reservation;
+		//		Reservation reservation;
 		boolean startedRoute = false;
 		boolean hasPassed10Minutes = false;
-		boolean hasPassed20Minutes = false;
+		boolean arrivalPlus10Min = false;
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
 		result = new ModelAndView("route/display");
-		reservation = this.reservationService.create();
-		reservation.setRoute(route);
+		//		reservation = this.reservationService.create();
+		//		reservation.setRoute(route);
+		//		reservation.setPrice(route.getPricePerPassenger());
+		//		reservation.setLuggageSize(LuggageSize.NOTHING);
+		//		reservation.setStatus(ReservationStatus.PENDING);
 
 		reservations = route.getReservations();
 		displayableReservations = new ArrayList<Reservation>();
@@ -124,12 +127,14 @@ public class RouteController extends AbstractController {
 							break;
 						} else
 							rol = 3;
+					//reservation.setPassenger(passenger);
 				}
 
 				if (actor instanceof Administrator)
 					rol = 4;
 			}
 		else if (actor instanceof Passenger)
+			//final Passenger passenger = (Passenger) actor;
 			rol = 3;
 
 		//----proceso para conseguir la fecha de llegada---
@@ -145,20 +150,20 @@ public class RouteController extends AbstractController {
 		final Date tenMinutesAfterDeparture = new Date(departureDateMilis + 600000);
 		if (new Date().after(tenMinutesAfterDeparture))
 			hasPassed10Minutes = true;
-		//----proceso para conseguir la fecha de salida + 20 minutos---
-		final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
-		if (new Date().after(twentyMinutesAfterDeparture))
-			hasPassed20Minutes = true;
+		//----proceso para conseguir la fecha de llegada + 10 minutos---
+		final Date tenMinutesAfterArrival = new Date(departureDateMilis + (route.getEstimatedDuration() * 60000) + 600000);
+		if (new Date().after(tenMinutesAfterArrival))
+			arrivalPlus10Min = true;
 		//------------------------------------------------
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
 		result.addObject("arrivalDate", sdf.format(arrivalDate));
 		result.addObject("reservations", displayableReservations);
 		result.addObject("rol", rol);
-		result.addObject("newReservation", reservation);
+		//		result.addObject("newReservation", reservation);
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-		result.addObject("hasPassed20Minutes", hasPassed20Minutes);
+		result.addObject("hasPassed20Minutes", arrivalPlus10Min);
 
 		return result;
 	}
