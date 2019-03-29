@@ -304,6 +304,25 @@ public class ReservationPassengerController extends AbstractController {
 		return result;
 	}
 
+	// Cancel Reservation ---------------------------------------------------------------
+
+	@RequestMapping(value = "/cancelReservation", method = RequestMethod.POST, params = "cancelReservation")
+	public ModelAndView cancelReservation(@RequestParam(defaultValue = "0") final int reservationId) {
+		ModelAndView res;
+		final Reservation reservation = this.reservationService.findOne(reservationId);
+		final Route route = this.routeService.findOne(reservation.getRoute().getId());
+
+		try {
+			this.reservationService.cancelReservation(reservationId);
+			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
+
+		} catch (final Exception e) {
+			res = new ModelAndView("redirect:/route/display.do?routeId=" + route.getId());
+		}
+
+		return res;
+	}
+
 	//Ancilliary methods
 
 	private ModelAndView createEditModelAndView(final Reservation reservation) {

@@ -83,7 +83,7 @@
 			id="inputPassword4" required="true"/>
 	</div>
 	<div class="form-group col-md-10">
-		<label> <spring:message code="route.vehicleType" /></label>
+		<label> <spring:message code="route.vehicle.type" /></label>
 
 		<form:select path="vehicleType" class="form-control">
 			<form:option label="Any" value="0" />
@@ -123,7 +123,7 @@
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="childs"
 				id="defaultCheck2" />
-			<label class="form-check-label" for="defaultCheck2"> <spring:message code="route.childs" /> </label>
+			<label class="form-check-label" for="defaultCheck2"> <spring:message code="route.children" /> </label>
 		</div>
 	</div>
 	<div class="form-group col-md-3">

@@ -122,7 +122,7 @@ public class RouteDriverController extends AbstractController {
 		route = this.routeService.findOne(routeID);
 		try {
 			this.routeService.cancel(route);
-			result = this.routeDisplayModelAndView(route, null);
+			result = new ModelAndView("redirect:/route/driver/listActive.do");
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
 			result = this.routeDisplayModelAndView(route, "driver.cancel.error");

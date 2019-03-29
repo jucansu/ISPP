@@ -99,6 +99,11 @@ public class RouteController extends AbstractController {
 		actor = this.actorService.findByUserAccount(ua);
 		Assert.notNull(actor);
 
+		if (actor instanceof Driver) {
+			final Driver driver = (Driver) actor;
+			if (route.getDriver().equals(driver))
+				rol = 1;
+		}
 		if (reservations != null && reservations.size() > 0)
 			for (final Reservation res : reservations) {
 				if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
