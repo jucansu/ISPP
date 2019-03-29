@@ -180,6 +180,8 @@ public class ReservationService {
 		this.passengerService.save(passenger);
 
 		//Si se borra la reserva, se elimina de la lista de reservas de la ruta
+		if (reservation.getStatus() == ReservationStatus.CANCELLED || reservation.getStatus() == ReservationStatus.REJECTED)
+			route.setAvailableSeats(route.getAvailableSeats() + reservation.getSeat());
 		reservationsRoute = route.getReservations();
 		reservationsRoute.remove(reservation);
 		this.routeService.save(route);
