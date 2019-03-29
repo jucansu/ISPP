@@ -71,21 +71,21 @@
 	</div>
 
 	<div class="form-group col-md-6">
-		<label for="inputPassword4"> Origen:</label>
+		<label for="inputPassword4"> <spring:message code="route.origin" /> </label>
 		<form:input code="location" path="origin" class="form-control"
-			id="inputPassword4" required="true"/>
+			id="inputPassword4" required="false"/>
 	</div>
 
 
 
 
 	<div class="form-group col-md-6">
-		<label for="inputPassword4"> Destino:</label>
+		<label for="inputPassword4"><spring:message code="route.destination" /></label>
 		<form:input code="location" path="destination" class="form-control"
 			id="inputPassword4" required="true"/>
 	</div>
 	<div class="form-group col-md-10">
-		<label> Vehicle type:</label>
+		<label> <spring:message code="route.vehicleType" /></label>
 
 		<form:select path="vehicleType" class="form-control">
 			<form:option label="Any" value="0" />
@@ -97,13 +97,13 @@
 
 
 	<div class="form-group col-md-6">
-		<label> Avaiable seats:</label>
+		<label><spring:message code="route.availableSeats" /></label>
 		<form:input type="number" code="location" path="availableSeats" min="1" max="9"
 			class="form-control" id="inputPassword4" />
 	</div>
 
 	<div class="form-group col-md-10">
-		<label> Lugagge size:</label>
+		<label> <spring:message code="route.maxLuggage" /></label>
 		<form:select path="luggageSize" class="form-control">
 			<form:option label="Nothing" value="NOTHING" />
 			<form:option label="Small" value="SMALL" />
@@ -117,7 +117,7 @@
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="pets"
 				id="defaultCheck1" />
-			<label class="form-check-label" for="defaultCheck1"> Pets </label>
+			<label class="form-check-label" for="defaultCheck1"> <spring:message code="route.pets" /> </label>
 		</div>
 	</div>
 
@@ -125,21 +125,21 @@
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="childs"
 				id="defaultCheck2" />
-			<label class="form-check-label" for="defaultCheck2"> Childs </label>
+			<label class="form-check-label" for="defaultCheck2"> <spring:message code="route.childs" /> </label>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="smoke"
 				id="defaultCheck3" />
-			<label class="form-check-label" for="defaultCheck3"> Smoke </label>
+			<label class="form-check-label" for="defaultCheck3"> <spring:message code="route.smoke" /> </label>
 		</div>
 	</div>
 	<div class="form-group col-md-3">
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="music"
 				id="defaultCheck4" />
-			<label class="form-check-label" for="defaultCheck4"> Music </label>
+			<label class="form-check-label" for="defaultCheck4"> <spring:message code="route.music" /> </label>
 		</div>
 	</div>
 
