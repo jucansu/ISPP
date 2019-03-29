@@ -62,6 +62,7 @@
 		<security:intercept-url pattern="/reservation/display.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/reservation/driver/acceptReservation.do" access="hasRole('DRIVER')" />
 		<security:intercept-url pattern="/reservation/driver/rejectReservation.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/reservation/driver/cancelReservation.do" access="hasRole('DRIVER')" /> 
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

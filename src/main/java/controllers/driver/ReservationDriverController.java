@@ -60,7 +60,7 @@ public class ReservationDriverController extends AbstractController {
 	
 	// Reject Reservation ---------------------------------------------------------------
 	
-	@RequestMapping(value="/rejectReservation", method=RequestMethod.POST, params = "reservation")
+	@RequestMapping(value="/rejectReservation", method=RequestMethod.POST, params = "rejectReservation")
 	public ModelAndView rejectReservation(@RequestParam(defaultValue = "0") int reservationId){
 		ModelAndView res;
 		Reservation reservation = reservationService.findOne(reservationId);
@@ -68,6 +68,25 @@ public class ReservationDriverController extends AbstractController {
 
 		try{
 			this.reservationService.rejectReservation(reservationId);
+			res = new ModelAndView("redirect:/route/display.do" + route.getId());
+
+		}catch (Exception e) {
+			res = new ModelAndView("redirect:/route/display.do" + route.getId());
+		}
+		
+		return res;
+	}
+	
+	// Cancel Reservation ---------------------------------------------------------------
+	
+	@RequestMapping(value="/cancelReservation", method=RequestMethod.POST, params = "cancelReservation")
+	public ModelAndView cancelReservation(@RequestParam(defaultValue = "0") int reservationId){
+		ModelAndView res;
+		Reservation reservation = reservationService.findOne(reservationId);
+		Route route = routeService.findOne(reservation.getRoute().getId());
+
+		try{
+			this.reservationService.cancelReservation(reservationId);
 			res = new ModelAndView("redirect:/route/display.do" + route.getId());
 
 		}catch (Exception e) {

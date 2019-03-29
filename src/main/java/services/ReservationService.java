@@ -305,4 +305,15 @@ public class ReservationService {
 		this.reservationRepository.save(reservation);
 	}
 	
+	public void cancelReservation(final int reservationId) {
+		Assert.isTrue(reservationId > 0);
+		Reservation reservation = this.findOne(reservationId);
+		Route route = reservation.getRoute();
+		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.ACCEPTED));
+		Assert.isTrue(route.getDepartureDate().after(new Date()));
+		
+		reservation.setStatus(ReservationStatus.CANCELLED);
+		this.reservationRepository.save(reservation);
+	}
+	
 }
