@@ -123,7 +123,7 @@
 		<div class="form-check">
 			<form:checkbox class="form-check-input" value="true" path="childs"
 				id="defaultCheck2" />
-			<label class="form-check-label" for="defaultCheck2"> <spring:message code="route.childs" /> </label>
+			<label class="form-check-label" for="defaultCheck2"> <spring:message code="route.children" /> </label>
 		</div>
 	</div>
 	<div class="form-group col-md-3">

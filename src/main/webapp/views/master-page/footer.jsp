@@ -16,4 +16,4 @@
 
 <hr />
 
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Trond</b>
+<center><b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Trond</b></center>

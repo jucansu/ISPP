@@ -115,14 +115,14 @@ public class RouteDriverController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
-	public ModelAndView cancel(@RequestParam final int routeID) {
+	public ModelAndView cancel(@RequestParam final int routeId) {
 		ModelAndView result;
 		Route route;
 
-		route = this.routeService.findOne(routeID);
+		route = this.routeService.findOne(routeId);
 		try {
 			this.routeService.cancel(route);
-			result = this.routeDisplayModelAndView(route, null);
+			result = new ModelAndView("redirect:/route/driver/listActive.do");
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
 			result = this.routeDisplayModelAndView(route, "driver.cancel.error");

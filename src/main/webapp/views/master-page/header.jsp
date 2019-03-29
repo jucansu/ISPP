@@ -52,7 +52,16 @@ window.cookieconsent.initialise({
 
 <security:authorize access="isAuthenticated()">
 	<div class="logo">
-		<img src="images/logoicon.png" />
+		<security:authorize access="hasRole('DRIVER')">
+		<a href="/Trond/route/driver/listActive.do" >
+		
+		<img src="images/logoicon.png" /></a>
+		</security:authorize>
+		<security:authorize access="hasRole('PASSENGER')">
+		<a href="/Trond/route/passenger/listActive.do" >
+		
+		<img src="images/logoicon.png" /></a>
+		</security:authorize>
 	</div>
 	<div class="user-details d-flex justify-content-end">
 		<div class="item-details messages">

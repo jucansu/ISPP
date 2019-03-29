@@ -158,13 +158,15 @@
 				</jstl:if> --%>
 				
 					
-					<spring:url var="deleteUrl" value="route/driver/delete.do">
+					<spring:url var="cancelUrl" value="route/driver/cancel.do">
 						<spring:param name="routeId" value="${route.id}" />
 					</spring:url>
 					
 					<jstl:if test="${route.id!=0}">
-					<a href="${deleteUrl}" class="btn btn-danger" ><jstl:out
-						value="${cancel}" /></a>
+					<a href="${cancelUrl}" class="btn btn-danger" ><jstl:out
+						value="${cancel}" />
+						</a>
+						
 						</jstl:if>
 						
 					<jstl:if test="${route.id==0}">

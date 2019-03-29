@@ -20,6 +20,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="route.formatDate" var="formatDate" />
 <%-- <display:table name="routes" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
 
 	<spring:message code="route.origin" var = "auMomentCreated" />
@@ -51,12 +52,13 @@
 			</div>
 		</a>
 		<div class="date-route">
-			<jstl:out value="${route.departureDate}"></jstl:out>
+		<%-- 	<jstl:out value="${route.departureDate}"></jstl:out> --%>
+			<fmt:formatDate value="${route.departureDate}" pattern="${formatDate}"/>
 		</div>
 		<div class="available-seats d-flex">
-			<p>Available seats:</p>
+			<p>Available seats : </p>
 			<jstl:out value="${route.availableSeats}"></jstl:out>
-			<p>seats</p>
+			
 		</div>
 
 	</div>
