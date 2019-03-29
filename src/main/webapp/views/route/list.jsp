@@ -20,6 +20,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="route.formatDate" var="formatDate" />
 <%-- <display:table name="routes" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
 
 	<spring:message code="route.origin" var = "auMomentCreated" />
@@ -41,7 +42,10 @@
 	<div class="title listRoute"></div>
 	<div class="route d-flex flex-column align-items-center">
 	<!-- AÑADIR ENLACE A RUTA  -->
-		<a class="stretched-link d-flex align-items-center justify-content-space-between flex-wrap" href="../route/display.do?routeId=${route.id }">
+
+
+		<a class="stretched-link d-flex align-items-center justify-content-space-between flex-wrap" href="route/display.do?routeId=${route.id }">
+
 			<div class="origin">
 				<jstl:out value="${route.origin }"></jstl:out>
 			</div>
@@ -51,12 +55,13 @@
 			</div>
 		</a>
 		<div class="date-route">
-			<jstl:out value="${route.departureDate}"></jstl:out>
+		<%-- 	<jstl:out value="${route.departureDate}"></jstl:out> --%>
+			<fmt:formatDate value="${route.departureDate}" pattern="${formatDate}"/>
 		</div>
 		<div class="available-seats d-flex">
-			<p>Available seats:</p>
+			<p>Available seats : </p>
 			<jstl:out value="${route.availableSeats}"></jstl:out>
-			<p>seats</p>
+			
 		</div>
 
 	</div>
@@ -69,5 +74,8 @@
 
 
 <security:authorize access="hasRole('DRIVER')">
-	<a href="route/driver/create.do"> <spring:message code="route.create"/></a>
+	<a href="route/driver/create.do" class="btn btn-success btn-circle btn-xl"><i class="fas fa-plus fa-2x"></i></a>
+</security:authorize>
+<security:authorize access="hasRole('PASSENGER')">
+	<a href="route/search.do" class="btn btn-primary btn-circle btn-xl"><i class="fas fa-search fa-2x"></i></a>
 </security:authorize>

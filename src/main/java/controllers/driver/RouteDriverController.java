@@ -90,7 +90,7 @@ public class RouteDriverController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
 		Route saved;
 
@@ -115,14 +115,14 @@ public class RouteDriverController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
-	public ModelAndView cancel(@RequestParam final int routeID) {
+	public ModelAndView cancel(@RequestParam final int routeId) {
 		ModelAndView result;
 		Route route;
 
-		route = this.routeService.findOne(routeID);
+		route = this.routeService.findOne(routeId);
 		try {
 			this.routeService.cancel(route);
-			result = this.routeDisplayModelAndView(route, null);
+			result = new ModelAndView("redirect:/route/driver/listActive.do");
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
 			result = this.routeDisplayModelAndView(route, "driver.cancel.error");
@@ -134,12 +134,26 @@ public class RouteDriverController extends AbstractController {
 	// Delete/Confirm route ---------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final Route route, final BindingResult binding) {
+	public ModelAndView delete(final Route route) {
 		ModelAndView result;
 
 		try {
 			this.routeService.delete(route);
 			result = new ModelAndView("redirect:create.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(route, "route.commit.error");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Route route, final BindingResult binding) {
+		ModelAndView result;
+		for (final ObjectError oe : binding.getAllErrors())
+			System.out.println(oe);
+		try {
+			this.routeService.delete(route);
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(route, "route.commit.error");
 		}
@@ -181,7 +195,7 @@ public class RouteDriverController extends AbstractController {
 
 		final Driver driver = (Driver) this.actorService.findByPrincipal();
 
-		requestURI = "route/driver/edit.do";
+		requestURI = "route/driver/create.do";
 		result = new ModelAndView("route/driver/create");
 		result.addObject("route", route);
 		result.addObject("vehicles", driver.getVehicles());

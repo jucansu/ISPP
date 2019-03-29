@@ -22,23 +22,37 @@
 	</definition>
 
 	<definition name="route/driver/create" extends="master.page">	
-		<put-attribute name="title" value="Crear Ruta" />
+<!-- 		<put-attribute name="title" value="Crear Ruta" /> -->
 		<put-attribute name="body" value="/views/route/edit.jsp" />
 	</definition>
 	
 	<definition name="route/display" extends="master.page">	
-		<put-attribute name="title" value="Mostrar Ruta" />
+<!-- 		<put-attribute name="title" value="Mostrar Ruta" /> -->
 		<put-attribute name="body" value="/views/route/display.jsp" />
 	</definition>
 
 	<definition name="route/search" extends="master.page">
-		<put-attribute name="title" value="Buscar ruta" />
+<!-- 		<put-attribute name="title" value="Buscar ruta" /> -->
 		<put-attribute name="body" value="/views/route/search.jsp" />
 	</definition>
 	
 	<definition name="route/searchResults" extends="master.page">
-		<put-attribute name="title" value="Search route - Results" />
+<!-- 		<put-attribute name="title" value="Search route - Results" /> -->
 		<put-attribute name="body" value="/views/route/searchResults.jsp" />
 	</definition>
 	
+	<definition name="reservation/passenger/create" extends="master.page">
+		<put-attribute name="title" value="Mostrar Ruta" />
+		<put-attribute name="body" value="/views/route/display.jsp" />
+	</definition>
+	
+	<definition name="reservation/passenger/driverPickUp" extends="master.page">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/views/route/display.jsp" />
+	</definition>
+
+	<definition name="reservation/passenger/driverNoPickUp" extends="master.page">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/views/route/display.jsp" />
+	</definition>
 </tiles-definitions>

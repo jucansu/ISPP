@@ -20,7 +20,12 @@
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
 <link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<div class="text-center active-routes">
+	<h3>Create route</h3>
+</div>
 
+
+<spring:message code="route.cancel"  var="cancel"/>
 <security:authorize access="hasRole('DRIVER')">
 	<center>
 		<form:form action="${requestURI}" modelAttribute="route">
@@ -147,14 +152,28 @@
 					value="<spring:message code="route.save" />" 
 					onclick="javascript: relativeRedir('route/driver/confirmRoute.do');"
 					/>
-				<jstl:if test="${route.id!=0}">
+				<%-- <jstl:if test="${route.id!=0}">
 					<input type="submit" name="Abort Route"
 						value="<spring:message code="route.abort" />" />
-				</jstl:if>
-
-				<input type="button" name="cancel" class="btn btn-warning"
+				</jstl:if> --%>
+				
+					
+					<spring:url var="cancelUrl" value="route/driver/cancel.do">
+						<spring:param name="routeId" value="${route.id}" />
+					</spring:url>
+					
+					<jstl:if test="${route.id!=0}">
+					<a href="${cancelUrl}" class="btn btn-danger" ><jstl:out
+						value="${cancel}" />
+						</a>
+						
+						</jstl:if>
+						
+					<jstl:if test="${route.id==0}">
+					<input type="button" name="cancel" class="btn btn-warning"
 					value="<spring:message code="route.cancel" />"
-					onclick="javascript: relativeRedir('route/list.do');" /> <br />
+					onclick="javascript: relativeRedir('route/driver/listActive.do');" /> 
+					</jstl:if><br />
 			</div>
 
 
