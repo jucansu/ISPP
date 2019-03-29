@@ -55,7 +55,43 @@
                                 </div>
                                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body">
-                                        <jstl:out value="${route.driver.name}"/><br /><jstl:out value="${route.driver.surname}"/><br />,
+                                        <jstl:out value="${route.driver.name}"/><br /><jstl:out value="${route.driver.surname}"/><br />
+                                        
+                                        <div class="preferences" style="width: 8rem;">
+  													Preferences:
+							
+                                        	<jstl:if test="${route.driver.pets == true}">
+                                        		<i class="fas fa-paw"></i>:<i class="fas fa-check"></i>
+                                        	</jstl:if>
+                                        	
+                                        	<jstl:if test="${route.driver.pets == false}">
+                                        		<i class="fas fa-paw"></i>:<i class="fas fa-times"></i>
+                                        	</jstl:if>
+                                        	
+                                        	<jstl:if test="${route.driver.music == true}">
+                                        		<i class="fas fa-music"></i>:<i class="fas fa-check"></i>
+                                        	</jstl:if>
+                                        	
+                                        	<jstl:if test="${route.driver.music == false}">
+                                        		<i class="fas fa-music"></i>:<i class="fas fa-times"></i>
+                                        	</jstl:if>
+                                        	
+                                        	<jstl:if test="${route.driver.smoke == true}">
+                                        		<i class="fas fa-smoking"></i>:<i class="fas fa-check"></i>
+                                        	</jstl:if>
+                                        	
+                                        	<jstl:if test="${route.driver.smoke == false}">
+                                        		<i class="fas fa-smoking"></i>:<i class="fas fa-times"></i>
+                                        	</jstl:if>
+                                        	<jstl:if test="${route.driver.childs == true}">
+                                        		<i class="fas fa-baby"></i>:<i class="fas fa-check"></i>
+                                        	</jstl:if>
+                                        	<jstl:if test="${route.driver.childs == false}">
+                                        		<i class="fas fa-baby"></i>:<i class="fas fa-times"></i>
+                                        	</jstl:if>
+                                        	
+                                        </div>
+                                        
                                 </div>
                             </div>
                             <div class="panel panel-default">
