@@ -50,12 +50,12 @@
 </center>
 <center>
 	<div class="col-sm-6 text-center" style="padding-top: 20px;">
-		<a href="route/list.do" class="btn btn-success"><jstl:out value="${confirm}" /></a>
+		<a href="route/driver/listActive.do" class="btn btn-success"><jstl:out value="${confirm}" /></a>
 
 		<spring:url var="editUrl" value="route/driver/edit.do">
 			<spring:param name="routeId" value="${route.id}" />
 		</spring:url>
-		<a href="${editUrl}" class="btn btn-danger" onclick="return confirm('${msgConfirm}')"><jstl:out
+		<a href="${editUrl}" class="btn btn-danger" ><jstl:out
 				value="${cancel}" /></a>
 	</div>
 </center>

@@ -134,12 +134,26 @@ public class RouteDriverController extends AbstractController {
 	// Delete/Confirm route ---------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final Route route, final BindingResult binding) {
+	public ModelAndView delete(final Route route) {
 		ModelAndView result;
 
 		try {
 			this.routeService.delete(route);
 			result = new ModelAndView("redirect:create.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(route, "route.commit.error");
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(final Route route, final BindingResult binding) {
+		ModelAndView result;
+		for (final ObjectError oe : binding.getAllErrors())
+			System.out.println(oe);
+		try {
+			this.routeService.delete(route);
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(route, "route.commit.error");
 		}
