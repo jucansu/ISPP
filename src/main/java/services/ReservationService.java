@@ -50,16 +50,16 @@ public class ReservationService {
 	//CRUD
 
 	public Reservation create() {
-		UserAccount ua;
-		Passenger passenger;
+		final UserAccount ua;
+		//	Passenger passenger;
 		Reservation result;
 
-		ua = LoginService.getPrincipal();
-		passenger = (Passenger) this.actorService.findByUserAccount(ua);
-		Assert.notNull(ua);
+		//	ua = LoginService.getPrincipal();
+		//	passenger = (Passenger) this.actorService.findByUserAccount(ua);
+		//	Assert.notNull(ua);
 
 		result = new Reservation();
-		result.setPassenger(passenger);
+		//		result.setPassenger(passenger);
 		result.setStatus(ReservationStatus.PENDING);
 
 		return result;
@@ -105,7 +105,7 @@ public class ReservationService {
 		passenger = (Passenger) this.actorService.findByUserAccount(ua);
 		Assert.notNull(passenger);
 		Assert.isTrue(passenger.equals(reservation.getPassenger()));
-
+		reservation.setPassenger(passenger);
 		//Comprobamos que la solicitud no se manda 5 minutos antes de la hora de salida
 		route = reservation.getRoute();
 
@@ -117,11 +117,8 @@ public class ReservationService {
 		//---------------------------------------------------------------------------------
 		Assert.isTrue(lastFiveMinutes.after(new Date()));
 
-		if (reservation.getStatus() == ReservationStatus.ACCEPTED) {
-
+		if (reservation.getStatus() == ReservationStatus.ACCEPTED)
 			route.setAvailableSeats(route.getAvailableSeats() - reservation.getSeat());
-
-		}
 
 		//Al guardarse la reserva se añade a la lista de reservas de la ruta
 		reservationsRoute = route.getReservations();
@@ -139,22 +136,21 @@ public class ReservationService {
 
 		return result;
 	}
-	
+
 	// Esta función solo se debe llamar desde RouteService.cancel(route), ya que las
 	// comprobaciones se hacen en el cancel y las condiciones del autoReject no son
 	// exactamente las mismas que cuando un driver rechaza una solicitud manualmente
-	public void autoReject(Route route) {
+	public void autoReject(final Route route) {
 		Assert.notNull(route);
-		
-		Collection<Reservation> reservations = findReservationsByRouteAndStatusPendingOrAccepted(route.getId());
-		
+
+		final Collection<Reservation> reservations = this.findReservationsByRouteAndStatusPendingOrAccepted(route.getId());
+
 		if (!reservations.isEmpty()) {
-			for (Reservation r : reservations) {
+			for (final Reservation r : reservations)
 				r.setStatus(ReservationStatus.REJECTED);
-			}
-			
-			reservationRepository.save(reservations);
-			reservationRepository.flush();
+
+			this.reservationRepository.save(reservations);
+			this.reservationRepository.flush();
 		}
 	}
 
@@ -212,14 +208,14 @@ public class ReservationService {
 
 		return result;
 	}
-	
-	public Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(int routeId) {
+
+	public Collection<Reservation> findReservationsByRouteAndStatusPendingOrAccepted(final int routeId) {
 		Assert.isTrue(routeId != 0);
-		
+
 		Collection<Reservation> result;
-		
-		result = reservationRepository.findReservationsByRouteAndStatusPendingOrAccepted(routeId, ReservationStatus.PENDING, ReservationStatus.ACCEPTED);
-		
+
+		result = this.reservationRepository.findReservationsByRouteAndStatusPendingOrAccepted(routeId, ReservationStatus.PENDING, ReservationStatus.ACCEPTED);
+
 		return result;
 	}
 
@@ -271,10 +267,18 @@ public class ReservationService {
 		return result;
 	}
 
-	public void driverPickcedMe(final int reservationId) {
+	public void driverPickedMe(final int reservationId) {
 		final Reservation reservation = this.reservationRepository.findOne(reservationId);
 
 		reservation.setDriverPickedMe(true);
+		reservation.setDriverNoPickedMe(false);
+	}
+
+	public void driverNoPickedMe(final int reservationId) {
+		final Reservation reservation = this.reservationRepository.findOne(reservationId);
+
+		reservation.setDriverPickedMe(false);
+		reservation.setDriverNoPickedMe(true);
 	}
 
 }

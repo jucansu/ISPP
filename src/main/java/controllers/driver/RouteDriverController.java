@@ -90,7 +90,7 @@ public class RouteDriverController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Route route, final BindingResult binding) {
 		Route saved;
 
@@ -181,7 +181,7 @@ public class RouteDriverController extends AbstractController {
 
 		final Driver driver = (Driver) this.actorService.findByPrincipal();
 
-		requestURI = "route/driver/edit.do";
+		requestURI = "route/driver/create.do";
 		result = new ModelAndView("route/driver/create");
 		result.addObject("route", route);
 		result.addObject("vehicles", driver.getVehicles());

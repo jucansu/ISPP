@@ -34,7 +34,7 @@ public class RoutePassengerController extends AbstractController {
 		super();
 	}
 
-	@RequestMapping(value = "passenger/listActive", method = RequestMethod.GET)
+	@RequestMapping(value = "/listActive", method = RequestMethod.GET)
 	public ModelAndView listActiveRoutesByPassenger() {
 		ModelAndView result;
 		Collection<Route> routes;

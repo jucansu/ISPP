@@ -123,7 +123,7 @@ window.cookieconsent.initialise({
       <security:authorize access="hasRole('DRIVER')">
     <div>
    
-        <a class="nav-link" href="/../route/create.do">
+        <a class="nav-link" href="route/driver/create.do">
           <i class="fa fa-plus">
           </i>
          

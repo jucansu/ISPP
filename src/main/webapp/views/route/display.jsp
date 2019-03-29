@@ -212,7 +212,8 @@
 			<dd>
 				<jstl:out value="${res.origin} -> ${res.destination}" />
 			</dd>
-
+			
+					<!-- (COMO CONDUCTOR) PARA CADA PASAJERO, BOTONES DE ACEPTAR O RECHAZAR SOLICITUD -->
 			<security:authorize access="hasRole('DRIVER')">
 				<jstl:if test="${rol == 1}">
 					<jstl:if test="${res.status eq 'PENDING' }">
@@ -234,7 +235,7 @@
 		</dd>
 	</jstl:if>
 
-	<!-- MENSAJE DE ESTADO DE LA RESERVA -->
+	<!-- (COMO PASAJERO) MENSAJE DE ESTADO DE LA RESERVA -->
 
 	<security:authorize access="hasRole('PASSENGER')">
 		<jstl:if test="${rol == 2}">
@@ -260,42 +261,58 @@
 					<jstl:out value="${rra}" />
 				</dd>
 
+				<!-- (COMO PASAJERO)PARA RESERVA ACEPTADA POR EL CONDUCTOR, BOTONES DE "¿ME HA RECOGIDO EL CONDUCTOR O NO?" -->
+				
+					<!-- SI LA RUTA ESTÁ EMPEZADA...  -->
 				<jstl:if test="${startedRoute == true }">
 					<spring:message code="route.driver.pick.up" var="pickup" />
+						<!--...Y SI EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "ME HA RECOGIDO"...-->
+					<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and hasPassed20Minutes eq false}">
 					<dd>
-						<a
-							href="reservation/passenger/driverPickUp.do?reservationId=${reservation.id}"><jstl:out
-								value="${pickup}" /></a>
+						<a href="reservation/passenger/driverPickUp.do?reservationId=${reservation.id}"><jstl:out value="${pickup}" /></a>
 					</dd>
-
+					</jstl:if>
+						<!-- ...PERO SI EL SISTEMA YA SABE QUE HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "ME HA RECOGIDO"-->
+					<jstl:if test="${(reservation.driverPickedMe eq true and reservation.driverNoPickedMe eq false) or hasPassed20Minutes eq true}">
+					<dd>
+						<jstl:out value="${pickup}" />
+					</dd>
+					</jstl:if>
+					<!-- UNA VEZ HAN PASADO 10 MINUTOS DESDE LA HORA DE SALIDA... -->
 					<jstl:if test="${hasPassed10Minutes == true }">
 						<spring:message code="route.driver.no.pick.up" var="nopickup" />
-						<dd>
-							<a
-								href="reservation/passenger/driverNoPickUp.do?reservationId=${reservation.id}"><jstl:out
-									value="${nopickup}" /></a>
-						</dd>
+							<!-- ...SI  EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "NO ME HA RECOGIDO"...-->
+						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and hasPassed20Minutes eq false}">
+							<dd>
+								<a href="reservation/passenger/driverNoPickUp.do?reservationId=${reservation.id}"><jstl:out value="${nopickup}" /></a>
+							</dd>
+						</jstl:if>
+						<!-- ...PERO SI EL SISTEMA YA SABE QUE NO HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "NO ME HA RECOGIDO"-->
+						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq true and hasPassed20Minutes eq false}">
+							<dd>
+								<jstl:out value="${nopickup}" />
+							</dd>
+						</jstl:if>
+						
 					</jstl:if>
 
 				</jstl:if>
-
+			<!-- SI EL VIAJE NO HA EMPEZADO, EL PASAJERO PUEDE CANCELAR LA RESERVA -->
 				<jstl:if test="${startedRoute == false }">
 					<dd>
-						<a
-							href="reservation/passenger/cancel.do?reservationId=${reservation.id}"><jstl:out
-								value="${reservCancel}" /></a>
+						<a href="reservation/passenger/cancel.do?reservationId=${reservation.id}"><jstl:out value="${reservCancel}" /></a>
 					</dd>
 				</jstl:if>
 
 			</jstl:if>
-
+		<!-- SI LA RESERVA HA SIDO DENEGADA, SE MUESTRA MENSAJE DE "SOLICITUD DENEGADA" -->
 			<jstl:if test="${reservation.status eq 'REJECTED' }">
 				<spring:message code="route.reserv.rejected" var="rrr" />
 				<dd>
 					<jstl:out value="${rrr}" />
 				</dd>
 			</jstl:if>
-
+		<!-- SI LA RESERVA HA SIDO CANCELADA, SE MUESTRA MENSAJE DE "SOLICITUD CANCELADA" -->
 			<jstl:if test="${reservation.status eq 'CANCELLED' }">
 				<spring:message code="route.reserv.cancelled" var="rrc" />
 				<dd>
@@ -310,6 +327,7 @@
 
 </dl>
 
+<!-- FORMULARIO PARA CREAR RESERVA -->
 
 <security:authorize access="hasRole('PASSENGER')">
 

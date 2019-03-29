@@ -67,7 +67,7 @@ public class RouteController extends AbstractController {
 
 	}
 
-	// Creation ---------------------------------------------------------------
+	// Display ---------------------------------------------------------------
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int routeId) {
@@ -81,6 +81,7 @@ public class RouteController extends AbstractController {
 		Reservation reservation;
 		boolean startedRoute = false;
 		boolean hasPassed10Minutes = false;
+		boolean hasPassed20Minutes = false;
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
@@ -142,6 +143,10 @@ public class RouteController extends AbstractController {
 		final Date tenMinutesAfterDeparture = new Date(departureDateMilis + 600000);
 		if (new Date().after(tenMinutesAfterDeparture))
 			hasPassed10Minutes = true;
+		//----proceso para conseguir la fecha de salida + 20 minutos---
+		final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
+		if (new Date().after(twentyMinutesAfterDeparture))
+			hasPassed20Minutes = true;
 		//------------------------------------------------
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -151,6 +156,7 @@ public class RouteController extends AbstractController {
 		result.addObject("newReservation", reservation);
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
+		result.addObject("hasPassed20Minutes", hasPassed20Minutes);
 
 		return result;
 	}

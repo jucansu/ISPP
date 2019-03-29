@@ -24,6 +24,7 @@ public class Reservation extends DomainEntity {
 	private Integer				seat;
 	private ReservationStatus	status;
 	private boolean				driverPickedMe;
+	private boolean				driverNoPickedMe;
 
 	//Relationships
 
@@ -81,8 +82,12 @@ public class Reservation extends DomainEntity {
 	}
 
 	@NotNull
-	public boolean driverPickedMe() {
+	public boolean isDriverPickedMe() {
 		return this.driverPickedMe;
+	}
+	@NotNull
+	public boolean isDriverNoPickedMe() {
+		return this.driverNoPickedMe;
 	}
 
 	//Setters
@@ -121,6 +126,10 @@ public class Reservation extends DomainEntity {
 
 	public void setDriverPickedMe(final boolean driverPickedMe) {
 		this.driverPickedMe = driverPickedMe;
+	}
+
+	public void setDriverNoPickedMe(final boolean driverNoPickedMe) {
+		this.driverNoPickedMe = driverNoPickedMe;
 	}
 
 }
