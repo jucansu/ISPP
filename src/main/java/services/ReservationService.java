@@ -328,7 +328,7 @@ public class ReservationService {
 		Assert.isTrue(reservationId > 0);
 		final Reservation reservation = this.findOne(reservationId);
 		final Route route = reservation.getRoute();
-		Assert.isTrue(reservation.getStatus().equals(ReservationStatus.ACCEPTED) || reservation.getStatus().equals(ReservationStatus.REJECTED));
+		Assert.isTrue(reservation.getStatus() != (ReservationStatus.REJECTED));
 		Assert.isTrue(route.getDepartureDate().after(new Date()));
 
 		reservation.setStatus(ReservationStatus.CANCELLED);

@@ -73,49 +73,47 @@
 		<jstl:if test="${route.driver.pets == true}">
 			<jstl:out value="${routePets}: " />
 			<input type="checkbox" disabled="disabled" checked="checked">
-		</jstl:if><br/>	
+		</br></jstl:if>
 
 		<jstl:if test="${route.driver.pets == false}">
 			<jstl:out value="${routePets}: " />
 			<input type="checkbox" disabled="disabled">
-		</jstl:if><br/>	
+		</br></jstl:if>
 
 		<jstl:if test="${route.driver.childs == true}">
 			<jstl:out value="${routeChildren}: " />
 			<input type="checkbox" disabled="disabled" checked="checked">
-		</jstl:if><br/>	
+		</br></jstl:if>
 
 		<jstl:if test="${route.driver.childs == false}">
 			<jstl:out value="${routeChildren}: " />
 			<input type="checkbox" disabled="disabled">
-		</jstl:if> <br/>	
+		</br></jstl:if>
 		
 
 		<jstl:if test="${route.driver.smoke == true}">
 			<jstl:out value="${routeSmoke}: " />
 			<input type="checkbox" disabled="disabled" checked="checked">
-		</jstl:if> <br/>	
+		</br></jstl:if> 	
 
 		<jstl:if test="${route.driver.smoke == false}">
 			<jstl:out value="${routeSmoke}: " />
 			<input type="checkbox" disabled="disabled">
-		</jstl:if> <br/>	
-
+		</br></jstl:if>
+		
 		<jstl:if test="${route.driver.music == true}">
 			<jstl:out value="${routeMusic}: " />
 			<input type="checkbox" disabled="disabled" checked="checked">
-		</jstl:if> <br/>	
-
+		</br></jstl:if> 
+		
 		<jstl:if test="${route.driver.music == false}">
 			<jstl:out value="${routeMusic}: " />
 			<input type="checkbox" disabled="disabled">
-		</jstl:if> <br/>	
-		
+		</br></jstl:if> 
 	
                                         	
                                         	<div class="luggage" style="width: 8rem;">
-                                        Luggage size:
-                                        <jstl:out value="${route.maxLuggage}"/><br />
+                                        Luggage size: <jstl:out value="${route.maxLuggage}"/>
                                         </div>
                                          <div class="Vehicle" style="width: 8rem;">
                                         Vehicle:
@@ -153,7 +151,7 @@
 										<jstl:out value="${route.destination }"></jstl:out>
 									</p>
 
-									<p>Luggage: &nbsp</p>
+									<p>Luggage: &nbsp<jstl:out value="${route.maxLuggage}"></jstl:out><br/></p>
 
 
 									<p>Seats: &nbsp <jstl:out value="${route.availableSeats}"></jstl:out><br/></p>
@@ -168,16 +166,19 @@
 
 
 								<div class="cancelled">
-
-									<jstl:if test="${route.isCancelled == false }">
+									<security:authorize access="hasRole('PASSENGER')">
+									<jstl:if test="${route.isCancelled == false && reservation.status != 'PENDING' || 'ACCEPTED'}">
 
 										<jstl:if test="${route.availableSeats > 0 }">
-
-											<button class="btn" type="button">REQUEST</button>
-
+										<a href="reservation/passenger/create.do?routeId=${route.id }"class="btn" type="button">REQUEST SEATS</a>
+										
+										<!-- <button class="btn" type="button">REQUEST</button> -->
+										
 										</jstl:if>
 
 									</jstl:if>
+									</security:authorize>
+									
 
 								</div>
 								</div>
@@ -271,13 +272,14 @@
 					<jstl:out value="${rrp}" />
 				</dd>
 				<dd>
-				
+					<jstl:if test="${reservation.status != 'REJECTED' }">
 					<form name="cancelReservation" method="POST" action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
 						<button type="submit" name="cancelReservation" class="btn btn-primary">
 							<spring:message code="route.reserv.cancel"/> 
 						</button>
 					</form>
 					
+					</jstl:if>
 				</dd>
 				<a></a>
 			</jstl:if>
@@ -356,7 +358,7 @@
 		</jstl:if>
 	</security:authorize>
 
-	<security:authorize access="hasRole('PASSENGER')">
+	<%-- <security:authorize access="hasRole('PASSENGER')">
 
 	<jstl:if test="${rol==3}">
 		<spring:message code="route.request.seats" var="createReserv"/>
@@ -364,7 +366,7 @@
 	</jstl:if>
 	
 	</security:authorize>
-	
+	 --%>
 
 </dl>
 
