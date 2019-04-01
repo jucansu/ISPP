@@ -54,9 +54,9 @@
 			<jstl:out value="${route.departureDate}"></jstl:out>
 		</div>
 		<div class="available-seats d-flex">
-			<p>Available seats:</p>
+			<p>Available seats :    </p>
 			<jstl:out value="${route.availableSeats}"></jstl:out>
-			<p>seats</p>
+			
 		</div>
 
 	</div>
