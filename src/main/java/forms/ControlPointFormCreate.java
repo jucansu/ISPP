@@ -1,5 +1,10 @@
 package forms;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class ControlPointFormCreate {
 
 	public ControlPointFormCreate() {
@@ -11,6 +16,8 @@ public class ControlPointFormCreate {
 	private Integer estimatedTime;
 	private Double	distance;
 	
+	@NotNull
+	@NotBlank
 	public String getLocation() {
 		return location;
 	}
@@ -19,6 +26,8 @@ public class ControlPointFormCreate {
 		this.location = location;
 	}
 	
+	@NotNull
+	@Min(0)
 	public Integer getArrivalOrder() {
 		return arrivalOrder;
 	}
@@ -27,6 +36,8 @@ public class ControlPointFormCreate {
 		this.arrivalOrder = arrivalOrder;
 	}
 	
+	@NotNull
+	@Min(0)
 	public Integer getEstimatedTime() {
 		return estimatedTime;
 	}
@@ -35,6 +46,8 @@ public class ControlPointFormCreate {
 		this.estimatedTime = estimatedTime;
 	}
 	
+	@NotNull
+	@Min(0)
 	public Double getDistance() {
 		return distance;
 	}

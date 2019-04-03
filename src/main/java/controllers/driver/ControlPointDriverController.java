@@ -44,6 +44,9 @@ public class ControlPointDriverController extends AbstractController {
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public ModelAndView add(@ModelAttribute(value="route") RouteForm routeForm, BindingResult binding) {
 		ModelAndView result;
+		if (binding.hasErrors()) {
+			System.out.println("Binding errors on 'controlpoint.add': "+binding.getAllErrors());
+		}
 		
 		if (routeForm.getControlpoints() == null) {
 			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());

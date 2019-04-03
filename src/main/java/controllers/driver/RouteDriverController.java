@@ -4,6 +4,8 @@ package controllers.driver;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -74,21 +76,18 @@ public class RouteDriverController extends AbstractController {
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute(value="route") final RouteForm routeForm, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute(value="route") @Valid final RouteForm routeForm, final BindingResult binding) {
 		ModelAndView result;
 		
-		Driver driver = (Driver) actorService.findByPrincipal();
-		
-//		for (final ObjectError oe : binding.getAllErrors())
-//			System.out.println(oe);
 		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors());
+			System.out.println("/route/driver/edit.do bindingErrors: "+binding.getAllErrors());
 			result = this.createEditModelAndView(routeForm);
 		}
 		else {
 			try {
+				Driver driver = (Driver) actorService.findByPrincipal();
 				Route route = routeService.reconstruct(routeForm, driver);
-				route = routeService.save(route);
+				route = routeService.save2(route);
 				result = new ModelAndView("redirect:/route/display.do?routeID="+route.getId());
 			}
 			catch (final Throwable oops) {

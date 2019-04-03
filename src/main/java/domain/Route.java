@@ -16,6 +16,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -52,16 +53,21 @@ public class Route extends DomainEntity {
 		return this.daysRepeat;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@NotNull
+	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getOrigin() {
 		return this.origin;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getDestination() {
 		return this.destination;
 	}
@@ -72,17 +78,20 @@ public class Route extends DomainEntity {
 		return this.estimatedDuration;
 	}
 
+	@NotNull
 	@Min(value = 0)
 	@Digits(fraction = 2, integer = 8)
 	public Double getDistance() {
 		return this.distance;
 	}
+	
 	@NotNull
 	@Min(value = 1)
 	public Integer getAvailableSeats() {
 		return this.availableSeats;
 	}
 
+	@NotNull
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;

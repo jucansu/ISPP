@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
-import java.util.concurrent.TimeUnit;
 
 import org.decimal4j.util.DoubleRounder;
 import org.json.JSONArray;
@@ -59,11 +58,15 @@ public class RouteService {
 
 		//		final Driver d = (Driver) this.actorService.findByPrincipal();
 		//		r.setDriver(d);
+		r.setAvailableSeats(1);
+		r.setDistance(0d);
 		r.setIsCancelled(false);
 		r.setReservations(new ArrayList<Reservation>());
 		r.setControlPoints(new TreeSet<ControlPoint>());
 		r.setDaysRepeat("");
 		r.setEstimatedDuration(1);
+		r.setMaxLuggage(LuggageSize.NOTHING);
+		r.setPricePerPassenger(1.10d);
 
 		return r;
 	}
@@ -75,6 +78,21 @@ public class RouteService {
 
 	public Collection<Route> findAll() {
 		return this.routeRepository.findAll();
+	}
+	
+	public Route save2(final Route r) {
+		Assert.notNull(r);
+		final Route saved = this.routeRepository.save(r);
+//		saved.setControlPoints(r.getControlPoints());
+
+		for (ControlPoint cp : r.getControlPoints()) {
+			cp.setRoute(saved);
+			cp = controlPointService.save2(cp);
+		}
+		
+		routeRepository.flush();
+		controlPointService.flush();
+		return saved;
 	}
 
 	public Route save(final Route r) {
@@ -281,33 +299,41 @@ public class RouteService {
 	}
 	
 	public Route reconstruct(RouteForm routeForm, Driver driver) {
-		Assert.notNull(routeForm);
 		Assert.notNull(driver);
-		Assert.isTrue(routeForm.getAvailableSeats() <= routeForm.getVehicle().getSeatsCapacity());
+		Assert.notNull(routeForm);
+//		Assert.notNull(routeForm.getOrigin());
+//		Assert.notNull(routeForm.getDestination());
+//		Assert.notNull(routeForm.getVehicle());
+		Assert.isTrue(routeForm.getAvailableSeats() < routeForm.getVehicle().getSeatsCapacity());
 		Assert.isTrue(routeForm.getDepartureDate().after(new Date(new Date().getTime() + 960000l))); // 16 minutos en ms
-		Assert.notNull(routeForm.getVehicle());
 		Assert.isTrue(routeForm.getVehicle().getDriver().getId() == driver.getId());
-		Assert.notNull(routeForm.getOrigin());
-		Assert.notNull(routeForm.getDestination());
 		
 		List<ControlPointFormCreate> cps = new ArrayList<ControlPointFormCreate>();
 		cps.add(routeForm.getOrigin());
-		for (ControlPointFormCreate cp : routeForm.getControlpoints()) {
-			routeForm.getControlpoints().add(cp);
+		if (routeForm.getControlpoints() != null) {
+			for (ControlPointFormCreate cp : routeForm.getControlpoints()) {
+				cps.add(cp);
+			}
 		}
 		cps.add(routeForm.getDestination());
-		TreeSet<ControlPoint> controlPoints = controlPointService.reconstructCreate(cps);
+		TreeSet<ControlPoint> controlPoints = controlPointService.reconstructCreate(cps, routeForm.getDepartureDate());
 		
 		double routeDistance = 0d;
-		int estimatedDuration = 0;
-		long lastTime = 0l;
 		for (ControlPoint cp : controlPoints) {
+			routeDistance += cp.getDistance();
+		}
+		
+		int estimatedDuration = 0;
+		for (ControlPointFormCreate cp : cps) {
+			estimatedDuration += cp.getEstimatedTime();
+		}
+		/*for (ControlPoint cp : controlPoints) {
 			routeDistance += cp.getDistance();
 			if (lastTime != 0l) {
 				estimatedDuration += TimeUnit.MINUTES.convert(cp.getArrivalTime().getTime() - lastTime, TimeUnit.MILLISECONDS);
 			}
 			lastTime = cp.getArrivalTime().getTime();
-		}
+		}*/
 		
 		double pricePerPassenger = 1.10d;
 		if (routeDistance > 9d) {

@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -32,6 +35,7 @@ public class RouteForm extends FormObject {
 
 	// TODO PONER TAGS EN LOS getX de los atributos!!
 
+	@NotNull
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
@@ -42,6 +46,8 @@ public class RouteForm extends FormObject {
 		this.departureDate = departureDate;
 	}
 
+	@NotNull
+	@Valid
 	public ControlPointFormCreate getOrigin() {
 		return this.origin;
 	}
@@ -50,6 +56,8 @@ public class RouteForm extends FormObject {
 		this.origin = origin;
 	}
 
+	@NotNull
+	@Valid
 	public ControlPointFormCreate getDestination() {
 		return this.destination;
 	}
@@ -58,6 +66,8 @@ public class RouteForm extends FormObject {
 		this.destination = destination;
 	}
 
+	@NotNull
+	@Min(1)
 	public Integer getAvailableSeats() {
 		return this.availableSeats;
 	}
@@ -66,6 +76,7 @@ public class RouteForm extends FormObject {
 		this.availableSeats = availableSeats;
 	}
 
+	@NotNull
 	public LuggageSize getMaxLuggage() {
 		return this.maxLuggage;
 	}
@@ -98,6 +109,8 @@ public class RouteForm extends FormObject {
 		this.pricePerPassenger = pricePerPassenger;
 	}
 
+	@NotNull
+	@Valid
 	public Vehicle getVehicle() {
 		return this.vehicle;
 	}
@@ -106,6 +119,7 @@ public class RouteForm extends FormObject {
 		this.vehicle = vehicle;
 	}
 
+	@Valid
 	public List<ControlPointFormCreate> getControlpoints() {
 		return this.controlpoints;
 	}
