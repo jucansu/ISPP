@@ -160,7 +160,7 @@ public class RouteDriverController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/confirmRoute", method = RequestMethod.GET)
+	@RequestMapping(value = "/confirmRoute", method = RequestMethod.POST)
 	public ModelAndView confirmRoute(@RequestParam final int routeId) {
 		ModelAndView result;
 		Route route;

@@ -25,6 +25,7 @@
 			<form:hidden path="driverPickedMe"/>
 			<form:hidden path="driverNoPickedMe"/>
 			<form:hidden path="status"/>
+			<form:hidden path="price"/>
 
 
 			<form:label path="seat">
@@ -67,16 +68,6 @@
 			<form:errors cssClass="error" path="luggageSize" />
 			<br />
 
-			<%-- <form:label path="price">
-				<spring:message code="route.total" />: 
-			</form:label>
-			<h3><span class="badge badge-success"><jstl:out value="${route.pricePerPassenger}" /> &euro;</span></h3> --%>
-			
-			<form:label path="price">
-				<spring:message code="route.total" />: 
-			</form:label>
-			<form:input path="price" readonly="readonly" id="precioTotal"/>
-			<br />
 			
 
 
