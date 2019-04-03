@@ -43,8 +43,8 @@
                                 </div>
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body d-flex flex-row justify-content-xl-center">
-                                   			<p><jstl:out value="${route.origin}"/></p>
-											<p><jstl:out value="${route.destination}"/></p>
+                                   			<p><jstl:out value="${route.origin}  >  "/></p>
+											<p><jstl:out value="> ${route.destination}"/></p>
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@
    <button class="btn" type="button">CANCEL ROUTE</button> --%>
    <security:authorize access="hasRole('DRIVER')">
 	
-	<spring:message code="route.cancel" var="cancelRoute"/>
+	<spring:message code="route.cancel.route" var="cancelRoute"/>
 		<jstl:if test="${rol==1 }">
 			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
 		</jstl:if>
