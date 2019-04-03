@@ -75,8 +75,69 @@ public class RouteDriverController extends AbstractController {
 		return result;
 	}
 	
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public ModelAndView create(@ModelAttribute(value="route") final Route route, final BindingResult binding) {
+		ModelAndView result;
+		RouteForm routeForm;
+
+		routeForm = routeService.construct(route);
+
+		result = this.createEditModelAndView(routeForm);
+
+		return result;
+	}
+	
+	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
+	public ModelAndView confirm(@ModelAttribute(value="route") @Valid final RouteForm routeForm, final BindingResult binding) {
+		ModelAndView result;
+		
+		if (binding.hasErrors()) {
+			System.out.println("/route/driver/confirm.do bindingErrors: "+binding.getAllErrors());
+			result = this.createEditModelAndView(routeForm);
+		}
+		else {
+			try {
+				Driver driver = (Driver) actorService.findByPrincipal();
+				Route route = routeService.reconstruct(routeForm, driver);
+				result = new ModelAndView("route/driver/confirm");
+				result.addObject("route", route);
+				result.addObject("requestURISave", "route/driver/edit.do");
+				result.addObject("requestURICancel", "route/driver/create.do");
+			}
+			catch (final Throwable oops) {
+				oops.printStackTrace();
+				result = this.createEditModelAndView(routeForm, "driver.commit.error");
+			}
+		}
+		return result;
+	}
+	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute(value="route") @Valid final RouteForm routeForm, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute(value="route") final Route route, final BindingResult binding) {
+		ModelAndView result;
+		
+		System.out.println("/route/driver/edit.do bindingErrors:"+binding.hasErrors());
+		
+		if (binding.hasErrors()) {
+//			System.out.println("/route/driver/edit.do bindingErrors: "+binding.getAllErrors());
+			result = this.createEditModelAndView(routeService.construct(route));
+		}
+		else {
+			try {
+				// TODO comprobar que la ruta no ha sido alterada en la vista de confirmación
+				Route routeSaved = routeService.save2(route);
+				result = new ModelAndView("redirect:/route/display.do?routeID="+routeSaved.getId());
+			}
+			catch (final Throwable oops) {
+				oops.printStackTrace();
+				result = this.createEditModelAndView(routeService.construct(route), "driver.commit.error");
+			}
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/edit2", method = RequestMethod.POST, params = "save")
+	public ModelAndView save2(@ModelAttribute(value="route") @Valid final RouteForm routeForm, final BindingResult binding) {
 		ModelAndView result;
 		
 		if (binding.hasErrors()) {
@@ -113,7 +174,8 @@ public class RouteDriverController extends AbstractController {
 
 		final Driver driver = (Driver) this.actorService.findByPrincipal();
 
-		requestURI = "route/driver/edit.do";
+//		requestURI = "route/driver/edit.do";
+		requestURI = "route/driver/confirm.do";
 		result = new ModelAndView("route/driver/create");
 		result.addObject("route", route);
 		result.addObject("vehicles", driver.getVehicles());

@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeSet;
 
 import org.decimal4j.util.DoubleRounder;
 import org.json.JSONArray;
@@ -62,7 +61,7 @@ public class RouteService {
 		r.setDistance(0d);
 		r.setIsCancelled(false);
 		r.setReservations(new ArrayList<Reservation>());
-		r.setControlPoints(new TreeSet<ControlPoint>());
+		r.setControlPoints(new ArrayList<ControlPoint>());
 		r.setDaysRepeat("");
 		r.setEstimatedDuration(1);
 		r.setMaxLuggage(LuggageSize.NOTHING);
@@ -272,20 +271,20 @@ public class RouteService {
 		routeForm.setId(route.getId());
 		routeForm.setAvailableSeats(route.getAvailableSeats());
 		if (route.getControlPoints().isEmpty()) {
-			routeForm.setOrigin(this.controlPointService.constructCreate(this.controlPointService.create()));
+			routeForm.setOrigin(this.controlPointService.constructCreate(this.controlPointService.create(), route));
 			final ControlPoint cp = this.controlPointService.create();
 			cp.setArrivalOrder(1);
-			routeForm.setDestination(this.controlPointService.constructCreate(cp));
+			routeForm.setDestination(this.controlPointService.constructCreate(cp, route));
 			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
 		}
 		else {
 			final LinkedList<ControlPoint> cps = new LinkedList<ControlPoint>(route.getControlPoints());
-			routeForm.setOrigin(this.controlPointService.constructCreate(cps.removeFirst()));
-			routeForm.setDestination(this.controlPointService.constructCreate(cps.removeLast()));
+			routeForm.setOrigin(this.controlPointService.constructCreate(cps.removeFirst(), route));
+			routeForm.setDestination(this.controlPointService.constructCreate(cps.removeLast(), route));
 			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
 
 			for (final ControlPoint cp : cps) {
-				routeForm.getControlpoints().add(this.controlPointService.constructCreate(cp));
+				routeForm.getControlpoints().add(this.controlPointService.constructCreate(cp, route));
 			}
 		}
 		routeForm.setDepartureDate(route.getDepartureDate());
@@ -316,7 +315,7 @@ public class RouteService {
 			}
 		}
 		cps.add(routeForm.getDestination());
-		TreeSet<ControlPoint> controlPoints = controlPointService.reconstructCreate(cps, routeForm.getDepartureDate());
+		List<ControlPoint> controlPoints = controlPointService.reconstructCreate(cps, routeForm.getDepartureDate());
 		
 		double routeDistance = 0d;
 		for (ControlPoint cp : controlPoints) {
@@ -339,6 +338,7 @@ public class RouteService {
 		if (routeDistance > 9d) {
 			pricePerPassenger += Math.floor(routeDistance - 9d) * 0.11d;
 		}
+		pricePerPassenger = DoubleRounder.round(pricePerPassenger, 2);
 
 		Route result = create();
 		
@@ -353,10 +353,12 @@ public class RouteService {
 		result.setVersion(0);
 		
 		result.setControlPoints(controlPoints);
-		result.setDestination(controlPoints.last().getLocation());
+//		result.setDestination(controlPoints.last().getLocation());
+		result.setDestination(controlPoints.get(0).getLocation());
 		result.setDistance(routeDistance);
 		result.setEstimatedDuration(estimatedDuration);
-		result.setOrigin(controlPoints.first().getLocation());
+//		result.setOrigin(controlPoints.first().getLocation());
+		result.setOrigin(controlPoints.get(controlPoints.size() - 1).getLocation());
 		result.setPricePerPassenger(pricePerPassenger);
 		result.setReservations(null);
 		

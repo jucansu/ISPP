@@ -52,7 +52,7 @@ public class ControlPointDriverController extends AbstractController {
 			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
 		}
 		
-		ControlPointFormCreate cp = controlPointService.constructCreate(controlPointService.create());
+		ControlPointFormCreate cp = controlPointService.constructCreate(controlPointService.create(), null);
 		cp.setArrivalOrder(routeForm.getControlpoints().size()+1);
 		routeForm.getControlpoints().add(cp);
 		routeForm.getDestination().setArrivalOrder(routeForm.getControlpoints().size()+1);

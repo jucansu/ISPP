@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -41,7 +42,7 @@ public class Route extends DomainEntity {
 
 	private Driver						driver;
 	private Vehicle						vehicle;
-	private Collection<ControlPoint>	controlPoints;
+	private List<ControlPoint>			controlPoints;
 	private Collection<Reservation>		reservations;
 
 
@@ -128,7 +129,7 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@OneToMany(mappedBy = "route")
-	public Collection<ControlPoint> getControlPoints() {
+	public List<ControlPoint> getControlPoints() {
 		return this.controlPoints;
 	}
 
@@ -168,7 +169,7 @@ public class Route extends DomainEntity {
 		this.driver = driver;
 	}
 
-	public void setControlPoints(final Collection<ControlPoint> controlPoints) {
+	public void setControlPoints(final List<ControlPoint> controlPoints) {
 		this.controlPoints = controlPoints;
 	}
 	public void setReservations(final Collection<Reservation> reservations) {

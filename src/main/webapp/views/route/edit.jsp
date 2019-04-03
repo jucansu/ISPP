@@ -91,8 +91,7 @@
 			<form:textarea path="details" />
 			<br />
 			
-			<input type="submit" name="save" class="btn btn-success"
-					value="<spring:message code="route.save" />" />
+			<input type="submit" class="btn btn-success" value="<spring:message code="route.save" />" />
 			
 		</form:form>
 	</center>

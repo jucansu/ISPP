@@ -158,22 +158,44 @@ public class ControlPointService {
 
 	}
 
-	public ControlPointFormCreate constructCreate(final ControlPoint controlPoint) {
+	public ControlPointFormCreate constructCreate(final ControlPoint controlPoint, Route route) {
 		final ControlPointFormCreate form = new ControlPointFormCreate();
 		form.setLocation(controlPoint.getLocation());
 		form.setArrivalOrder(controlPoint.getArrivalOrder());
-		if (controlPoint.getRoute() == null) {
+		if (route != null && route.getControlPoints() != null && route.getControlPoints().size() > 1) {
+			Date lastArrivalTime = null;
+			for (ControlPoint cp : route.getControlPoints()) {
+				if (cp.getArrivalOrder() == controlPoint.getArrivalOrder()) {
+					if (lastArrivalTime == null) {
+						form.setEstimatedTime(0);
+						break;
+					}
+					else {
+						Double estimatedTime = (cp.getArrivalTime().getTime() - lastArrivalTime.getTime()) / 60000d;
+						form.setEstimatedTime(estimatedTime.intValue());
+						break;
+					}
+				}
+				else {
+					lastArrivalTime = cp.getArrivalTime();
+				}
+			}
+		}
+		else {
+			form.setEstimatedTime(0);
+		}
+		/*if (controlPoint.getRoute() == null) {
 			form.setEstimatedTime(0);
 		}
 		else {
 			// TODO
 			form.setEstimatedTime(0);
-		}
+		}*/
 		form.setDistance(controlPoint.getDistance());
 		return form;
 	}
 	
-	public TreeSet<ControlPoint> reconstructCreate(Collection<ControlPointFormCreate> controlPoints, Date departureDate) {
+	public List<ControlPoint> reconstructCreate(Collection<ControlPointFormCreate> controlPoints, Date departureDate) {
 		TreeSet<ControlPoint> result = new TreeSet<ControlPoint>();
 		ControlPoint cp;
 		String lastLocation = null;
@@ -198,7 +220,7 @@ public class ControlPointService {
 			
 			result.add(cp);
 		}
-		return result;
+		return new ArrayList<ControlPoint>(result);
 	}
 
 }
