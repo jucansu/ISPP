@@ -17,75 +17,85 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="hasRole('PASSENGER')">
-<form:form action= "reservation/passenger/create.do" modelAttribute="reservation">
-	<form:hidden path="id"/>
-	<form:hidden path="version"/>
-	
-	
-	<form:label path="seat"><spring:message code="reservation.seat"/>: </form:label>
-	<form:select path="seat">
-		<jstl:forEach var="x" begin="1" end="${remainingSeats}">
-			<form:option 
-			label="${x}" 
-			value="${x}">
-			</form:option>
-		</jstl:forEach>
-	</form:select>
-	<form:errors cssClass="error" path="seat"/>
-	<br/>
-	
-	<form:label path="origin"><spring:message code="reservation.origin"/>: </form:label>
-	<form:select path="origin">
-		<form:option 
-		label="---" 
-		value="0">
-		</form:option>
-		<form:options 
-		items="${places}"
-		itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="origin"/>
-	<br/>
-	
-	<form:label path="destination"><spring:message code="reservation.destination"/>: </form:label>
-	<form:select path="destination">
-		<form:option 
-		label="---" 
-		value="0">
-		</form:option>
-		<form:options 
-		items="${places}"
-		itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="destination"/>
-	<br/>
-	
-	<form:label path="luggage"><spring:message code="reservation.luggage"/>: </form:label>
-	<form:select path="luggage">
-		<form:option 
-		label="---" 
-		value="0">
-		</form:option>
-		<form:options 
-		items="${luggageSizes}"
-		itemValue="id"/>
-	</form:select>
-	<form:errors cssClass="error" path="luggage"/>
-	<br/>
-	
-	<form:label path="price">
-		<spring:message code="reservation.price"/>: 
-	</form:label>
-	<jstl:out value="${route.price}"></jstl:out>		<!-- TODO: esto del precio de momento asi pero habra que mejorarlo, creo -->
-	<br/>
-	
-	
-	<input type="submit" name="save"
-		value="<spring:message code="reservation.save" />" /> 
-	<input type="button" name="cancel"
-		value="<spring:message code="reservation.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />	<!-- TODO: aun por ver donde se redirigira -->
-	<br />
+<form:form action="reservation/passenger/create.do"	modelAttribute="reservation">
+			<form:hidden path="id" />
+			<form:hidden path="version" />
+			<form:hidden path="passenger"/>
+			<form:hidden path="route"/>
+			<form:hidden path="driverPickedMe"/>
+			<form:hidden path="driverNoPickedMe"/>
+			<form:hidden path="status"/>
 
-</form:form>
+
+			<form:label path="seat">
+				<spring:message code="route.request.seats" />: </form:label>
+			<form:select path="seat" onclick="multiplicar()" id="seatId">
+				<jstl:forEach var="x" begin="1" end="${remainingSeats}">
+					<form:option label="${x}" value="${x}">
+					</form:option>
+				</jstl:forEach>
+			</form:select>
+			<form:errors cssClass="error" path="seat" />
+			<br />
+
+
+
+			<form:label path="origin">
+				<spring:message code="route.origin" />: </form:label>
+			<form:select path="origin">
+				<form:option value="${route.origin }" />
+			</form:select>
+			<form:errors cssClass="error" path="origin" />
+			<br />
+
+			<form:label path="destination">
+				<spring:message code="route.destination" />: </form:label>
+			<form:select path="destination">
+				<form:option value="${route.destination}" />
+			</form:select>
+			<form:errors cssClass="error" path="destination" />
+			<br />
+
+			<form:label path="luggageSize">
+				<spring:message code="route.luggage" />: </form:label>
+			<form:select path="luggageSize">
+				<form:option value="NOTHING" label="NOTHING"/>
+				<form:option value="SMALL" label="SMALL"/>
+				<form:option value="MEDIUM" label="MEDIUM"/>
+				<form:option value="BIG" label="BIG"/>
+			</form:select>
+			<form:errors cssClass="error" path="luggageSize" />
+			<br />
+
+			<%-- <form:label path="price">
+				<spring:message code="route.total" />: 
+			</form:label>
+			<h3><span class="badge badge-success"><jstl:out value="${route.pricePerPassenger}" /> &euro;</span></h3> --%>
+			
+			<form:label path="price">
+				<spring:message code="route.total" />: 
+			</form:label>
+			<form:input path="price" readonly="readonly" id="precioTotal"/>
+			<br />
+			
+
+
+
+			<input type="submit" name="save"
+				value="<spring:message code="route.save" />" />
+			<input type="button" name="cancel"
+				value="<spring:message code="route.cancel" />"
+				onclick="javascript: relativeRedir('route/passenger/listActive.do');" />
+			<br />
+
+		</form:form>
+
+		<script type="text/javascript">
+			function multiplicar() {
+
+				var result = document.getElementById("seatId").value * ${route.pricePerPassenger};
+				document.getElementById("precioTotal").innerHTML = result.toFixed(2);
+			};
+		</script>
+
 </security:authorize>

@@ -17,12 +17,14 @@ public class Reservation extends DomainEntity {
 
 	//Attributes
 
-	private LuggageSize			luggage;
+	private LuggageSize			luggageSize;
 	private Double				price;
 	private String				origin;
 	private String				destination;
 	private Integer				seat;
 	private ReservationStatus	status;
+	private boolean				driverPickedMe;
+	private boolean				driverNoPickedMe;
 
 	//Relationships
 
@@ -51,7 +53,7 @@ public class Reservation extends DomainEntity {
 	@NotNull
 	@Valid
 	public LuggageSize getLuggageSize() {
-		return this.luggage;
+		return this.luggageSize;
 	}
 
 	@NotNull
@@ -79,10 +81,19 @@ public class Reservation extends DomainEntity {
 		return this.status;
 	}
 
+	@NotNull
+	public boolean isDriverPickedMe() {
+		return this.driverPickedMe;
+	}
+	@NotNull
+	public boolean isDriverNoPickedMe() {
+		return this.driverNoPickedMe;
+	}
+
 	//Setters
 
-	public void setLuggageSize(final LuggageSize luggage) {
-		this.luggage = luggage;
+	public void setLuggageSize(final LuggageSize luggageSize) {
+		this.luggageSize = luggageSize;
 	}
 
 	public void setPrice(final Double price) {
@@ -111,6 +122,14 @@ public class Reservation extends DomainEntity {
 
 	public void setStatus(final ReservationStatus status) {
 		this.status = status;
+	}
+
+	public void setDriverPickedMe(final boolean driverPickedMe) {
+		this.driverPickedMe = driverPickedMe;
+	}
+
+	public void setDriverNoPickedMe(final boolean driverNoPickedMe) {
+		this.driverNoPickedMe = driverNoPickedMe;
 	}
 
 }

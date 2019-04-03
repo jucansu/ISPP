@@ -26,24 +26,24 @@ public class Route extends DomainEntity {
 
 	//Attributes
 
-	private Date						departureDate;
-	private String						origin;
-	private String						destination;
-	private Integer						estimatedDuration;
-	private String						daysRepeat;
-	private Integer						availableSeats;
-	private Double						distance;
-	private Double						pricePerPassenger;
-	private String						details;
-	private LuggageSize					maxLuggage;
-	private Boolean						isCancelled;
+	private Date					departureDate;
+	private String					origin;
+	private String					destination;
+	private Integer					estimatedDuration;
+	private String					daysRepeat;
+	private Integer					availableSeats;
+	private Double					distance;
+	private Double					pricePerPassenger;
+	private String					details;
+	private LuggageSize				maxLuggage;
+	private Boolean					isCancelled;
 
 	//Relationships
 
-	private Driver						driver;
-	private Vehicle						vehicle;
-	private List<ControlPoint>			controlPoints;
-	private Collection<Reservation>		reservations;
+	private Driver					driver;
+	private Vehicle					vehicle;
+	private List<ControlPoint>		controlPoints;
+	private Collection<Reservation>	reservations;
 
 
 	//Getter
@@ -85,7 +85,7 @@ public class Route extends DomainEntity {
 	public Double getDistance() {
 		return this.distance;
 	}
-	
+
 	@NotNull
 	@Min(value = 1)
 	public Integer getAvailableSeats() {

@@ -20,7 +20,13 @@
 <spring:url value="/styles/route.css" var="routecss" />
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
+<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<div class="text-center active-routes">
+	<h3>Create route</h3>
+</div>
 
+
+<spring:message code="route.cancel"  var="cancel"/>
 <security:authorize access="hasRole('DRIVER')">
 <center>
 		<form:form action="${requestURI}" modelAttribute="route">

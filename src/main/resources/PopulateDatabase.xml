@@ -10,14 +10,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
-	<!-- Indice: Para encontrar una sección usar Ctrl + F -->
-	<!-- UserAccounts -->
-	<!-- Drivers -->
-	<!-- CreditCards -->
-	<!-- Vehicles -->
-	<!-- Routes -->
-
-	<!-- USER ACCOUNTS (0)ADMIN (1-10)PASSENGER (11-20)DRIVER -->
 	<!-- Password: admin/admin otros/Temporal01 -->
 
 	<bean id="userAccount0" class="security.UserAccount">

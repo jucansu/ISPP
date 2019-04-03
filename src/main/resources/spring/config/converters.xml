@@ -28,7 +28,8 @@
 		<bean class="converters.StringToDriverConverter" />
 		<bean class="converters.ReservationToStringConverter" />
 		<bean class="converters.StringToReservationConverter" />
-		
+		<bean class="converters.PassengerToStringConverter" />
+		<bean class="converters.StringToPassengerConverter" />
 
 	</util:list>
 	
