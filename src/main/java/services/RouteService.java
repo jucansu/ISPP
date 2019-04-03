@@ -469,11 +469,11 @@ public class RouteService {
 
 		result.setControlPoints(controlPoints);
 		//		result.setDestination(controlPoints.last().getLocation());
-		result.setDestination(controlPoints.get(0).getLocation());
+		result.setDestination(controlPoints.get(controlPoints.size() - 1).getLocation());
 		result.setDistance(routeDistance);
 		result.setEstimatedDuration(estimatedDuration);
 		//		result.setOrigin(controlPoints.first().getLocation());
-		result.setOrigin(controlPoints.get(controlPoints.size() - 1).getLocation());
+		result.setOrigin(controlPoints.get(0).getLocation());
 		result.setPricePerPassenger(pricePerPassenger);
 		result.setReservations(null);
 
