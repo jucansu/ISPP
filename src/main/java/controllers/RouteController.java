@@ -39,6 +39,7 @@ public class RouteController extends AbstractController {
 	// Services ---------------------------------------------------------------
 	@Autowired
 	private RouteService		routeService;
+
 	@Autowired
 	private ReservationService	reservationService;
 
@@ -68,7 +69,6 @@ public class RouteController extends AbstractController {
 	}
 
 	// Display ---------------------------------------------------------------
-
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int routeId) {
 		ModelAndView result;
@@ -202,42 +202,42 @@ public class RouteController extends AbstractController {
 		return result;
 	}
 
-	// Ancilliary methods ----------------------------------------------------------------
-	private ModelAndView createEditModelAndView(final Route route) {
-		ModelAndView result;
-
-		result = this.createEditModelAndView(route, null);
-
-		return result;
-	}
-
-	private ModelAndView createEditModelAndView(final Route route, final String message) {
-		ModelAndView result;
-		String requestURI;
-
-		final Driver driver = (Driver) this.actorService.findByPrincipal();
-
-		requestURI = "route/driver/edit.do";
-		result = new ModelAndView("route/driver/create");
-		result.addObject("route", route);
-		result.addObject("vehicles", driver.getVehicles());
-		result.addObject("message", message);
-		result.addObject("requestURI", requestURI);
-
-		return result;
-	}
-
-	private ModelAndView routeDisplayModelAndView(final Route route, final String message) {
-		ModelAndView result;
-		String requestURI;
-
-		requestURI = "route/display.do";
-		result = new ModelAndView("route/display");
-		result.addObject("route", route);
-		result.addObject("message", message);
-		result.addObject("requestURI", requestURI);
-
-		return result;
-	}
+	//	// Ancilliary methods ----------------------------------------------------------------
+	//	private ModelAndView createEditModelAndView(final Route route) {
+	//		ModelAndView result;
+	//
+	//		result = this.createEditModelAndView(route, null);
+	//
+	//		return result;
+	//	}
+	//
+	//	private ModelAndView createEditModelAndView(final Route route, final String message) {
+	//		ModelAndView result;
+	//		String requestURI;
+	//
+	//		final Driver driver = (Driver) this.actorService.findByPrincipal();
+	//
+	//		requestURI = "route/driver/edit.do";
+	//		result = new ModelAndView("route/driver/create");
+	//		result.addObject("route", route);
+	//		result.addObject("vehicles", driver.getVehicles());
+	//		result.addObject("message", message);
+	//		result.addObject("requestURI", requestURI);
+	//
+	//		return result;
+	//	}
+	//
+	//	private ModelAndView routeDisplayModelAndView(final Route route, final String message) {
+	//		ModelAndView result;
+	//		String requestURI;
+	//
+	//		requestURI = "route/display.do";
+	//		result = new ModelAndView("route/display");
+	//		result.addObject("route", route);
+	//		result.addObject("message", message);
+	//		result.addObject("requestURI", requestURI);
+	//
+	//		return result;
+	//	}
 
 }

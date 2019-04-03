@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,24 +26,24 @@ public class Route extends DomainEntity {
 
 	//Attributes
 
-	private Date						departureDate;
-	private String						origin;
-	private String						destination;
-	private Integer						estimatedDuration;
-	private String						daysRepeat;
-	private Integer						availableSeats;
-	private Double						distance;
-	private Double						pricePerPassenger;
-	private String						details;
-	private LuggageSize					maxLuggage;
-	private Boolean						isCancelled;
+	private Date					departureDate;
+	private String					origin;
+	private String					destination;
+	private Integer					estimatedDuration;
+	private String					daysRepeat;
+	private Integer					availableSeats;
+	private Double					distance;
+	private Double					pricePerPassenger;
+	private String					details;
+	private LuggageSize				maxLuggage;
+	private Boolean					isCancelled;
 
 	//Relationships
 
-	private Driver						driver;
-	private Vehicle						vehicle;
-	private Collection<ControlPoint>	controlPoints;
-	private Collection<Reservation>		reservations;
+	private Driver					driver;
+	private Vehicle					vehicle;
+	private List<ControlPoint>		controlPoints;
+	private Collection<Reservation>	reservations;
 
 
 	//Getter
@@ -52,16 +54,21 @@ public class Route extends DomainEntity {
 		return this.daysRepeat;
 	}
 
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDepartureDate() {
 		return this.departureDate;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getOrigin() {
 		return this.origin;
 	}
 
+	@NotNull
+	@NotBlank
 	public String getDestination() {
 		return this.destination;
 	}
@@ -72,17 +79,20 @@ public class Route extends DomainEntity {
 		return this.estimatedDuration;
 	}
 
+	@NotNull
 	@Min(value = 0)
 	@Digits(fraction = 2, integer = 8)
 	public Double getDistance() {
 		return this.distance;
 	}
+
 	@NotNull
 	@Min(value = 1)
 	public Integer getAvailableSeats() {
 		return this.availableSeats;
 	}
 
+	@NotNull
 	@Min(value = (long) 1.10)
 	public Double getPricePerPassenger() {
 		return this.pricePerPassenger;
@@ -119,7 +129,7 @@ public class Route extends DomainEntity {
 
 	@Valid
 	@OneToMany(mappedBy = "route")
-	public Collection<ControlPoint> getControlPoints() {
+	public List<ControlPoint> getControlPoints() {
 		return this.controlPoints;
 	}
 
@@ -159,7 +169,7 @@ public class Route extends DomainEntity {
 		this.driver = driver;
 	}
 
-	public void setControlPoints(final Collection<ControlPoint> controlPoints) {
+	public void setControlPoints(final List<ControlPoint> controlPoints) {
 		this.controlPoints = controlPoints;
 	}
 	public void setReservations(final Collection<Reservation> reservations) {

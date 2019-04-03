@@ -76,7 +76,7 @@
 				value="<spring:message code="route.save" />" />
 			<input type="button" name="cancel"
 				value="<spring:message code="route.cancel" />"
-				onclick="javascript: relativeRedir('route/passenger/listActive.do');" />
+				onclick="javascript: relativeRedir('route/display.do?routeId=${route.id}');" />
 			<br />
 
 		</form:form>
