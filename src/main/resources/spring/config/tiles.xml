@@ -28,6 +28,8 @@
 		<value>/views/profile/tiles.xml</value>
 		<value>/views/route/tiles.xml</value>
 		<value>/views/reservation/tiles.xml</value>
+		<value>/views/driver/tiles.xml</value>
+		<value>/views/passenger/tiles.xml</value>
 	</util:list>
 
 </beans>

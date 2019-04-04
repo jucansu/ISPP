@@ -81,7 +81,22 @@ window.cookieconsent.initialise({
  				<security:authentication property="principal.username" />
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" href="#">Visit my profile</a> 
+				<security:authorize access="hasRole('DRIVER')">
+					<a class="dropdown-item" href="#">Visit my profile</a> 
+					<!-- driver/display.do?driverId= -->
+				</security:authorize>
+				<security:authorize access="hasRole('PASSENGER')">
+					<a class="dropdown-item" href="#">Visit my profile</a> 
+					<!-- passenger/display.do?passengerId= -->
+				</security:authorize>
+				<security:authorize access="hasRole('DRIVER')">
+					<a class="dropdown-item" href="#">Edit Profile</a> 
+					<!-- driver/edit.do?driverId= -->
+				</security:authorize>
+				<security:authorize access="hasRole('PASSENGER')">
+					<a class="dropdown-item" href="#">Edit Profile</a> 
+					<!-- passenger/edit.do?passengerId= -->
+				</security:authorize>
 				<a class="dropdown-item" href="#">Configuration</a>
 				<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>

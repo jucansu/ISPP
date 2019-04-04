@@ -30,7 +30,10 @@
 		<bean class="converters.StringToReservationConverter" />
 		<bean class="converters.PassengerToStringConverter" />
 		<bean class="converters.StringToPassengerConverter" />
-
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+		<bean class="converters.CommentToStringConverter" />
+		<bean class="converters.StringToCommentConverter" />
 	</util:list>
 	
 </beans>
