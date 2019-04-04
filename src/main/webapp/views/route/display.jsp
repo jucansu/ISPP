@@ -154,7 +154,7 @@
 									<p>Luggage: &nbsp<jstl:out value="${route.maxLuggage}"></jstl:out><br/></p>
 
 
-									<p>Seats: &nbsp <jstl:out value="${route.availableSeats}"></jstl:out><br/></p>
+									<p>Available Seats: &nbsp <jstl:out value="${remainingSeats}/${route.availableSeats}"></jstl:out><br/></p>
 
 
 									<p>
@@ -169,7 +169,7 @@
 									<security:authorize access="hasRole('PASSENGER')">
 									<jstl:if test="${route.isCancelled == false && reservation.status != 'PENDING' || 'ACCEPTED'}">
 
-										<jstl:if test="${route.availableSeats > 0 }">
+										<jstl:if test="${remainingSeats > 0 }">
 										<a href="reservation/passenger/create.do?routeId=${route.id }"class="btn" type="button">REQUEST SEATS</a>
 										
 										<!-- <button class="btn" type="button">REQUEST</button> -->
