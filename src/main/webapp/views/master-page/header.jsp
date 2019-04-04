@@ -33,7 +33,7 @@ window.addEventListener("load", function(){
 window.cookieconsent.initialise({
  "palette": {
    "popup": {
-     "background": "#ff40a0"
+     "background": "#b143dd"
    },
    "button": {
      "background": "#ffa513"
@@ -53,12 +53,12 @@ window.cookieconsent.initialise({
 <security:authorize access="isAuthenticated()">
 	<div class="logo">
 		<security:authorize access="hasRole('DRIVER')">
-		<a href="route/driver/listActive.do" >
+		<a href="/Trond/route/driver/listActive.do" >
 		
 		<img src="images/logoicon.png" /></a>
 		</security:authorize>
 		<security:authorize access="hasRole('PASSENGER')">
-		<a href="route/passenger/listActive.do" >
+		<a href="/Trond/route/passenger/listActive.do" >
 		
 		<img src="images/logoicon.png" /></a>
 		</security:authorize>
@@ -89,75 +89,21 @@ window.cookieconsent.initialise({
 		</div>
 	</div>
 	
+	<div class="header_nav backgroundcolor-pink">
+		<nav class="nav-bar navbar-expand-lg">
+			<!-- <ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+	        		<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	      		</li>
+			</ul> -->
+		</nav>
+	</div>
+	
 	<!-- --- -->
-	<nav class="navbar navbar-icon-top navbar-expand-lg" style="background-color: #fa3274;">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-          </i>
-          Menu
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li> 
-      <li class="nav-item">
-        
-      </li>
-    
-    </ul>
-    <ul class="navbar-nav ">
-
-      
-     <li class="nav-item dropdown">
-        
-      </li>
-      
-    <div>
-    <li class="nav-item">
-     <security:authorize access="hasRole('PASSENGER')">
-        <a class="nav-link" href="route/search.do">
-          <i class="fa fa-search">
-          </i>
-         
-        </a>
-        </security:authorize>
-      </li>
-    </div>
-  </div>
-  
-      <security:authorize access="hasRole('DRIVER')">
-    <div>
-   
-        <a class="nav-link" href="route/driver/create.do">
-          <i class="fa fa-plus">
-          </i>
-         
-        </a>
-  
-    </div>
-    </security:authorize>
-  </div>
-  
-</nav>
-
-<nav class="navbar navbar-light" style="background-color: #fa3274;">
-    <div class="container">
-  
-
-
-</nav>
+	
+	
 </security:authorize>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 	crossorigin="anonymous"></script>
