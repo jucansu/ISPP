@@ -61,6 +61,10 @@
 						<spring:message code="security.login.failed" />
 					</div>
 				</jstl:if>
+				<security:authorize access="!isAuthenticated()">
+					<a href="driver/create.do"> <spring:message code="driver.register.save"/></a>
+					<a href="passenger/create.do"> <spring:message code="passenger.register.save"/></a>
+				</security:authorize>
 			</form:form>
 			
 			<!-- <ul id="formFooter">

@@ -66,7 +66,7 @@
 					<jstl:set var="remainingSeats" value="${remainingSeats-reservation.seat}"/>
 				</jstl:if>
 			</jstl:forEach>
-			<jstl:out value="${remainingSeats }/${route.availableSeats}"></jstl:out>
+			<jstl:out value=" ${remainingSeats }/${route.availableSeats}"></jstl:out>
 			
 		</div>
 

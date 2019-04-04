@@ -17,6 +17,21 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<spring:url value="/styles/route.css" var="routecss" />
+<link href="${routecss}" rel="stylesheet" />
+<script src="${routecss}"></script>
+<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<div class="text-center active-routes">
+	<h3>Confirm reservation</h3>
+</div>
 
 <%-- Stored message variables --%>
 
@@ -55,9 +70,9 @@
 		<form:hidden path="route"/>
 		
 		<div class="col-sm-6 text-center" style="padding-top: 20px;">
-		<input type="submit" value="${confirm}" />
+		<input type="submit" class="btn btn btn-success" value="${confirm}" />
 		
-		<input type="button" name="cancel"
+		<input type="button" name="cancel" class="btn btn-warning"
 				value="<spring:message code="reservation.cancel" />"
 				onclick="javascript: relativeRedir('reservation/passenger/create.do?routeId=${route.id}');" />
 		

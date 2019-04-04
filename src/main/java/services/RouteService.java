@@ -53,7 +53,8 @@ public class RouteService {
 
 	@Autowired
 	private ReservationService	reservationService;
-
+	@Autowired
+	private DriverService	driverService;
 
 	//Simple CRUD methods
 
@@ -137,6 +138,17 @@ public class RouteService {
 		r.setPricePerPassenger(price);
 		r.setDistance(distance);
 		final Route saved = this.routeRepository.save(r);
+		
+		if (this.actorService.findByPrincipal() instanceof Driver){
+			Driver driver = saved.getDriver();
+			
+			Collection<Route> routes = driver.getRoutes();
+			routes.add(saved);
+			driver.setRoutes(routes);
+			this.driverService.save(driver);
+			
+		}
+		
 
 		return saved;
 	}

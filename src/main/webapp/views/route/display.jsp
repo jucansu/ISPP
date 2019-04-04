@@ -26,7 +26,9 @@
 
 	<jstl:out value="${route.origin}"/><br />
 	<jstl:out value="${route.destination}"/><br />
-	<jstl:out value="${route.departureDate}"/><br />
+<%-- 	<jstl:out value="${route.departureDate}"/><br /> --%>
+	<spring:message code="route.formatDate" var="formatDate" />
+	<fmt:formatDate value="${route.departureDate}" pattern="${formatDate}"/>
 	
         <div class="container ">
             <div class="col-md-12">
@@ -194,10 +196,11 @@
   <%--  <security:authorize access="hasRole('DRIVER')">
    <button class="btn" type="button">CANCEL ROUTE</button> --%>
    <security:authorize access="hasRole('DRIVER')">
-	
+	<spring:message code="route.confirm.cancel" var="confirm" />
 	<spring:message code="route.cancel.route" var="cancelRoute"/>
 		<jstl:if test="${rol==1 }">
-			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
+			<dd><a href="route/driver/cancel.do?routeId=${route.id}"
+			onclick="return confirm('${confirm}')" />&nbsp;<jstl:out value="${cancelRoute}"/></a></dd>
 		</jstl:if>
 	
 	</security:authorize>
