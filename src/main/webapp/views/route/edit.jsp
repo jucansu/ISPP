@@ -37,7 +37,9 @@
 		
 			<div class="col-sm-6 text-center" style="padding-top: 20px;">
 				<div class="form-group">
-					<label for="inputPassword4"> Departure date:</label>
+				<form:label path="departureDate">
+					<spring:message code="route.departureDate" />
+				</form:label>
 					<div class="input-group date" id="datetimepicker"
 						data-target-input="nearest">
 						<form:input type="text" path="departureDate"
@@ -64,7 +66,9 @@
 
 
 			<div class="form-group col-md-6">
-							Origin:
+				<form:label path="origin">
+					<spring:message code="route.origin" />
+				</form:label>
 			<form:input type="text" path="origin.location" class="form-control"/>
 			<form:errors path="origin.location" cssClass="error" />
 			<form:hidden path="origin.estimatedTime" />
@@ -74,12 +78,14 @@
 			</div>
 			
 			<div class="form-group col-md-6">
-							<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status" >
+			<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status">
+				Time:
+				<form:input type="number" path="controlpoints[${status.index}].estimatedTime" />
+				<form:errors path="controlpoints[${status.index}].estimatedTime" cssClass="error" />
+				</br>
 				Stop:
 				<form:input type="text" path="controlpoints[${status.index}].location" />
 				<form:errors path="controlpoints[${status.index}].location" cssClass="error" />
-				<form:input type="number" path="controlpoints[${status.index}].estimatedTime" />
-				<form:errors path="controlpoints[${status.index}].estimatedTime" cssClass="error" />
 				<form:hidden path="controlpoints[${status.index}].arrivalOrder" />
 				<form:hidden path="controlpoints[${status.index}].distance" />
 				<button type="submit" name="remove_cp" class="btn btn-warning" formaction="controlpoint/driver/remove.do?index=${status.index}">
@@ -91,7 +97,9 @@
 			
 			
 			<div class="form-group col-md-6">
-				Destination:
+				<form:label path="destination">
+					<spring:message code="route.destination" />
+				</form:label>
 			<form:input type="text" path="destination.location"  class="form-control"/>
 			<form:errors path="destination.location" cssClass="error" />
 			<form:hidden path="destination.arrivalOrder" />
@@ -101,7 +109,9 @@
 			</div>
 			
 			<div class="form-group col-md-6">
-			Stimated Time:
+			<form:label path="destination">
+					<spring:message code="destination.time" />
+				</form:label>
 			<form:input type="number" path="destination.estimatedTime" class="form-control" />
 			<form:errors path="destination.estimatedTime" cssClass="error" />
 			<br />
@@ -110,7 +120,7 @@
 
 			<div class="form-group col-md-6">
 			<button type="submit" name="add_cp" class="btn btn-success" formaction="controlpoint/driver/add.do">
-				Add stop
+				Add Stop
 			</button>
 			<br />
 			
@@ -118,14 +128,18 @@
 			
 			
 			<div class="form-group col-md-6">
-				Available seats:
+				<form:label path="availableSeats">
+					<spring:message code="route.availableSeats" />
+				</form:label>
 			<form:input type="number" path="availableSeats" class="form-control" />
 			<form:errors path="availableSeats" cssClass="error" />
 			<br />
 			</div>
 
 			<div class="form-group col-md-6">
-				Max luggage size:
+				<form:label path="maxLuggage">
+					<spring:message code="route.maxLuggage" />
+				</form:label>
 			<form:select path="maxLuggage" class="form-control">
 				<form:option label="None" value="NOTHING" />
 				<form:option label="Small" value="SMALL" />
@@ -134,7 +148,6 @@
 			</form:select>
 			<form:errors path="maxLuggage" cssClass="error" />
 			<br />
-<<<<<<< HEAD
 
 				
 			</div>
@@ -161,16 +174,7 @@
 				<br />
 			</div>
 
-			<div class="form-group col-md-6 text-center">
-				<h4>
-					Distance: <span class="badge badge-primary">10Km</span>
-				</h4>
-
-				<h4>
-					Price per passenger: <span class="badge badge-success">1,10&euro;</span>
-				</h4>
-
-			</div> 
+			
 
 			<div class="form-group col-md-6 text-center">
 				<input type="submit" name="save" class="btn btn-success"
@@ -197,24 +201,10 @@
 						
 						</jstl:if>
 						
-					<jstl:if test="${route.id==0}">
-					<input type="button" name="cancel" class="btn btn-warning"
-					value="<spring:message code="route.cancel" />"
-					onclick="javascript: relativeRedir('route/driver/listActive.do');" /> 
-					</jstl:if><br />
+					<spring:message code="route.cancel" var="cancel"/>
+<a href="route/driver/listActive.do" class="btn btn-danger" ><jstl:out value="${cancel}" /></a>
 			</div>
 
-=======
-			Details:
-			<form:textarea path="details" />
-			<br />
-			
-			<input type="submit" class="btn btn-success" value="<spring:message code="route.save" />" />
-			<br />
->>>>>>> 15ea510a194f0e4cf12dc0f73a5e23347e6f7d46
 		</form:form>
-		
-		<spring:message code="route.cancel"  var="cancel"/>
-		<a href="route/driver/listActive.do" class="btn btn-danger" ><jstl:out value="${cancel}" /></a>
 	</center>
 </security:authorize>
