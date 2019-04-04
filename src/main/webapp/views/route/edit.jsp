@@ -98,23 +98,10 @@
 			<br />
 			
 			<input type="submit" class="btn btn-success" value="<spring:message code="route.save" />" />
-			
-				<jstl:if test="${route.id!=0}">
-					<spring:url var="cancelUrl" value="route/driver/cancel.do">
-						<spring:param name="routeId" value="${route.id}" />
-					</spring:url>
-					<a href="${cancelUrl}" class="btn btn-danger" ><jstl:out
-						value="${cancel}" />
-						</a>
-						
-						</jstl:if>
-						
-					<jstl:if test="${route.id==0}">
-					<input type="button" name="cancel" class="btn btn-warning"
-					value="<spring:message code="route.cancel" />"
-					onclick="javascript: relativeRedir('route/driver/listActive.do');" /> 
-					</jstl:if><br />
-			
+			<br />
 		</form:form>
+		
+		<spring:message code="route.cancel"  var="cancel"/>
+		<a href="route/driver/listActive.do" class="btn btn-danger" ><jstl:out value="${cancel}" /></a>
 	</center>
 </security:authorize>
