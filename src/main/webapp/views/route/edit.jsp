@@ -134,6 +134,7 @@
 			</form:select>
 			<form:errors path="maxLuggage" cssClass="error" />
 			<br />
+<<<<<<< HEAD
 
 				
 			</div>
@@ -203,6 +204,17 @@
 					</jstl:if><br />
 			</div>
 
+=======
+			Details:
+			<form:textarea path="details" />
+			<br />
+			
+			<input type="submit" class="btn btn-success" value="<spring:message code="route.save" />" />
+			<br />
+>>>>>>> 15ea510a194f0e4cf12dc0f73a5e23347e6f7d46
 		</form:form>
+		
+		<spring:message code="route.cancel"  var="cancel"/>
+		<a href="route/driver/listActive.do" class="btn btn-danger" ><jstl:out value="${cancel}" /></a>
 	</center>
 </security:authorize>
