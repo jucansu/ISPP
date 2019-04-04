@@ -40,14 +40,14 @@ public class Driver extends Actor {
 		return this.cash;
 	}
 
-	@Valid
 	@NotNull
+	@Valid
 	public CreditCard getCreditCard() {
 		return this.creditCard;
 	}
 
-	@NotBlank
 	@Pattern(regexp = "^ES\\d{22}$", message = "Invalid Spain Bank Number")
+	@NotBlank
 	public String getBankAccountNumber() {
 		return this.bankAccountNumber;
 	}
@@ -73,21 +73,18 @@ public class Driver extends Actor {
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "driver")
 	public Collection<Route> getRoutes() {
 		return this.routes;
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "driver")
 	public Collection<Comment> getComments() {
 		return this.comments;
 	}
 
 	@Valid
-	@NotNull
 	@OneToMany(mappedBy = "driver")
 	public Collection<Vehicle> getVehicles() {
 		return this.vehicles;

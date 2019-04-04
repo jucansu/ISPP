@@ -18,6 +18,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <spring:url value="/styles/route.css" var="routecss" />
+
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
 <link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
@@ -32,21 +33,48 @@
 		<form:form action="${requestURI}" modelAttribute="route">
 			<form:hidden path="id" />
 			<form:hidden path="pricePerPassenger" />
-			<form:hidden path="distance" />
-			
-			Departure:
-			<form:input type="text" path="departureDate" />
-			<form:errors path="departureDate" cssClass="error" />
-			<br />
-			Origin:
-			<form:input type="text" path="origin.location" />
+			<form:hidden path="distance" />	
+		
+			<div class="col-sm-6 text-center" style="padding-top: 20px;">
+				<div class="form-group">
+					<label for="inputPassword4"> Departure date:</label>
+					<div class="input-group date" id="datetimepicker"
+						data-target-input="nearest">
+						<form:input type="text" path="departureDate"
+							class="form-control datetimepicker-input"
+							data-target="#datetimepicker1" required="true" />
+						<div class="input-group-append" data-target="#datetimepicker"
+							data-toggle="datetimepicker">
+							<div class="input-group-text">
+								<i class="fa fa-calendar"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				$(function() {
+					$('#datetimepicker').datetimepicker({
+						format : 'DD/MM/YYYY HH:mm',
+						minDate : new Date()
+					});
+				});
+			</script>
+
+
+
+			<div class="form-group col-md-6">
+							Origin:
+			<form:input type="text" path="origin.location" class="form-control"/>
 			<form:errors path="origin.location" cssClass="error" />
 			<form:hidden path="origin.estimatedTime" />
 			<form:hidden path="origin.arrivalOrder" />
 			<form:hidden path="origin.distance" />
 			<br />
+			</div>
 			
-			<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status">
+			<div class="form-group col-md-6">
+							<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status" >
 				Stop:
 				<form:input type="text" path="controlpoints[${status.index}].location" />
 				<form:errors path="controlpoints[${status.index}].location" cssClass="error" />
@@ -54,37 +82,50 @@
 				<form:errors path="controlpoints[${status.index}].estimatedTime" cssClass="error" />
 				<form:hidden path="controlpoints[${status.index}].arrivalOrder" />
 				<form:hidden path="controlpoints[${status.index}].distance" />
-				<button type="submit" name="remove_cp" formaction="controlpoint/driver/remove.do?index=${status.index}">
+				<button type="submit" name="remove_cp" class="btn btn-warning" formaction="controlpoint/driver/remove.do?index=${status.index}">
 					Remove
 				</button>
 				<br />
 			</jstl:forEach>
+			</div>
 			
-			Destination:
-			<form:input type="text" path="destination.location" />
+			
+			<div class="form-group col-md-6">
+				Destination:
+			<form:input type="text" path="destination.location"  class="form-control"/>
 			<form:errors path="destination.location" cssClass="error" />
-			<form:input type="number" path="destination.estimatedTime" />
-			<form:errors path="destination.estimatedTime" cssClass="error" />
 			<form:hidden path="destination.arrivalOrder" />
 			<form:hidden path="destination.distance" />
 			<br />
-			<button type="submit" name="add_cp" formaction="controlpoint/driver/add.do">
+			
+			</div>
+			
+			<div class="form-group col-md-6">
+			Stimated Time:
+			<form:input type="number" path="destination.estimatedTime" class="form-control" />
+			<form:errors path="destination.estimatedTime" cssClass="error" />
+			<br />
+			
+			</div>
+
+			<div class="form-group col-md-6">
+			<button type="submit" name="add_cp" class="btn btn-success" formaction="controlpoint/driver/add.do">
 				Add stop
 			</button>
 			<br />
-			Select vehicle:
-			<form:select path="vehicle">
-				<form:option label="-------" value="0">
-				</form:option>
-				<form:options items="${vehicles}" itemLabel="model" itemValue="id" />
-			</form:select>
-			<form:errors path="vehicle" cssClass="error" />
-			<br />
-			Available seats:
-			<form:input type="number" path="availableSeats" />
+			
+			</div>
+			
+			
+			<div class="form-group col-md-6">
+				Available seats:
+			<form:input type="number" path="availableSeats" class="form-control" />
 			<form:errors path="availableSeats" cssClass="error" />
 			<br />
-			Max luggage size:
+			</div>
+
+			<div class="form-group col-md-6">
+				Max luggage size:
 			<form:select path="maxLuggage" class="form-control">
 				<form:option label="None" value="NOTHING" />
 				<form:option label="Small" value="SMALL" />
@@ -93,12 +134,87 @@
 			</form:select>
 			<form:errors path="maxLuggage" cssClass="error" />
 			<br />
+<<<<<<< HEAD
+
+				
+			</div>
+			<div class="form-group col-md-6">
+				<form:label path="vehicle">
+					<spring:message code="route.vehicle" />:
+	</form:label>
+				<form:select path="vehicle" class="form-control">
+					<form:option label="-------" value="0">
+					</form:option>
+					<form:options items="${vehicles}" itemLabel="model" itemValue="id"
+						required="true" />
+				</form:select>
+				<form:errors cssClass="error" path="vehicle" />
+				<br />
+			</div>
+
+			<div class="form-group col-md-6">
+				<form:label path="details">
+					<spring:message code="route.details" />
+				</form:label>
+				<form:textarea path="details" class="form-control" />
+				<form:errors cssClass="error" path="details" />
+				<br />
+			</div>
+
+			<div class="form-group col-md-6 text-center">
+				<h4>
+					Distance: <span class="badge badge-primary">10Km</span>
+				</h4>
+
+				<h4>
+					Price per passenger: <span class="badge badge-success">1,10&euro;</span>
+				</h4>
+
+			</div> 
+
+			<div class="form-group col-md-6 text-center">
+				<input type="submit" name="save" class="btn btn-success"
+					value="<spring:message code="route.save" />"
+					 <jstl:if test="${route.id!=0}">
+					onclick="javascript: relativeRedir('route/driver/confirmRoute.do');"
+					</jstl:if>
+					/>
+				 <jstl:if test="${route.id!=0}">
+					<input type="submit" name="Abort Route" class="btn btn-success"
+						value="<spring:message code="route.abort" />" />
+				</jstl:if> 
+				
+					
+					
+					
+					<jstl:if test="${route.id!=0}">
+					<spring:url var="cancelUrl" value="route/driver/cancel.do">
+						<spring:param name="routeId" value="${route.id}" />
+					</spring:url>
+					<a href="${cancelUrl}" class="btn btn-danger" ><jstl:out
+						value="${cancel}" />
+						</a>
+						
+						</jstl:if>
+						
+					<jstl:if test="${route.id==0}">
+					<input type="button" name="cancel" class="btn btn-warning"
+					value="<spring:message code="route.cancel" />"
+					onclick="javascript: relativeRedir('route/driver/listActive.do');" /> 
+					</jstl:if><br />
+			</div>
+
+=======
 			Details:
 			<form:textarea path="details" />
 			<br />
 			
 			<input type="submit" class="btn btn-success" value="<spring:message code="route.save" />" />
-			
+			<br />
+>>>>>>> 15ea510a194f0e4cf12dc0f73a5e23347e6f7d46
 		</form:form>
+		
+		<spring:message code="route.cancel"  var="cancel"/>
+		<a href="route/driver/listActive.do" class="btn btn-danger" ><jstl:out value="${cancel}" /></a>
 	</center>
 </security:authorize>
