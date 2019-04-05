@@ -27,7 +27,7 @@
 	</definition>
 	
 	<definition name="route/driver/confirm" extends="master.page">
-		<put-attribute name="title" value="Crear Ruta - Confirmar" />
+		<put-attribute name="title" value="" />
 		<put-attribute name="body" value="/views/route/confirm.jsp" />
 	</definition>
 	

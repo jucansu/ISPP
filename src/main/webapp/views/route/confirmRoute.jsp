@@ -30,7 +30,7 @@
 <script src="${routecss}"></script>
 <link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 <div class="text-center active-routes">
-	<h3>Confirm route</h3>
+	<h3>Confirm routes</h3>
 </div>
 
 <%-- Stored message variables --%>

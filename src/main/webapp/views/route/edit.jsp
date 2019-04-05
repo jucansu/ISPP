@@ -183,7 +183,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="routeAvailableSeats"><spring:message code="route.availableSeats" /></span>
 					</div>
-					<form:input type="number" path="availableSeats" class="form-control" aria-describedby="routeAvailableSeats" />
+					<form:input type="number" path="availableSeats" class="form-control" aria-describedby="routeAvailableSeats" min="1" max="10"/>
 				</div>
 				<form:errors path="availableSeats" cssClass="error" />
 			</div>
