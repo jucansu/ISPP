@@ -74,10 +74,12 @@
 		<security:intercept-url pattern="/driver/create.do" access="!isAuthenticated()" />
 		<security:intercept-url pattern="/driver/edit.do" access="hasRole('DRIVER')" /> 
 		<security:intercept-url pattern="/driver/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/driver/editCredentials.do" access="hasRole('DRIVER')" />
 		
 		<security:intercept-url pattern="/passenger/create.do" access="!isAuthenticated()" />
 		<security:intercept-url pattern="/passenger/edit.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/passenger/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/passenger/editCredentials.do" access="hasRole('PASSENGER')" /> 
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

@@ -16,6 +16,7 @@ import security.UserAccount;
 import services.ActorService;
 import services.DriverService;
 import domain.Driver;
+import forms.CredentialsfForm;
 
 @Controller
 @RequestMapping("/driver")
@@ -118,6 +119,41 @@ public class DriverController extends AbstractController {
 			}
 		return result;
 	}
+	
+	// Edition Credentials-----------------------------------------------------------
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.GET)
+	public ModelAndView editCredentials(){
+		ModelAndView res = null;
+		
+		Driver driver = (Driver) this.actorService.findByPrincipal();
+		CredentialsfForm credentialsfForm = driverService.constructCredential(driver);
+		
+		res = this.createEditModelAndViewEditCredentials(credentialsfForm);
+		res.addObject("credentialsfForm", credentialsfForm);
+		
+		return res;
+	}
+	
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.POST, params = "save")
+	public ModelAndView editCredentials(@Valid final CredentialsfForm credentialsfForm, final BindingResult binding) {
+		ModelAndView res;
+		Driver driver;
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "driver.params.error");
+		else if (!credentialsfForm.getRepeatPassword().equals(credentialsfForm.getPassword()))
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "driver.commit.errorPassword");
+		else
+			try {
+				driver = driverService.reconstructCredential(credentialsfForm, binding);
+				this.driverService.saveCredentials(driver);
+				res = new ModelAndView("redirect:/j_spring_security_logout");
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndViewEditCredentials(credentialsfForm, "driver.commit.error");
+			}
+
+		return res;
+	}
 
 	// Ancilliary methods -----------------------------------------------------------
 	private ModelAndView createEditModelAndView(final Driver driver, final String model) {
@@ -135,6 +171,26 @@ public class DriverController extends AbstractController {
 		result = new ModelAndView(model);
 		result.addObject("driver", driver);
 		result.addObject("message", message);
+
+		return result;
+	}
+	
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndViewEditCredentials(credentialsfForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm,
+			final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("driver/editCredentials");
+		result.addObject("credentialsfForm", credentialsfForm);
+		result.addObject("message", message);
+		result.addObject("requestURI","driver/editCredentials.do");
 
 		return result;
 	}

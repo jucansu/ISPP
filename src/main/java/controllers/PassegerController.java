@@ -16,6 +16,7 @@ import security.UserAccount;
 import services.ActorService;
 import services.PassengerService;
 import domain.Passenger;
+import forms.CredentialsfForm;
 
 @Controller
 @RequestMapping("/passenger")
@@ -118,6 +119,41 @@ public class PassegerController extends AbstractController {
 			}
 		return result;
 	}
+	
+	// Edition Credentials-----------------------------------------------------------
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.GET)
+	public ModelAndView editCredentials(){
+		ModelAndView res = null;
+		
+		Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+		CredentialsfForm credentialsfForm = passengerService.constructCredential(passenger);
+		
+		res = this.createEditModelAndViewEditCredentials(credentialsfForm);
+		res.addObject("credentialsfForm", credentialsfForm);
+		
+		return res;
+	}
+	
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.POST, params = "save")
+	public ModelAndView editCredentials(@Valid final CredentialsfForm credentialsfForm, final BindingResult binding) {
+		ModelAndView res;
+		Passenger passenger;
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.params.error");
+		else if (!credentialsfForm.getRepeatPassword().equals(credentialsfForm.getPassword()))
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.commit.errorPassword");
+		else
+			try {
+				passenger = passengerService.reconstructCredential(credentialsfForm, binding);
+				this.passengerService.saveCredentials(passenger);
+				res = new ModelAndView("redirect:/j_spring_security_logout");
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.commit.error");
+			}
+
+		return res;
+	}
 
 	// Ancilliary methods -----------------------------------------------------------
 	private ModelAndView createEditModelAndView(final Passenger passenger, final String model) {
@@ -135,6 +171,27 @@ public class PassegerController extends AbstractController {
 		result = new ModelAndView(model);
 		result.addObject("passenger", passenger);
 		result.addObject("message", message);
+
+		return result;
+	}
+	
+	
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndViewEditCredentials(credentialsfForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm,
+			final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("passenger/editCredentials");
+		result.addObject("credentialsfForm", credentialsfForm);
+		result.addObject("message", message);
+		result.addObject("requestURI","passenger/editCredentials.do");
 
 		return result;
 	}
