@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.DriverService;
-import domain.Driver;
+import services.VehicleService;
+import domain.Actor;
 import domain.Vehicle;
 
 @Controller
@@ -21,6 +23,10 @@ public class VehicleController extends AbstractController {
 	// Services ---------------------------------------------------------------
 	@Autowired
 	private DriverService	driverService;
+	@Autowired
+	private ActorService	actorService;
+	@Autowired
+	private VehicleService	vehicleService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -33,18 +39,19 @@ public class VehicleController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int driverId) {
 		ModelAndView result;
-		final Driver driver;
 		final Collection<Vehicle> vehicles;
+		Actor principal;
 
-		driver = this.driverService.findOne(driverId);
-		vehicles = driver.getVehicles();
+		principal = this.actorService.findByPrincipal();
+		vehicles = this.vehicleService.findVehiclesByDriver(driverId);
 
-		result = new ModelAndView("route/list");
+		result = new ModelAndView("vehicle/list");
 		result.addObject("vehicles", vehicles);
-		result.addObject("requestURI", "route/list.do?driverId=" + driver.getId());
+		result.addObject("principal", principal);
+		result.addObject("driverId", driverId);
+		result.addObject("requestURI", "vehicle/list.do");
 
 		return result;
 
 	}
-
 }

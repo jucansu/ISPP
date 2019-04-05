@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -81,7 +82,6 @@ public class VehicleService {
 		Assert.notNull(vehicle.getType());
 		Assert.notNull(vehicle.getPlate());
 		Assert.isTrue(!vehicle.getPlate().isEmpty());
-		Assert.notNull(vehicle.getDescription());
 		Assert.notNull(vehicle.getDriver());
 
 		Vehicle result;
@@ -96,16 +96,16 @@ public class VehicleService {
 		return result;
 	}
 
-	public void savePhoto(final Vehicle vehicle) {
-		Assert.notNull(vehicle);
-
-		Actor principal;
-
-		//Comprobamos que hay un usuario registrado y es el conductor del vehiculo
-		principal = this.actorService.findByPrincipal();
-		Assert.notNull(principal);
-		Assert.isTrue(principal.getId() == vehicle.getDriver().getId());
-	}
+	//	public void savePhoto(final Vehicle vehicle) {
+	//		Assert.notNull(vehicle);
+	//
+	//		Actor principal;
+	//
+	//		//Comprobamos que hay un usuario registrado y es el conductor del vehiculo
+	//		principal = this.actorService.findByPrincipal();
+	//		Assert.notNull(principal);
+	//		Assert.isTrue(principal.getId() == vehicle.getDriver().getId());
+	//	}
 
 	public void delete(final Vehicle vehicle) {
 		Actor principal;
@@ -131,5 +131,19 @@ public class VehicleService {
 	}
 
 	//Other business methods
+
+	public Collection<Vehicle> findVehiclesByDriver(final int driverId) {
+		Assert.isTrue(driverId != 0);
+
+		Collection<Vehicle> result;
+		Driver driver;
+
+		result = new ArrayList<Vehicle>();
+		driver = this.driverService.findOne(driverId);
+		if (!driver.getVehicles().isEmpty())
+			result = this.vehicleRepository.findVehiclesByDriver(driverId);
+
+		return result;
+	}
 
 }

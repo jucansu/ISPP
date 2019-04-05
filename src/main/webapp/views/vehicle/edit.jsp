@@ -37,14 +37,16 @@
 			
 			<form:radiobutton path="type" label="${vehCar}" value="CAR"/>
 			<form:radiobutton path="type" label="${vehBike}" value="BIKE"/>
-			<form:errors cssClass="error" path="seat" />
+			<form:errors cssClass="error" path="type" />
 			<br />
 
 
 			<form:label path="image">
 				<spring:message code="vehicle.image" />: </form:label>
-			<img src="${vehicle.image}" width="250"/></br>
-			<a href="vehicle/driver/editPhoto.do?vehicleId=${vehicle.id}"><jstl:out value="${vehEditPhoto }"/></a>
+			<jstl:if test="${vehicle.id!=0}">
+				<img src="${vehicle.image}" width="250"/></br>
+			</jstl:if>
+			<form:input path="image" />
 			<form:errors cssClass="error" path="image" />
 			<br />
 
@@ -60,10 +62,10 @@
 			<form:errors cssClass="error" path="model" />
 			<br />
 			
-			<form:label path="capacity">
+			<form:label path="seatsCapacity">
 				<spring:message code="vehicle.capacity" />: </form:label>
-			<form:input path="capacity" />
-			<form:errors cssClass="error" path="capacity" />
+			<form:input path="seatsCapacity" />
+			<form:errors cssClass="error" path="seatsCapacity" />
 			<br />
 
 			<form:label path="plate">
@@ -82,7 +84,7 @@
 				value="<spring:message code="vehicle.save" />" />
 			<input type="button" name="cancel"
 				value="<spring:message code="vehicle.cancel" />"
-				onclick="javascript: relativeRedir('route/driver/listActive.do');" />
+				onclick="javascript: relativeRedir('vehicle/list.do?driverId=${driver.id}');" />
 			<br />
 
 		</form:form>

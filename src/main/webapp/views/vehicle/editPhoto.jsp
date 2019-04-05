@@ -22,6 +22,10 @@
 			<form:hidden path="version" />
 			<form:hidden path="driver"/>
 			<form:hidden path="routes"/>
+			<form:hidden path="vehicleBrand"/>
+			<form:hidden path="model" />
+			<form:hidden path="seatsCapacity" />
+			<form:hidden path="type"/>
 
 
 			<form:label path="image">

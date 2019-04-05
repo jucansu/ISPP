@@ -30,23 +30,25 @@
 <spring:message code="vehicle.bike" var="vehBike"/>
 <spring:message code="vehicle.edit.photo" var="vehEditPhoto"/>
 <spring:message code="vehicle.cancel"  var="vehCancel"/>
-<spring:message code="vehicle.confirm.message" var="msgConfirm" />
 
 
 <security:authorize access="hasRole('DRIVER')">
-	<spring:message code="vehicle.new" var ="vehNew" />
-	<a href="vehicle/driver/create.do"><jstl:out value="${vehNew}"/></a>
+	<jstl:if test="${principal.id eq driverId }">
+		<spring:message code="vehicle.new" var ="vehNew" />
+		<a href="vehicle/driver/create.do"><jstl:out value="${vehNew}"/></a>
+	</jstl:if>
+	
 </security:authorize>
 
 <display:table name="vehicles" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
 	
 	<spring:message code="vehicle.image" var = "vehImage" />
-	<display:column property="image" title="${vehImage}">
+	<display:column title="${vehImage}">
 		<img src="${row.image}" width="100"/>
 	</display:column>
 	
 	<spring:message code="vehicle.brand" var = "vehBrand" />
-	<display:column property="brand" title="${vehBrand}" sortable="false"/>
+	<display:column property="vehicleBrand" title="${vehBrand}" sortable="false"/>
 
 	<spring:message code="vehicle.model" var = "vehModel" />
 	<display:column property="model" title="${vehModel}" sortable="false"/>
@@ -55,15 +57,20 @@
 	<display:column property="plate" title="${vehPlate}" sortable="false"/>
 	
 	<spring:message code="vehicle.capacity" var = "vehCapacity" />
-	<display:column property="capacity" title="${vehCapacity}" sortable="false"/>
+	<display:column property="seatsCapacity" title="${vehCapacity}" sortable="false"/>
 	
 	<spring:message code="vehicle.description" var = "vehDescription" />
 	<display:column property="description" title="${vehDescription}" sortable="false"/>
 	
 	<security:authorize access="hasRole('DRIVER')">
+	<jstl:if test="${principal.id eq driverId }">
 		<display:column>
-			<a href="vehicle/driver/edit.do?vehicleId=${row.id}"><spring:message code="vehicle.driver.edit"/></a>
+			<a href="vehicle/driver/edit.do?vehicleId=${row.id}"><spring:message code="vehicle.edit"/></a>
 		</display:column>
+		<display:column>
+			<a href="vehicle/driver/delete.do?vehicleId=${row.id}"><spring:message code="vehicle.delete"/></a>
+		</display:column>
+	</jstl:if>
 	</security:authorize>
 	
 </display:table>

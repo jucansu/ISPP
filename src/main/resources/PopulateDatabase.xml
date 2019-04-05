@@ -1359,7 +1359,9 @@
             <list></list>
         </property>
         <property name="vehicles">
-            <list></list>
+            <list>
+            	<ref bean="vehicle1"/>
+            </list>
         </property>
     </bean>
 

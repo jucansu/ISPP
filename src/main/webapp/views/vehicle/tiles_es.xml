@@ -32,7 +32,7 @@
 	</definition>
 	
 	<definition name="vehicle/list" extends="master.page">	
-		<put-attribute name="title" value="" />
+		<put-attribute name="title" value="Lista de vehiculos" />
 		<put-attribute name="body" value="/views/vehicle/list.jsp" />
 	</definition>
 	

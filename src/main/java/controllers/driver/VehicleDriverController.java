@@ -1,8 +1,6 @@
 
 package controllers.driver;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ import services.VehicleService;
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Driver;
-import domain.Route;
 import domain.Vehicle;
 
 @Controller
@@ -97,7 +94,7 @@ public class VehicleDriverController extends AbstractController {
 			try {
 				saved = this.vehicleService.save(vehicle);
 				driver = saved.getDriver();
-				result = new ModelAndView("redirect:list.do?driverId=" + driver.getId());
+				result = new ModelAndView("redirect:/vehicle/list.do?driverId=" + driver.getId());
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(vehicle, "vehicle.commit.error");
@@ -108,46 +105,62 @@ public class VehicleDriverController extends AbstractController {
 
 	// Edit Photo-------------------------------------
 
-	@RequestMapping(value = "/editPhoto", method = RequestMethod.GET)
-	public ModelAndView editPhoto(@RequestParam final int vehicleId) {
+	//	@RequestMapping(value = "/editPhoto", method = RequestMethod.GET)
+	//	public ModelAndView editPhoto(@RequestParam final int vehicleId) {
+	//		ModelAndView result;
+	//		Actor principal;
+	//		final Driver driver;
+	//		Vehicle vehicle;
+	//
+	//		vehicle = this.vehicleService.findOne(vehicleId);
+	//		principal = this.actorService.findByPrincipal();
+	//		Assert.isTrue(principal instanceof Driver && principal.getId() == vehicle.getDriver().getId());
+	//
+	//		result = new ModelAndView("vehicle/driver/editPhoto");
+	//		result.addObject("vehicle", vehicle);
+	//		return result;
+	//	}
+	//
+	//	//Save Photo--------------------------------
+	//
+	//	@RequestMapping(value = "/editPhoto", method = RequestMethod.POST, params = "save")
+	//	public ModelAndView savePhoto(@Valid final Vehicle vehicle, final BindingResult binding) {
+	//		ModelAndView result;
+	//
+	//		for (final ObjectError asd : binding.getAllErrors())
+	//			System.out.println(asd);
+	//
+	//		if (binding.hasErrors())
+	//			result = this.createEditModelAndView(vehicle);
+	//		else
+	//			try {
+	//				this.vehicleService.savePhoto(vehicle);
+	//				result = new ModelAndView("redirect:edit.do?vehicleId=" + vehicle.getId());
+	//			} catch (final Throwable oops) {
+	//				oops.printStackTrace();
+	//				result = new ModelAndView("redirect:editPhoto.do?vehicleId=" + vehicle.getId());
+	//				result.addObject("message", "vehicle.commit.error");
+	//			}
+	//
+	//		return result;
+	//	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int vehicleId) {
 		ModelAndView result;
-		Actor principal;
-		final Driver driver;
+		Driver driver;
 		Vehicle vehicle;
 
 		vehicle = this.vehicleService.findOne(vehicleId);
-		principal = this.actorService.findByPrincipal();
-		Assert.isTrue(principal instanceof Driver && principal.getId() == vehicle.getDriver().getId());
+		driver = vehicle.getDriver();
 
-		result = new ModelAndView("vehicle/driver/editPhoto");
-		result.addObject("vehicle", vehicle);
-		return result;
-	}
-
-	//Save Photo--------------------------------
-
-	@RequestMapping(value = "/editPhoto", method = RequestMethod.POST, params = "save")
-	public ModelAndView savePhoto(@Valid final Vehicle vehicle, final BindingResult binding) {
-		ModelAndView result;
-		final Driver driver;
-
-		for (final ObjectError asd : binding.getAllErrors())
-			System.out.println(asd);
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(vehicle);
-		else
-			try {
-				this.vehicleService.savePhoto(vehicle);
-				result = new ModelAndView("redirect:edit.do?vehicleId=" + vehicle.getId());
-			} catch (final Throwable oops) {
-				oops.printStackTrace();
-				result = new ModelAndView("redirect:editPhoto.do?vehicleId=" + vehicle.getId());
-				result.addObject("message", "vehicle.commit.error");
-			}
+		this.vehicleService.delete(vehicle);
+		result = new ModelAndView("redirect:/vehicle/list.do?driverId=" + driver.getId());
 
 		return result;
+
 	}
+
 	//Ancilliary methods
 
 	private ModelAndView createEditModelAndView(final Vehicle vehicle) {
@@ -160,13 +173,11 @@ public class VehicleDriverController extends AbstractController {
 
 	private ModelAndView createEditModelAndView(final Vehicle vehicle, final String message) {
 		ModelAndView result;
-		final Route route;
-		final Collection<Vehicle> routeAcceptedVehicles;
-		final Integer remainingSeats;
 
 		result = new ModelAndView("vehicle/driver/edit");
 		result.addObject("vehicle", vehicle);
 		result.addObject("message", message);
+		result.addObject("driver", vehicle.getDriver());
 
 		return result;
 	}
