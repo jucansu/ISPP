@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,7 @@ import domain.Comment;
 import domain.CreditCard;
 import domain.Passenger;
 import domain.Reservation;
+import forms.CredentialsfForm;
 
 @Service
 @Transactional
@@ -160,4 +162,38 @@ public class PassengerService {
 		this.validator.validate(passenger, binding);
 		return passenger;
 	}
+	
+	public CredentialsfForm constructCredential(Passenger passenger) {
+		CredentialsfForm credentialsfForm = new CredentialsfForm();
+		credentialsfForm.setId(passenger.getId());
+		return credentialsfForm;
+	}
+	
+	public Passenger reconstructCredential(CredentialsfForm credentialsfForm, BindingResult binding) {
+		Passenger passenger = findOne(credentialsfForm.getId());
+		
+		String pass = credentialsfForm.getPassword();
+		passenger.getUserAccount().setPassword(pass);
+		
+		this.validator.validate(passenger, binding);
+		
+		return passenger;
+	}
+	
+	public Passenger saveCredentials(Passenger passenger) {
+		Passenger res;
+		
+		String pass = passenger.getUserAccount().getPassword();
+		
+		final Md5PasswordEncoder code = new Md5PasswordEncoder();
+		
+		pass = code.encodePassword(pass, null);
+		
+		passenger.getUserAccount().setPassword(pass);
+
+		res = this.passengerRepository.save(passenger);
+		
+		return res;
+	}
+	
 }

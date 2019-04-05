@@ -26,11 +26,11 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
 <spring:url value="/styles/route.css" var="routecss" />
+
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
-<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 <div class="text-center active-routes">
-	<h3>Confirm route</h3>
+	<h3>Confirm routes</h3>
 </div>
 
 <%-- Stored message variables --%>
@@ -52,6 +52,7 @@
 	<div class="col-sm-6 text-center" style="padding-top: 20px;">
 		<h4><jstl:out value="${msgPrice}" />:</h4>
 		<h3><span class="badge badge-success"><jstl:out value="${route.pricePerPassenger}" /> &euro;</span></h3>
+		
 		<br />
 	</div>
 </center>
