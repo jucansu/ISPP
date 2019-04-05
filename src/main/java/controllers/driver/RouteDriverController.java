@@ -93,7 +93,7 @@ public class RouteDriverController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
+//			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
 			result = this.createEditModelAndView(routeForm);
 		} else
 			try {
