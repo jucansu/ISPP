@@ -67,6 +67,7 @@
 
 
 			<div class="form-group col-md-6">
+				<small id="timeHelp" class="form-text text-muted"><spring:message code="aclaration"/></small>
 				<div class="form-row align-items-center">
 					<div class="col-auto">
 						<button name="icon1" disabled style="border:0;background:transparent;">
@@ -160,7 +161,6 @@
 				</div>
 				<form:errors path="destination.location" cssClass="error" />
 				<form:errors path="destination.estimatedTime" cssClass="error" />
-				<small id="timeHelp" class="form-text text-muted">asdasdasd</small>
 			</div>
 			
 			<div class="form-group col-md-6">
