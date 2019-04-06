@@ -99,17 +99,13 @@ public class DriverController extends AbstractController {
 	}
 	// Edition -----------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int driverId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Driver driver;
-		Driver principal;
 		String requestURI;
 
 		requestURI = "driver/edit.do";
-		driver = this.driverService.findOne(driverId);
-		principal = (Driver) this.actorService.findByPrincipal();
-
-		Assert.isTrue(driver.getId() == principal.getId());
+		driver = (Driver) this.actorService.findByPrincipal();
 
 		result = this.createEditModelAndView(driver, "driver/edit");
 		result.addObject("requestURI", requestURI);
