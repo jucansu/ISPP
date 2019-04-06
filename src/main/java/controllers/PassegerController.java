@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import security.UserAccount;
 import services.ActorService;
 import services.PassengerService;
+import domain.Actor;
 import domain.Passenger;
+import forms.CredentialsfForm;
 
 @Controller
 @RequestMapping("/passenger")
@@ -43,6 +45,21 @@ public class PassegerController extends AbstractController {
 		Passenger passenger;
 
 		passenger = this.passengerService.findOne(passengerId);
+		result = new ModelAndView("passenger/display");
+		result.addObject("passenger", passenger);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/displayPrincipal", method = RequestMethod.GET)
+	public ModelAndView displayPrincipal() {
+		ModelAndView result;
+		Passenger passenger;
+		Actor principal;
+
+		principal = this.actorService.findByPrincipal();
+		Assert.isTrue(principal instanceof Passenger);
+		passenger = (Passenger) principal;
 		result = new ModelAndView("passenger/display");
 		result.addObject("passenger", passenger);
 
@@ -119,6 +136,41 @@ public class PassegerController extends AbstractController {
 		return result;
 	}
 
+	// Edition Credentials-----------------------------------------------------------
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.GET)
+	public ModelAndView editCredentials() {
+		ModelAndView res = null;
+
+		final Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+		final CredentialsfForm credentialsfForm = this.passengerService.constructCredential(passenger);
+
+		res = this.createEditModelAndViewEditCredentials(credentialsfForm);
+		res.addObject("credentialsfForm", credentialsfForm);
+
+		return res;
+	}
+
+	@RequestMapping(value = "/editCredentials", method = RequestMethod.POST, params = "save")
+	public ModelAndView editCredentials(@Valid final CredentialsfForm credentialsfForm, final BindingResult binding) {
+		ModelAndView res;
+		Passenger passenger;
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.params.error");
+		else if (!credentialsfForm.getRepeatPassword().equals(credentialsfForm.getPassword()))
+			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.commit.errorPassword");
+		else
+			try {
+				passenger = this.passengerService.reconstructCredential(credentialsfForm, binding);
+				this.passengerService.saveCredentials(passenger);
+				res = new ModelAndView("redirect:/j_spring_security_logout");
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndViewEditCredentials(credentialsfForm, "passenger.commit.error");
+			}
+
+		return res;
+	}
+
 	// Ancilliary methods -----------------------------------------------------------
 	private ModelAndView createEditModelAndView(final Passenger passenger, final String model) {
 		ModelAndView result;
@@ -135,6 +187,25 @@ public class PassegerController extends AbstractController {
 		result = new ModelAndView(model);
 		result.addObject("passenger", passenger);
 		result.addObject("message", message);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndViewEditCredentials(credentialsfForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("passenger/editCredentials");
+		result.addObject("credentialsfForm", credentialsfForm);
+		result.addObject("message", message);
+		result.addObject("requestURI", "passenger/editCredentials.do");
 
 		return result;
 	}

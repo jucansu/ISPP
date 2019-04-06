@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ import domain.CreditCard;
 import domain.Driver;
 import domain.Route;
 import domain.Vehicle;
+import forms.CredentialsfForm;
 
 @Service
 @Transactional
@@ -184,6 +186,39 @@ public class DriverService {
 
 		this.validator.validate(driver, binding);
 		return driver;
+	}
+	
+	public CredentialsfForm constructCredential(Driver driver) {
+		CredentialsfForm credentialsfForm = new CredentialsfForm();
+		credentialsfForm.setId(driver.getId());
+		return credentialsfForm;
+	}
+	
+	public Driver reconstructCredential(CredentialsfForm credentialsfForm, BindingResult binding) {
+		Driver driver = findOne(credentialsfForm.getId());
+		
+		String pass = credentialsfForm.getPassword();
+		driver.getUserAccount().setPassword(pass);
+		
+		this.validator.validate(driver, binding);
+		
+		return driver;
+	}
+	
+	public Driver saveCredentials(Driver driver) {
+		Driver res;
+		
+		String pass = driver.getUserAccount().getPassword();
+		
+		final Md5PasswordEncoder code = new Md5PasswordEncoder();
+		
+		pass = code.encodePassword(pass, null);
+		
+		driver.getUserAccount().setPassword(pass);
+
+		res = this.driverRepository.save(driver);
+		
+		return res;
 	}
 
 }

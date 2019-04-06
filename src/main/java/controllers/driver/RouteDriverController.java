@@ -93,17 +93,24 @@ public class RouteDriverController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
+//			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
 			result = this.createEditModelAndView(routeForm);
 		} else
 			try {
 				final Driver driver = (Driver) this.actorService.findByPrincipal();
-				final Route route = this.routeService.reconstruct(routeForm, driver);
-				result = new ModelAndView("route/driver/confirm");
-				result.addObject("route", route);
-				result.addObject("requestURISave", "route/driver/edit.do");
-				result.addObject("requestURICancel", "route/driver/create.do");
-			} catch (final Throwable oops) {
+				Route route = this.routeService.reconstruct(routeForm, driver, binding);
+				if (binding.hasErrors()) {
+					System.out.println(binding.getAllErrors());
+					result = this.createEditModelAndView(routeForm);
+				}
+				else {
+					result = new ModelAndView("route/driver/confirm");
+					result.addObject("route", route);
+					result.addObject("requestURISave", "route/driver/edit.do");
+					result.addObject("requestURICancel", "route/driver/create.do");
+				}
+			}
+			catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(routeForm, "driver.commit.error");
 			}

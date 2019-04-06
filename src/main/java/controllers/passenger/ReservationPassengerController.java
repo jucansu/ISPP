@@ -62,6 +62,28 @@ public class ReservationPassengerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int routeId) {
 		ModelAndView result;
+		try {
+			Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+	
+			Route route = this.routeService.findOne(routeId);
+			Assert.notNull(route);
+	
+			Reservation reservation = this.reservationService.create();
+			reservation.setRoute(route);
+			reservation.setPrice(route.getPricePerPassenger());
+			reservation.setPassenger(passenger);
+	
+			result = this.createEditModelAndView(reservation);
+		}
+		catch (Throwable oops) {
+			result = new ModelAndView("redirect:/misc/403.do");
+		}
+		return result;
+	}
+	
+	/*@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int routeId) {
+		ModelAndView result;
 		Route route;
 		Reservation reservation;
 		UserAccount ua;
@@ -81,7 +103,8 @@ public class ReservationPassengerController extends AbstractController {
 		result = this.createEditModelAndView(reservation);
 
 		return result;
-	}
+	}*/
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
 		ModelAndView result;

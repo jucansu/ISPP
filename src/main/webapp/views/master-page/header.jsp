@@ -82,11 +82,11 @@ window.cookieconsent.initialise({
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<security:authorize access="hasRole('DRIVER')">
-					<a class="dropdown-item" href="#">Visit my profile</a> 
+					<a class="dropdown-item" href="driver/displayPrincipal.do">Visit my profile</a> 
 					<!-- driver/display.do?driverId= -->
 				</security:authorize>
 				<security:authorize access="hasRole('PASSENGER')">
-					<a class="dropdown-item" href="#">Visit my profile</a> 
+					<a class="dropdown-item" href="passenger/displayPrincipal.do">Visit my profile</a> 
 					<!-- passenger/display.do?passengerId= -->
 				</security:authorize>
 				<security:authorize access="hasRole('DRIVER')">

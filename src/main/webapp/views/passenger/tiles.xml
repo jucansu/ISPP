@@ -21,12 +21,22 @@
 		<put-attribute name="body" value="/views/passenger/edit.jsp" />
 	</definition>
 	
+	<definition name="passenger/editCredentials" extends="master.page">	
+		<put-attribute name="title" value="Edit Credentials" />
+		<put-attribute name="body" value="/views/passenger/edit_credentials.jsp" />
+	</definition>
+	
 	<definition name="passenger/create" extends="master.page">	
 		<put-attribute name="title" value="Create Passenger" />
 		<put-attribute name="body" value="/views/passenger/create.jsp" />
 	</definition>
 	
 	<definition name="passenger/display" extends="master.page">
+		<put-attribute name="title" value="Display Passenger"/>
+		<put-attribute name="body" value="/views/passenger/display.jsp"/>
+	</definition>
+	
+	<definition name="passenger/displayPrincipal" extends="master.page">
 		<put-attribute name="title" value="Display Passenger"/>
 		<put-attribute name="body" value="/views/passenger/display.jsp"/>
 	</definition>

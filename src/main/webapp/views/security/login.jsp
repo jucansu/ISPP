@@ -62,7 +62,9 @@
 					</div>
 				</jstl:if>
 				<security:authorize access="!isAuthenticated()">
+					<br />
 					<a href="driver/create.do"> <spring:message code="driver.register.save"/></a>
+					<br />
 					<a href="passenger/create.do"> <spring:message code="passenger.register.save"/></a>
 				</security:authorize>
 			</form:form>

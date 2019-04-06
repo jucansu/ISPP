@@ -55,7 +55,13 @@
 		</div>
 		<div class="available-seats d-flex">
 			<p>Available seats :    </p>
-			<jstl:out value="${route.availableSeats}"></jstl:out>
+			<jstl:set var="remainingSeats" value="${route.availableSeats}"/>
+			<jstl:forEach items="${route.reservations}" var="reservation">
+				<jstl:if test="${reservation.status eq 'ACCEPTED' }">
+					<jstl:set var="remainingSeats" value="${remainingSeats-reservation.seat}"/>
+				</jstl:if>
+			</jstl:forEach>
+			<jstl:out value=" ${remainingSeats }/${route.availableSeats}"></jstl:out>
 			
 		</div>
 
