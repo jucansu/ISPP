@@ -99,17 +99,13 @@ public class PassegerController extends AbstractController {
 	}
 	// Edition -----------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int passengerId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Passenger passenger;
-		Passenger principal;
 		String requestURI;
 
 		requestURI = "passenger/edit.do";
-		passenger = this.passengerService.findOne(passengerId);
-		principal = (Passenger) this.actorService.findByPrincipal();
-
-		Assert.isTrue(passenger.getId() == principal.getId());
+		passenger = (Passenger) this.actorService.findByPrincipal();
 
 		result = this.createEditModelAndView(passenger, "passenger/edit");
 		result.addObject("requestURI", requestURI);

@@ -90,12 +90,12 @@ window.cookieconsent.initialise({
 					<!-- passenger/display.do?passengerId= -->
 				</security:authorize>
 				<security:authorize access="hasRole('DRIVER')">
-					<a class="dropdown-item" href="#">Edit Profile</a> 
-					<!-- driver/edit.do?driverId= -->
+					<a class="dropdown-item" href="driver/edit.do">Edit Profile</a> 
+					<!-- driver/edit.do -->
 				</security:authorize>
 				<security:authorize access="hasRole('PASSENGER')">
-					<a class="dropdown-item" href="#">Edit Profile</a> 
-					<!-- passenger/edit.do?passengerId= -->
+					<a class="dropdown-item" href="passenger/edit.do">Edit Profile</a> 
+					<!-- passenger/edit.do -->
 				</security:authorize>
 				<a class="dropdown-item" href="#">Configuration</a>
 				<div class="dropdown-divider"></div>
