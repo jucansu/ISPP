@@ -20,6 +20,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="driver.vehicles" var="driverVehicles"/>
+<a href="vehicle/list.do?driverId=${driver.id}"><jstl:out value="${driverVehicles}"/></a></br>
+
 <dl>
 	<spring:message code="driver.name" var="driverName"/>
 	<dt><jstl:out value="${driverName}"/></dt>

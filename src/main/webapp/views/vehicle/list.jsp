@@ -75,3 +75,4 @@
 	
 </display:table>
 
+<a href="driver/display.do?driverId=${driverId}"><spring:message code="vehicle.back"/></a>
