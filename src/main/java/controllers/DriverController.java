@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.UserAccount;
 import services.ActorService;
 import services.DriverService;
+import domain.Actor;
 import domain.Driver;
 import forms.CredentialsfForm;
 
@@ -44,6 +45,21 @@ public class DriverController extends AbstractController {
 		Driver driver;
 
 		driver = this.driverService.findOne(driverId);
+		result = new ModelAndView("driver/display");
+		result.addObject("driver", driver);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/displayPrincipal", method = RequestMethod.GET)
+	public ModelAndView displayPrincipal() {
+		ModelAndView result;
+		Driver driver;
+		Actor principal;
+
+		principal = this.actorService.findByPrincipal();
+		Assert.isTrue(principal instanceof Driver);
+		driver = (Driver) principal;
 		result = new ModelAndView("driver/display");
 		result.addObject("driver", driver);
 
@@ -119,21 +135,21 @@ public class DriverController extends AbstractController {
 			}
 		return result;
 	}
-	
+
 	// Edition Credentials-----------------------------------------------------------
 	@RequestMapping(value = "/editCredentials", method = RequestMethod.GET)
-	public ModelAndView editCredentials(){
+	public ModelAndView editCredentials() {
 		ModelAndView res = null;
-		
-		Driver driver = (Driver) this.actorService.findByPrincipal();
-		CredentialsfForm credentialsfForm = driverService.constructCredential(driver);
-		
+
+		final Driver driver = (Driver) this.actorService.findByPrincipal();
+		final CredentialsfForm credentialsfForm = this.driverService.constructCredential(driver);
+
 		res = this.createEditModelAndViewEditCredentials(credentialsfForm);
 		res.addObject("credentialsfForm", credentialsfForm);
-		
+
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/editCredentials", method = RequestMethod.POST, params = "save")
 	public ModelAndView editCredentials(@Valid final CredentialsfForm credentialsfForm, final BindingResult binding) {
 		ModelAndView res;
@@ -145,7 +161,7 @@ public class DriverController extends AbstractController {
 			res = this.createEditModelAndViewEditCredentials(credentialsfForm, "driver.commit.errorPassword");
 		else
 			try {
-				driver = driverService.reconstructCredential(credentialsfForm, binding);
+				driver = this.driverService.reconstructCredential(credentialsfForm, binding);
 				this.driverService.saveCredentials(driver);
 				res = new ModelAndView("redirect:/j_spring_security_logout");
 			} catch (final Throwable oops) {
@@ -174,7 +190,7 @@ public class DriverController extends AbstractController {
 
 		return result;
 	}
-	
+
 	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm) {
 		ModelAndView result;
 
@@ -183,14 +199,13 @@ public class DriverController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm,
-			final String message) {
+	protected ModelAndView createEditModelAndViewEditCredentials(final CredentialsfForm credentialsfForm, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("driver/editCredentials");
 		result.addObject("credentialsfForm", credentialsfForm);
 		result.addObject("message", message);
-		result.addObject("requestURI","driver/editCredentials.do");
+		result.addObject("requestURI", "driver/editCredentials.do");
 
 		return result;
 	}
