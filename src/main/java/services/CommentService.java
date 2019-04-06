@@ -110,4 +110,20 @@ public class CommentService {
 
 		return result;
 	}
+
+	public Collection<Comment> findCommentsMadeToPassenger(int passengerId) {
+		Collection<Comment> result;
+
+		result = this.commentRepository.findCommentsMadeToPassenger(passengerId);
+
+		return result;
+	}
+
+	public Collection<Comment> findCommentsMadeToDriver(int driverId) {
+		Collection<Comment> result;
+
+		result = this.commentRepository.findCommentsMadeToDriver(driverId);
+
+		return result;
+	}
 }

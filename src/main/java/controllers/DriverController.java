@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import services.ActorService;
+import services.CommentService;
 import services.DriverService;
 import domain.Actor;
+import domain.Comment;
 import domain.Driver;
 import forms.CredentialsfForm;
 
@@ -30,6 +34,9 @@ public class DriverController extends AbstractController {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private CommentService	commentService;
+
 
 	// Constructor ------------------------------
 	public DriverController() {
@@ -43,10 +50,13 @@ public class DriverController extends AbstractController {
 
 		ModelAndView result;
 		Driver driver;
+		Collection<Comment> comments;
 
 		driver = this.driverService.findOne(driverId);
+		comments = this.commentService.findCommentsMadeToDriver(driverId);
 		result = new ModelAndView("driver/display");
 		result.addObject("driver", driver);
+		result.addObject("comments", comments);
 
 		return result;
 	}
@@ -56,12 +66,15 @@ public class DriverController extends AbstractController {
 		ModelAndView result;
 		Driver driver;
 		Actor principal;
+		Collection<Comment> comments;
 
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue(principal instanceof Driver);
 		driver = (Driver) principal;
+		comments = this.commentService.findCommentsMadeToDriver(driver.getId());
 		result = new ModelAndView("driver/display");
 		result.addObject("driver", driver);
+		result.addObject("comments", comments);
 
 		return result;
 	}

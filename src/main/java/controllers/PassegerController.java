@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.UserAccount;
 import services.ActorService;
+import services.CommentService;
 import services.PassengerService;
 import domain.Actor;
+import domain.Comment;
 import domain.Passenger;
 import forms.CredentialsfForm;
 
@@ -30,6 +34,9 @@ public class PassegerController extends AbstractController {
 	@Autowired
 	private ActorService		actorService;
 
+	@Autowired
+	private CommentService		commentService;
+
 
 	// Constructor ------------------------------
 	public PassegerController() {
@@ -43,10 +50,13 @@ public class PassegerController extends AbstractController {
 
 		ModelAndView result;
 		Passenger passenger;
+		Collection<Comment> comments;
 
 		passenger = this.passengerService.findOne(passengerId);
+		comments = this.commentService.findCommentsMadeToPassenger(passengerId);
 		result = new ModelAndView("passenger/display");
 		result.addObject("passenger", passenger);
+		result.addObject("comments", comments);
 
 		return result;
 	}
@@ -56,12 +66,15 @@ public class PassegerController extends AbstractController {
 		ModelAndView result;
 		Passenger passenger;
 		Actor principal;
+		Collection<Comment> comments;
 
 		principal = this.actorService.findByPrincipal();
 		Assert.isTrue(principal instanceof Passenger);
 		passenger = (Passenger) principal;
+		comments = this.commentService.findCommentsMadeToPassenger(passenger.getId());
 		result = new ModelAndView("passenger/display");
 		result.addObject("passenger", passenger);
+		result.addObject("comments", comments);
 
 		return result;
 	}
