@@ -1638,7 +1638,10 @@
             <list></list>
         </property>
         <property name="comments">
-            <list></list>
+            <list>
+            	<ref bean="comment1"/>
+            	<ref bean="comment2"/>
+            </list>
         </property>
         <property name="vehicles">
             <list></list>
@@ -2216,7 +2219,10 @@
             <list></list>
         </property>
         <property name="comments">
-            <list></list>
+            <list>
+            	<ref bean="comment1"/>
+            	<ref bean="comment2"/>
+            </list>
         </property>
     </bean>
 
@@ -10095,6 +10101,28 @@
         <property name="passenger" ref="passenger100"/>
         <property name="route" ref="route7"/>
     </bean>
+    
+      <bean id="comment1" class="domain.Comment">
+      <property name="date" value="13/19/2019 19:32"/>
+      <property name="star" value="1.1"/>
+      <property name="text" value="El mejor viaje de mi vida. Trond es lo mejor."/>
+      <property name="fromDriver" value="true"/>
+      <property name="route" ref="route1"/>
+      <property name="driver" ref="driver1"/>
+      <property name="passenger" ref="passenger32"/>
+
+  </bean>
+
+   <bean id="comment2" class="domain.Comment">
+      <property name="date" value="13/19/2019 19:38"/>
+      <property name="star" value="4.1"/>
+      <property name="text" value="Trond es lo mejor."/>
+      <property name="route" ref="route2"/>
+      <property name="fromDriver" value="true"/>
+      <property name="driver" ref="driver1"/>
+      <property name="passenger" ref="passenger32"/>
+
+  </bean>
 
 
 </beans>
