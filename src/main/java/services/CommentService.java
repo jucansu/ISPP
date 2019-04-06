@@ -11,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.CommentRepository;
 import security.UserAccountService;
-import domain.Actor;
 import domain.Comment;
 import domain.Driver;
 import domain.Passenger;
@@ -96,17 +95,18 @@ public class CommentService {
 		// TODO: terminar
 	}
 
-	public Collection<Comment> findAllFromCurrentActor() {
+	public Collection<Comment> findCommentsMadeByPassenger(int passengerId) {
 		Collection<Comment> result;
-		Actor currentActor;
 
-		currentActor = this.actorService.findByPrincipal();
+		result = this.commentRepository.findCommentsMadeByPassenger(passengerId);
 
-		if (currentActor instanceof Driver) {
-			result = this.commentRepository.findCommentsByDriver(currentActor.getId());
-		} else {
-			result = this.commentRepository.findCommentsByPassenger(currentActor.getId());
-		}
+		return result;
+	}
+
+	public Collection<Comment> findCommentsMadeByDriver(int driverId) {
+		Collection<Comment> result;
+
+		result = this.commentRepository.findCommentsMadeByDriver(driverId);
 
 		return result;
 	}
