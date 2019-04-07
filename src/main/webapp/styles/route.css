@@ -1,5 +1,33 @@
 @CHARSET "ISO-8859-1";
 
+.passengers-route .cancelReservation{
+	padding: 5px;
+	margin: 2rem;
+	background-color: #FFA513;
+	border-color: #d88b0f;
+	color: white;
+	border-radius: 5px;
+}
+
+.passengers-route .request--{
+	padding: 5px;
+	margin: 2rem;
+	background-color: #87C32F;
+	color: white;
+	border-radius: 5px;
+}
+
+.passengers-- button{
+	margin: 5px;
+	background-color: #87C32F;
+	border-color: #699b20;
+}
+
+.passengers--, .cancel-route-driver{
+	text-align: center;
+	border-bottom: 2px solid #FFA513;
+}
+
 .card-header_{
 	text-align: center;
 	border-top: 2px solid #00ACE2;

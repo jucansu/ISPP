@@ -53,14 +53,15 @@
 		<div id="collapseOne" class="collapse show"
 			aria-labelledby="headingOne" data-parent="#accordion">
 			<div class="card-body d-flex flex-column">
-				<div class="item-route-accordion item-1 d-inline-flex font-weight-bold">
-					<div class="circle m-0 mr-3 align-items-baseline background_orange"></div>
-					<p><jstl:out value="${route.origin}"/></p>
-				</div>
-				<div class="item-route-accordion item-2 d-inline-flex font-weight-bold">
-					<div class="circle m-0 mr-3 align-items-baseline background_orange"></div>
-					<p><jstl:out value="${route.destination}"/></p>
-				</div>
+				
+				<jstl:forEach var="point" items="${route.controlPoints}">
+					<div class="item-route-accordion d-inline-flex font-weight-bold">
+						<div class="circle m-0 mr-3 align-items-baseline background_orange"></div>
+						<p><jstl:out value="${point.location}"/> &nbsp</p>
+						<p class="font-weight-normal">[<fmt:formatDate value="${point.arrivalTime}" pattern="${formatDate}"/>]</p>
+					</div>
+				</jstl:forEach>
+				
 			</div>
 		</div>
 		
@@ -206,202 +207,221 @@
 			data-parent="#accordion">
 			<div class="card-body d-flex flex-column">
 			
-				<div class="num-seats price">
+				<div class="num-seats price text-center">
 					<p>Avaiblable seats: &nbsp <jstl:out value="${remainingSeats}"></jstl:out></p>
 					<p>Price per passenger: &nbsp <jstl:out value="${route.pricePerPassenger}"></jstl:out></p>
 				</div>
-		
-				<%-- <div class="passengers">
-					<h5>Passengers: &nbsp</h5>
-					
-					<!-- displayableReservations -->
-					<jstl:forEach var="reservation" items="${reservations }">
-						<div class="passenger">
-							
-						</div>
-					</jstl:forEach>
+
+				<div class="passengers-route text-center">
 				
-				</div> --%>
+					<div class="cancel-route-driver m-1 p-3">
+						<security:authorize access="hasRole('DRIVER')">
+							<!-- <button class="btn" type="button">CANCEL ROUTE</button> -->
+							<%-- <security:authorize access="hasRole('DRIVER')"> --%>
+	
+							<spring:message code="route.cancel.route" var="cancelRoute" />
+							<jstl:if test="${rol==1 }">
+								<div class="font-weight-bold">
+									<dd>
+										<a class="text-danger" href="route/driver/cancel.do?routeId=${route.id}"><jstl:out
+												value="${cancelRoute}" /></a>
+									</dd>
+								</div>
+							</jstl:if>
+	
+						</security:authorize>
+					</div>
+
+
+					<jstl:if test="${not empty reservations}">
+						<spring:message code="route.luggage" var="resLuggage" />
+						<jstl:forEach items="${reservations}" var="res">
+							<%-- <dd>
+								<jstl:out value="----------------------------" />
+							</dd> --%>
+							<div class="passengers-- m-1 p-3">
+								<dd>
+									<jstl:out value="${res.passenger.name} ${res.passenger.surname}" />
+								</dd>
+								<dd>
+									<jstl:out value="${res.passenger.mediumStars}/5" />
+								</dd>
+								<dd>
+									<jstl:out value="${resLuggage}: ${res.luggageSize}" />
+								</dd>
+								<dd>
+									<jstl:out value="${res.origin} -> ${res.destination}" />
+								</dd>
+	
+								<!-- (COMO CONDUCTOR) PARA CADA PASAJERO, BOTONES DE ACEPTAR O RECHAZAR SOLICITUD -->
+								<security:authorize access="hasRole('DRIVER')">
+									<jstl:if test="${rol == 1}">
+										<jstl:if test="${res.status eq 'PENDING' }">
+											<spring:message code="route.reservation.accept"
+												var="acceptReservation" />
+											<form name="acceptReservation" method="POST"
+												action="reservation/driver/acceptReservation.do?reservationId=${res.id}">
+												<button type="submit" name="acceptReservation"
+													class="btn btn-primary">
+													<spring:message code="route.reservation.accept" />
+												</button>
+											</form>
+										</jstl:if>
+										<jstl:if test="${!(res.status eq 'ACCEPTED') }">
+											<spring:message code="route.reservation.reject"
+												var="rejectReservation" />
+											<form name="rejectReservation" method="POST"
+												action="reservation/driver/rejectReservation.do?reservationId=${res.id}">
+												<button type="submit" name="rejectReservation"
+													class="btn btn-primary">
+													<spring:message code="route.reservation.reject" />
+												</button>
+											</form>
+										</jstl:if>
+									</jstl:if>
+								</security:authorize>
+							</div>
+						</jstl:forEach>
+						<%-- <dd>
+							<jstl:out value="----------------------------" />
+						</dd> --%>
+					</jstl:if>
+
+
+
+					<!-- (COMO PASAJERO) MENSAJE DE ESTADO DE LA RESERVA -->
+
+					<security:authorize access="hasRole('PASSENGER')">
+						<jstl:if test="${rol == 2}">
+
+							<jstl:if test="${reservation.status eq 'PENDING' }">
+								<spring:message code="route.reserv.pending" var="rrp" />
+								<spring:message code="route.reserv.cancel" var="reservCancel" />
+								<dd>
+									<jstl:out value="${rrp}" />
+								</dd>
+								<dd>
+									<jstl:if test="${reservation.status != 'REJECTED' }">
+										<form name="cancelReservation" method="POST"
+											action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
+											<button type="submit" name="cancelReservation"
+												class="btn btn-primary cancelReservation">
+												<spring:message code="route.reserv.cancel" />
+											</button>
+										</form>
+
+									</jstl:if>
+								</dd>
+								<a></a>
+							</jstl:if>
+
+							<jstl:if test="${reservation.status eq 'ACCEPTED' }">
+								<spring:message code="route.reserv.accepted" var="rra" />
+								<spring:message code="route.reserv.cancel" var="reservCancel" />
+								<dd>
+									<jstl:out value="${rra}" />
+								</dd>
+
+								<!-- (COMO PASAJERO)PARA RESERVA ACEPTADA POR EL CONDUCTOR, BOTONES DE "�ME HA RECOGIDO EL CONDUCTOR O NO?" -->
+
+								<!-- SI LA RUTA EST� EMPEZADA...  -->
+								<jstl:if test="${startedRoute == true }">
+									<spring:message code="route.driver.pick.up" var="pickup" />
+									<!--...Y SI EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "ME HA RECOGIDO"...-->
+									<jstl:if
+										test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
+										<dd>
+											<a
+												href="reservation/passenger/driverPickUp.do?reservationId=${reservation.id}"><jstl:out
+													value="${pickup}" /></a>
+										</dd>
+									</jstl:if>
+									<!-- ...PERO SI EL SISTEMA YA SABE QUE HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "ME HA RECOGIDO"-->
+									<jstl:if
+										test="${(reservation.driverPickedMe eq true and reservation.driverNoPickedMe eq false) or arrivalPlus10Min eq true}">
+										<dd>
+											<jstl:out value="${pickup}" />
+										</dd>
+									</jstl:if>
+									<!-- UNA VEZ HAN PASADO 10 MINUTOS DESDE LA HORA DE SALIDA... -->
+									<jstl:if test="${hasPassed10Minutes == true }">
+										<spring:message code="route.driver.no.pick.up" var="nopickup" />
+										<!-- ...SI  EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "NO ME HA RECOGIDO"...-->
+										<jstl:if
+											test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
+											<dd>
+												<a
+													href="reservation/passenger/driverNoPickUp.do?reservationId=${reservation.id}"><jstl:out
+														value="${nopickup}" /></a>
+											</dd>
+										</jstl:if>
+										<!-- ...PERO SI EL SISTEMA YA SABE QUE NO HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "NO ME HA RECOGIDO"-->
+										<jstl:if
+											test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq true and arrivalPlus10Min eq false}">
+											<dd>
+												<jstl:out value="${nopickup}" />
+											</dd>
+										</jstl:if>
+
+									</jstl:if>
+
+								</jstl:if>
+								<!-- SI EL VIAJE NO HA EMPEZADO, EL PASAJERO PUEDE CANCELAR LA RESERVA -->
+								<jstl:if test="${startedRoute == false }">
+									<dd>
+										<form name="cancelReservation" method="POST"
+											action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
+											<button type="submit" name="cancelReservation"
+												class="btn btn-primary">
+												<spring:message code="route.reserv.cancel" />
+											</button>
+										</form>
+									</dd>
+								</jstl:if>
+
+							</jstl:if>
+							<!-- SI LA RESERVA HA SIDO DENEGADA, SE MUESTRA MENSAJE DE "SOLICITUD DENEGADA" -->
+							<jstl:if test="${reservation.status eq 'REJECTED' }">
+								<spring:message code="route.reserv.rejected" var="rrr" />
+								<dd>
+									<jstl:out value="${rrr}" />
+								</dd>
+							</jstl:if>
+							<!-- SI LA RESERVA HA SIDO CANCELADA, SE MUESTRA MENSAJE DE "SOLICITUD CANCELADA" -->
+							<jstl:if test="${reservation.status eq 'CANCELLED' }">
+								<spring:message code="route.reserv.cancelled" var="rrc" />
+								<dd>
+									<jstl:out value="${rrc}" />
+								</dd>
+
+							</jstl:if>
+
+						</jstl:if>
+					</security:authorize>
+
+					<security:authorize access="hasRole('PASSENGER')">
+
+						<jstl:if test="${rol==3}">
+							<spring:message code="route.request.seats" var="createReserv" />
+							<a class="request--" href="reservation/passenger/create.do?routeId=${route.id }"><jstl:out
+									value="${createReserv}" /></a>
+						</jstl:if>
+
+					</security:authorize>
+				</div>
+
 			</div>
 		</div>
 	</div>
 	
 	<!-- ************************************************************************************************************************* -->
 	
-	<div class="d-none">
-   <security:authorize access="hasRole('DRIVER')">
-   <button class="btn" type="button">CANCEL ROUTE</button>
-   <%-- <security:authorize access="hasRole('DRIVER')"> --%>
 	
-	<spring:message code="route.cancel.route" var="cancelRoute"/>
-		<jstl:if test="${rol==1 }">
-			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
-		</jstl:if>
-	
-	</security:authorize>
-
-
-	<jstl:if test="${not empty reservations}">
-		<spring:message code="route.luggage" var="resLuggage" />
-		<jstl:forEach items="${reservations}" var="res">
-			<dd>
-				<jstl:out value="----------------------------" />
-			</dd>
-			<dd>
-				<jstl:out value="${res.passenger.name} ${res.passenger.surname}" />
-			</dd>
-			<dd>
-				<jstl:out value="${res.passenger.mediumStars}/5" />
-			</dd>
-			<dd>
-				<jstl:out value="${resLuggage}: ${res.luggageSize}" />
-			</dd>
-			<dd>
-				<jstl:out value="${res.origin} -> ${res.destination}" />
-			</dd>
-			
-					<!-- (COMO CONDUCTOR) PARA CADA PASAJERO, BOTONES DE ACEPTAR O RECHAZAR SOLICITUD -->
-			<security:authorize access="hasRole('DRIVER')">
-				<jstl:if test="${rol == 1}">
-					<jstl:if test="${res.status eq 'PENDING' }">
-						<spring:message code="route.reservation.accept"
-							var="acceptReservation" />
-						<form name="acceptReservation" method="POST" action="reservation/driver/acceptReservation.do?reservationId=${res.id}">
-							<button type="submit" name="acceptReservation" class="btn btn-primary">
-								<spring:message code="route.reservation.accept"/> 
-							</button>
-						</form>
-					</jstl:if>
-					<jstl:if test="${!(res.status eq 'ACCEPTED') }">
-					<spring:message code="route.reservation.reject"
-						var="rejectReservation" />
-						<form name="rejectReservation" method="POST" action="reservation/driver/rejectReservation.do?reservationId=${res.id}">
-							<button type="submit" name="rejectReservation" class="btn btn-primary">
-								<spring:message code="route.reservation.reject"/> 
-							</button>
-						</form>
-					</jstl:if>
-				</jstl:if>
-			</security:authorize>
-
-		</jstl:forEach>
-		<dd>
-			<jstl:out value="----------------------------" />
-		</dd>
-	</jstl:if>
-	
-	
-
-	<!-- (COMO PASAJERO) MENSAJE DE ESTADO DE LA RESERVA -->
-
-	<security:authorize access="hasRole('PASSENGER')">
-		<jstl:if test="${rol == 2}">
-
-			<jstl:if test="${reservation.status eq 'PENDING' }">
-				<spring:message code="route.reserv.pending" var="rrp" />
-				<spring:message code="route.reserv.cancel" var="reservCancel" />
-				<dd>
-					<jstl:out value="${rrp}" />
-				</dd>
-				<dd>
-					<jstl:if test="${reservation.status != 'REJECTED' }">
-					<form name="cancelReservation" method="POST" action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
-						<button type="submit" name="cancelReservation" class="btn btn-primary">
-							<spring:message code="route.reserv.cancel"/> 
-						</button>
-					</form>
-					
-					</jstl:if>
-				</dd>
-				<a></a>
-			</jstl:if>
-
-			<jstl:if test="${reservation.status eq 'ACCEPTED' }">
-				<spring:message code="route.reserv.accepted" var="rra" />
-				<spring:message code="route.reserv.cancel" var="reservCancel" />
-				<dd>
-					<jstl:out value="${rra}" />
-				</dd>
-
-				<!-- (COMO PASAJERO)PARA RESERVA ACEPTADA POR EL CONDUCTOR, BOTONES DE "�ME HA RECOGIDO EL CONDUCTOR O NO?" -->
-				
-					<!-- SI LA RUTA EST� EMPEZADA...  -->
-				<jstl:if test="${startedRoute == true }">
-					<spring:message code="route.driver.pick.up" var="pickup" />
-						<!--...Y SI EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "ME HA RECOGIDO"...-->
-					<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
-					<dd>
-						<a href="reservation/passenger/driverPickUp.do?reservationId=${reservation.id}"><jstl:out value="${pickup}" /></a>
-					</dd>
-					</jstl:if>
-						<!-- ...PERO SI EL SISTEMA YA SABE QUE HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "ME HA RECOGIDO"-->
-					<jstl:if test="${(reservation.driverPickedMe eq true and reservation.driverNoPickedMe eq false) or arrivalPlus10Min eq true}">
-					<dd>
-						<jstl:out value="${pickup}" />
-					</dd>
-					</jstl:if>
-					<!-- UNA VEZ HAN PASADO 10 MINUTOS DESDE LA HORA DE SALIDA... -->
-					<jstl:if test="${hasPassed10Minutes == true }">
-						<spring:message code="route.driver.no.pick.up" var="nopickup" />
-							<!-- ...SI  EL SISTEMA AUN NO SABE SI LO HA RECOGIDO, SE MUESTRA EL BOTON DE "NO ME HA RECOGIDO"...-->
-						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq false and arrivalPlus10Min eq false}">
-							<dd>
-								<a href="reservation/passenger/driverNoPickUp.do?reservationId=${reservation.id}"><jstl:out value="${nopickup}" /></a>
-							</dd>
-						</jstl:if>
-						<!-- ...PERO SI EL SISTEMA YA SABE QUE NO HA RECOGIDO AL PASAJERO, SOLO SE MUESTRA EL MENSAJE DE "NO ME HA RECOGIDO"-->
-						<jstl:if test="${reservation.driverPickedMe eq false and reservation.driverNoPickedMe eq true and arrivalPlus10Min eq false}">
-							<dd>
-								<jstl:out value="${nopickup}" />
-							</dd>
-						</jstl:if>
-						
-					</jstl:if>
-
-				</jstl:if>
-			<!-- SI EL VIAJE NO HA EMPEZADO, EL PASAJERO PUEDE CANCELAR LA RESERVA -->
-				<jstl:if test="${startedRoute == false }">
-					<dd>
-						<form name="cancelReservation" method="POST" action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
-						<button type="submit" name="cancelReservation" class="btn btn-primary">
-							<spring:message code="route.reserv.cancel"/> 
-						</button>
-					</form>
-					</dd>
-				</jstl:if>
-
-			</jstl:if>
-		<!-- SI LA RESERVA HA SIDO DENEGADA, SE MUESTRA MENSAJE DE "SOLICITUD DENEGADA" -->
-			<jstl:if test="${reservation.status eq 'REJECTED' }">
-				<spring:message code="route.reserv.rejected" var="rrr" />
-				<dd>
-					<jstl:out value="${rrr}" />
-				</dd>
-			</jstl:if>
-		<!-- SI LA RESERVA HA SIDO CANCELADA, SE MUESTRA MENSAJE DE "SOLICITUD CANCELADA" -->
-			<jstl:if test="${reservation.status eq 'CANCELLED' }">
-				<spring:message code="route.reserv.cancelled" var="rrc" />
-				<dd>
-					<jstl:out value="${rrc}" />
-				</dd>
-
-			</jstl:if>
-
-		</jstl:if>
-	</security:authorize>
-
-	<security:authorize access="hasRole('PASSENGER')">
-
-	<jstl:if test="${rol==3}">
-		<spring:message code="route.request.seats" var="createReserv"/>
-		<a href="reservation/passenger/create.do?routeId=${route.id }"><jstl:out value="${createReserv}"/></a>
-	</jstl:if>
-	
-	</security:authorize>
+   
 	
 
 	
-	</div>
+	
 </div>
 
 		<!-- ************************************************************************************************************************* -->
