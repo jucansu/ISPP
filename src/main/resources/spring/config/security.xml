@@ -64,12 +64,12 @@
 		<security:intercept-url pattern="/controlpoint/driver/remove.do" access="hasRole('DRIVER')" />		
 		
 		<security:intercept-url pattern="/reservation/passenger/create.do" access="hasRole('PASSENGER')" /> 
+		<security:intercept-url pattern="/reservation/passenger/save.do" access="hasRole('PASSENGER')" />
+		<security:intercept-url pattern="/reservation/passenger/cancelReservation.do" access="hasRole('PASSENGER')" />
 		<security:intercept-url pattern="/reservation/passenger/driverPickUp.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/reservation/passenger/driverNoPickUp.do" access="hasRole('PASSENGER')" /> 
-		<security:intercept-url pattern="/reservation/passenger/confirmReservation.do" access="hasRole('PASSENGER')" />
 		<security:intercept-url pattern="/reservation/driver/acceptReservation.do" access="hasRole('DRIVER')" />
 		<security:intercept-url pattern="/reservation/driver/rejectReservation.do" access="hasRole('DRIVER')" /> 
-		<security:intercept-url pattern="/reservation/passenger/cancelReservation.do" access="hasRole('PASSENGER')" /> 
 		
 		<security:intercept-url pattern="/driver/create.do" access="!isAuthenticated()" />
 		<security:intercept-url pattern="/driver/edit.do" access="hasRole('DRIVER')" /> 
