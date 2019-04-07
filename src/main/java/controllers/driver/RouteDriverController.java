@@ -93,21 +93,27 @@ public class RouteDriverController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
+//			System.out.println("/route/driver/confirm.do bindingErrors: " + binding.getAllErrors());
 			result = this.createEditModelAndView(routeForm);
-		} else {
+		} else
 			try {
-				Driver driver = (Driver) this.actorService.findByPrincipal();
-				Route route = this.routeService.reconstruct(routeForm, driver);
-				result = new ModelAndView("route/driver/confirm");
-				result.addObject("route", route);
-				result.addObject("requestURISave", "route/driver/edit.do");
-				result.addObject("requestURICancel", "route/driver/create.do");
-			} catch (final Throwable oops) {
+				final Driver driver = (Driver) this.actorService.findByPrincipal();
+				Route route = this.routeService.reconstruct(routeForm, driver, binding);
+				if (binding.hasErrors()) {
+					System.out.println(binding.getAllErrors());
+					result = this.createEditModelAndView(routeForm);
+				}
+				else {
+					result = new ModelAndView("route/driver/confirm");
+					result.addObject("route", route);
+					result.addObject("requestURISave", "route/driver/edit.do");
+					result.addObject("requestURICancel", "route/driver/create.do");
+				}
+			}
+			catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(routeForm, "driver.commit.error");
 			}
-		}
 		return result;
 	}
 
@@ -117,19 +123,18 @@ public class RouteDriverController extends AbstractController {
 
 		System.out.println("/route/driver/edit.do bindingErrors:" + binding.hasErrors());
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			//			System.out.println("/route/driver/edit.do bindingErrors: "+binding.getAllErrors());
 			result = this.createEditModelAndView(this.routeService.construct(route));
-		} else {
+		else
 			try {
 				// TODO comprobar que la ruta no ha sido alterada en la vista de confirmación
-				Route routeSaved = this.routeService.save2(route);
+				final Route routeSaved = this.routeService.save2(route);
 				result = new ModelAndView("redirect:/route/display.do?routeId=" + routeSaved.getId());
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(this.routeService.construct(route), "driver.commit.error");
 			}
-		}
 		return result;
 	}
 

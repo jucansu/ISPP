@@ -40,7 +40,7 @@
 	<div class="route-route">
 	
 		<!-- Route -->
-		
+
 		<div class="card_">
 			<div class="card-header_" id="headingOne">
 				<h2 class="mb-0">
@@ -53,11 +53,11 @@
 		<div id="collapseOne" class="collapse show"
 			aria-labelledby="headingOne" data-parent="#accordion">
 			<div class="card-body d-flex flex-column">
-				<div class="item-route-accordion item-1 d-inline-flex">
+				<div class="item-route-accordion item-1 d-inline-flex font-weight-bold">
 					<div class="circle m-0 mr-3 align-items-baseline background_orange"></div>
 					<p><jstl:out value="${route.origin}"/></p>
 				</div>
-				<div class="item-route-accordion item-2 d-inline-flex">
+				<div class="item-route-accordion item-2 d-inline-flex font-weight-bold">
 					<div class="circle m-0 mr-3 align-items-baseline background_orange"></div>
 					<p><jstl:out value="${route.destination}"/></p>
 				</div>
@@ -202,7 +202,7 @@
 			</div>
 		</div>
 		
-		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+		<div id="collapseThree" class="collapse" aria-labelledby="headingThree"
 			data-parent="#accordion">
 			<div class="card-body d-flex flex-column">
 			
@@ -211,7 +211,7 @@
 					<p>Price per passenger: &nbsp <jstl:out value="${route.pricePerPassenger}"></jstl:out></p>
 				</div>
 		
-				<div class="passengers">
+				<%-- <div class="passengers">
 					<h5>Passengers: &nbsp</h5>
 					
 					<!-- displayableReservations -->
@@ -221,7 +221,7 @@
 						</div>
 					</jstl:forEach>
 				
-				</div>
+				</div> --%>
 			</div>
 		</div>
 	</div>
@@ -240,12 +240,6 @@
 	
 	</security:authorize>
 
-
-	
-	
-
-	
-	
 
 	<jstl:if test="${not empty reservations}">
 		<spring:message code="route.luggage" var="resLuggage" />
@@ -417,7 +411,7 @@
 									<security:authorize access="hasRole('PASSENGER')">
 									<jstl:if test="${route.isCancelled == false && reservation.status != 'PENDING' || 'ACCEPTED'}">
 
-										<jstl:if test="${route.availableSeats > 0 }">
+										<jstl:if test="${remainingSeats > 0 }">
 										<a href="reservation/passenger/create.do?routeId=${route.id }"class="btn" type="button">REQUEST SEATS</a>
 										
 										<!-- <button class="btn" type="button">REQUEST</button> -->
@@ -442,10 +436,11 @@
    <security:authorize access="hasRole('DRIVER')">
    <button class="btn" type="button">CANCEL ROUTE</button>
    <security:authorize access="hasRole('DRIVER')">
-	
+	<spring:message code="route.confirm.cancel" var="confirm" />
 	<spring:message code="route.cancel.route" var="cancelRoute"/>
 		<jstl:if test="${rol==1 }">
-			<dd><a href="route/driver/cancel.do?routeId=${route.id}"><jstl:out value="${cancelRoute}"/></a></dd>
+			<dd><a href="route/driver/cancel.do?routeId=${route.id}"
+			onclick="return confirm('${confirm}')" />&nbsp;<jstl:out value="${cancelRoute}"/></a></dd>
 		</jstl:if>
 	
 	</security:authorize>

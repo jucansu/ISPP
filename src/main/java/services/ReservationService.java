@@ -100,7 +100,6 @@ public class ReservationService {
 		UserAccount ua;
 		Passenger passenger;
 		Route route;
-		Collection<Reservation> reservationsRoute, reservationsPassenger;
 
 		//Comprobamos que el usuario registrado es el mismo pasajero que ha creado la reserva
 		ua = LoginService.getPrincipal();
@@ -122,13 +121,39 @@ public class ReservationService {
 		if (reservation.getStatus() == ReservationStatus.ACCEPTED)
 			route.setAvailableSeats(route.getAvailableSeats() - reservation.getSeat());
 
-		//Al guardarse la reserva se añade a la lista de reservas de la ruta
+		reservation.setPrice(((route.getPricePerPassenger() - 0.10) * reservation.getSeat()) + 0.10);
+
+		//	result = this.reservationRepository.save(reservation);
+		result = reservation;
+
+		return result;
+	}
+
+	public Reservation confirmReservation(final Reservation reservation) {
+		Assert.notNull(reservation);
+		Assert.notNull(reservation.getOrigin());
+		Assert.notNull(reservation.getDestination());
+		Assert.isTrue(!reservation.getOrigin().equals(reservation.getDestination()));
+		Assert.notNull(reservation.getRoute());
+		Assert.notNull(reservation.getSeat());
+		Assert.notNull(reservation.getLuggageSize());
+		Assert.notNull(reservation.getPrice());
+		Assert.notNull(reservation.getStatus());
+
+		Reservation result;
+		Route route;
+		Passenger passenger;
+		Collection<Reservation> reservationsRoute, reservationsPassenger;
+
+		route = reservation.getRoute();
+		//Al confirmarse la reserva se añade a la lista de reservas de la ruta
 		reservationsRoute = route.getReservations();
 		reservationsRoute.add(reservation);
 		route.setReservations(reservationsRoute);
 		this.routeService.save(route);
 
-		//Al guardarse la reserva se añade a la lista de reservas del pasajero
+		passenger = reservation.getPassenger();
+		//Al confirmarse la reserva se añade a la lista de reservas del pasajero
 		reservationsPassenger = passenger.getReservations();
 		reservationsPassenger.add(reservation);
 		passenger.setReservations(reservationsPassenger);

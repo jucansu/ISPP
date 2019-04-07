@@ -66,10 +66,27 @@
 		<security:intercept-url pattern="/reservation/passenger/create.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/reservation/passenger/driverPickUp.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/reservation/passenger/driverNoPickUp.do" access="hasRole('PASSENGER')" /> 
-		<security:intercept-url pattern="/reservation/display.do" access="isAuthenticated()" />
+		<security:intercept-url pattern="/reservation/passenger/confirmReservation.do" access="hasRole('PASSENGER')" />
 		<security:intercept-url pattern="/reservation/driver/acceptReservation.do" access="hasRole('DRIVER')" />
 		<security:intercept-url pattern="/reservation/driver/rejectReservation.do" access="hasRole('DRIVER')" /> 
 		<security:intercept-url pattern="/reservation/passenger/cancelReservation.do" access="hasRole('PASSENGER')" /> 
+		
+		<security:intercept-url pattern="/driver/create.do" access="!isAuthenticated()" />
+		<security:intercept-url pattern="/driver/edit.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/driver/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/driver/displayPrincipal.do" access="hasRole('DRIVER')" /> 
+		
+		<security:intercept-url pattern="/vehicle/list.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/vehicle/driver/edit.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/vehicle/driver/create.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/vehicle/driver/editPhoto.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/vehicle/driver/delete.do" access="hasRole('DRIVER')" /> 
+		<security:intercept-url pattern="/driver/editCredentials.do" access="hasRole('DRIVER')" />
+		<security:intercept-url pattern="/passenger/create.do" access="!isAuthenticated()" />
+		<security:intercept-url pattern="/passenger/edit.do" access="hasRole('PASSENGER')" /> 
+		<security:intercept-url pattern="/passenger/display.do" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/passenger/displayPrincipal.do" access="hasRole('PASSENGER')" /> 
+		<security:intercept-url pattern="/passenger/editCredentials.do" access="hasRole('PASSENGER')" /> 
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

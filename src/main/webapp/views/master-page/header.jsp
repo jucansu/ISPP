@@ -81,7 +81,22 @@ window.cookieconsent.initialise({
  				<security:authentication property="principal.username" />
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" href="#">Visit my profile</a> 
+				<security:authorize access="hasRole('DRIVER')">
+					<a class="dropdown-item" href="driver/displayPrincipal.do">Visit my profile</a> 
+					<!-- driver/display.do?driverId= -->
+				</security:authorize>
+				<security:authorize access="hasRole('PASSENGER')">
+					<a class="dropdown-item" href="passenger/displayPrincipal.do">Visit my profile</a> 
+					<!-- passenger/display.do?passengerId= -->
+				</security:authorize>
+				<security:authorize access="hasRole('DRIVER')">
+					<a class="dropdown-item" href="driver/edit.do">Edit Profile</a> 
+					<!-- driver/edit.do -->
+				</security:authorize>
+				<security:authorize access="hasRole('PASSENGER')">
+					<a class="dropdown-item" href="passenger/edit.do">Edit Profile</a> 
+					<!-- passenger/edit.do -->
+				</security:authorize>
 				<a class="dropdown-item" href="#">Configuration</a>
 				<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>
@@ -100,8 +115,61 @@ window.cookieconsent.initialise({
 	</div>
 	
 	<!-- --- -->
-	
-	
+<%-- 
+	<nav class="navbar navbar-icon-top navbar-expand-lg" style="background-color: #fa3274;">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+     
+      
+     
+    
+    </ul>
+    <ul class="navbar-nav ">
+
+      
+     <li class="nav-item dropdown">
+        
+      </li>
+      
+    <div>
+    <li class="nav-item">
+     <security:authorize access="hasRole('PASSENGER')">
+        <a class="nav-link" href="route/search.do">
+          <i class="fa fa-search">
+          </i>
+         
+        </a>
+        </security:authorize>
+      </li>
+    </div>
+  </div>
+  
+      <security:authorize access="hasRole('DRIVER')">
+    <div>
+   
+        <a class="nav-link" href="route/driver/create.do">
+          <i class="fa fa-plus">
+          </i>
+         
+        </a>
+  
+    </div>
+    </security:authorize>
+  </div>
+  
+</nav>
+
+<nav class="navbar navbar-light" style="background-color: #fa3274;">
+    <div class="container">
+  
+
+
+</nav>
+--%>
 </security:authorize>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

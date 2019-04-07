@@ -132,7 +132,6 @@ public class RouteController extends AbstractController {
 							break;
 						} else
 							rol = 3;
-					//reservation.setPassenger(passenger);
 				}
 
 				if (actor instanceof Administrator)
