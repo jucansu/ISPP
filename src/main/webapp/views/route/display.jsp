@@ -205,11 +205,20 @@
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
 			data-parent="#accordion">
 			<div class="card-body d-flex flex-column">
+			
+				<div class="num-seats price">
+					<p>Avaiblable seats: &nbsp <jstl:out value="${remainingSeats}"></jstl:out></p>
+					<p>Price per passenger: &nbsp <jstl:out value="${route.pricePerPassenger}"></jstl:out></p>
+				</div>
 		
 				<div class="passengers">
-				
-					<jstl:forEach var="passenger" items="${passengers }">
-						
+					<h5>Passengers: &nbsp</h5>
+					
+					<!-- displayableReservations -->
+					<jstl:forEach var="reservation" items="${reservations }">
+						<div class="passenger">
+							
+						</div>
 					</jstl:forEach>
 				
 				</div>
@@ -217,13 +226,9 @@
 		</div>
 	</div>
 	
-	<!-- Details -->
+	<!-- ************************************************************************************************************************* -->
 	
-	<div class="details-details">
-		
-	</div>
-	
-	       
+	<div class="d-none">
    <security:authorize access="hasRole('DRIVER')">
    <button class="btn" type="button">CANCEL ROUTE</button>
    <%-- <security:authorize access="hasRole('DRIVER')"> --%>
@@ -401,10 +406,11 @@
 	</security:authorize>
 	
 
-</dl>
 	
-	
+	</div>
 </div>
+
+		<!-- ************************************************************************************************************************* -->
 	
 	<%-- 
  							<div class="cancelled">
