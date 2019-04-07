@@ -62,6 +62,23 @@
 	border-bottom: 3px solid #ffa513;
 }
 
+.routes{
+	color: black; 
+    position: relative;
+    top: -5px;
+}
+
+.route{
+	padding: 10px 0px;
+	border-bottom: 3px solid #ffa513;
+}
+
+
+.fa-star {
+  color: #ffa513;
+}
+
+
 .to:after {
 	content:'';
 	padding: 2px;
