@@ -77,8 +77,7 @@ public class RouteService {
 		return r;
 	}
 	public Route findOne(final int id) {
-		Assert.notNull(id);
-
+		Assert.isTrue(id > 0);
 		return this.routeRepository.findOne(id);
 	}
 
@@ -229,7 +228,7 @@ public class RouteService {
 
 	}
 
-	public Double getPrice(final Double distance) {
+	/*public Double getPrice(final Double distance) {
 		Double price = 0.0;
 		final Double price3km = 0.33;
 		final Double profit = 0.10;
@@ -242,6 +241,30 @@ public class RouteService {
 
 		}
 		return DoubleRounder.round(price, 2);
+	}*/
+	
+	public Double getPrice(final double distance) {
+		Assert.isTrue(distance >= 0);
+		double result = 1.1d;
+		if (distance > 9d) {
+			result += (distance - 9d) * 0.11d;
+		}
+		return DoubleRounder.round(result, 2);
+	}
+	
+	public Integer getCurrentAvailableSeats(final int routeId) {
+		return getCurrentAvailableSeats(findOne(routeId));
+	}
+	
+	public Integer getCurrentAvailableSeats(final Route route) {
+		Assert.notNull(route);
+		Assert.isTrue(route.getId() > 0);
+		Collection<Reservation> reservations = reservationService.findReservationsByRouteAndStatus(route.getId(), ReservationStatus.ACCEPTED);
+		int occupiedSeats = 0;
+		for (Reservation r : reservations) {
+			occupiedSeats += r.getSeat();
+		}
+		return route.getAvailableSeats() - occupiedSeats;
 	}
 
 	//Finder 
@@ -479,17 +502,14 @@ public class RouteService {
 			 * }
 			 */
 	
-			double pricePerPassenger = 1.10d;
-			if (routeDistance > 9d) {
-				pricePerPassenger += Math.floor(routeDistance - 9d) * 0.11d;
-			}
-			pricePerPassenger = DoubleRounder.round(pricePerPassenger, 2);
+			double pricePerPassenger = getPrice(routeDistance);
 	
 			result = this.create();
 	
 			result.setAvailableSeats(routeForm.getAvailableSeats());
 			result.setDaysRepeat(null);
 			result.setDepartureDate(routeForm.getDepartureDate());
+			result.setMaxLuggage(routeForm.getMaxLuggage());
 			result.setDetails(routeForm.getDetails());
 			result.setDriver(driver);
 			result.setId(0);

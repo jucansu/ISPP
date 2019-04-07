@@ -32,78 +32,105 @@
 </div>
 
 <security:authorize access="hasRole('PASSENGER')">
-
-<form:form action="reservation/passenger/create.do"	modelAttribute="reservation">
-			<form:hidden path="id" />
-			<form:hidden path="version" />
-			<form:hidden path="passenger"/>
+	<center>
+		<form:form action="${requestURI}" modelAttribute="reservation">
 			<form:hidden path="route"/>
-			<form:hidden path="driverPickedMe"/>
-			<form:hidden path="driverNoPickedMe"/>
-			<form:hidden path="status"/>
-			<form:hidden path="price"/>
-
-
-			<form:label path="seat">
-				<spring:message code="route.request.seats" />: </form:label>
-			<form:select path="seat" onclick="multiplicar()" id="seatId" class="form-control" required="true">
-				<jstl:forEach var="x" begin="1" end="${remainingSeats}">
-					<form:option label="${x}" value="${x}">
-					</form:option>
-				</jstl:forEach>
-			</form:select>
-			<form:errors cssClass="error" path="seat" />
-			<br />
-
-
-
-			<form:label path="origin">
-				<spring:message code="route.origin" />: </form:label>
-			<form:select path="origin" class="form-control" required="true">
-				<form:option value="${route.origin }" />
-			</form:select>
-			<form:errors cssClass="error" path="origin" />
-			<br />
-
-			<form:label path="destination">
-				<spring:message code="route.destination" />: </form:label>
-			<form:select path="destination" class="form-control" required="true">
-				<form:option value="${route.destination}" />
-			</form:select>
-			<form:errors cssClass="error" path="destination" />
-			<br />
-
-			<form:label path="luggageSize">
-				<spring:message code="route.luggage" />: </form:label>
-			<form:select path="luggageSize" class="form-control" required="true">
-				<form:option value="NOTHING" label="NOTHING"/>
-				<form:option value="SMALL" label="SMALL"/>
-				<form:option value="MEDIUM" label="MEDIUM"/>
-				<form:option value="BIG" label="BIG"/>
-			</form:select>
-			<form:errors cssClass="error" path="luggageSize" />
-			<br />
-
+			<form:hidden path="availableSeats"/>
 			
+			<div class="form-group col-md-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="orig2"><spring:message code="reservation.origin" /></span>
+					</div>
+					<form:select path="origin" class="form-control" required="true" id="orig" onchange="calculatePrice()">
+						<form:options items="${reservation.route.controlPoints}" itemLabel="location" />
+					</form:select>
+				</div>
+				<form:errors cssClass="error" path="origin" />
+			</div>
+			
+			<div class="form-group col-md-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="dest2"><spring:message code="reservation.destination" /></span>
+					</div>
+					<form:select path="destination" class="form-control" required="true" id="dest" onchange="calculatePrice()">
+						<form:options items="${reservation.route.controlPoints}" itemLabel="location" />
+					</form:select>
+				</div>
+				<form:errors cssClass="error" path="destination" />
+			</div>
+			
+			<div class="form-group col-md-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="seats2"><spring:message code="reservation.seats" /></span>
+					</div>
+					<form:select path="requestedSeats" id="seats" class="form-control" required="true" onchange="calculatePrice()">
+						<jstl:forEach var="x" begin="1" end="${reservation.availableSeats}">
+							<form:option label="${x}" value="${x}"></form:option>
+						</jstl:forEach>
+					</form:select>
+				</div>
+				<form:errors cssClass="error" path="requestedSeats" />
+			</div>
+			
+			<div class="form-group col-md-6">
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="luggage2"><spring:message code="reservation.luggage" /></span>
+					</div>
+					<form:select path="luggageSize" class="form-control" required="true" id="luggage">
+						<form:option value="NOTHING" label="Nothing"/>
+						<form:option value="SMALL" label="Small"/>
+						<form:option value="MEDIUM" label="Medium"/>
+						<form:option value="BIG" label="Big"/>
+					</form:select>
+				</div>
+				<form:errors cssClass="error" path="luggageSize" />
+			</div>
+			
+			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
+			<br />
 
-
-			<center>
 			<input type="submit" name="save" class="btn btn btn-success"
 				value="<spring:message code="route.save" />" />
-			<input type="button" name="cancel" class="btn btn-warning"
+			<input type="button" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
 				onclick="javascript: relativeRedir('route/display.do?routeId=${route.id}');" />
 			<br />
-			</center>
 
 		</form:form>
-
-		<script type="text/javascript">
-			function multiplicar() {
-
-				var result = document.getElementById("seatId").value * ${route.pricePerPassenger};
-				document.getElementById("precioTotal").innerHTML = result.toFixed(2);
-			};
-		</script>
-
+	</center>
+	<script type="text/javascript">
+		function calculatePrice() {
+			var cpOrders = {};
+			var cpDistances = {};
+			<jstl:forEach items="${reservation.route.controlPoints}" var="cp" varStatus="status">
+			cpOrders["<jstl:out value="${cp.id}" />"] = <jstl:out value="${cp.arrivalOrder}" />;
+			cpDistances["<jstl:out value="${cp.arrivalOrder}" />"] = <jstl:out value="${cp.distance}" />;
+			</jstl:forEach>
+			var originId = document.getElementById("orig").value;
+			var destinationId = document.getElementById("dest").value;
+			var originOrder = parseInt(cpOrders[originId]);
+			var destinationOrder = parseInt(cpOrders[destinationId]);
+			if (originOrder < destinationOrder) {
+				var totalDistance = 0.0;
+				for (var i = originOrder + 1; i <= destinationOrder; i++) {
+					totalDistance = totalDistance + parseFloat(cpDistances[i.toString()]);
+				}
+				var price = 1.0;
+				if (totalDistance > 9.0) {
+					price = price + (totalDistance - 9.0) * 0.11;
+				}
+				price = price * parseInt(document.getElementById("seats").value);
+				price = Number.parseFloat(price + 0.1).toFixed(2);
+				document.getElementById("price").innerHTML = price.toString().concat("&euro;");
+			}
+			else {
+				document.getElementById("price").innerHTML = "ERROR";
+			}
+		};
+		calculatePrice();
+	</script>
 </security:authorize>
