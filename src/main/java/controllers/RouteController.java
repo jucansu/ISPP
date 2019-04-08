@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
+import services.CommentService;
 import services.ReservationService;
 import services.RouteService;
 import domain.Actor;
@@ -42,6 +43,9 @@ public class RouteController extends AbstractController {
 
 	@Autowired
 	private ReservationService	reservationService;
+
+	@Autowired
+	private CommentService		commentService;
 
 	@Autowired
 	private ActorService		actorService;
@@ -82,6 +86,9 @@ public class RouteController extends AbstractController {
 		boolean startedRoute = false;
 		boolean hasPassed10Minutes = false;
 		boolean arrivalPlus10Min = false;
+		boolean canComment = false;
+		Collection<Passenger> passengersToComment;
+		passengersToComment = new ArrayList<Passenger>();
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
@@ -159,6 +166,19 @@ public class RouteController extends AbstractController {
 		if (new Date().after(tenMinutesAfterArrival))
 			arrivalPlus10Min = true;
 		//------------------------------------------------
+
+		// Proceso para ver si el actor puede comentar y a quien puede comentar:
+		canComment = this.commentService.canComment(actor, route);
+
+		// En caso de ser un passenger, el metodo anterior ya determina si ha comentado para esta ruta y driver ya.
+		// Pero si el actor es un driver, no se ha determinado aun si le queda algun passenger sobre el que opinar.
+		if (actor instanceof Driver) {
+			passengersToComment = this.commentService.passengersToComment((Driver) actor, route);
+			if (passengersToComment.isEmpty()) {
+				canComment = false;
+			}
+		}
+
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
 		result.addObject("arrivalDate", sdf.format(arrivalDate));
@@ -168,6 +188,8 @@ public class RouteController extends AbstractController {
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
 		result.addObject("hasPassed20Minutes", arrivalPlus10Min);
+		result.addObject("canComment", canComment);
+		result.addObject("passengersToComment", passengersToComment);
 
 		return result;
 	}

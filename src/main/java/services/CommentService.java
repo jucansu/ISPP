@@ -1,7 +1,10 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -10,10 +13,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.CommentRepository;
-import security.UserAccountService;
+import domain.Actor;
 import domain.Comment;
 import domain.Driver;
 import domain.Passenger;
+import domain.Route;
+import forms.CommentForm;
 
 @Service
 @Transactional
@@ -26,9 +31,6 @@ public class CommentService {
 	//Supporting Services
 	@Autowired
 	private ActorService		actorService;
-
-	@Autowired
-	private UserAccountService	userAccountService;
 
 	@Autowired
 	private PassengerService	passengerService;
@@ -125,5 +127,112 @@ public class CommentService {
 		result = this.commentRepository.findCommentsMadeToDriver(driverId);
 
 		return result;
+	}
+
+	public Double avgStarsFromDriver(int driverId) {
+		Double result;
+
+		result = this.commentRepository.avgStarsFromDriver(driverId);
+
+		return result;
+	}
+
+	public Double avgStarsFromPassenger(int passengerId) {
+		Double result;
+
+		result = this.commentRepository.avgStarsFromPassenger(passengerId);
+
+		return result;
+	}
+
+	public Comment findCommentFromDriver(int routeId, int passengerId, int driverId) {
+		Comment result;
+
+		result = this.commentRepository.findCommentFromDriver(routeId, passengerId, driverId);
+
+		return result;
+	}
+
+	public Comment findCommentFromPassenger(int routeId, int passengerId, int driverId) {
+		Comment result;
+
+		result = this.commentRepository.findCommentFromPassenger(routeId, passengerId, driverId);
+
+		return result;
+	}
+
+	public boolean canComment(Actor actor, Route route) {
+		boolean result = false;
+		Collection<Passenger> passengers;
+
+		// Primero comprobamos si estamos en el rango de tiempo en el que se permitiría comentar para esta ruta:
+		// Es decir, la ruta ha comenzado y ha pasado el tiempo estimado de la misma. Además no han pasado 24 horas desde ese momento.
+
+		Calendar now = Calendar.getInstance();
+		now.setTime(new Date());
+
+		Calendar routeCommentPeriodStart = Calendar.getInstance();
+		routeCommentPeriodStart.setTime(route.getDepartureDate());
+		routeCommentPeriodStart.add(Calendar.MINUTE, route.getEstimatedDuration());
+
+		if (now.before(routeCommentPeriodStart)) {
+			return result;
+		}
+
+		// Reutilizamos esta variable y ahora sería el fin del periodo:
+		routeCommentPeriodStart.add(Calendar.HOUR, 24);
+
+		if (now.after(routeCommentPeriodStart)) {
+			return result;
+		}
+
+		// Si se llega hasta aquí, le está permitido comentar, faltaria ver si es alguien de los passengers con reservations aceptadas o el driver
+		if (actor instanceof Driver) {
+			if (route.getDriver().getId() == actor.getId()) {
+				result = true;
+			}
+		} else {
+
+			passengers = this.passengerService.findPassengersAcceptedByRoute(route.getId());
+			if (passengers.contains(actor)) {
+				// En caso de ser un pasenger, además comprobaremos si ya ha comentado o no a este driver para esta ruta
+				if (this.findCommentFromPassenger(route.getId(), actor.getId(), route.getDriver().getId()) == null) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public Collection<Passenger> passengersToComment(Driver driver, Route route) {
+		Collection<Passenger> aux, result;
+		result = new ArrayList<Passenger>();
+
+		aux = this.passengerService.findPassengersAcceptedByRoute(route.getId());
+
+		for (Passenger passenger : aux) {
+
+			if (this.findCommentFromDriver(route.getId(), passenger.getId(), driver.getId()) == null) {
+				result.add(passenger);
+			}
+
+		}
+
+		return result;
+	}
+
+	public Comment reconstruct(CommentForm commentForm) {
+		Assert.notNull(commentForm);
+
+		Comment result;
+
+		result = new Comment();
+
+		result.setText(commentForm.getText());
+		result.setStar(commentForm.getStar());
+
+		return result;
+
 	}
 }
