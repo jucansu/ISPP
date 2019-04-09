@@ -82,7 +82,7 @@
 						<spring:message code="route.origin" var="routeOrigin" />
 						<form:input type="text" path="origin.location"
 							class="form-control" placeholder="${routeOrigin}"
-							id="autocomplete" onFocus="geolocate()" />
+							id="autocompleteOrigin" onFocus="geolocate()" />
 
 
 
@@ -129,7 +129,7 @@
 										path="controlpoints[${status.index}].location"
 										class="form-control"
 										placeholder="${routeStop} ${status.index + 1}"
-										id="autocomplete" onFocus="geolocate()" />
+										id="autocomplete${status.index}" onFocus="geolocate()" />
 									<form:hidden path="controlpoints[${status.index}].arrivalOrder" />
 									<form:hidden path="controlpoints[${status.index}].distance" />
 								</div>
@@ -178,7 +178,7 @@
 						<div id="locationField">
 							<form:input type="text" path="destination.location"
 								class="form-control" placeholder="${routeDestination}"
-								id="autocomplete2" onFocus="geolocate()" />
+								id="autocompleteDestination" onFocus="geolocate()" />
 						</div>
 						<form:hidden path="destination.arrivalOrder" />
 						<form:hidden path="destination.distance" />
@@ -275,8 +275,11 @@
 	// parameter when you first load the API. For example:
 	// <script
 	// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-	var placeSearch, autocomplete;
+	
+	var autocompleteOrigin, autocompleteDestination;
+	<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status">
+	var autocomplete<jstl:out value="${status.index}" />;
+	</jstl:forEach>
 
 	var componentForm = {
 		street_number : 'short_name',
@@ -290,17 +293,7 @@
 	function initAutocomplete() {
 		// Create the autocomplete object, restricting the search predictions to
 		// geographical location types.
-		autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'), {
-			types : [
-				'geocode'
-			]
-		});
-
-		autocomplete.setFields([
-			'address_component'
-		]);
-
-		autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {
+		autocompleteOrigin = new google.maps.places.Autocomplete(document.getElementById('autocompleteOrigin'), {
 			types : [
 				'geocode'
 			]
@@ -308,9 +301,30 @@
 
 		// Avoid paying for data that you don't need by restricting the set of
 		// place fields that are returned to just the address components.
-		autocomplete2.setFields([
+		autocompleteOrigin.setFields([
 			'address_component'
 		]);
+
+		autocompleteDestination = new google.maps.places.Autocomplete(document.getElementById('autocompleteDestination'), {
+			types : [
+				'geocode'
+			]
+		});
+
+		autocompleteDestination.setFields([
+			'address_component'
+		]);
+		
+		<jstl:forEach items="${route.controlpoints}" var="cp" varStatus="status">
+		autocomplete<jstl:out value="${status.index}" /> = new google.maps.places.Autocomplete(document.getElementById('autocomplete<jstl:out value="${status.index}" />'), {
+			types : [
+				'geocode'
+			]
+		});
+		autocomplete<jstl:out value="${status.index}" />.setFields([
+        	'address_component'
+        ]);
+		</jstl:forEach>
 	}
 
 	// Bias the autocomplete object to the user's geographical location,
@@ -326,7 +340,7 @@
 					center : geolocation,
 					radius : position.coords.accuracy
 				});
-				autocomplete.setBounds(circle.getBounds());
+				autocompleteOrigin.setBounds(circle.getBounds());
 			});
 		}
 	}
