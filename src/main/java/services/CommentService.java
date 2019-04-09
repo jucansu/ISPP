@@ -78,6 +78,7 @@ public class CommentService {
 		Assert.notNull(comment);
 		Driver driver;
 		Collection<Passenger> passengers;
+		Actor actor;
 
 		// El driver y el passenger se deben corresponder con los de la ruta que aparezca en el comment
 		driver = comment.getRoute().getDriver();
@@ -86,15 +87,18 @@ public class CommentService {
 		Assert.isTrue(driver.getId() == comment.getDriver().getId());
 		Assert.isTrue(passengers.contains(comment.getPassenger()));
 
+		actor = this.actorService.findByPrincipal();
+
 		if (comment.getFromDriver()) {
 			// Es un comentario que escribe el conductor de la ruta a un passenger de la misma
-			Assert.isTrue(this.actorService.findByPrincipal().getId() == comment.getDriver().getId());
+			Assert.isTrue(actor.getId() == comment.getDriver().getId());
+			Assert.isNull(this.findCommentFromDriver(comment.getRoute().getId(), comment.getPassenger().getId(), actor.getId()));
 		} else {
 			// Es un comentario que escribe un passenger de la ruta al driver de la misma
-			Assert.isTrue(passengers.contains(this.actorService.findByPrincipal()));
+			Assert.isTrue(passengers.contains(actor));
+			Assert.isNull(this.findCommentFromPassenger(comment.getRoute().getId(), actor.getId(), comment.getDriver().getId()));
 		}
 
-		// TODO: terminar
 	}
 
 	public Collection<Comment> findCommentsMadeByPassenger(int passengerId) {
