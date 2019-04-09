@@ -69,7 +69,7 @@ public class CommentService {
 
 		Comment result;
 
-		result = this.save(comment);
+		result = this.commentRepository.save(comment);
 
 		return result;
 	}
@@ -90,7 +90,7 @@ public class CommentService {
 			// Es un comentario que escribe el conductor de la ruta a un passenger de la misma
 			Assert.isTrue(this.actorService.findByPrincipal().getId() == comment.getDriver().getId());
 		} else {
-			// Es un comentario que escribe un passenger de la ruta a un driver de la misma
+			// Es un comentario que escribe un passenger de la ruta al driver de la misma
 			Assert.isTrue(passengers.contains(this.actorService.findByPrincipal()));
 		}
 
@@ -205,15 +205,15 @@ public class CommentService {
 		return result;
 	}
 
-	public Collection<Passenger> passengersToComment(Driver driver, Route route) {
+	public Collection<Passenger> passengersToComment(Driver driver, int routeId) {
 		Collection<Passenger> aux, result;
 		result = new ArrayList<Passenger>();
 
-		aux = this.passengerService.findPassengersAcceptedByRoute(route.getId());
+		aux = this.passengerService.findPassengersAcceptedByRoute(routeId);
 
 		for (Passenger passenger : aux) {
 
-			if (this.findCommentFromDriver(route.getId(), passenger.getId(), driver.getId()) == null) {
+			if (this.findCommentFromDriver(routeId, passenger.getId(), driver.getId()) == null) {
 				result.add(passenger);
 			}
 
@@ -222,15 +222,29 @@ public class CommentService {
 		return result;
 	}
 
-	public Comment reconstruct(CommentForm commentForm) {
+	public Comment reconstruct(CommentForm commentForm, Integer passengerId) {
 		Assert.notNull(commentForm);
 
 		Comment result;
+		Actor actor;
 
 		result = new Comment();
 
+		result.setRoute(commentForm.getRoute());
 		result.setText(commentForm.getText());
 		result.setStar(commentForm.getStar());
+		result.setDate(new Date());
+		result.setDriver(commentForm.getRoute().getDriver());
+
+		actor = this.actorService.findByPrincipal();
+
+		if (passengerId != null) {
+			result.setPassenger(this.passengerService.findOne(passengerId));
+			result.setFromDriver(true);
+		} else {
+			result.setPassenger((Passenger) actor);
+			result.setFromDriver(false);
+		}
 
 		return result;
 

@@ -30,10 +30,10 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	@Query("select round(avg(c.star)) from Comment c where c.fromDriver = true and c.passenger.id = ?1")
 	Double avgStarsFromPassenger(int passengerId);
 
-	@Query("select c from Comment c where c.fromDriver = true and c.route = ?1 and c.passenger.id = ?2 and c.driver.id = ?3")
+	@Query("select c from Comment c where c.fromDriver = true and c.route.id = ?1 and c.passenger.id = ?2 and c.driver.id = ?3")
 	Comment findCommentFromDriver(int routeId, int passengerId, int driverId);
 
-	@Query("select c from Comment c where c.fromDriver = false and c.route = ?1 and c.passenger.id = ?2 and c.driver.id = ?3")
+	@Query("select c from Comment c where c.fromDriver = false and c.route.id = ?1 and c.passenger.id = ?2 and c.driver.id = ?3")
 	Comment findCommentFromPassenger(int routeId, int passengerId, int driverId);
 
 }

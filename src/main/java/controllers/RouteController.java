@@ -93,6 +93,7 @@ public class RouteController extends AbstractController {
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
+		commentForm.setRoute(route);
 		result = new ModelAndView("route/display");
 		//		reservation = this.reservationService.create();
 		//		reservation.setRoute(route);
@@ -173,10 +174,12 @@ public class RouteController extends AbstractController {
 
 		// En caso de ser un passenger, el metodo anterior ya determina si ha comentado para esta ruta y driver ya.
 		// Pero si el actor es un driver, no se ha determinado aun si le queda algun passenger sobre el que opinar.
-		if (actor instanceof Driver) {
-			passengersToComment = this.commentService.passengersToComment((Driver) actor, route);
-			if (passengersToComment.isEmpty()) {
-				canComment = false;
+		if (canComment) {
+			if (actor instanceof Driver) {
+				passengersToComment = this.commentService.passengersToComment((Driver) actor, route.getId());
+				if (passengersToComment.isEmpty()) {
+					canComment = false;
+				}
 			}
 		}
 
