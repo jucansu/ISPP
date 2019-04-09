@@ -32,6 +32,7 @@ import domain.Passenger;
 import domain.Reservation;
 import domain.ReservationStatus;
 import domain.Route;
+import forms.CommentForm;
 
 @Controller
 @RequestMapping("/route")
@@ -87,8 +88,8 @@ public class RouteController extends AbstractController {
 		boolean hasPassed10Minutes = false;
 		boolean arrivalPlus10Min = false;
 		boolean canComment = false;
-		Collection<Passenger> passengersToComment;
-		passengersToComment = new ArrayList<Passenger>();
+		Collection<Passenger> passengersToComment = new ArrayList<Passenger>();
+		CommentForm commentForm = new CommentForm();
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
@@ -190,6 +191,7 @@ public class RouteController extends AbstractController {
 		result.addObject("hasPassed20Minutes", arrivalPlus10Min);
 		result.addObject("canComment", canComment);
 		result.addObject("passengersToComment", passengersToComment);
+		result.addObject("commentForm", commentForm);
 
 		return result;
 	}

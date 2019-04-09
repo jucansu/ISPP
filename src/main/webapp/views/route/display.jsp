@@ -207,7 +207,64 @@
 
 
 	
+	<jstl:if test="$canComment">
 	
+		<security:authorize access="hasRole('DRIVER')">
+		
+			<jstl:forEach items="passengersToComment" var="passenger">
+			
+				<form:form action="rating/create.do?routeId=${route.id}&passengerId=${passenger.id}" modelAttribute="commentForm" method="post">
+		
+					<form:label path="star">
+						<spring:message code="comment.star"/>: 
+					</form:label>
+					<form:input path="star"/>
+					<form:errors cssClass="error" path="star"/><br />
+			
+					<form:label path="text">
+						<spring:message code="comment.text"/>: 
+					</form:label>
+					<form:input path="text"/>
+					<form:errors cssClass="error" path="text"/><br />
+					
+					
+					<button type="submit" name="save" class="btn btn-primary">
+						<spring:message code="save.comment" />
+					</button>
+				
+				</form:form>
+			
+			</jstl:forEach>
+		
+		</security:authorize>
+		
+		<security:authorize access="hasRole('PASSENGER')">
+		
+			<form:form action="rating/create.do?routeId=${route.id}" modelAttribute="commentForm" method="post">
+			
+				<form:label path="star">
+					<spring:message code="comment.star"/>: 
+				</form:label>
+				<form:input path="star"/>
+				<form:errors cssClass="error" path="star"/><br />
+		
+				<form:label path="text">
+					<spring:message code="comment.text"/>: 
+				</form:label>
+				<form:input path="text"/>
+				<form:errors cssClass="error" path="text"/><br />
+				
+				
+				<button type="submit" name="save" class="btn btn-primary">
+					<spring:message code="save.comment" />
+				</button>
+			
+			</form:form>
+		
+		
+		</security:authorize>
+	
+	</jstl:if>
 
 	
 	

@@ -28,20 +28,8 @@ public class CommentController extends AbstractController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid Comment comment, BindingResult binding) {
-		ModelAndView result;
-		if (binding.hasErrors()) {
-			System.out.println(binding.getAllErrors().toString());
-			result = this.createEditModelAndView(passenger, "passenger/create");
-		} else
-			try {
-				userAccount = super.hashSavePassword(passenger.getUserAccount());
-				passenger.setUserAccount(userAccount);
-				this.passengerService.save(passenger);
-				result = new ModelAndView("redirect:/security/login.do");
-			} catch (Throwable oops) {
-				result = this.createEditModelAndView(passenger, "passenger.commit.error");
-			}
-		return result;
+		System.out.println("wololoooo");
+		return null;
 	}
 
 }
