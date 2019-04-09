@@ -15,6 +15,22 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+<spring:url value="/styles/route.css" var="routecss" />
+<link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+<div class="text-center active-routes">
+	<h3>Edit your vehicle</h3>
+</div>
+
+
+
 
 <security:authorize access="hasRole('DRIVER')">
 
@@ -30,62 +46,74 @@
 			<form:hidden path="driver"/>
 			<form:hidden path="routes"/>
 
+			<div class="form-group col-md-4">
+				<label> <spring:message code="vehicle.type" /></label>
 
-			<form:label path="type">
-			<spring:message code="vehicle.type" />: 
-			</form:label>
+				<form:select path="type" class="form-control">
+					<form:option label="${vehCar}" value="CAR" />
+					<form:option label="${vehBike}" value="BIKE" />
+				</form:select>
+			</div>
+
+			<div class="form-group col-md-4">
+				<label> <spring:message code="vehicle.image" /></label>
+				<jstl:if test="${vehicle.id!=0}">
+					</br>
+					<img src="${vehicle.image}" width="250" class="rounded"/>
+				</jstl:if>
+				<form:input path="image" class="form-control"/>
+				<form:errors cssClass="error" path="image" />
+			</div>
+
+			<div class="form-group col-md-4">
+				<form:label path="vehicleBrand">
+					<spring:message code="vehicle.brand" />
+				</form:label>
+				<form:input path="vehicleBrand" class="form-control" />
+				<form:errors cssClass="error" path="vehicleBrand" />
+			</div>		
+
+			<div class="form-group col-md-4">
+				<form:label path="model">
+					<spring:message code="vehicle.model" />
+				</form:label>
+				<form:input path="model" class="form-control" />
+				<form:errors cssClass="error" path="model" />
+			</div>
 			
-			<form:radiobutton path="type" label="${vehCar}" value="CAR"/>
-			<form:radiobutton path="type" label="${vehBike}" value="BIKE"/>
-			<form:errors cssClass="error" path="type" />
-			<br />
+			<div class="form-group col-md-4">
+				<form:label path="seatsCapacity">
+					<spring:message code="vehicle.capacity" />
+				</form:label>
+				<form:input path="seatsCapacity" class="form-control" />
+				<form:errors cssClass="error" path="seatsCapacity" />
+			</div>
+
+			<div class="form-group col-md-4">
+				<form:label path="plate">
+					<spring:message code="vehicle.plate" />
+				</form:label>
+				<form:input path="plate" class="form-control" />
+				<form:errors cssClass="error" path="plate" />
+			</div>
+
+			<div class="form-group col-md-4">
+				<form:label path="description">
+					<spring:message code="vehicle.description" />
+				</form:label>
+				<form:textarea path="description" class="form-control" />
+				<form:errors cssClass="error" path="description" />
+			</div>
 
 
-			<form:label path="image">
-				<spring:message code="vehicle.image" />: </form:label>
-			<jstl:if test="${vehicle.id!=0}">
-				<img src="${vehicle.image}" width="250"/></br>
-			</jstl:if>
-			<form:input path="image" />
-			<form:errors cssClass="error" path="image" />
-			<br />
-
-			<form:label path="vehicleBrand">
-				<spring:message code="vehicle.brand" />: </form:label>
-			<form:input path="vehicleBrand" />
-			<form:errors cssClass="error" path="vehicleBrand" />
-			<br />
-
-			<form:label path="model">
-				<spring:message code="vehicle.model" />: </form:label>
-			<form:input path="model" />
-			<form:errors cssClass="error" path="model" />
-			<br />
-			
-			<form:label path="seatsCapacity">
-				<spring:message code="vehicle.capacity" />: </form:label>
-			<form:input path="seatsCapacity" />
-			<form:errors cssClass="error" path="seatsCapacity" />
-			<br />
-
-			<form:label path="plate">
-				<spring:message code="vehicle.plate" />: </form:label>
-			<form:input path="plate" />
-			<form:errors cssClass="error" path="plate" />
-			<br />
-
-			<form:label path="description">
-				<spring:message code="vehicle.description" />: </form:label>
-			<form:textarea path="description" />
-			<form:errors cssClass="error" path="description" delimiter="350"/>
-			<br />
-
-			<input type="submit" name="save"
-				value="<spring:message code="vehicle.save" />" />
-			<input type="button" name="cancel"
-				value="<spring:message code="vehicle.cancel" />"
-				onclick="javascript: relativeRedir('vehicle/list.do?driverId=${driver.id}');" />
-			<br />
+			<div class="form-group col-md-6 text-center">
+				<input type="submit" name="save" class="btn btn-success"
+					value="<spring:message code="vehicle.save" />" />
+					
+				<input type="button" name="cancel" class="btn btn-danger"
+					value="<spring:message code="vehicle.cancel" />"
+					onclick="javascript: relativeRedir('vehicle/list.do?driverId=${driver.id}');" />
+			</div>
 
 		</form:form>
 

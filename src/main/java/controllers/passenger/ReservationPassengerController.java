@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,7 @@ import domain.Passenger;
 import domain.Reservation;
 import domain.ReservationStatus;
 import domain.Route;
+import forms.ReservationForm;
 
 @Controller
 @RequestMapping("/reservation/passenger")
@@ -64,20 +66,54 @@ public class ReservationPassengerController extends AbstractController {
 		ModelAndView result;
 		try {
 			Passenger passenger = (Passenger) this.actorService.findByPrincipal();
-	
+
 			Route route = this.routeService.findOne(routeId);
-			Assert.notNull(route);
 	
-			Reservation reservation = this.reservationService.create();
-			reservation.setRoute(route);
-			reservation.setPrice(route.getPricePerPassenger());
-			reservation.setPassenger(passenger);
-	
-			result = this.createEditModelAndView(reservation);
+			ReservationForm reservation = reservationService.construct(reservationService.create(), route, passenger);
+			result = createEditModelAndView(reservation);
 		}
 		catch (Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403.do");
 		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
+		ModelAndView result = null;
+		if (binding.hasErrors()) {
+			result = createEditModelAndView(reservationForm);
+		}
+		else {
+			try {
+				Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+				
+				Reservation reservation = reservationService.reconstruct(reservationForm, passenger, binding);
+				if (binding.hasErrors()) {
+					result = createEditModelAndView(reservationForm);
+				}
+				else {
+					reservation = reservationService.save2(reservation);
+					result = new ModelAndView("redirect:/route/display.do?routeId=" + reservation.getRoute().getId());
+				}
+			}
+			catch (Throwable oops) {
+				result = createEditModelAndView(reservationForm, "reservation.commit.error");
+			}
+		}
+		return result;
+	}
+	
+	private ModelAndView createEditModelAndView(ReservationForm reservation) {
+		return createEditModelAndView(reservation, null);
+	}
+	
+	private ModelAndView createEditModelAndView(ReservationForm reservation, String message) {
+		ModelAndView result = new ModelAndView("reservation/passenger/create");
+		result.addObject("reservation", reservation);
+		result.addObject("requestURI", "reservation/passenger/save.do");
+		result.addObject("message", message);
+		
 		return result;
 	}
 	
@@ -105,7 +141,7 @@ public class ReservationPassengerController extends AbstractController {
 		return result;
 	}*/
 	
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	/*@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
 		ModelAndView result;
 		Route route;
@@ -113,19 +149,23 @@ public class ReservationPassengerController extends AbstractController {
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(reservation);
 			System.out.println(binding.getAllErrors());
-		} else
+		}
+		else {
 			try {
 				route = reservation.getRoute();
 				this.reservationService.save(reservation);
 				result = new ModelAndView("reservation/passenger/confirmReservation");
 				result.addObject("reservation", reservation);
 				result.addObject("route", reservation.getRoute());
-			} catch (final Throwable oops) {
+				result.addObject("requestURI", "reservation/passenger/confirm.do");
+			}
+			catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(reservation, "reservation.commit.error");
 			}
+		}
 		return result;
-	}
+	}*/
 
 	@RequestMapping(value = "/confirmReservation", method = RequestMethod.POST)
 	public ModelAndView confirmReservation(@Valid final Reservation reservation, final BindingResult binding) {

@@ -11,17 +11,20 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.ReservationRepository;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.ControlPoint;
 import domain.Driver;
 import domain.LuggageSize;
 import domain.Passenger;
 import domain.Reservation;
 import domain.ReservationStatus;
 import domain.Route;
+import forms.ReservationForm;
 
 @Service
 @Transactional
@@ -63,6 +66,7 @@ public class ReservationService {
 		//		result.setPassenger(passenger);
 		result.setStatus(ReservationStatus.PENDING);
 		result.setLuggageSize(LuggageSize.NOTHING);
+		result.setSeat(1);
 
 		return result;
 	}
@@ -127,6 +131,11 @@ public class ReservationService {
 		result = reservation;
 
 		return result;
+	}
+	
+	public Reservation save2(final Reservation reservation) {
+		Assert.notNull(reservation);
+		return reservationRepository.saveAndFlush(reservation);
 	}
 
 	public Reservation confirmReservation(final Reservation reservation) {
@@ -234,6 +243,28 @@ public class ReservationService {
 		Collection<Reservation> result;
 
 		result = this.reservationRepository.findReservationsByRoute(routeId);
+
+		return result;
+	}
+	
+	public Collection<Reservation> findReservationsByRouteAndStatus(final int routeId, final ReservationStatus status) {
+		Assert.isTrue(routeId != 0);
+		Assert.notNull(status);
+
+		Collection<Reservation> result;
+
+		result = this.reservationRepository.findReservationsByRouteAndStatus(routeId, status);
+
+		return result;
+	}
+	
+	public Collection<Reservation> findReservationsByRouteAndPassenger(final int routeId, final int passengerId) {
+		Assert.isTrue(routeId != 0);
+		Assert.isTrue(passengerId != 0);
+
+		Collection<Reservation> result;
+
+		result = this.reservationRepository.findReservationsByRouteAndPassenger(routeId, passengerId);
 
 		return result;
 	}
@@ -358,6 +389,126 @@ public class ReservationService {
 
 		reservation.setStatus(ReservationStatus.CANCELLED);
 		this.reservationRepository.save(reservation);
+	}
+	
+	public ReservationForm construct(Reservation reservation, Route route, Passenger passenger) {
+		/* Verificar las siguientes condiciones:
+		 * - La ruta debe existir, no puede estar cancelada ni comenzada
+		 * - El pasajero no debe de tener ya una reserva para dicha ruta cuyo estado
+		 * es Aceptada, Pendiente o Rechazada
+		 * - A la ruta debe quedarle al menos un asiento libre
+		 */
+		Assert.notNull(reservation);
+		Assert.notNull(passenger);
+		Assert.notNull(route);
+		Assert.isTrue(route.getId() > 0);
+		Assert.isTrue(!route.getIsCancelled());
+		Assert.isTrue(route.getControlPoints().get(0).getArrivalTime().after(new Date()));
+		
+		Collection<Reservation> reservations = this.findReservationsByRouteAndPassenger(route.getId(), passenger.getId());
+		for (Reservation r : reservations) {
+			Assert.isTrue(r.getStatus() != ReservationStatus.PENDING);
+			Assert.isTrue(r.getStatus() != ReservationStatus.ACCEPTED);
+			Assert.isTrue(r.getStatus() != ReservationStatus.REJECTED);
+		}
+		
+		int currentAvailableSeats = routeService.getCurrentAvailableSeats(route); 
+		Assert.isTrue(currentAvailableSeats > 0);
+		
+		ReservationForm result = new ReservationForm();
+		result.setRoute(route);
+		if (reservation.getOrigin() == null || reservation.getOrigin().isEmpty()) {
+			result.setOrigin(route.getControlPoints().get(0));
+		}
+		else{
+			boolean found = false;
+			for (ControlPoint cp : route.getControlPoints()) {
+				if (cp.getLocation().equals(reservation.getOrigin())) {
+					result.setOrigin(cp);
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				result.setOrigin(route.getControlPoints().get(0));
+			}
+		}
+		if (reservation.getDestination() == null || reservation.getDestination().isEmpty()) {
+			result.setDestination(route.getControlPoints().get(route.getControlPoints().size() - 1));
+		}
+		else {
+			boolean found = false;
+			for (ControlPoint cp : route.getControlPoints()) {
+				if (cp.getLocation().equals(reservation.getDestination())) {
+					result.setDestination(cp);
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				result.setDestination(route.getControlPoints().get(route.getControlPoints().size() - 1));
+			}
+		}
+		result.setLuggageSize(reservation.getLuggageSize());
+		result.setRequestedSeats(reservation.getSeat());
+		result.setAvailableSeats(currentAvailableSeats);
+		
+		return result;
+	}
+	
+	public Reservation reconstruct(ReservationForm reservationForm, Passenger passenger, BindingResult binding) {
+		Assert.notNull(reservationForm);
+		Assert.notNull(reservationForm.getRoute());
+		Assert.isTrue(reservationForm.getRoute().getId() > 0);
+		Assert.notNull(passenger);
+		
+		boolean keepGoing = true;
+		if (reservationForm.getOrigin().getArrivalOrder() >= reservationForm.getDestination().getArrivalOrder()) {
+			binding.rejectValue("destination", "reservation.error.wrongOrder");
+			keepGoing = false;
+		}
+		if (reservationForm.getRequestedSeats() > routeService.getCurrentAvailableSeats(reservationForm.getRoute())) {
+			binding.rejectValue("requestedSeats", "reservation.error.tooManySeats");
+			keepGoing = false;
+		}
+		LuggageSize maxLuggage =reservationForm.getRoute().getMaxLuggage(); 
+		if (maxLuggage == LuggageSize.NOTHING) {
+			if (reservationForm.getLuggageSize() != LuggageSize.NOTHING) {
+				binding.rejectValue("luggageSize", "reservation.error.luggageNotAllowed");
+				keepGoing = false;
+			}
+		}
+		else if (maxLuggage.getId() < reservationForm.getLuggageSize().getId()){
+			binding.rejectValue("luggageSize", "reservation.error.luggageTooBig");
+			keepGoing = false;
+		}
+		
+		Reservation result = null;
+		if (keepGoing) {
+			result = create();
+			result.setOrigin(reservationForm.getOrigin().getLocation());
+			result.setDestination(reservationForm.getDestination().getLocation());
+			result.setLuggageSize(reservationForm.getLuggageSize());
+			result.setRoute(reservationForm.getRoute());
+			result.setSeat(reservationForm.getRequestedSeats());
+			
+			double distance = 0d;
+			for (ControlPoint cp : reservationForm.getRoute().getControlPoints()) {
+				if (cp.getArrivalOrder() >= reservationForm.getOrigin().getArrivalOrder() && 
+					cp.getArrivalOrder() <= reservationForm.getDestination().getArrivalOrder()) {
+					distance += cp.getDistance();
+				}
+			}
+			double price = routeService.getPrice(distance);
+			price = (price - 0.1d) * reservationForm.getRequestedSeats() + 0.1d;
+			result.setPrice(price);
+			
+			result.setPassenger(passenger);
+			result.setStatus(ReservationStatus.PENDING);
+			result.setDriverPickedMe(false);
+			result.setDriverNoPickedMe(false);
+		}
+		return result;
 	}
 
 }
