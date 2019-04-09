@@ -97,7 +97,7 @@
 				value="<spring:message code="route.save" />" />
 			<input type="button" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
-				onclick="javascript: relativeRedir('route/display.do?routeId=${route.id}');" />
+				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
 			<br />
 
 		</form:form>
