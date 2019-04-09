@@ -432,6 +432,93 @@
 		</div>
 
 	</div>
+	<div>
+    <jstl:if test="${canComment}">
+        
+        <security:authorize access="hasRole('DRIVER')">
+        
+            <jstl:forEach items="${passengersToComment}" var="passenger">
+            
+                <jstl:out value="${passenger.name}"/>
+            
+                <form:form action="comment/create.do?passengerId=${passenger.id}" modelAttribute="commentForm" method="post">
+                                
+                    <form:hidden path="route"/>
+                
+                    <form:label path="star">
+                        <spring:message code="comment.star"/>:
+                    </form:label>
+                    <form:input type="number" path="star"/>
+                    <form:errors cssClass="error" path="star"/><br />
+            
+                    <form:label path="text">
+                        <spring:message code="comment.text"/>:
+                    </form:label>
+                    <form:input type="text" path="text"/>
+                    <form:errors cssClass="error" path="text"/><br />
+                    
+                    
+                    <button type="submit" name="save" class="btn btn-primary">
+                        <spring:message code="comment.save" />
+                    </button>                        
+                
+                </form:form>
+            
+            </jstl:forEach>
+        
+        </security:authorize>
+        
+        <security:authorize access="hasRole('PASSENGER')">
+           
+           <jstl:out value="${route.driver.name}"/>
+           
+           <form:form action="comment/create.do?routeId=${route.id}" modelAttribute="commentForm" method="post">
+
+               <form:hidden path="route"/>
+
+               <form:label path="star">
+                   <spring:message code="comment.star"/>:
+               </form:label>
+               <form:input path="star"/>
+               <form:errors cssClass="error" path="star"/><br />
+
+               <form:label path="text">
+                   <spring:message code="comment.text"/>:
+               </form:label>
+               <form:input path="text"/>
+               <form:errors cssClass="error" path="text"/><br />
+
+
+               <button type="submit" name="save" class="btn btn-primary">
+                   <spring:message code="comment.save" />
+               </button>
+
+           </form:form>
+
+
+       </security:authorize>
+        
+        
+    
+    </jstl:if>
+    
+    <jstl:if test="${commentResultOk != null}">
+
+        <div class="alert alert-success" role="alert">
+            <spring:message code="${commentResultOk}" />
+        </div>
+
+    </jstl:if>
+    
+    <jstl:if test="${commentResultError != null}">
+
+        <div class="alert alert-danger" role="alert">
+            <spring:message code="${commentResultError}" />
+        </div>
+
+    </jstl:if>
+    
+    </div>
 
 	<!-- ************************************************************************************************************************* -->
 	
