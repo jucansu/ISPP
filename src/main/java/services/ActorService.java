@@ -85,6 +85,9 @@ public class ActorService {
 			//Assert.notNull(savedUserAccount);
 			result = this.actorRepository.save(actor);
 		}
+
+		this.actorRepository.flush();
+
 		return result;
 	}
 
