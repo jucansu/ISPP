@@ -32,15 +32,57 @@
 <spring:message code="vehicle.cancel"  var="vehCancel"/>
 
 
+<link rel="stylesheet"
+	href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+	
 <security:authorize access="hasRole('DRIVER')">
+	<div>
 	<jstl:if test="${principal.id eq driverId }">
 		<spring:message code="vehicle.new" var ="vehNew" />
-		<a href="vehicle/driver/create.do"><jstl:out value="${vehNew}"/></a>
+		<center><a href="vehicle/driver/create.do" class="btn btn-success btn-square btn-xl"><i class="fas fa-plus fa-2x"></i></a>
+		<a href="vehicle/driver/create.do"><jstl:out value="${vehNew}"/></a></center>
 	</jstl:if>
+	</div>
 	
 </security:authorize>
 
-<display:table name="vehicles" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
+<spring:url value="/styles/route.css" var="routecss" />
+	<link href="${routecss}" rel="stylesheet" />
+	<script src="${routecss}"></script>
+
+<div class="text-center active-routes">
+	<!-- <h3>Vehicle list</h3> -->
+</div>
+<ul class="list-group">
+<jstl:forEach var="vehicle" items="${vehicles}">
+
+          
+            <li class="media">
+            
+              <img class="d-flex align-self-start" src="${vehicle.image}" width="200" height="150">
+              <div class="media-body pl-3">
+                <div class="plate"><span>CAR PLATE :&ensp;</span>${vehicle.plate}</div>
+                <div class="carModel">
+                    <span><i class="brand"></i>${vehicle.vehicleBrand}</span>
+                    <span><i class="model"></i>${vehicle.model}</span>
+                </div>
+                <div class="capacity">${vehicle.seatsCapacity}<span>&ensp;Seats capacity</span></div>
+                <div class="description">${vehicle.description}</div>
+              </div>
+              <spring:message code="vehicle.edit" var="editVehicle" />
+              <jstl:if test="${principal.id eq driverId }">
+              <div class="font-weight-bold">
+					<dd>
+						<a class="text-danger" href="vehicle/driver/edit.do?vehicleId=${vehicle.id}"><jstl:out
+							value="${editVehicle}" /></a>
+					</dd>
+					
+			</div>
+			</jstl:if>
+            </li>
+</jstl:forEach>
+</ul>
+<%-- <display:table name="vehicles" id="row" pagesize="4" class="displaytag" requestURI="${requestURI}">
 	
 	<spring:message code="vehicle.image" var = "vehImage" />
 	<display:column title="${vehImage}">
@@ -73,6 +115,6 @@
 	</jstl:if>
 	</security:authorize>
 	
-</display:table>
+</display:table> --%>
 
 <a href="driver/display.do?driverId=${driverId}"><spring:message code="vehicle.back"/></a>

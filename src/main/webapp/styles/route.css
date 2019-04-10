@@ -19,11 +19,9 @@
 
 .passengers-- button{
 	margin: 5px;
-	background-color: #87C32F;
-	border-color: #699b20;
 }
 
-.passengers--, .cancel-route-driver{
+.passengers--, .num-seats{
 	text-align: center;
 	border-bottom: 2px solid #FFA513;
 }
@@ -47,9 +45,7 @@
 	margin: 0 auto;
 }
 
-.item-route-accordion{
-	
-}
+
 
 /** Arrow origin destination **/
 /* .item-1:before{

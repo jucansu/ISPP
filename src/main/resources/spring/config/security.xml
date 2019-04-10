@@ -86,7 +86,9 @@
 		<security:intercept-url pattern="/passenger/edit.do" access="hasRole('PASSENGER')" /> 
 		<security:intercept-url pattern="/passenger/display.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/passenger/displayPrincipal.do" access="hasRole('PASSENGER')" /> 
-		<security:intercept-url pattern="/passenger/editCredentials.do" access="hasRole('PASSENGER')" /> 
+		<security:intercept-url pattern="/passenger/editCredentials.do" access="hasRole('PASSENGER')" />
+		
+		<security:intercept-url pattern="/comment/create.do" access="hasRole('PASSENGER') || hasRole('DRIVER')" />
 		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

@@ -65,107 +65,106 @@ public class ReservationPassengerController extends AbstractController {
 	public ModelAndView create(@RequestParam final int routeId) {
 		ModelAndView result;
 		try {
-			Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+			final Passenger passenger = (Passenger) this.actorService.findByPrincipal();
 
-			Route route = this.routeService.findOne(routeId);
-	
-			ReservationForm reservation = reservationService.construct(reservationService.create(), route, passenger);
-			result = createEditModelAndView(reservation);
-		}
-		catch (Throwable oops) {
+			final Route route = this.routeService.findOne(routeId);
+
+			final ReservationForm reservation = this.reservationService.construct(this.reservationService.create(), route, passenger);
+			result = this.createEditModelAndView(reservation);
+		} catch (final Throwable oops) {
 			result = new ModelAndView("redirect:/misc/403.do");
 		}
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
 		ModelAndView result = null;
-		if (binding.hasErrors()) {
-			result = createEditModelAndView(reservationForm);
-		}
-		else {
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(reservationForm);
+		else
 			try {
-				Passenger passenger = (Passenger) this.actorService.findByPrincipal();
-				
-				Reservation reservation = reservationService.reconstruct(reservationForm, passenger, binding);
-				if (binding.hasErrors()) {
-					result = createEditModelAndView(reservationForm);
-				}
+				final Passenger passenger = (Passenger) this.actorService.findByPrincipal();
+
+				Reservation reservation = this.reservationService.reconstruct(reservationForm, passenger, binding);
+				if (binding.hasErrors())
+					result = this.createEditModelAndView(reservationForm);
 				else {
-					reservation = reservationService.save2(reservation);
+					reservation = this.reservationService.save2(reservation);
 					result = new ModelAndView("redirect:/route/display.do?routeId=" + reservation.getRoute().getId());
 				}
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(reservationForm, "reservation.commit.error");
 			}
-			catch (Throwable oops) {
-				result = createEditModelAndView(reservationForm, "reservation.commit.error");
-			}
-		}
 		return result;
 	}
-	
-	private ModelAndView createEditModelAndView(ReservationForm reservation) {
-		return createEditModelAndView(reservation, null);
+
+	private ModelAndView createEditModelAndView(final ReservationForm reservation) {
+		return this.createEditModelAndView(reservation, null);
 	}
-	
-	private ModelAndView createEditModelAndView(ReservationForm reservation, String message) {
-		ModelAndView result = new ModelAndView("reservation/passenger/create");
+
+	private ModelAndView createEditModelAndView(final ReservationForm reservation, final String message) {
+		final ModelAndView result = new ModelAndView("reservation/passenger/create");
 		result.addObject("reservation", reservation);
 		result.addObject("requestURI", "reservation/passenger/save.do");
 		result.addObject("message", message);
-		
+
 		return result;
 	}
-	
-	/*@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int routeId) {
-		ModelAndView result;
-		Route route;
-		Reservation reservation;
-		UserAccount ua;
-		Passenger passenger;
 
-		ua = LoginService.getPrincipal();
-		passenger = (Passenger) this.actorService.findByUserAccount(ua);
-		Assert.notNull(passenger);
+	/*
+	 * @RequestMapping(value = "/create", method = RequestMethod.GET)
+	 * public ModelAndView create(@RequestParam final int routeId) {
+	 * ModelAndView result;
+	 * Route route;
+	 * Reservation reservation;
+	 * UserAccount ua;
+	 * Passenger passenger;
+	 * 
+	 * ua = LoginService.getPrincipal();
+	 * passenger = (Passenger) this.actorService.findByUserAccount(ua);
+	 * Assert.notNull(passenger);
+	 * 
+	 * route = this.routeService.findOne(routeId);
+	 * 
+	 * reservation = this.reservationService.create();
+	 * reservation.setRoute(route);
+	 * reservation.setPrice(route.getPricePerPassenger());
+	 * reservation.setPassenger(passenger);
+	 * 
+	 * result = this.createEditModelAndView(reservation);
+	 * 
+	 * return result;
+	 * }
+	 */
 
-		route = this.routeService.findOne(routeId);
-
-		reservation = this.reservationService.create();
-		reservation.setRoute(route);
-		reservation.setPrice(route.getPricePerPassenger());
-		reservation.setPassenger(passenger);
-
-		result = this.createEditModelAndView(reservation);
-
-		return result;
-	}*/
-	
-	/*@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
-		ModelAndView result;
-		Route route;
-
-		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(reservation);
-			System.out.println(binding.getAllErrors());
-		}
-		else {
-			try {
-				route = reservation.getRoute();
-				this.reservationService.save(reservation);
-				result = new ModelAndView("reservation/passenger/confirmReservation");
-				result.addObject("reservation", reservation);
-				result.addObject("route", reservation.getRoute());
-				result.addObject("requestURI", "reservation/passenger/confirm.do");
-			}
-			catch (final Throwable oops) {
-				oops.printStackTrace();
-				result = this.createEditModelAndView(reservation, "reservation.commit.error");
-			}
-		}
-		return result;
-	}*/
+	/*
+	 * @RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	 * public ModelAndView save(@Valid final Reservation reservation, final BindingResult binding) {
+	 * ModelAndView result;
+	 * Route route;
+	 * 
+	 * if (binding.hasErrors()) {
+	 * result = this.createEditModelAndView(reservation);
+	 * System.out.println(binding.getAllErrors());
+	 * }
+	 * else {
+	 * try {
+	 * route = reservation.getRoute();
+	 * this.reservationService.save(reservation);
+	 * result = new ModelAndView("reservation/passenger/confirmReservation");
+	 * result.addObject("reservation", reservation);
+	 * result.addObject("route", reservation.getRoute());
+	 * result.addObject("requestURI", "reservation/passenger/confirm.do");
+	 * }
+	 * catch (final Throwable oops) {
+	 * oops.printStackTrace();
+	 * result = this.createEditModelAndView(reservation, "reservation.commit.error");
+	 * }
+	 * }
+	 * return result;
+	 * }
+	 */
 
 	@RequestMapping(value = "/confirmReservation", method = RequestMethod.POST)
 	public ModelAndView confirmReservation(@Valid final Reservation reservation, final BindingResult binding) {
@@ -196,7 +195,7 @@ public class ReservationPassengerController extends AbstractController {
 				Integer occupiedSeats;
 				boolean startedRoute = false;
 				boolean hasPassed10Minutes = false;
-				boolean hasPassed20Minutes = false;
+				boolean arrivalPlus10Min = false;
 
 				reservations = route.getReservations();
 				displayableReservations = new ArrayList<Reservation>();
@@ -206,7 +205,7 @@ public class ReservationPassengerController extends AbstractController {
 				if (reservations != null && reservations.size() > 0)
 					for (final Reservation res : reservations)
 						if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
-							occupiedSeats++;		//Contamos asientos ocupados
+							occupiedSeats = occupiedSeats + res.getSeat();		//Contamos asientos ocupados
 							displayableReservations.add(res);	//añadimos las reservas aceptadas
 						}
 
@@ -226,10 +225,10 @@ public class ReservationPassengerController extends AbstractController {
 				final Date tenMinutesAfterDeparture = new Date(departureDateMilis + 600000);
 				if (new Date().after(tenMinutesAfterDeparture))
 					hasPassed10Minutes = true;
-				//----proceso para conseguir la fecha de salida + 10 minutos---
-				final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
-				if (new Date().after(twentyMinutesAfterDeparture))
-					hasPassed20Minutes = true;
+				//----proceso para conseguir la fecha de llegada + 10 minutos---
+				final Date tenMinutesAfterArrival = new Date(departureDateMilis + (route.getEstimatedDuration() * 60000) + 600000);
+				if (new Date().after(tenMinutesAfterArrival))
+					arrivalPlus10Min = true;
 				//------------------------------------------------
 				result.addObject("route", route);
 				result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -238,7 +237,7 @@ public class ReservationPassengerController extends AbstractController {
 				result.addObject("rol", 2);
 				result.addObject("startedRoute", startedRoute);
 				result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-				result.addObject("hasPassed20Minutes", hasPassed20Minutes);
+				result.addObject("arrivalPlus10Min", arrivalPlus10Min);
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(reservation, "reservation.commit.error");
@@ -272,7 +271,7 @@ public class ReservationPassengerController extends AbstractController {
 	 * Integer occupiedSeats;
 	 * boolean startedRoute = false;
 	 * boolean hasPassed10Minutes = false;
-	 * boolean hasPassed20Minutes = false;
+	 * boolean arrivalPlus10Min = false;
 	 * 
 	 * reservations = route.getReservations();
 	 * displayableReservations = new ArrayList<Reservation>();
@@ -305,7 +304,7 @@ public class ReservationPassengerController extends AbstractController {
 	 * //----proceso para conseguir la fecha de salida + 10 minutos---
 	 * final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
 	 * if (new Date().after(twentyMinutesAfterDeparture))
-	 * hasPassed20Minutes = true;
+	 * arrivalPlus10Min = true;
 	 * //------------------------------------------------
 	 * result.addObject("route", route);
 	 * result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -314,7 +313,7 @@ public class ReservationPassengerController extends AbstractController {
 	 * result.addObject("rol", 2);
 	 * result.addObject("startedRoute", startedRoute);
 	 * result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-	 * result.addObject("hasPassed20Minutes", hasPassed20Minutes);
+	 * result.addObject("arrivalPlus10Min", arrivalPlus10Min);
 	 * 
 	 * return result;
 	 * 
@@ -341,7 +340,7 @@ public class ReservationPassengerController extends AbstractController {
 		final Reservation currentReservation;
 		boolean startedRoute = false;
 		boolean hasPassed10Minutes = false;
-		boolean hasPassed20Minutes = false;
+		boolean arrivalPlus10Min = false;
 
 		currentReservation = this.reservationService.findOne(reservationId);
 		route = currentReservation.getRoute();
@@ -360,7 +359,7 @@ public class ReservationPassengerController extends AbstractController {
 		if (reservations != null && reservations.size() > 0)
 			for (final Reservation res : reservations) {
 				if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
-					occupiedSeats++;		//Contamos asientos ocupados
+					occupiedSeats = occupiedSeats + res.getSeat();		//Contamos asientos ocupados
 					displayableReservations.add(res);	//añadimos las reservas aceptadas
 				}
 				if (actor instanceof Driver) {
@@ -404,10 +403,10 @@ public class ReservationPassengerController extends AbstractController {
 		final Date tenMinutesAfterDeparture = new Date(departureDateMilis + 600000);
 		if (new Date().after(tenMinutesAfterDeparture))
 			hasPassed10Minutes = true;
-		//----proceso para conseguir la fecha de salida + 10 minutos---
-		final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
-		if (new Date().after(twentyMinutesAfterDeparture))
-			hasPassed20Minutes = true;
+		//----proceso para conseguir la fecha de llegada + 10 minutos---
+		final Date tenMinutesAfterArrival = new Date(departureDateMilis + (route.getEstimatedDuration() * 60000) + 600000);
+		if (new Date().after(tenMinutesAfterArrival))
+			arrivalPlus10Min = true;
 		//------------------------------------------------
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -417,7 +416,7 @@ public class ReservationPassengerController extends AbstractController {
 		result.addObject("newReservation", reservation);
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-		result.addObject("hasPassed20Minutes", hasPassed20Minutes);
+		result.addObject("arrivalPlus10Min", arrivalPlus10Min);
 
 		return result;
 	}
@@ -442,7 +441,7 @@ public class ReservationPassengerController extends AbstractController {
 		final Reservation currentReservation;
 		boolean startedRoute = false;
 		boolean hasPassed10Minutes = false;
-		boolean hasPassed20Minutes = false;
+		boolean arrivalPlus10Min = false;
 
 		currentReservation = this.reservationService.findOne(reservationId);
 		route = currentReservation.getRoute();
@@ -460,7 +459,7 @@ public class ReservationPassengerController extends AbstractController {
 		if (reservations != null && reservations.size() > 0)
 			for (final Reservation res : reservations) {
 				if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
-					occupiedSeats++;		//Contamos asientos ocupados
+					occupiedSeats = occupiedSeats + res.getSeat();		//Contamos asientos ocupados
 					displayableReservations.add(res);	//añadimos las reservas aceptadas
 				}
 				if (actor instanceof Driver) {
@@ -507,7 +506,7 @@ public class ReservationPassengerController extends AbstractController {
 		//----proceso para conseguir la fecha de salida + 20 minutos---
 		final Date twentyMinutesAfterDeparture = new Date(departureDateMilis + (600000 * 2));
 		if (new Date().after(twentyMinutesAfterDeparture))
-			hasPassed20Minutes = true;
+			arrivalPlus10Min = true;
 		//------------------------------------------------
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -517,7 +516,7 @@ public class ReservationPassengerController extends AbstractController {
 		result.addObject("newReservation", reservation);
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-		result.addObject("hasPassed20Minutes", hasPassed20Minutes);
+		result.addObject("arrivalPlus10Min", arrivalPlus10Min);
 
 		return result;
 	}

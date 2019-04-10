@@ -99,7 +99,7 @@
 			class="comments d-flex flex-row align-items-baseline justify-content-center m-2">
 			<div class="comments">
 
-				<jstl:forEach var="comment" items="${driver.comments}">
+				<jstl:forEach var="comment" items="${comments}">
 					<div class="title listComment"></div>
 					<div class="comment d-flex flex-column align-items-center">
 
