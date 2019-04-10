@@ -92,12 +92,57 @@
 			<div class="card-body d-flex flex-column">
 
 				<div class="driver">
-					<div class="driver-name d-flex flex-row justify-content-center m-1">
-						<h5>Driver: &nbsp</h5>
+					<div class="text-center m-1">
+						<div
+							class="driver-name d-flex flex-row justify-content-center m-1">
+							<h5>Driver: &nbsp</h5>
+							<p>
+								<jstl:out value="${route.driver.name}" />
+								<jstl:out value="${route.driver.surname}" />
+							</p>
+
+						</div>
 						<p>
-							<jstl:out value="${route.driver.name}" />
-							<jstl:out value="${route.driver.surname}" />
+							<jstl:out value="${route.driver.mediumStars}" />
 						</p>
+					</div>
+
+					<div class="text-center m-3">
+						<jstl:if test="${canComment}">
+							<security:authorize access="hasRole('PASSENGER')">
+
+								<form:form action="comment/create.do?routeId=${route.id}"
+									modelAttribute="commentForm" method="post">
+
+									<form:hidden path="route" />
+
+									<form:label path="star">
+										<spring:message code="comment.star" />:
+               					</form:label>
+									<form:input path="star" />
+									<form:errors cssClass="error" path="star" />
+									<br />
+
+									<form:label path="text">
+										<spring:message code="comment.text" />:
+               					</form:label>
+									<form:input path="text" />
+									<form:errors cssClass="error" path="text" />
+									<br />
+
+
+									<button type="submit" name="save" class="btn btn-primary">
+										<spring:message code="comment.save" />
+									</button>
+
+								</form:form>
+
+
+							</security:authorize>
+
+
+
+						</jstl:if>
 					</div>
 
 					<div class="vehicle d-flex flex-row justify-content-center m-1">
@@ -237,10 +282,10 @@
 								<jstl:out value="----------------------------" />
 							</dd> --%>
 							<div class="passengers-- m-1 p-3">
-								<dd>
+								<span><dd>
 									<jstl:out
 										value="${res.passenger.name} ${res.passenger.surname}" />
-								</dd>
+								</dd></span>
 								<dd>
 									<jstl:out value="${res.passenger.mediumStars}/5" />
 								</dd>
@@ -250,6 +295,43 @@
 								<dd>
 									<jstl:out value="${res.origin} -> ${res.destination}" />
 								</dd>
+								<jstl:if test="${canComment}">
+
+									<security:authorize access="hasRole('DRIVER')">
+
+										<jstl:forEach items="${passengersToComment}" var="passenger">
+									
+											<form:form
+												action="comment/create.do?passengerId=${passenger.id}"
+												modelAttribute="commentForm" method="post">
+
+												<form:hidden path="route" />
+
+												<form:label path="star">
+													<spring:message code="comment.star" />:
+                    							</form:label>
+												<form:input type="number" path="star" />
+												<form:errors cssClass="error" path="star" />
+												<br />
+
+												<form:label path="text">
+													<spring:message code="comment.text" />:
+                    							</form:label>
+												<form:input type="text" path="text" />
+												<form:errors cssClass="error" path="text" />
+												<br />
+
+
+												<button type="submit" name="save" class="btn btn-primary">
+													<spring:message code="comment.save" />
+												</button>
+
+											</form:form>
+
+										</jstl:forEach>
+
+									</security:authorize>
+								</jstl:if>
 
 								<!-- (COMO CONDUCTOR) PARA CADA PASAJERO, BOTONES DE ACEPTAR O RECHAZAR SOLICITUD -->
 								<security:authorize access="hasRole('DRIVER')">
@@ -433,7 +515,7 @@
 
 	</div>
 	<div>
-    <jstl:if test="${canComment}">
+    <%-- <jstl:if test="${canComment}">
         
         <security:authorize access="hasRole('DRIVER')">
         
@@ -500,7 +582,7 @@
         
         
     
-    </jstl:if>
+    </jstl:if> --%>
     
     <jstl:if test="${commentResultOk != null}">
 
