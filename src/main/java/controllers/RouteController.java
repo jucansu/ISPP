@@ -89,7 +89,7 @@ public class RouteController extends AbstractController {
 		boolean arrivalPlus10Min = false;
 		boolean canComment = false;
 		Collection<Passenger> passengersToComment = new ArrayList<Passenger>();
-		CommentForm commentForm = new CommentForm();
+		final CommentForm commentForm = new CommentForm();
 
 		route = this.routeService.findOne(routeId);
 		Assert.notNull(route);
@@ -116,7 +116,7 @@ public class RouteController extends AbstractController {
 		if (reservations != null && reservations.size() > 0)
 			for (final Reservation res : reservations) {
 				if (res.getStatus().equals(ReservationStatus.ACCEPTED)) {
-					occupiedSeats++;		//Contamos asientos ocupados
+					occupiedSeats = occupiedSeats + res.getSeat();		//Contamos asientos ocupados
 					displayableReservations.add(res);	//añadimos las reservas aceptadas
 				}
 				if (actor instanceof Driver) {
@@ -174,14 +174,12 @@ public class RouteController extends AbstractController {
 
 		// En caso de ser un passenger, el metodo anterior ya determina si ha comentado para esta ruta y driver ya.
 		// Pero si el actor es un driver, no se ha determinado aun si le queda algun passenger sobre el que opinar.
-		if (canComment) {
+		if (canComment)
 			if (actor instanceof Driver) {
 				passengersToComment = this.commentService.passengersToComment((Driver) actor, route.getId());
-				if (passengersToComment.isEmpty()) {
+				if (passengersToComment.isEmpty())
 					canComment = false;
-				}
 			}
-		}
 
 		result.addObject("route", route);
 		result.addObject("remainingSeats", route.getAvailableSeats() - occupiedSeats);
@@ -191,7 +189,7 @@ public class RouteController extends AbstractController {
 		//		result.addObject("newReservation", reservation);
 		result.addObject("startedRoute", startedRoute);
 		result.addObject("hasPassed10Minutes", hasPassed10Minutes);
-		result.addObject("hasPassed20Minutes", arrivalPlus10Min);
+		result.addObject("arrivalPlus10Min", arrivalPlus10Min);
 		result.addObject("canComment", canComment);
 		result.addObject("passengersToComment", passengersToComment);
 		result.addObject("commentForm", commentForm);
