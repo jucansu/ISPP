@@ -38,10 +38,7 @@
 
 			<div class="col-sm-6 text-center" style="padding-top: 20px;">
 				<div class="form-group">
-					<form:label path="departureDate">
-						<spring:message code="route.departureDate"
-							var="routeDepartureDate" />
-					</form:label>
+					<spring:message code="route.departureDate" var="routeDepartureDate" />
 					<div class="input-group date" id="datetimepicker"
 						data-target-input="nearest">
 						<form:input type="text" path="departureDate"
