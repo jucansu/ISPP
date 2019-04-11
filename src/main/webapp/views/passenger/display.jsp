@@ -108,91 +108,91 @@
 
 						<div class="comment.star">
 							<jstl:if test="${comment.star >= 0 && comment.star <= 0.4 }">
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 0.5 && comment.star <= 0.9 }">
-								<i class="fas fa-star-half-alt"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/media.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 1 && comment.star <= 1.4 }">
-								<i class="fas fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 1.5 && comment.star <= 1.9 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star-half-alt"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/media.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 2 && comment.star <= 2.4 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 2.5 && comment.star <= 2.9 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star-half-alt"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/media.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 3 && comment.star <= 3.4 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="far fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/vacia.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 3.5 && comment.star <= 3.9 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star-half-alt"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/media.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 4 && comment.star <= 4.4 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="far fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/vacia.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 4.5 && comment.star <= 4.9 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star-half-alt"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/media.png" />
 							</jstl:if>
 
 							<jstl:if test="${comment.star >= 4.9 }">
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
-								<i class="fas fa-star"></i>
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
+								<img src="images/entera.png" />
 							</jstl:if>
 
 						</div>
