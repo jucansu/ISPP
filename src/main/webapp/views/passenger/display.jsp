@@ -39,7 +39,98 @@
 		<jstl:out value="${passengerSurname}" />
 		<jstl:out value="${passenger.surname}" />
 	</dt>
+	
+	<div class="comment.star">
+							<jstl:if test="${passenger.mediumStars >= 0 && passenger.mediumStars <= 0.4 }">
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
 
+							<jstl:if test="${passenger.mediumStars >= 0.5 && passenger.mediumStars <= 0.9 }">
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 1 && passenger.mediumStars <= 1.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 1.5 && passenger.mediumStars <= 1.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 2 && passenger.mediumStars <= 2.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 2.5 && passenger.mediumStars <= 2.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 3 && passenger.mediumStars <= 3.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 3.5 && passenger.mediumStars <= 3.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 4 && passenger.mediumStars <= 4.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars >= 4.5 && passenger.mediumStars <= 4.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${passenger.mediumStars > 4.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+							</jstl:if>
+
+						</div>
+	
 
 	<spring:message code="passenger.country" var="driverCountry" />
 	<dt>

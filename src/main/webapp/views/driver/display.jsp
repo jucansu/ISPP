@@ -47,6 +47,97 @@
 		<jstl:out value="${passengerSurname}" />
 		<jstl:out value="${driver.surname}" />
 	</dt>
+	
+	<div class="comment.star">
+							<jstl:if test="${driver.mediumStars >= 0 && driver.mediumStars <= 0.4 }">
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 0.5 && driver.mediumStars <= 0.9 }">
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 1 && driver.mediumStars <= 1.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 1.5 && driver.mediumStars <= 1.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 2 && driver.mediumStars <= 2.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 2.5 && driver.mediumStars <= 2.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 3 && driver.mediumStars <= 3.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 3.5 && driver.mediumStars <= 3.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 4 && driver.mediumStars <= 4.4 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/vaciauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars >= 4.5 && driver.mediumStars <= 4.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/mediauser.png" />
+							</jstl:if>
+
+							<jstl:if test="${driver.mediumStars > 4.9 }">
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+								<img src="images/enterauser.png" />
+							</jstl:if>
+
+						</div>
 
 
 	<spring:message code="driver.country" var="driverCountry" />
