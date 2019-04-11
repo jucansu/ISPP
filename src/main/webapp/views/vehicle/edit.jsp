@@ -112,7 +112,7 @@
 					
 				<input type="button" name="cancel" class="btn btn-danger"
 					value="<spring:message code="vehicle.cancel" />"
-					onclick="javascript: relativeRedir('vehicle/list.do?driverId=${driver.id}');" />
+					onclick="javascript: relativeRedir('vehicle/driver/list.do');" />
 			</div>
 
 		</form:form>

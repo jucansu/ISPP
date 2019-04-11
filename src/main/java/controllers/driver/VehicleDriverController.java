@@ -1,6 +1,8 @@
 
 package controllers.driver;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,27 @@ public class VehicleDriverController extends AbstractController {
 		super();
 	}
 
+	// Listing -------------------------------------
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(@RequestParam final int driverId) {
+		ModelAndView result;
+		final Collection<Vehicle> vehicles;
+		Driver principal;
+
+		principal = (Driver)this.actorService.findByPrincipal();
+		vehicles = this.vehicleService.findVehiclesByDriver(principal.getId());
+
+		result = new ModelAndView("vehicle/driver/list");
+		result.addObject("vehicles", vehicles);
+		result.addObject("principal", principal);
+		result.addObject("driverId", principal.getId());
+		result.addObject("requestURI", "vehicle/driver/list.do");
+
+		return result;
+
+	}
+	
 	// Create -------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)

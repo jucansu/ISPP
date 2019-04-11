@@ -108,8 +108,3 @@
 				</div>
 	</jstl:forEach>
 </ul>
-
-
-		
- <a href="driver/display.do?driverId=${driverId}" class="btn btn-default" role="button"><spring:message
-		code="vehicle.back" /></a>
