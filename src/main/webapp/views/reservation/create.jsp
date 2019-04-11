@@ -15,6 +15,12 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -30,10 +36,12 @@
 <div class="text-center active-routes">
 	<h3>Make a reservation</h3>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 
 <security:authorize access="hasRole('PASSENGER')">
 	<center>
-		<form:form action="${requestURI}" modelAttribute="reservation">
+		<form:form action="${requestURI}" modelAttribute="reservation" id = "fmID">
 			<form:hidden path="route"/>
 			<form:hidden path="availableSeats"/>
 			
@@ -93,12 +101,7 @@
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
 
-			<input type="submit" name="save" class="btn btn btn-success"
-				value="<spring:message code="route.save" />" />
-			<input type="button" name="cancel" class="btn btn-danger"
-				value="<spring:message code="route.cancel" />"
-				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
-			<br />
+
 
 		</form:form>
 	</center>
@@ -133,4 +136,60 @@
 		};
 		calculatePrice();
 	</script>
+	
+ <script
+    src="https://www.paypal.com/sdk/js?client-id=AbV1oH0J1AvYtUC1msIZkIc8P2OlSEpbcdalsYTCDhwcCt4VOqczhC0zZ3LytbeFPxomTTb627YX4dAW&currency=EUR">
+ </script>
+
+ <div id="paypal-button-container"></div>
+
+<script>
+	  paypal.Buttons({
+	    createOrder: function(data, actions) {
+	      return actions.order.create({
+	        purchase_units: [{
+	          amount: {
+	            value: parseFloat(document.getElementById("price").innerHTML)
+	          }
+	        }]
+	      });
+	    },
+	    onApprove: function(data, actions) {
+	      return actions.order.capture().then(function(details) {
+	    	  document.getElementById("subHidden").removeAttribute("hidden");
+	        // Call your server to save the transaction
+	        document.getElementById("fmID").setAttribute("action", document.getElementById("fmID").getAttribute("action") +"?orderId="+ data.orderID);
+	      });
+	    }
+	  }).render('#paypal-button-container');
+</script>
+
+
+<input type="submit" id="subHidden" hidden="true"  name="save" class="btn btn btn-success"
+	value="<spring:message code="route.save" />" />
+<input type="button" name="cancel" class="btn btn-danger"
+	value="<spring:message code="route.cancel" />"
+	onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
+<br />
+	
+<!-- 	       $.ajax({ -->
+<!-- 	            url: '/reservation/passenger/paypal.do', -->
+<!-- 	            type: 'POST', -->
+<!-- 	            dataType: 'json', -->
+<!-- 	            data: JSON.stringify({orderID: data.orderID}) -->
+<!-- 	            }); -->
+	
+	
+	
+	
+<!-- return fetch("/reservation/passenger/paypal.do", { -->
+<!-- 	          method: 'post', -->
+<!-- 	          headers: { -->
+<!-- 	            'content-type': 'application/json' -->
+<!-- 	          }, -->
+<!-- 	          body: JSON.stringify({ -->
+<!-- 	            orderID: data.orderID -->
+<!-- 	          }) -->
+<!-- 	        }); -->
+	
 </security:authorize>

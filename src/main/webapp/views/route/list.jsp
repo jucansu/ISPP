@@ -72,19 +72,7 @@
 
 	</div>
 </jstl:forEach>
-<form action='charge' method='POST' id='checkout-form'>
-		<input type='hidden' value='${amount}' name='amount' /> 
-		<label>Price:${amount/100}</label>
-		<script src='https://checkout.stripe.com/checkout.js'
-			class='stripe-button' data-key=${stripePublicKey} 
-         data-amount=${amount} 
-         data-currency=${currency}
-       data-name='Sparks Link' data-description='Ecommerce'
-			data-image='http://faizakram.com/resources/images/profilepic.jpg'
-			data-locale='auto' data-zip-code='false'>
-			
-		</script>
-	</form>
+
 <div class="endList">
 	<div class="circle background_pink"></div>
 	<div class="circle background_blue"></div>
