@@ -62,20 +62,25 @@ window.cookieconsent.initialise({
 		
 		<img src="images/logoicon.png" /></a>
 		</security:authorize>
+		<security:authorize access="hasRole('ADMIN')">
+		<a href="administrator/controlPanel.do" >
+		
+		<img src="images/logoicon.png" /></a>
+		</security:authorize>
 	</div>
 	<div class="user-details d-flex justify-content-end">
-		<div class="item-details messages">
+		<!-- <div class="item-details messages">
 			<a class="nav-link border-right" href="#"> 
-				<i class="far fa-envelope">
+				<i class="far fa-envelope"> -->
 					<!-- <span class="badge badge-danger">11</span> --> <!-- numero de mensajes -->
-				</i>
+				<!-- </i>
 			</a>
-		</div>
+		</div> 
 		<div class="item-details notificaciones">
 			<a class="nav-link border-right" href="#"> 
 				<i class="far fa-bell"></i>
 			</a>
-		</div>
+		</div> -->
 		<div class="item-details perfil">
 			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
  				<security:authentication property="principal.username" />
@@ -97,8 +102,12 @@ window.cookieconsent.initialise({
 					<a class="dropdown-item" href="passenger/edit.do">Edit Profile</a> 
 					<!-- passenger/edit.do -->
 				</security:authorize>
-				<a class="dropdown-item" href="#">Configuration</a>
+				<!--<security:authorize access="hasAnyRole('DRIVER', 'PASSENGER')">
+					<a class="dropdown-item" href="#">Configuration</a>
+				</security:authorize> -->
+				<security:authorize access="hasAnyRole('DRIVER', 'PASSENGER')">
 				<div class="dropdown-divider"></div>
+				</security:authorize>
 					<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>
 			</div>
 		</div>
