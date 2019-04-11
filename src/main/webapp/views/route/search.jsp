@@ -21,7 +21,7 @@
 <link href="${routecss}" rel="stylesheet" />
 <script src="${routecss}"></script>
 <div class="text-center active-routes">
-	<h3>Search route</h3>
+	<h3><spring:message code="searchRoute" /></h3>
 </div>
 <form:form action="${requestURI}" modelAttribute="finder">
 	<center>

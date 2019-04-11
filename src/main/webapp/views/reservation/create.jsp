@@ -28,7 +28,7 @@
 <script src="${routecss}"></script>
 <link rel="stylesheet" href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 <div class="text-center active-routes">
-	<h3>Make a reservation</h3>
+	<h3><spring:message code="makeReservation" /></h3>
 </div>
 
 <security:authorize access="hasRole('PASSENGER')">

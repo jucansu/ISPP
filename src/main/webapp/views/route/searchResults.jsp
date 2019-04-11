@@ -35,7 +35,7 @@
 	<script src="${routecss}"></script>
 
 <div class="text-center active-routes">
-	<h3>Search results</h3>
+	<h3><spring:message code="searchResults" /></h3>
 </div>
 <jstl:forEach var="route" items="${routes}">
 	<div class="title listRoute"></div>
