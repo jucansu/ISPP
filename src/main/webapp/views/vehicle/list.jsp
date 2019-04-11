@@ -74,9 +74,6 @@
 						<img src="${vehicle.image}" width="200" height="150">
 						<div class="caption">
 							<h3>${vehicle.vehicleBrand} ${vehicle.model}</h3>
-							<p>${vehicle.description}</p>
-
-						
 								<div class="media-body pl-3">
 									<div class="plate">
 										<span>CAR PLATE :&ensp;</span>${vehicle.plate}

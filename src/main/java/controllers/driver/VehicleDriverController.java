@@ -44,7 +44,7 @@ public class VehicleDriverController extends AbstractController {
 	// Listing -------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int driverId) {
+	public ModelAndView list() {
 		ModelAndView result;
 		final Collection<Vehicle> vehicles;
 		Driver principal;
@@ -117,7 +117,7 @@ public class VehicleDriverController extends AbstractController {
 			try {
 				saved = this.vehicleService.save(vehicle);
 				driver = saved.getDriver();
-				result = new ModelAndView("redirect:/vehicle/list.do?driverId=" + driver.getId());
+				result = new ModelAndView("redirect:/vehicle/driver/list.do");
 			} catch (final Throwable oops) {
 				oops.printStackTrace();
 				result = this.createEditModelAndView(vehicle, "vehicle.commit.error");
