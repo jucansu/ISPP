@@ -19,7 +19,9 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
-
+<center>
+<h3><spring:message code="driver.create" /></h3>
+</center>
 <form:form id="form" action="${requestURI}" modelAttribute="driver">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -101,7 +103,7 @@
 		<div class="form-row">
 			<div class="col">
 			<spring:message code="driver.password" var="driverPass"/>
-				<form:input path="userAccount.password" type="text" class="form-control"
+				<form:input path="userAccount.password" type="password" class="form-control"
 					placeholder="${driverPass }"/>
 				<form:errors cssClass="error" path="userAccount.password" />
 				<br />
@@ -194,10 +196,13 @@
 	</div>
 
 		<input type="submit" class="btn btn-success" name="save"
-			value="<spring:message code="driver.register"/>" /> <input
+			value="<spring:message code="driver.register"/>" /> 
+		<div id="cancel" style="padding-top:10px">
+			<input
 			type="button" class="btn btn-danger" name="cancel"
 			value="<spring:message code="driver.cancel" />"
 			onclick="javascript: relativeRedir('security/login.do');" />
+			</div>
 
 	</div>
 
