@@ -103,7 +103,7 @@
 
 						</div>
 						<p>
-							<jstl:out value="${route.driver.mediumStars}" />
+							<span class="badge badge-success"><jstl:out value="${route.driver.mediumStars}" /></span>
 						</p>
 					</div>
 
@@ -146,9 +146,8 @@
 					</div>
 
 					<div class="vehicle d-flex flex-row justify-content-center m-1">
-						<div class="vehile-foto">
-							<h5>Vehicle: &nbsp</h5>
-							<img src="${route.vehicle.image}" width="200" height="150" />
+						<div class="vehile-foto" style="padding:20px">
+							<img src="${route.vehicle.image}" width="350" height="350" class="img-thumbnail" />
 						</div>
 						<div class="vehicle-description">
 							<p>
@@ -157,11 +156,8 @@
 							</p>
 							<p>
 								Model: &nbsp
-								<jstl:out value="${route.vehicle.model}" />
-							</p>
-							<p>
-								Brand: &nbsp
-								<jstl:out value="${route.vehicle.vehicleBrand}" />
+								<button type="button" class="btn btn-primary"><span class="badge"><jstl:out value="${route.vehicle.vehicleBrand}" /></span><jstl:out value="${route.vehicle.model}" /></button>
+								
 							</p>
 							<p>
 								Plate: &nbsp
