@@ -1,4 +1,39 @@
+--
+-- PostgreSQL database dump
+--
 
+-- Dumped from database version 9.2.1
+-- Dumped by pg_dump version 9.2.1
+-- Started on 2019-04-12 21:10:17
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 183 (class 3079 OID 11727)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2044 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
 
 --
 -- TOC entry 168 (class 1259 OID 49516)
@@ -19,7 +54,7 @@ CREATE TABLE actor (
 );
 
 
-
+ALTER TABLE public.actor OWNER TO postgres;
 
 --
 -- TOC entry 169 (class 1259 OID 49524)
@@ -40,7 +75,7 @@ CREATE TABLE administrator (
 );
 
 
-
+ALTER TABLE public.administrator OWNER TO postgres;
 
 --
 -- TOC entry 170 (class 1259 OID 49532)
@@ -60,7 +95,7 @@ CREATE TABLE comment (
 );
 
 
-
+ALTER TABLE public.comment OWNER TO postgres;
 
 --
 -- TOC entry 171 (class 1259 OID 49537)
@@ -78,7 +113,7 @@ CREATE TABLE control_point (
 );
 
 
-
+ALTER TABLE public.control_point OWNER TO postgres;
 
 --
 -- TOC entry 172 (class 1259 OID 49542)
@@ -109,7 +144,7 @@ CREATE TABLE driver (
 );
 
 
-
+ALTER TABLE public.driver OWNER TO postgres;
 
 --
 -- TOC entry 173 (class 1259 OID 49550)
@@ -125,7 +160,7 @@ CREATE TABLE folder (
 );
 
 
-
+ALTER TABLE public.folder OWNER TO postgres;
 
 --
 -- TOC entry 174 (class 1259 OID 49555)
@@ -138,7 +173,7 @@ CREATE TABLE folder_messages (
 );
 
 
-
+ALTER TABLE public.folder_messages OWNER TO postgres;
 
 --
 -- TOC entry 182 (class 1259 OID 49696)
@@ -151,6 +186,7 @@ CREATE TABLE hibernate_sequences (
 );
 
 
+ALTER TABLE public.hibernate_sequences OWNER TO postgres;
 
 --
 -- TOC entry 175 (class 1259 OID 49558)
@@ -172,6 +208,7 @@ CREATE TABLE letter (
 );
 
 
+ALTER TABLE public.letter OWNER TO postgres;
 
 --
 -- TOC entry 176 (class 1259 OID 49566)
@@ -198,6 +235,7 @@ CREATE TABLE passenger (
 );
 
 
+ALTER TABLE public.passenger OWNER TO postgres;
 
 --
 -- TOC entry 177 (class 1259 OID 49574)
@@ -220,6 +258,7 @@ CREATE TABLE reservation (
 );
 
 
+ALTER TABLE public.reservation OWNER TO postgres;
 
 --
 -- TOC entry 178 (class 1259 OID 49582)
@@ -245,6 +284,7 @@ CREATE TABLE route (
 );
 
 
+ALTER TABLE public.route OWNER TO postgres;
 
 --
 -- TOC entry 179 (class 1259 OID 49590)
@@ -260,6 +300,7 @@ CREATE TABLE user_account (
 );
 
 
+ALTER TABLE public.user_account OWNER TO postgres;
 
 --
 -- TOC entry 180 (class 1259 OID 49598)
@@ -271,6 +312,8 @@ CREATE TABLE user_account_authorities (
     authority character varying(255)
 );
 
+
+ALTER TABLE public.user_account_authorities OWNER TO postgres;
 
 --
 -- TOC entry 181 (class 1259 OID 49601)
@@ -290,6 +333,8 @@ CREATE TABLE vehicle (
     driver integer NOT NULL
 );
 
+
+ALTER TABLE public.vehicle OWNER TO postgres;
 
 --
 -- TOC entry 2022 (class 0 OID 49516)
@@ -321,8 +366,8 @@ INSERT INTO comment VALUES (1419, 0, '2019-01-09 12:32:00', false, 4, 'Muy agrad
 INSERT INTO comment VALUES (1420, 0, '2019-01-09 12:32:00', true, 3, 'Desagradable', 829, 862, 968);
 INSERT INTO comment VALUES (1421, 0, '2019-03-24 20:32:00', false, 0, 'Conduce de forma temeraria', 833, 867, 974);
 INSERT INTO comment VALUES (1422, 0, '2019-03-24 20:32:00', true, 0, 'Un poco especial', 833, 867, 974);
-INSERT INTO comment VALUES (1423, 0, '2019-02-14 15:32:00', false, 5, 'Una persona mu sal·', 837, 874, 985);
-INSERT INTO comment VALUES (1424, 0, '2019-02-14 15:32:00', true, 5, 'Una persona mu sal·', 837, 874, 985);
+INSERT INTO comment VALUES (1423, 0, '2019-02-14 15:32:00', false, 5, 'Una persona mu sal√°', 837, 874, 985);
+INSERT INTO comment VALUES (1424, 0, '2019-02-14 15:32:00', true, 5, 'Una persona mu sal√°', 837, 874, 985);
 INSERT INTO comment VALUES (1425, 0, '2019-04-04 09:32:00', false, 4, 'Muy agradable', 838, 875, 989);
 INSERT INTO comment VALUES (1426, 0, '2019-04-04 09:32:00', true, 0, 'Habla demasiado poco', 838, 875, 989);
 INSERT INTO comment VALUES (1427, 0, '2019-02-15 14:32:00', false, 0, 'Conduce de forma temeraria', 839, 877, 993);
@@ -333,7 +378,7 @@ INSERT INTO comment VALUES (1431, 0, '2019-01-20 20:32:00', false, 1, 'Conduce d
 INSERT INTO comment VALUES (1432, 0, '2019-01-20 20:32:00', true, 4, 'Una persona muy agradable', 842, 881, 1000);
 INSERT INTO comment VALUES (1433, 0, '2019-03-22 21:32:00', false, 0, 'Poca flexibilidad en la recogida y destino', 847, 889, 1016);
 INSERT INTO comment VALUES (1434, 0, '2019-03-22 21:32:00', true, 2, 'Habla demasiado poco', 847, 889, 1016);
-INSERT INTO comment VALUES (1435, 0, '2019-01-24 16:32:00', false, 4, 'Una persona mu sal·', 847, 890, 1017);
+INSERT INTO comment VALUES (1435, 0, '2019-01-24 16:32:00', false, 4, 'Una persona mu sal√°', 847, 890, 1017);
 INSERT INTO comment VALUES (1436, 0, '2019-01-24 16:32:00', true, 2, 'Desagradable', 847, 890, 1017);
 INSERT INTO comment VALUES (1437, 0, '2019-01-18 20:32:00', false, 2, 'Conduce de forma temeraria', 849, 894, 1024);
 INSERT INTO comment VALUES (1438, 0, '2019-01-18 20:32:00', true, 0, 'Un peligro como co-piloto', 849, 894, 1024);
@@ -358,10 +403,10 @@ INSERT INTO control_point VALUES (1039, 0, 1, '2019-06-28 19:17:00', 5, 'Sevilla
 INSERT INTO control_point VALUES (1040, 0, 2, '2019-06-28 19:22:00', 10, 'El Porvenir, Sevilla', 955);
 INSERT INTO control_point VALUES (1041, 0, 0, '2019-06-05 16:25:00', 0, 'El Porvenir, Sevilla', 956);
 INSERT INTO control_point VALUES (1042, 0, 1, '2019-06-05 16:30:00', 5, 'Sevilla Este, Sevilla', 956);
-INSERT INTO control_point VALUES (1043, 0, 0, '2019-02-01 16:02:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 957);
+INSERT INTO control_point VALUES (1043, 0, 0, '2019-02-01 16:02:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 957);
 INSERT INTO control_point VALUES (1044, 0, 1, '2019-02-01 16:07:00', 5, 'Plaza del Duque de la Victoria, Sevilla', 957);
 INSERT INTO control_point VALUES (1045, 0, 2, '2019-02-01 16:12:00', 10, 'Avenida de El Greco, Sevilla', 957);
-INSERT INTO control_point VALUES (1046, 0, 0, '2019-04-26 08:22:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 958);
+INSERT INTO control_point VALUES (1046, 0, 0, '2019-04-26 08:22:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 958);
 INSERT INTO control_point VALUES (1047, 0, 1, '2019-04-26 08:27:00', 5, 'Macarena, Sevilla', 958);
 INSERT INTO control_point VALUES (1048, 0, 2, '2019-04-26 08:32:00', 10, 'Avenida del Cid, Sevilla', 958);
 INSERT INTO control_point VALUES (1049, 0, 3, '2019-04-26 08:37:00', 15, 'El Porvenir, Sevilla', 958);
@@ -372,13 +417,13 @@ INSERT INTO control_point VALUES (1053, 0, 0, '2019-06-18 20:40:00', 0, 'Avenida
 INSERT INTO control_point VALUES (1054, 0, 1, '2019-06-18 20:45:00', 5, 'San Bernardo, Sevilla', 960);
 INSERT INTO control_point VALUES (1055, 0, 2, '2019-06-18 20:50:00', 10, 'Felipe II, Sevilla', 960);
 INSERT INTO control_point VALUES (1056, 0, 3, '2019-06-18 20:55:00', 15, 'Avenida de El Greco, Sevilla', 960);
-INSERT INTO control_point VALUES (1057, 0, 0, '2019-04-05 09:12:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 961);
+INSERT INTO control_point VALUES (1057, 0, 0, '2019-04-05 09:12:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 961);
 INSERT INTO control_point VALUES (1058, 0, 1, '2019-04-05 09:17:00', 5, 'Camas, Sevilla', 961);
 INSERT INTO control_point VALUES (1059, 0, 2, '2019-04-05 09:22:00', 10, 'Sevilla Este, Sevilla', 961);
 INSERT INTO control_point VALUES (1060, 0, 3, '2019-04-05 09:27:00', 15, 'Felipe II, Sevilla', 961);
 INSERT INTO control_point VALUES (1061, 0, 0, '2019-03-28 06:16:00', 0, 'Montequinto, Sevilla', 962);
 INSERT INTO control_point VALUES (1062, 0, 1, '2019-03-28 06:21:00', 5, 'Avenida del Cid, Sevilla', 962);
-INSERT INTO control_point VALUES (1063, 0, 2, '2019-03-28 06:26:00', 10, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 962);
+INSERT INTO control_point VALUES (1063, 0, 2, '2019-03-28 06:26:00', 10, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 962);
 INSERT INTO control_point VALUES (1064, 0, 3, '2019-03-28 06:31:00', 15, 'Macarena, Sevilla', 962);
 INSERT INTO control_point VALUES (1065, 0, 0, '2019-02-17 20:38:00', 0, 'Felipe II, Sevilla', 963);
 INSERT INTO control_point VALUES (1066, 0, 1, '2019-02-17 20:43:00', 5, 'Avenida de El Greco, Sevilla', 963);
@@ -389,7 +434,7 @@ INSERT INTO control_point VALUES (1070, 0, 3, '2019-03-09 09:42:00', 15, 'Monteq
 INSERT INTO control_point VALUES (1071, 0, 0, '2019-05-28 10:02:00', 0, 'Camas, Sevilla', 965);
 INSERT INTO control_point VALUES (1072, 0, 1, '2019-05-28 10:07:00', 5, 'Gran Plaza, Sevilla', 965);
 INSERT INTO control_point VALUES (1073, 0, 2, '2019-05-28 10:12:00', 10, 'Felipe II, Sevilla', 965);
-INSERT INTO control_point VALUES (1074, 0, 0, '2019-03-26 18:31:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 966);
+INSERT INTO control_point VALUES (1074, 0, 0, '2019-03-26 18:31:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 966);
 INSERT INTO control_point VALUES (1075, 0, 1, '2019-03-26 18:36:00', 5, 'Felipe II, Sevilla', 966);
 INSERT INTO control_point VALUES (1076, 0, 0, '2019-01-04 20:16:00', 0, 'Plaza del Duque de la Victoria, Sevilla', 967);
 INSERT INTO control_point VALUES (1077, 0, 1, '2019-01-04 20:21:00', 5, 'El Porvenir, Sevilla', 967);
@@ -397,16 +442,16 @@ INSERT INTO control_point VALUES (1078, 0, 2, '2019-01-04 20:26:00', 10, 'Macare
 INSERT INTO control_point VALUES (1079, 0, 0, '2019-01-09 10:35:00', 0, 'Avenida del Cid, Sevilla', 968);
 INSERT INTO control_point VALUES (1080, 0, 1, '2019-01-09 10:40:00', 5, 'Avenida de El Greco, Sevilla', 968);
 INSERT INTO control_point VALUES (1081, 0, 2, '2019-01-09 10:45:00', 10, 'Felipe II, Sevilla', 968);
-INSERT INTO control_point VALUES (1082, 0, 3, '2019-01-09 10:50:00', 15, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 968);
+INSERT INTO control_point VALUES (1082, 0, 3, '2019-01-09 10:50:00', 15, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 968);
 INSERT INTO control_point VALUES (1083, 0, 0, '2019-03-23 08:11:00', 0, 'Plaza del Duque de la Victoria, Sevilla', 969);
 INSERT INTO control_point VALUES (1084, 0, 1, '2019-03-23 08:16:00', 5, 'Calle Jilguero, Sevilla', 969);
 INSERT INTO control_point VALUES (1085, 0, 2, '2019-03-23 08:21:00', 10, 'Avenida de El Greco, Sevilla', 969);
 INSERT INTO control_point VALUES (1086, 0, 3, '2019-03-23 08:26:00', 15, 'Avenida del Cid, Sevilla', 969);
 INSERT INTO control_point VALUES (1087, 0, 0, '2019-02-26 19:33:00', 0, 'El Porvenir, Sevilla', 970);
-INSERT INTO control_point VALUES (1088, 0, 1, '2019-02-26 19:38:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 970);
-INSERT INTO control_point VALUES (1089, 0, 2, '2019-02-26 19:43:00', 10, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 970);
+INSERT INTO control_point VALUES (1088, 0, 1, '2019-02-26 19:38:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 970);
+INSERT INTO control_point VALUES (1089, 0, 2, '2019-02-26 19:43:00', 10, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 970);
 INSERT INTO control_point VALUES (1090, 0, 0, '2019-03-09 15:09:00', 0, 'Felipe II, Sevilla', 971);
-INSERT INTO control_point VALUES (1091, 0, 1, '2019-03-09 15:14:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 971);
+INSERT INTO control_point VALUES (1091, 0, 1, '2019-03-09 15:14:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 971);
 INSERT INTO control_point VALUES (1092, 0, 2, '2019-03-09 15:19:00', 10, 'Plaza del Duque de la Victoria, Sevilla', 971);
 INSERT INTO control_point VALUES (1093, 0, 0, '2019-05-26 20:15:00', 0, 'Avenida de El Greco, Sevilla', 972);
 INSERT INTO control_point VALUES (1094, 0, 1, '2019-05-26 20:20:00', 5, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 972);
@@ -419,24 +464,24 @@ INSERT INTO control_point VALUES (1100, 0, 1, '2019-03-24 18:31:00', 5, 'Calle J
 INSERT INTO control_point VALUES (1101, 0, 0, '2019-06-01 15:37:00', 0, 'Camas, Sevilla', 975);
 INSERT INTO control_point VALUES (1102, 0, 1, '2019-06-01 15:42:00', 5, 'Felipe II, Sevilla', 975);
 INSERT INTO control_point VALUES (1103, 0, 2, '2019-06-01 15:47:00', 10, 'Montequinto, Sevilla', 975);
-INSERT INTO control_point VALUES (1104, 0, 0, '2019-06-13 10:40:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 976);
+INSERT INTO control_point VALUES (1104, 0, 0, '2019-06-13 10:40:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 976);
 INSERT INTO control_point VALUES (1105, 0, 1, '2019-06-13 10:45:00', 5, 'Torre Sevilla, Sevilla', 976);
 INSERT INTO control_point VALUES (1106, 0, 2, '2019-06-13 10:50:00', 10, 'Montequinto, Sevilla', 976);
 INSERT INTO control_point VALUES (1107, 0, 0, '2019-05-05 09:40:00', 0, 'Macarena, Sevilla', 977);
 INSERT INTO control_point VALUES (1108, 0, 1, '2019-05-05 09:45:00', 5, 'Montequinto, Sevilla', 977);
 INSERT INTO control_point VALUES (1109, 0, 2, '2019-05-05 09:50:00', 10, 'Avenida de El Greco, Sevilla', 977);
-INSERT INTO control_point VALUES (1110, 0, 0, '2019-04-08 09:36:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 978);
+INSERT INTO control_point VALUES (1110, 0, 0, '2019-04-08 09:36:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 978);
 INSERT INTO control_point VALUES (1111, 0, 1, '2019-04-08 09:41:00', 5, 'Gran Plaza, Sevilla', 978);
 INSERT INTO control_point VALUES (1112, 0, 0, '2019-04-24 08:31:00', 0, 'San Bernardo, Sevilla', 979);
 INSERT INTO control_point VALUES (1113, 0, 1, '2019-04-24 08:36:00', 5, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 979);
-INSERT INTO control_point VALUES (1114, 0, 2, '2019-04-24 08:41:00', 10, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 979);
+INSERT INTO control_point VALUES (1114, 0, 2, '2019-04-24 08:41:00', 10, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 979);
 INSERT INTO control_point VALUES (1115, 0, 3, '2019-04-24 08:46:00', 15, 'Felipe II, Sevilla', 979);
 INSERT INTO control_point VALUES (1116, 0, 0, '2019-04-14 13:37:00', 0, 'Montequinto, Sevilla', 980);
 INSERT INTO control_point VALUES (1117, 0, 1, '2019-04-14 13:42:00', 5, 'Avenida del Cid, Sevilla', 980);
-INSERT INTO control_point VALUES (1118, 0, 2, '2019-04-14 13:47:00', 10, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 980);
-INSERT INTO control_point VALUES (1119, 0, 0, '2019-01-04 19:27:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 981);
+INSERT INTO control_point VALUES (1118, 0, 2, '2019-04-14 13:47:00', 10, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 980);
+INSERT INTO control_point VALUES (1119, 0, 0, '2019-01-04 19:27:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 981);
 INSERT INTO control_point VALUES (1120, 0, 1, '2019-01-04 19:32:00', 5, 'San Bernardo, Sevilla', 981);
-INSERT INTO control_point VALUES (1121, 0, 2, '2019-01-04 19:37:00', 10, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 981);
+INSERT INTO control_point VALUES (1121, 0, 2, '2019-01-04 19:37:00', 10, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 981);
 INSERT INTO control_point VALUES (1122, 0, 3, '2019-01-04 19:42:00', 15, 'Torre Sevilla, Sevilla', 981);
 INSERT INTO control_point VALUES (1123, 0, 0, '2019-02-16 09:16:00', 0, 'San Bernardo, Sevilla', 982);
 INSERT INTO control_point VALUES (1124, 0, 1, '2019-02-16 09:21:00', 5, 'Macarena, Sevilla', 982);
@@ -444,12 +489,12 @@ INSERT INTO control_point VALUES (1125, 0, 0, '2019-05-27 18:18:00', 0, 'Camas, 
 INSERT INTO control_point VALUES (1126, 0, 1, '2019-05-27 18:23:00', 5, 'Felipe II, Sevilla', 983);
 INSERT INTO control_point VALUES (1127, 0, 2, '2019-05-27 18:28:00', 10, 'Avenida del Cid, Sevilla', 983);
 INSERT INTO control_point VALUES (1128, 0, 3, '2019-05-27 18:33:00', 15, 'Sevilla Este, Sevilla', 983);
-INSERT INTO control_point VALUES (1129, 0, 0, '2019-03-20 15:23:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 984);
-INSERT INTO control_point VALUES (1130, 0, 1, '2019-03-20 15:28:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 984);
+INSERT INTO control_point VALUES (1129, 0, 0, '2019-03-20 15:23:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 984);
+INSERT INTO control_point VALUES (1130, 0, 1, '2019-03-20 15:28:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 984);
 INSERT INTO control_point VALUES (1131, 0, 2, '2019-03-20 15:33:00', 10, 'Avenida de El Greco, Sevilla', 984);
 INSERT INTO control_point VALUES (1132, 0, 0, '2019-02-14 13:15:00', 0, 'Avenida de El Greco, Sevilla', 985);
 INSERT INTO control_point VALUES (1133, 0, 1, '2019-02-14 13:20:00', 5, 'Camas, Sevilla', 985);
-INSERT INTO control_point VALUES (1134, 0, 2, '2019-02-14 13:25:00', 10, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 985);
+INSERT INTO control_point VALUES (1134, 0, 2, '2019-02-14 13:25:00', 10, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 985);
 INSERT INTO control_point VALUES (1135, 0, 3, '2019-02-14 13:30:00', 15, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 985);
 INSERT INTO control_point VALUES (1136, 0, 0, '2019-02-17 08:29:00', 0, 'Sevilla Este, Sevilla', 986);
 INSERT INTO control_point VALUES (1137, 0, 1, '2019-02-17 08:34:00', 5, 'El Porvenir, Sevilla', 986);
@@ -474,7 +519,7 @@ INSERT INTO control_point VALUES (1155, 0, 2, '2019-02-28 07:41:00', 10, 'Gran P
 INSERT INTO control_point VALUES (1156, 0, 0, '2019-06-18 14:03:00', 0, 'Torre Sevilla, Sevilla', 992);
 INSERT INTO control_point VALUES (1157, 0, 1, '2019-06-18 14:08:00', 5, 'El Porvenir, Sevilla', 992);
 INSERT INTO control_point VALUES (1158, 0, 0, '2019-02-15 12:27:00', 0, 'Camas, Sevilla', 993);
-INSERT INTO control_point VALUES (1159, 0, 1, '2019-02-15 12:32:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 993);
+INSERT INTO control_point VALUES (1159, 0, 1, '2019-02-15 12:32:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 993);
 INSERT INTO control_point VALUES (1160, 0, 0, '2019-06-05 13:07:00', 0, 'Gran Plaza, Sevilla', 994);
 INSERT INTO control_point VALUES (1161, 0, 1, '2019-06-05 13:12:00', 5, 'Montequinto, Sevilla', 994);
 INSERT INTO control_point VALUES (1162, 0, 0, '2019-04-02 17:17:00', 0, 'Montequinto, Sevilla', 995);
@@ -488,15 +533,15 @@ INSERT INTO control_point VALUES (1169, 0, 1, '2019-03-11 11:12:00', 5, 'Avenida
 INSERT INTO control_point VALUES (1170, 0, 2, '2019-03-11 11:17:00', 10, 'Montequinto, Sevilla', 997);
 INSERT INTO control_point VALUES (1171, 0, 3, '2019-03-11 11:22:00', 15, 'Gran Plaza, Sevilla', 997);
 INSERT INTO control_point VALUES (1172, 0, 0, '2019-05-04 19:10:00', 0, 'Torre Sevilla, Sevilla', 998);
-INSERT INTO control_point VALUES (1173, 0, 1, '2019-05-04 19:15:00', 5, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 998);
+INSERT INTO control_point VALUES (1173, 0, 1, '2019-05-04 19:15:00', 5, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 998);
 INSERT INTO control_point VALUES (1174, 0, 2, '2019-05-04 19:20:00', 10, 'Montequinto, Sevilla', 998);
-INSERT INTO control_point VALUES (1175, 0, 0, '2019-03-18 08:16:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 999);
+INSERT INTO control_point VALUES (1175, 0, 0, '2019-03-18 08:16:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 999);
 INSERT INTO control_point VALUES (1176, 0, 1, '2019-03-18 08:21:00', 5, 'Camas, Sevilla', 999);
 INSERT INTO control_point VALUES (1177, 0, 2, '2019-03-18 08:26:00', 10, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 999);
 INSERT INTO control_point VALUES (1178, 0, 0, '2019-01-20 18:17:00', 0, 'Felipe II, Sevilla', 1000);
 INSERT INTO control_point VALUES (1179, 0, 1, '2019-01-20 18:22:00', 5, 'Macarena, Sevilla', 1000);
 INSERT INTO control_point VALUES (1180, 0, 2, '2019-01-20 18:27:00', 10, 'Avenida de El Greco, Sevilla', 1000);
-INSERT INTO control_point VALUES (1181, 0, 3, '2019-01-20 18:32:00', 15, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1000);
+INSERT INTO control_point VALUES (1181, 0, 3, '2019-01-20 18:32:00', 15, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1000);
 INSERT INTO control_point VALUES (1182, 0, 0, '2019-04-28 08:06:00', 0, 'Sevilla Este, Sevilla', 1001);
 INSERT INTO control_point VALUES (1183, 0, 1, '2019-04-28 08:11:00', 5, 'Gran Plaza, Sevilla', 1001);
 INSERT INTO control_point VALUES (1184, 0, 2, '2019-04-28 08:16:00', 10, 'Calle Jilguero, Sevilla', 1001);
@@ -514,11 +559,11 @@ INSERT INTO control_point VALUES (1195, 0, 0, '2019-01-21 07:08:00', 0, 'Sevilla
 INSERT INTO control_point VALUES (1196, 0, 1, '2019-01-21 07:13:00', 5, 'Gran Plaza, Sevilla', 1006);
 INSERT INTO control_point VALUES (1197, 0, 2, '2019-01-21 07:18:00', 10, 'Macarena, Sevilla', 1006);
 INSERT INTO control_point VALUES (1198, 0, 3, '2019-01-21 07:23:00', 15, 'Plaza del Duque de la Victoria, Sevilla', 1006);
-INSERT INTO control_point VALUES (1199, 0, 0, '2019-03-12 11:39:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1007);
+INSERT INTO control_point VALUES (1199, 0, 0, '2019-03-12 11:39:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1007);
 INSERT INTO control_point VALUES (1200, 0, 1, '2019-03-12 11:44:00', 5, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1007);
-INSERT INTO control_point VALUES (1201, 0, 2, '2019-03-12 11:49:00', 10, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1007);
+INSERT INTO control_point VALUES (1201, 0, 2, '2019-03-12 11:49:00', 10, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1007);
 INSERT INTO control_point VALUES (1202, 0, 0, '2019-05-10 20:39:00', 0, 'Camas, Sevilla', 1008);
-INSERT INTO control_point VALUES (1203, 0, 1, '2019-05-10 20:44:00', 5, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1008);
+INSERT INTO control_point VALUES (1203, 0, 1, '2019-05-10 20:44:00', 5, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1008);
 INSERT INTO control_point VALUES (1204, 0, 2, '2019-05-10 20:49:00', 10, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1008);
 INSERT INTO control_point VALUES (1205, 0, 3, '2019-05-10 20:54:00', 15, 'Montequinto, Sevilla', 1008);
 INSERT INTO control_point VALUES (1206, 0, 0, '2019-04-04 15:29:00', 0, 'Macarena, Sevilla', 1009);
@@ -529,7 +574,7 @@ INSERT INTO control_point VALUES (1210, 0, 1, '2019-05-25 09:30:00', 5, 'El Porv
 INSERT INTO control_point VALUES (1211, 0, 0, '2019-05-06 19:02:00', 0, 'San Bernardo, Sevilla', 1011);
 INSERT INTO control_point VALUES (1212, 0, 1, '2019-05-06 19:07:00', 5, 'El Porvenir, Sevilla', 1011);
 INSERT INTO control_point VALUES (1213, 0, 0, '2019-02-02 18:27:00', 0, 'Camas, Sevilla', 1012);
-INSERT INTO control_point VALUES (1214, 0, 1, '2019-02-02 18:32:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1012);
+INSERT INTO control_point VALUES (1214, 0, 1, '2019-02-02 18:32:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1012);
 INSERT INTO control_point VALUES (1215, 0, 0, '2019-06-27 12:28:00', 0, 'Calle Jilguero, Sevilla', 1013);
 INSERT INTO control_point VALUES (1216, 0, 1, '2019-06-27 12:33:00', 5, 'Avenida de El Greco, Sevilla', 1013);
 INSERT INTO control_point VALUES (1217, 0, 0, '2019-02-11 14:20:00', 0, 'Gran Plaza, Sevilla', 1014);
@@ -537,22 +582,22 @@ INSERT INTO control_point VALUES (1218, 0, 1, '2019-02-11 14:25:00', 5, 'Montequ
 INSERT INTO control_point VALUES (1219, 0, 2, '2019-02-11 14:30:00', 10, 'Felipe II, Sevilla', 1014);
 INSERT INTO control_point VALUES (1220, 0, 0, '2019-06-24 06:06:00', 0, 'Camas, Sevilla', 1015);
 INSERT INTO control_point VALUES (1221, 0, 1, '2019-06-24 06:11:00', 5, 'Sevilla Este, Sevilla', 1015);
-INSERT INTO control_point VALUES (1222, 0, 2, '2019-06-24 06:16:00', 10, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1015);
+INSERT INTO control_point VALUES (1222, 0, 2, '2019-06-24 06:16:00', 10, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1015);
 INSERT INTO control_point VALUES (1223, 0, 3, '2019-06-24 06:21:00', 15, 'Calle Jilguero, Sevilla', 1015);
-INSERT INTO control_point VALUES (1224, 0, 0, '2019-03-22 19:11:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1016);
-INSERT INTO control_point VALUES (1225, 0, 1, '2019-03-22 19:16:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1016);
+INSERT INTO control_point VALUES (1224, 0, 0, '2019-03-22 19:11:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1016);
+INSERT INTO control_point VALUES (1225, 0, 1, '2019-03-22 19:16:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1016);
 INSERT INTO control_point VALUES (1226, 0, 0, '2019-01-24 14:00:00', 0, 'Montequinto, Sevilla', 1017);
-INSERT INTO control_point VALUES (1227, 0, 1, '2019-01-24 14:05:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1017);
+INSERT INTO control_point VALUES (1227, 0, 1, '2019-01-24 14:05:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1017);
 INSERT INTO control_point VALUES (1228, 0, 2, '2019-01-24 14:10:00', 10, 'Macarena, Sevilla', 1017);
 INSERT INTO control_point VALUES (1229, 0, 0, '2019-01-19 11:04:00', 0, 'Torre Sevilla, Sevilla', 1018);
 INSERT INTO control_point VALUES (1230, 0, 1, '2019-01-19 11:09:00', 5, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1018);
-INSERT INTO control_point VALUES (1231, 0, 0, '2019-04-18 15:40:00', 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1019);
+INSERT INTO control_point VALUES (1231, 0, 0, '2019-04-18 15:40:00', 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1019);
 INSERT INTO control_point VALUES (1232, 0, 1, '2019-04-18 15:45:00', 5, 'San Bernardo, Sevilla', 1019);
 INSERT INTO control_point VALUES (1233, 0, 2, '2019-04-18 15:50:00', 10, 'Gran Plaza, Sevilla', 1019);
 INSERT INTO control_point VALUES (1234, 0, 0, '2019-05-22 18:29:00', 0, 'El Porvenir, Sevilla', 1020);
 INSERT INTO control_point VALUES (1235, 0, 1, '2019-05-22 18:34:00', 5, 'Avenida del Cid, Sevilla', 1020);
 INSERT INTO control_point VALUES (1236, 0, 0, '2019-06-10 20:02:00', 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1021);
-INSERT INTO control_point VALUES (1237, 0, 1, '2019-06-10 20:07:00', 5, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1021);
+INSERT INTO control_point VALUES (1237, 0, 1, '2019-06-10 20:07:00', 5, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1021);
 INSERT INTO control_point VALUES (1238, 0, 2, '2019-06-10 20:12:00', 10, 'El Porvenir, Sevilla', 1021);
 INSERT INTO control_point VALUES (1239, 0, 3, '2019-06-10 20:17:00', 15, 'Calle Jilguero, Sevilla', 1021);
 INSERT INTO control_point VALUES (1240, 0, 0, '2019-06-27 15:29:00', 0, 'Calle Jilguero, Sevilla', 1022);
@@ -575,32 +620,32 @@ INSERT INTO control_point VALUES (1256, 0, 0, '2019-02-23 11:29:00', 0, 'Plaza d
 INSERT INTO control_point VALUES (1257, 0, 1, '2019-02-23 11:34:00', 5, 'Calle Jilguero, Sevilla', 1027);
 INSERT INTO control_point VALUES (1258, 0, 2, '2019-02-23 11:39:00', 10, 'El Porvenir, Sevilla', 1027);
 INSERT INTO control_point VALUES (1259, 0, 3, '2019-02-23 11:44:00', 15, 'Gran Plaza, Sevilla', 1027);
-INSERT INTO control_point VALUES (1260, 0, 0, '2019-01-05 18:22:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1028);
-INSERT INTO control_point VALUES (1261, 0, 1, '2019-01-05 18:27:00', 5, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1028);
+INSERT INTO control_point VALUES (1260, 0, 0, '2019-01-05 18:22:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1028);
+INSERT INTO control_point VALUES (1261, 0, 1, '2019-01-05 18:27:00', 5, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1028);
 INSERT INTO control_point VALUES (1262, 0, 2, '2019-01-05 18:32:00', 10, 'Avenida de El Greco, Sevilla', 1028);
 INSERT INTO control_point VALUES (1263, 0, 0, '2019-06-01 12:27:00', 0, 'Sevilla Este, Sevilla', 1029);
 INSERT INTO control_point VALUES (1264, 0, 1, '2019-06-01 12:32:00', 5, 'San Bernardo, Sevilla', 1029);
 INSERT INTO control_point VALUES (1265, 0, 0, '2019-01-27 10:28:00', 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1030);
 INSERT INTO control_point VALUES (1266, 0, 1, '2019-01-27 10:33:00', 5, 'Avenida de El Greco, Sevilla', 1030);
-INSERT INTO control_point VALUES (1267, 0, 0, '2019-01-05 15:01:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1031);
+INSERT INTO control_point VALUES (1267, 0, 0, '2019-01-05 15:01:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1031);
 INSERT INTO control_point VALUES (1268, 0, 1, '2019-01-05 15:06:00', 5, 'Calle Jilguero, Sevilla', 1031);
 INSERT INTO control_point VALUES (1269, 0, 2, '2019-01-05 15:11:00', 10, 'Avenida del Cid, Sevilla', 1031);
 INSERT INTO control_point VALUES (1270, 0, 3, '2019-01-05 15:16:00', 15, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1031);
 INSERT INTO control_point VALUES (1271, 0, 0, '2019-03-24 15:37:00', 0, 'Gran Plaza, Sevilla', 1032);
 INSERT INTO control_point VALUES (1272, 0, 1, '2019-03-24 15:42:00', 5, 'Montequinto, Sevilla', 1032);
 INSERT INTO control_point VALUES (1273, 0, 2, '2019-03-24 15:47:00', 10, 'Camas, Sevilla', 1032);
-INSERT INTO control_point VALUES (1274, 0, 0, '2019-05-23 10:26:00', 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1033);
+INSERT INTO control_point VALUES (1274, 0, 0, '2019-05-23 10:26:00', 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1033);
 INSERT INTO control_point VALUES (1275, 0, 1, '2019-05-23 10:31:00', 5, 'San Bernardo, Sevilla', 1033);
 INSERT INTO control_point VALUES (1276, 0, 2, '2019-05-23 10:36:00', 10, 'Torre Sevilla, Sevilla', 1033);
 INSERT INTO control_point VALUES (1277, 0, 0, '2019-02-28 12:32:00', 0, 'El Porvenir, Sevilla', 1034);
-INSERT INTO control_point VALUES (1278, 0, 1, '2019-02-28 12:37:00', 5, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1034);
+INSERT INTO control_point VALUES (1278, 0, 1, '2019-02-28 12:37:00', 5, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1034);
 INSERT INTO control_point VALUES (1279, 0, 0, '2019-05-06 12:31:00', 0, 'Montequinto, Sevilla', 1035);
 INSERT INTO control_point VALUES (1280, 0, 1, '2019-05-06 12:36:00', 5, 'Avenida del Cid, Sevilla', 1035);
 INSERT INTO control_point VALUES (1281, 0, 2, '2019-05-06 12:41:00', 10, 'Gran Plaza, Sevilla', 1035);
 INSERT INTO control_point VALUES (1282, 0, 0, '2019-02-23 12:12:00', 0, 'San Bernardo, Sevilla', 1036);
 INSERT INTO control_point VALUES (1283, 0, 1, '2019-02-23 12:17:00', 5, 'El Porvenir, Sevilla', 1036);
 INSERT INTO control_point VALUES (1284, 0, 0, '2019-05-07 10:33:00', 0, 'Montequinto, Sevilla', 1037);
-INSERT INTO control_point VALUES (1285, 0, 1, '2019-05-07 10:38:00', 5, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1037);
+INSERT INTO control_point VALUES (1285, 0, 1, '2019-05-07 10:38:00', 5, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1037);
 INSERT INTO control_point VALUES (1286, 0, 2, '2019-05-07 10:43:00', 10, 'Avenida del Cid, Sevilla', 1037);
 INSERT INTO control_point VALUES (1287, 0, 3, '2019-05-07 10:48:00', 15, 'Camas, Sevilla', 1037);
 
@@ -611,35 +656,35 @@ INSERT INTO control_point VALUES (1287, 0, 3, '2019-05-07 10:48:00', 15, 'Camas,
 -- Data for Name: driver; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO driver VALUES (825, 0, 'Seville', 'Spain', 0, 'Alma', NULL, '640405537', 'JimÈnez', 725, 'ES3095323518908743580639', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
-INSERT INTO driver VALUES (826, 0, 'Seville', 'Spain', 0, 'Alberto', NULL, '654144610', 'RodrÌguez', 726, 'ES2238046449658513911483', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
+INSERT INTO driver VALUES (825, 0, 'Seville', 'Spain', 0, 'Alma', NULL, '640405537', 'Jim√©nez', 725, 'ES3095323518908743580639', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
+INSERT INTO driver VALUES (826, 0, 'Seville', 'Spain', 0, 'Alberto', NULL, '654144610', 'Rodr√≠guez', 726, 'ES2238046449658513911483', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
 INSERT INTO driver VALUES (827, 0, 'Seville', 'Spain', 0, 'Maia', NULL, '620277274', 'Carmona', 727, 'ES2862341402789352661409', 100, false, 294, 6, 2019, '4622016636569655', true, true, true);
 INSERT INTO driver VALUES (828, 0, 'Seville', 'Spain', 0, 'Triana', NULL, '632493243', 'Ferrer', 728, 'ES4246085616439102150472', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
-INSERT INTO driver VALUES (829, 0, 'Seville', 'Spain', 0, '¡ngel', NULL, '615856230', 'Campos', 729, 'ES5644708054368607765159', 100, true, 294, 6, 2019, '4622016636569655', true, true, true);
+INSERT INTO driver VALUES (829, 0, 'Seville', 'Spain', 0, '√Ångel', NULL, '615856230', 'Campos', 729, 'ES5644708054368607765159', 100, true, 294, 6, 2019, '4622016636569655', true, true, true);
 INSERT INTO driver VALUES (830, 0, 'Seville', 'Spain', 0, 'Jimena', NULL, '682245974', 'Molina', 730, 'ES8127093448377615421228', 100, false, 294, 6, 2019, '4622016636569655', false, true, true);
 INSERT INTO driver VALUES (831, 0, 'Seville', 'Spain', 0, 'Gael', NULL, '617405915', 'Lorenzo', 731, 'ES1193184272139599841029', 100, false, 294, 6, 2019, '4622016636569655', true, true, true);
-INSERT INTO driver VALUES (832, 0, 'Seville', 'Spain', 0, 'Sa˙l', NULL, '628417876', 'Carmona', 732, 'ES2786160292029640015137', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
+INSERT INTO driver VALUES (832, 0, 'Seville', 'Spain', 0, 'Sa√∫l', NULL, '628417876', 'Carmona', 732, 'ES2786160292029640015137', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
 INSERT INTO driver VALUES (833, 0, 'Seville', 'Spain', 0, 'Candela', NULL, '649712053', 'Ferrer', 733, 'ES8572433980384208600769', 100, true, 294, 6, 2019, '4622016636569655', true, true, false);
-INSERT INTO driver VALUES (834, 0, 'Seville', 'Spain', 0, 'Alexia', NULL, '663074604', 'PÈrez', 734, 'ES1367560513161742701021', 100, false, 294, 6, 2019, '4622016636569655', true, false, false);
-INSERT INTO driver VALUES (835, 0, 'Seville', 'Spain', 0, 'Sa˙l', NULL, '621948021', 'BenÌtez', 735, 'ES6941738794341152111226', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
+INSERT INTO driver VALUES (834, 0, 'Seville', 'Spain', 0, 'Alexia', NULL, '663074604', 'P√©rez', 734, 'ES1367560513161742701021', 100, false, 294, 6, 2019, '4622016636569655', true, false, false);
+INSERT INTO driver VALUES (835, 0, 'Seville', 'Spain', 0, 'Sa√∫l', NULL, '621948021', 'Ben√≠tez', 735, 'ES6941738794341152111226', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
 INSERT INTO driver VALUES (836, 0, 'Seville', 'Spain', 0, 'Aurora', NULL, '672243159', 'Ramos', 736, 'ES9105631265869488783950', 100, false, 294, 6, 2019, '4622016636569655', false, true, true);
-INSERT INTO driver VALUES (837, 0, 'Seville', 'Spain', 0, 'Clara', NULL, '639206497', 'PÈrez', 737, 'ES1039140056872471680236', 100, false, 294, 6, 2019, '4622016636569655', true, false, true);
-INSERT INTO driver VALUES (838, 0, 'Seville', 'Spain', 0, '¡ngela', NULL, '693691988', 'Soler', 738, 'ES1949758627126775274669', 100, false, 294, 6, 2019, '4622016636569655', false, false, true);
-INSERT INTO driver VALUES (839, 0, 'Seville', 'Spain', 0, '¡ngel', NULL, '668692456', 'JimÈnez', 739, 'ES3975201429538546532203', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
+INSERT INTO driver VALUES (837, 0, 'Seville', 'Spain', 0, 'Clara', NULL, '639206497', 'P√©rez', 737, 'ES1039140056872471680236', 100, false, 294, 6, 2019, '4622016636569655', true, false, true);
+INSERT INTO driver VALUES (838, 0, 'Seville', 'Spain', 0, '√Ångela', NULL, '693691988', 'Soler', 738, 'ES1949758627126775274669', 100, false, 294, 6, 2019, '4622016636569655', false, false, true);
+INSERT INTO driver VALUES (839, 0, 'Seville', 'Spain', 0, '√Ångel', NULL, '668692456', 'Jim√©nez', 739, 'ES3975201429538546532203', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
 INSERT INTO driver VALUES (840, 0, 'Seville', 'Spain', 0, 'Mar', NULL, '643205621', 'Vargas', 740, 'ES8885163799705155611846', 100, false, 294, 6, 2019, '4622016636569655', true, true, true);
 INSERT INTO driver VALUES (841, 0, 'Seville', 'Spain', 0, 'Luna', NULL, '679106462', 'Duran', 741, 'ES3517285968963317247596', 100, true, 294, 6, 2019, '4622016636569655', true, false, true);
 INSERT INTO driver VALUES (842, 0, 'Seville', 'Spain', 0, 'Candela', NULL, '614959833', 'Ortega', 742, 'ES2123145534293376200582', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
 INSERT INTO driver VALUES (843, 0, 'Seville', 'Spain', 0, 'Jaime', NULL, '617739870', 'Molina', 743, 'ES8948368148478622943493', 100, true, 294, 6, 2019, '4622016636569655', true, false, true);
-INSERT INTO driver VALUES (844, 0, 'Seville', 'Spain', 0, 'AndrÈs', NULL, '624515712', 'Mora', 744, 'ES6118729579282737609306', 100, true, 294, 6, 2019, '4622016636569655', true, false, true);
+INSERT INTO driver VALUES (844, 0, 'Seville', 'Spain', 0, 'Andr√©s', NULL, '624515712', 'Mora', 744, 'ES6118729579282737609306', 100, true, 294, 6, 2019, '4622016636569655', true, false, true);
 INSERT INTO driver VALUES (845, 0, 'Seville', 'Spain', 0, 'Manuel', NULL, '665266728', 'Cortes', 745, 'ES5566254783292735403338', 100, true, 294, 6, 2019, '4622016636569655', true, true, false);
 INSERT INTO driver VALUES (846, 0, 'Seville', 'Spain', 0, 'Laia', NULL, '625762777', 'Castillo', 746, 'ES3415590447380463555890', 100, true, 294, 6, 2019, '4622016636569655', false, false, true);
 INSERT INTO driver VALUES (847, 0, 'Seville', 'Spain', 0, 'Chloe', NULL, '610191303', 'Santiago', 747, 'ES3966006178463806289841', 100, true, 294, 6, 2019, '4622016636569655', true, true, true);
-INSERT INTO driver VALUES (848, 0, 'Seville', 'Spain', 0, 'Antonio', NULL, '661232658', 'GarcÌa', 748, 'ES6843803865028953109309', 100, true, 294, 6, 2019, '4622016636569655', true, true, false);
-INSERT INTO driver VALUES (849, 0, 'Seville', 'Spain', 0, 'Cayetana', NULL, '646132882', 'JimÈnez', 749, 'ES5563089114520855144651', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
-INSERT INTO driver VALUES (850, 0, 'Seville', 'Spain', 0, 'Luca', NULL, '689099192', '¡lvarez', 750, 'ES8147502254498851506319', 100, false, 294, 6, 2019, '4622016636569655', true, false, false);
+INSERT INTO driver VALUES (848, 0, 'Seville', 'Spain', 0, 'Antonio', NULL, '661232658', 'Garc√≠a', 748, 'ES6843803865028953109309', 100, true, 294, 6, 2019, '4622016636569655', true, true, false);
+INSERT INTO driver VALUES (849, 0, 'Seville', 'Spain', 0, 'Cayetana', NULL, '646132882', 'Jim√©nez', 749, 'ES5563089114520855144651', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
+INSERT INTO driver VALUES (850, 0, 'Seville', 'Spain', 0, 'Luca', NULL, '689099192', '√Ålvarez', 750, 'ES8147502254498851506319', 100, false, 294, 6, 2019, '4622016636569655', true, false, false);
 INSERT INTO driver VALUES (851, 0, 'Seville', 'Spain', 0, 'Isabella', NULL, '670924771', 'Sanz', 751, 'ES9999886938132827166281', 100, false, 294, 6, 2019, '4622016636569655', false, true, true);
 INSERT INTO driver VALUES (852, 0, 'Seville', 'Spain', 0, 'Ian', NULL, '682692773', 'Caballero', 752, 'ES3739329214052657067428', 100, true, 294, 6, 2019, '4622016636569655', true, true, true);
-INSERT INTO driver VALUES (853, 0, 'Seville', 'Spain', 0, 'Nadia', NULL, '690154637', 'Ib·Òez', 753, 'ES4820611356914699359938', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
+INSERT INTO driver VALUES (853, 0, 'Seville', 'Spain', 0, 'Nadia', NULL, '690154637', 'Ib√°√±ez', 753, 'ES4820611356914699359938', 100, false, 294, 6, 2019, '4622016636569655', true, true, false);
 INSERT INTO driver VALUES (854, 0, 'Seville', 'Spain', 0, 'Ariadna', NULL, '625610737', 'Flores', 754, 'ES1759724345784718852778', 100, true, 294, 6, 2019, '4622016636569655', false, false, false);
 
 
@@ -682,76 +727,76 @@ INSERT INTO hibernate_sequences VALUES ('domain_entity', 1);
 -- Data for Name: passenger; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO passenger VALUES (855, 0, 'Seville', 'Spain', 0, 'Abraham', NULL, '654434637', '¡lvarez', 755, 'ES8408055697406784917419', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (856, 0, 'Seville', 'Spain', 0, 'Thiago', NULL, '634306984', 'V·zquez', 756, 'ES5229187690566001317133', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (855, 0, 'Seville', 'Spain', 0, 'Abraham', NULL, '654434637', '√Ålvarez', 755, 'ES8408055697406784917419', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (856, 0, 'Seville', 'Spain', 0, 'Thiago', NULL, '634306984', 'V√°zquez', 756, 'ES5229187690566001317133', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (857, 0, 'Seville', 'Spain', 0, 'Lucas', NULL, '667871572', 'Sanz', 757, 'ES5157936338738300694651', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (858, 0, 'Seville', 'Spain', 0, 'Enzo', NULL, '664045088', 'Serrano', 758, 'ES5053740938509372853851', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (859, 0, 'Seville', 'Spain', 0, 'Chloe', NULL, '642362535', 'S·nchez', 759, 'ES5359159482982257544284', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (860, 0, 'Seville', 'Spain', 0, 'Vega', NULL, '619983943', 'LÛpez', 760, 'ES8031237238497234716456', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (861, 0, 'Seville', 'Spain', 0, 'Triana', NULL, '690271953', 'MÈndez', 761, 'ES7679489816979647764811', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (859, 0, 'Seville', 'Spain', 0, 'Chloe', NULL, '642362535', 'S√°nchez', 759, 'ES5359159482982257544284', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (860, 0, 'Seville', 'Spain', 0, 'Vega', NULL, '619983943', 'L√≥pez', 760, 'ES8031237238497234716456', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (861, 0, 'Seville', 'Spain', 0, 'Triana', NULL, '690271953', 'M√©ndez', 761, 'ES7679489816979647764811', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (862, 0, 'Seville', 'Spain', 0, 'India', NULL, '672870813', 'Hidalgo', 762, 'ES1039192786104453942944', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (863, 0, 'Seville', 'Spain', 0, 'Alicia', NULL, '692694781', 'Ramos', 763, 'ES2886479049663571524874', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (864, 0, 'Seville', 'Spain', 0, 'Mireia', NULL, '690026300', 'Soto', 764, 'ES1140855348904763691732', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (865, 0, 'Seville', 'Spain', 0, 'Ismael', NULL, '625232542', 'Vargas', 765, 'ES1524843636665199153404', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (866, 0, 'Seville', 'Spain', 0, 'MarÌa', NULL, '699548467', 'Blanco', 766, 'ES5412231591667313653660', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (866, 0, 'Seville', 'Spain', 0, 'Mar√≠a', NULL, '699548467', 'Blanco', 766, 'ES5412231591667313653660', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (867, 0, 'Seville', 'Spain', 0, 'Daniela', NULL, '640335617', 'Campos', 767, 'ES8751565940037634933044', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (868, 0, 'Seville', 'Spain', 0, 'Jimena', NULL, '678722497', 'Castro', 768, 'ES1349159907772641535844', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (869, 0, 'Seville', 'Spain', 0, 'SofÌa', NULL, '626042836', 'M·rquez', 769, 'ES2257185910988459399214', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (869, 0, 'Seville', 'Spain', 0, 'Sof√≠a', NULL, '626042836', 'M√°rquez', 769, 'ES2257185910988459399214', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (870, 0, 'Seville', 'Spain', 0, 'Alejandra', NULL, '652787527', 'Herrero', 770, 'ES7718515175075324863660', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (871, 0, 'Seville', 'Spain', 0, 'Carla', NULL, '695840413', 'LÛpez', 771, 'ES6778982499699376721894', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (871, 0, 'Seville', 'Spain', 0, 'Carla', NULL, '695840413', 'L√≥pez', 771, 'ES6778982499699376721894', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (872, 0, 'Seville', 'Spain', 0, 'Luis', NULL, '683876488', 'Diaz', 772, 'ES1558388485805436644022', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (873, 0, 'Seville', 'Spain', 0, 'Carlota', NULL, '662988212', 'GutiÈrrez', 773, 'ES1690320983705211902414', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (874, 0, 'Seville', 'Spain', 0, 'Luis', NULL, '684944996', 'LÛpez', 774, 'ES4502534533246279610317', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (873, 0, 'Seville', 'Spain', 0, 'Carlota', NULL, '662988212', 'Guti√©rrez', 773, 'ES1690320983705211902414', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (874, 0, 'Seville', 'Spain', 0, 'Luis', NULL, '684944996', 'L√≥pez', 774, 'ES4502534533246279610317', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (875, 0, 'Seville', 'Spain', 0, 'Celia', NULL, '696590113', 'Reyes', 775, 'ES6801061014458725279102', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (876, 0, 'Seville', 'Spain', 0, 'Iris', NULL, '684376243', 'Hern·ndez', 776, 'ES1219617169523224656250', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (876, 0, 'Seville', 'Spain', 0, 'Iris', NULL, '684376243', 'Hern√°ndez', 776, 'ES1219617169523224656250', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (877, 0, 'Seville', 'Spain', 0, 'Camila', NULL, '658570893', 'Vargas', 777, 'ES4252462239150679433548', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (878, 0, 'Seville', 'Spain', 0, 'Carolina', NULL, '625288441', 'Santana', 778, 'ES3341768261320370375524', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (879, 0, 'Seville', 'Spain', 0, 'Marina', NULL, '628684106', 'Castro', 779, 'ES1808312427902110461377', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (880, 0, 'Seville', 'Spain', 0, 'Ainara', NULL, '629259381', 'Lozano', 780, 'ES6262764909796544247528', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (881, 0, 'Seville', 'Spain', 0, 'Arya', NULL, '640978000', 'Fuentes', 781, 'ES8475522215544704191222', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (882, 0, 'Seville', 'Spain', 0, 'Bruno', NULL, '663403167', 'Molina', 782, 'ES1624221389913851584430', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (883, 0, 'Seville', 'Spain', 0, 'Noel', NULL, '612052852', 'S·nchez', 783, 'ES4617283855881299240722', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (883, 0, 'Seville', 'Spain', 0, 'Noel', NULL, '612052852', 'S√°nchez', 783, 'ES4617283855881299240722', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (884, 0, 'Seville', 'Spain', 0, 'Francisco', NULL, '626174096', 'Cruz', 784, 'ES5519548583595898589764', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (885, 0, 'Seville', 'Spain', 0, 'Juan', NULL, '690820811', 'Gil', 785, 'ES5926245004383835578776', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (886, 0, 'Seville', 'Spain', 0, 'Santiago', NULL, '655249161', 'Herrero', 786, 'ES3365059864948235725017', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (887, 0, 'Seville', 'Spain', 0, 'Alexia', NULL, '650734308', 'Cruz', 787, 'ES9663089992996028827200', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (888, 0, 'Seville', 'Spain', 0, 'Arlet', NULL, '615462839', 'Parra', 788, 'ES1324766698799941731027', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (889, 0, 'Seville', 'Spain', 0, 'MÌa', NULL, '646876909', 'Romero', 789, 'ES4196692511567813597934', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (890, 0, 'Seville', 'Spain', 0, 'Aina', NULL, '684295076', 'LeÛn', 790, 'ES2208938344064352088455', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (891, 0, 'Seville', 'Spain', 0, 'Berta', NULL, '672102852', 'N˙Òez', 791, 'ES7402461388232894081430', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (889, 0, 'Seville', 'Spain', 0, 'M√≠a', NULL, '646876909', 'Romero', 789, 'ES4196692511567813597934', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (890, 0, 'Seville', 'Spain', 0, 'Aina', NULL, '684295076', 'Le√≥n', 790, 'ES2208938344064352088455', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (891, 0, 'Seville', 'Spain', 0, 'Berta', NULL, '672102852', 'N√∫√±ez', 791, 'ES7402461388232894081430', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (892, 0, 'Seville', 'Spain', 0, 'Leyre', NULL, '657239549', 'Bravo', 792, 'ES2766130436480607230552', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (893, 0, 'Seville', 'Spain', 0, 'Paula', NULL, '695174278', 'BenÌtez', 793, 'ES3253185698840546912747', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (894, 0, 'Seville', 'Spain', 0, 'Alicia', NULL, '674549786', 'Rom·n', 794, 'ES9877751274453464793789', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (895, 0, 'Seville', 'Spain', 0, 'MÌa', NULL, '644865515', 'LeÛn', 795, 'ES8325084515071703040103', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (896, 0, 'Seville', 'Spain', 0, 'Nicol·s', NULL, '652669653', '¡lvarez', 796, 'ES8392645097799009595121', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (893, 0, 'Seville', 'Spain', 0, 'Paula', NULL, '695174278', 'Ben√≠tez', 793, 'ES3253185698840546912747', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (894, 0, 'Seville', 'Spain', 0, 'Alicia', NULL, '674549786', 'Rom√°n', 794, 'ES9877751274453464793789', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (895, 0, 'Seville', 'Spain', 0, 'M√≠a', NULL, '644865515', 'Le√≥n', 795, 'ES8325084515071703040103', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (896, 0, 'Seville', 'Spain', 0, 'Nicol√°s', NULL, '652669653', '√Ålvarez', 796, 'ES8392645097799009595121', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (897, 0, 'Seville', 'Spain', 0, 'India', NULL, '620284004', 'Hidalgo', 797, 'ES1212777392138645630106', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (898, 0, 'Seville', 'Spain', 0, 'Marco', NULL, '696470509', 'Alonso', 798, 'ES6444315931510018204383', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (899, 0, 'Seville', 'Spain', 0, 'Alberto', NULL, '694420748', 'Prieto', 799, 'ES3908106567616180528757', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (900, 0, 'Seville', 'Spain', 0, 'Nadia', NULL, '689755210', 'Pastor', 800, 'ES2564039950428658225571', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (901, 0, 'Seville', 'Spain', 0, 'Vega', NULL, '697643836', 'Prieto', 801, 'ES3373896132946574629079', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (902, 0, 'Seville', 'Spain', 0, 'Vera', NULL, '658738140', 'Castro', 802, 'ES1143215576703869202279', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (903, 0, 'Seville', 'Spain', 0, 'Vera', NULL, '626591154', 'MartÌnez', 803, 'ES1389259438309038818679', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (903, 0, 'Seville', 'Spain', 0, 'Vera', NULL, '626591154', 'Mart√≠nez', 803, 'ES1389259438309038818679', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (904, 0, 'Seville', 'Spain', 0, 'Isaac', NULL, '682959383', 'Nieto', 804, 'ES9853212627200077210002', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (905, 0, 'Seville', 'Spain', 0, 'Nora', NULL, '693714676', 'Cano', 805, 'ES7172928255396426116799', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (906, 0, 'Seville', 'Spain', 0, 'Celia', NULL, '656048475', 'Gallego', 806, 'ES5802998331444471940343', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (907, 0, 'Seville', 'Spain', 0, 'Lola', NULL, '655591553', 'Ortiz', 807, 'ES8380035215543649794959', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (908, 0, 'Seville', 'Spain', 0, 'Lara', NULL, '662182839', 'Nieto', 808, 'ES2676349176768662289920', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (909, 0, 'Seville', 'Spain', 0, 'Gabriel', NULL, '671637799', 'N˙Òez', 809, 'ES5001368744613263452529', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (910, 0, 'Seville', 'Spain', 0, 'Daniela', NULL, '645707805', 'LeÛn', 810, 'ES3044758848707950815140', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (909, 0, 'Seville', 'Spain', 0, 'Gabriel', NULL, '671637799', 'N√∫√±ez', 809, 'ES5001368744613263452529', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (910, 0, 'Seville', 'Spain', 0, 'Daniela', NULL, '645707805', 'Le√≥n', 810, 'ES3044758848707950815140', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (911, 0, 'Seville', 'Spain', 0, 'Jordi', NULL, '626898911', 'Vega', 811, 'ES4954971677259966318003', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (912, 0, 'Seville', 'Spain', 0, 'Aina', NULL, '631080688', 'Lorenzo', 812, 'ES8469832801229573675301', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (913, 0, 'Seville', 'Spain', 0, 'Carlos', NULL, '645447772', 'MuÒoz', 813, 'ES9506599477981730026226', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (913, 0, 'Seville', 'Spain', 0, 'Carlos', NULL, '645447772', 'Mu√±oz', 813, 'ES9506599477981730026226', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (914, 0, 'Seville', 'Spain', 0, 'Manuel', NULL, '698408883', 'Torres', 814, 'ES1438770891954632695684', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (915, 0, 'Seville', 'Spain', 0, 'Derek', NULL, '644917108', 'Lorenzo', 815, 'ES4693957730502635163002', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (916, 0, 'Seville', 'Spain', 0, 'Aitor', NULL, '622339205', '¡lvarez', 816, 'ES2822882765541037572685', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (916, 0, 'Seville', 'Spain', 0, 'Aitor', NULL, '622339205', '√Ålvarez', 816, 'ES2822882765541037572685', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (917, 0, 'Seville', 'Spain', 0, 'Diana', NULL, '633397382', 'Navarro', 817, 'ES2907060733821880919660', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (918, 0, 'Seville', 'Spain', 0, 'Antonio', NULL, '666402329', 'Diaz', 818, 'ES7888777517795993943382', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (919, 0, 'Seville', 'Spain', 0, 'Irene', NULL, '669590010', 'MuÒoz', 819, 'ES8484509267470530945255', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (919, 0, 'Seville', 'Spain', 0, 'Irene', NULL, '669590010', 'Mu√±oz', 819, 'ES8484509267470530945255', 100, 294, 6, 2019, '4622016636569655');
 INSERT INTO passenger VALUES (920, 0, 'Seville', 'Spain', 0, 'Abril', NULL, '696114783', 'Sanz', 820, 'ES2476540107604975039882', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (921, 0, 'Seville', 'Spain', 0, 'LucÌa', NULL, '620235850', 'Bravo', 821, 'ES5115918832219442362940', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (922, 0, 'Seville', 'Spain', 0, 'AarÛn', NULL, '624966665', 'Montero', 822, 'ES4066394644995686744575', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (923, 0, 'Seville', 'Spain', 0, 'Iv·n', NULL, '640782008', 'Pascual', 823, 'ES2014302690692452584269', 100, 294, 6, 2019, '4622016636569655');
-INSERT INTO passenger VALUES (924, 0, 'Seville', 'Spain', 0, 'LucÌa', NULL, '692872483', 'Moya', 824, 'ES4658556624044855391375', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (921, 0, 'Seville', 'Spain', 0, 'Luc√≠a', NULL, '620235850', 'Bravo', 821, 'ES5115918832219442362940', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (922, 0, 'Seville', 'Spain', 0, 'Aar√≥n', NULL, '624966665', 'Montero', 822, 'ES4066394644995686744575', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (923, 0, 'Seville', 'Spain', 0, 'Iv√°n', NULL, '640782008', 'Pascual', 823, 'ES2014302690692452584269', 100, 294, 6, 2019, '4622016636569655');
+INSERT INTO passenger VALUES (924, 0, 'Seville', 'Spain', 0, 'Luc√≠a', NULL, '692872483', 'Moya', 824, 'ES4658556624044855391375', 100, 294, 6, 2019, '4622016636569655');
 
 
 --
@@ -761,33 +806,33 @@ INSERT INTO passenger VALUES (924, 0, 'Seville', 'Spain', 0, 'LucÌa', NULL, '692
 --
 
 INSERT INTO reservation VALUES (1288, 0, 'Sevilla Este, Sevilla', false, false, 2, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 3, 855, 956);
-INSERT INTO reservation VALUES (1289, 0, 'El Porvenir, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 2, 856, 958);
+INSERT INTO reservation VALUES (1289, 0, 'El Porvenir, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 2, 856, 958);
 INSERT INTO reservation VALUES (1290, 0, 'Macarena, Sevilla', false, false, 3, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 3, 857, 982);
-INSERT INTO reservation VALUES (1291, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 3, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 857, 1031);
+INSERT INTO reservation VALUES (1291, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 3, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 857, 1031);
 INSERT INTO reservation VALUES (1292, 0, 'Macarena, Sevilla', false, false, 3, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 1, 857, 982);
 INSERT INTO reservation VALUES (1293, 0, 'Gran Plaza, Sevilla', false, false, 3, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 3, 858, 991);
 INSERT INTO reservation VALUES (1294, 0, 'Montequinto, Sevilla', false, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 0, 859, 1024);
-INSERT INTO reservation VALUES (1295, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 859, 1016);
+INSERT INTO reservation VALUES (1295, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 859, 1016);
 INSERT INTO reservation VALUES (1296, 0, 'El Porvenir, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 0, 859, 1010);
 INSERT INTO reservation VALUES (1297, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 1, 0, 860, 1013);
 INSERT INTO reservation VALUES (1298, 0, 'Calle Jilguero, Sevilla', false, false, 3, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 861, 1015);
-INSERT INTO reservation VALUES (1299, 0, 'Gran Plaza, Sevilla', false, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 862, 1019);
+INSERT INTO reservation VALUES (1299, 0, 'Gran Plaza, Sevilla', false, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 862, 1019);
 INSERT INTO reservation VALUES (1300, 0, 'Felipe II, Sevilla', false, false, 3, 'Gran Plaza, Sevilla', 1.1000000000000001, 1, 3, 862, 1014);
-INSERT INTO reservation VALUES (1301, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 3, 862, 999);
+INSERT INTO reservation VALUES (1301, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 3, 862, 999);
 INSERT INTO reservation VALUES (1302, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 0, 863, 1018);
 INSERT INTO reservation VALUES (1303, 0, 'Montequinto, Sevilla', false, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 2, 863, 1024);
 INSERT INTO reservation VALUES (1304, 0, 'Montequinto, Sevilla', false, false, 0, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 864, 975);
 INSERT INTO reservation VALUES (1305, 0, 'Camas, Sevilla', false, false, 2, 'Gran Plaza, Sevilla', 1.1000000000000001, 1, 2, 865, 1032);
-INSERT INTO reservation VALUES (1306, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 866, 1016);
+INSERT INTO reservation VALUES (1306, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 866, 1016);
 INSERT INTO reservation VALUES (1307, 0, 'Plaza del Duque de la Victoria, Sevilla', false, false, 1, 'Sevilla Este, Sevilla', 1.1000000000000001, 1, 2, 867, 1006);
 INSERT INTO reservation VALUES (1308, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 1, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 1, 0, 868, 985);
-INSERT INTO reservation VALUES (1309, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 2, 868, 1028);
+INSERT INTO reservation VALUES (1309, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 2, 868, 1028);
 INSERT INTO reservation VALUES (1310, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 869, 955);
 INSERT INTO reservation VALUES (1311, 0, 'Felipe II, Sevilla', false, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 1, 0, 869, 973);
 INSERT INTO reservation VALUES (1312, 0, 'Montequinto, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 869, 1008);
 INSERT INTO reservation VALUES (1313, 0, 'Torre Sevilla, Sevilla', false, false, 2, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 1, 0, 870, 972);
 INSERT INTO reservation VALUES (1314, 0, 'Camas, Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 2, 871, 990);
-INSERT INTO reservation VALUES (1315, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 0, 872, 1000);
+INSERT INTO reservation VALUES (1315, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 0, 872, 1000);
 INSERT INTO reservation VALUES (1316, 0, 'Gran Plaza, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 3, 873, 1035);
 INSERT INTO reservation VALUES (1317, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 874, 955);
 INSERT INTO reservation VALUES (1318, 0, 'Sevilla Este, Sevilla', false, false, 1, 'Montequinto, Sevilla', 1.1000000000000001, 1, 3, 874, 995);
@@ -795,11 +840,11 @@ INSERT INTO reservation VALUES (1319, 0, 'Macarena, Sevilla', false, false, 3, '
 INSERT INTO reservation VALUES (1320, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 875, 955);
 INSERT INTO reservation VALUES (1321, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 1, 875, 955);
 INSERT INTO reservation VALUES (1322, 0, 'Plaza del Duque de la Victoria, Sevilla', false, false, 3, 'Calle Jilguero, Sevilla', 1.1000000000000001, 1, 1, 875, 1022);
-INSERT INTO reservation VALUES (1323, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 1, 876, 984);
-INSERT INTO reservation VALUES (1324, 0, 'Torre Sevilla, Sevilla', false, false, 3, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 876, 981);
+INSERT INTO reservation VALUES (1323, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 1, 876, 984);
+INSERT INTO reservation VALUES (1324, 0, 'Torre Sevilla, Sevilla', false, false, 3, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 876, 981);
 INSERT INTO reservation VALUES (1325, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 877, 955);
-INSERT INTO reservation VALUES (1326, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 1, 877, 1007);
-INSERT INTO reservation VALUES (1327, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 878, 968);
+INSERT INTO reservation VALUES (1326, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 1, 877, 1007);
+INSERT INTO reservation VALUES (1327, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 878, 968);
 INSERT INTO reservation VALUES (1328, 0, 'El Porvenir, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 1, 878, 1010);
 INSERT INTO reservation VALUES (1329, 0, 'Camas, Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 878, 990);
 INSERT INTO reservation VALUES (1330, 0, 'Sevilla Este, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 879, 983);
@@ -808,43 +853,43 @@ INSERT INTO reservation VALUES (1332, 0, 'Macarena, Sevilla', false, false, 3, '
 INSERT INTO reservation VALUES (1333, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 1, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 1, 1, 881, 985);
 INSERT INTO reservation VALUES (1334, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 882, 988);
 INSERT INTO reservation VALUES (1335, 0, 'El Porvenir, Sevilla', false, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 0, 882, 1036);
-INSERT INTO reservation VALUES (1336, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 3, 883, 968);
+INSERT INTO reservation VALUES (1336, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 3, 883, 968);
 INSERT INTO reservation VALUES (1337, 0, 'Avenida de El Greco, Sevilla', false, false, 3, 'Macarena, Sevilla', 1.1000000000000001, 1, 0, 883, 977);
 INSERT INTO reservation VALUES (1338, 0, 'Montequinto, Sevilla', false, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 0, 884, 1024);
-INSERT INTO reservation VALUES (1339, 0, 'Torre Sevilla, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 2, 884, 1033);
+INSERT INTO reservation VALUES (1339, 0, 'Torre Sevilla, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 2, 884, 1033);
 INSERT INTO reservation VALUES (1340, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 1, 2, 884, 1030);
-INSERT INTO reservation VALUES (1341, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 0, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 885, 970);
+INSERT INTO reservation VALUES (1341, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 0, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 885, 970);
 INSERT INTO reservation VALUES (1342, 0, 'Felipe II, Sevilla', false, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 1, 0, 885, 973);
-INSERT INTO reservation VALUES (1343, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 2, 886, 1000);
+INSERT INTO reservation VALUES (1343, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 1, 2, 886, 1000);
 INSERT INTO reservation VALUES (1344, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 2, 886, 960);
-INSERT INTO reservation VALUES (1345, 0, 'El Porvenir, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 887, 958);
+INSERT INTO reservation VALUES (1345, 0, 'El Porvenir, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 887, 958);
 INSERT INTO reservation VALUES (1346, 0, 'Sevilla Este, Sevilla', false, false, 1, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 888, 995);
 INSERT INTO reservation VALUES (1347, 0, 'Sevilla Este, Sevilla', false, false, 2, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 888, 956);
 INSERT INTO reservation VALUES (1348, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 2, 889, 955);
-INSERT INTO reservation VALUES (1349, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 1, 889, 1028);
+INSERT INTO reservation VALUES (1349, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 1, 889, 1028);
 INSERT INTO reservation VALUES (1350, 0, 'Camas, Sevilla', false, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 1, 890, 987);
 INSERT INTO reservation VALUES (1351, 0, 'Macarena, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 2, 891, 1017);
-INSERT INTO reservation VALUES (1352, 0, 'Gran Plaza, Sevilla', false, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 3, 891, 1019);
+INSERT INTO reservation VALUES (1352, 0, 'Gran Plaza, Sevilla', false, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 3, 891, 1019);
 INSERT INTO reservation VALUES (1353, 0, 'Macarena, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 891, 1017);
 INSERT INTO reservation VALUES (1354, 0, 'Felipe II, Sevilla', false, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 1, 0, 892, 1003);
 INSERT INTO reservation VALUES (1355, 0, 'Torre Sevilla, Sevilla', false, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 1, 1, 892, 959);
 INSERT INTO reservation VALUES (1356, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 893, 955);
 INSERT INTO reservation VALUES (1357, 0, 'Gran Plaza, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 1, 894, 1035);
 INSERT INTO reservation VALUES (1358, 0, 'Plaza del Duque de la Victoria, Sevilla', false, false, 3, 'Calle Jilguero, Sevilla', 1.1000000000000001, 1, 0, 894, 1022);
-INSERT INTO reservation VALUES (1359, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 895, 1034);
+INSERT INTO reservation VALUES (1359, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 895, 1034);
 INSERT INTO reservation VALUES (1360, 0, 'Sevilla Este, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 1, 895, 983);
 INSERT INTO reservation VALUES (1361, 0, 'Montequinto, Sevilla', false, false, 0, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 1, 896, 998);
-INSERT INTO reservation VALUES (1362, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 896, 1028);
+INSERT INTO reservation VALUES (1362, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 896, 1028);
 INSERT INTO reservation VALUES (1363, 0, 'Sevilla Este, Sevilla', false, false, 2, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 897, 956);
 INSERT INTO reservation VALUES (1364, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 897, 960);
-INSERT INTO reservation VALUES (1365, 0, 'Torre Sevilla, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 2, 897, 1033);
+INSERT INTO reservation VALUES (1365, 0, 'Torre Sevilla, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 2, 897, 1033);
 INSERT INTO reservation VALUES (1366, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 2, 898, 988);
-INSERT INTO reservation VALUES (1367, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 1, 898, 968);
+INSERT INTO reservation VALUES (1367, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 1, 898, 968);
 INSERT INTO reservation VALUES (1368, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 1, 1, 899, 974);
 INSERT INTO reservation VALUES (1369, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'Torre Sevilla, Sevilla', 1.1000000000000001, 1, 3, 899, 1018);
 INSERT INTO reservation VALUES (1370, 0, 'San Bernardo, Sevilla', false, false, 0, 'Sevilla Este, Sevilla', 1.1000000000000001, 1, 1, 899, 989);
-INSERT INTO reservation VALUES (1371, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 900, 984);
-INSERT INTO reservation VALUES (1372, 0, 'Los Arcos, Avenida de AndalucÌa, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 900, 968);
+INSERT INTO reservation VALUES (1371, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 900, 984);
+INSERT INTO reservation VALUES (1372, 0, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', false, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 900, 968);
 INSERT INTO reservation VALUES (1373, 0, 'Plaza del Duque de la Victoria, Sevilla', false, false, 1, 'Sevilla Este, Sevilla', 1.1000000000000001, 1, 0, 901, 1006);
 INSERT INTO reservation VALUES (1374, 0, 'Torre Sevilla, Sevilla', false, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 1, 0, 902, 959);
 INSERT INTO reservation VALUES (1375, 0, 'Gran Plaza, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 903, 1035);
@@ -855,36 +900,36 @@ INSERT INTO reservation VALUES (1379, 0, 'Reina Mercedes (Escuela de Arquitectur
 INSERT INTO reservation VALUES (1380, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 907, 1004);
 INSERT INTO reservation VALUES (1381, 0, 'Montequinto, Sevilla', false, false, 0, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 908, 975);
 INSERT INTO reservation VALUES (1382, 0, 'El Porvenir, Sevilla', false, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 908, 955);
-INSERT INTO reservation VALUES (1383, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 909, 999);
+INSERT INTO reservation VALUES (1383, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 909, 999);
 INSERT INTO reservation VALUES (1384, 0, 'Torre Sevilla, Sevilla', false, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 1, 0, 909, 959);
-INSERT INTO reservation VALUES (1385, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 910, 993);
-INSERT INTO reservation VALUES (1386, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 910, 1007);
+INSERT INTO reservation VALUES (1385, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 910, 993);
+INSERT INTO reservation VALUES (1386, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 910, 1007);
 INSERT INTO reservation VALUES (1387, 0, 'Montequinto, Sevilla', false, false, 1, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 910, 964);
 INSERT INTO reservation VALUES (1388, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 1, 0, 911, 974);
-INSERT INTO reservation VALUES (1389, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 912, 957);
+INSERT INTO reservation VALUES (1389, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 912, 957);
 INSERT INTO reservation VALUES (1390, 0, 'El Porvenir, Sevilla', false, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 0, 912, 1036);
-INSERT INTO reservation VALUES (1391, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 3, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 912, 1031);
-INSERT INTO reservation VALUES (1392, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 913, 957);
-INSERT INTO reservation VALUES (1393, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 913, 957);
+INSERT INTO reservation VALUES (1391, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 3, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 912, 1031);
+INSERT INTO reservation VALUES (1392, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 913, 957);
+INSERT INTO reservation VALUES (1393, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 913, 957);
 INSERT INTO reservation VALUES (1394, 0, 'Sevilla Este, Sevilla', false, false, 2, 'Camas, Sevilla', 1.1000000000000001, 1, 0, 914, 983);
 INSERT INTO reservation VALUES (1395, 0, 'Gran Plaza, Sevilla', false, false, 0, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 1, 0, 914, 1027);
 INSERT INTO reservation VALUES (1396, 0, 'El Porvenir, Sevilla', false, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 1, 0, 915, 1011);
-INSERT INTO reservation VALUES (1397, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 915, 957);
-INSERT INTO reservation VALUES (1398, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 916, 1028);
+INSERT INTO reservation VALUES (1397, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 915, 957);
+INSERT INTO reservation VALUES (1398, 0, 'Avenida de El Greco, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 916, 1028);
 INSERT INTO reservation VALUES (1399, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 1, 0, 916, 974);
 INSERT INTO reservation VALUES (1400, 0, 'Avenida del Cid, Sevilla', false, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 1, 0, 917, 1020);
 INSERT INTO reservation VALUES (1401, 0, 'San Bernardo, Sevilla', false, false, 3, 'Macarena, Sevilla', 1.1000000000000001, 1, 0, 918, 1009);
 INSERT INTO reservation VALUES (1402, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 918, 988);
 INSERT INTO reservation VALUES (1403, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', false, false, 1, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 1, 0, 919, 985);
-INSERT INTO reservation VALUES (1404, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 919, 984);
+INSERT INTO reservation VALUES (1404, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 919, 984);
 INSERT INTO reservation VALUES (1405, 0, 'Avenida de El Greco, Sevilla', false, false, 3, 'Macarena, Sevilla', 1.1000000000000001, 1, 0, 920, 977);
-INSERT INTO reservation VALUES (1406, 0, 'Montequinto, Sevilla', false, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 921, 976);
+INSERT INTO reservation VALUES (1406, 0, 'Montequinto, Sevilla', false, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 1, 0, 921, 976);
 INSERT INTO reservation VALUES (1407, 0, 'Camas, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 922, 1037);
 INSERT INTO reservation VALUES (1408, 0, 'Camas, Sevilla', false, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 1, 0, 922, 990);
 INSERT INTO reservation VALUES (1409, 0, 'Camas, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 922, 1037);
 INSERT INTO reservation VALUES (1410, 0, 'Torre Sevilla, Sevilla', false, false, 2, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 1, 0, 923, 972);
 INSERT INTO reservation VALUES (1411, 0, 'Avenida de El Greco, Sevilla', false, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 1, 0, 923, 1025);
-INSERT INTO reservation VALUES (1412, 0, 'Gran Plaza, Sevilla', false, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 1, 0, 923, 978);
+INSERT INTO reservation VALUES (1412, 0, 'Gran Plaza, Sevilla', false, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 1, 0, 923, 978);
 INSERT INTO reservation VALUES (1413, 0, 'Macarena, Sevilla', false, false, 0, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 924, 962);
 INSERT INTO reservation VALUES (1414, 0, 'Calle Jilguero, Sevilla', false, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 1, 0, 924, 988);
 
@@ -897,34 +942,34 @@ INSERT INTO reservation VALUES (1414, 0, 'Calle Jilguero, Sevilla', false, false
 
 INSERT INTO route VALUES (955, 0, 1, 'SATURDAY', '2019-06-28 19:12:00', 'El Porvenir, Sevilla', '', 5, 10, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 825, 925);
 INSERT INTO route VALUES (956, 0, 4, 'WEDNESDAY', '2019-06-05 16:25:00', 'Sevilla Este, Sevilla', '', 11, 5, false, 2, 'El Porvenir, Sevilla', 1.1000000000000001, 826, 926);
-INSERT INTO route VALUES (957, 0, 4, 'FRIDAY', '2019-02-01 16:02:00', 'Avenida de El Greco, Sevilla', '', 11, 10, false, 2, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 826, 926);
-INSERT INTO route VALUES (958, 0, 4, 'WEDNESDAY', '2019-04-26 08:22:00', 'El Porvenir, Sevilla', '', 4, 15, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 826, 926);
+INSERT INTO route VALUES (957, 0, 4, 'FRIDAY', '2019-02-01 16:02:00', 'Avenida de El Greco, Sevilla', '', 11, 10, false, 2, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 826, 926);
+INSERT INTO route VALUES (958, 0, 4, 'WEDNESDAY', '2019-04-26 08:22:00', 'El Porvenir, Sevilla', '', 4, 15, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 826, 926);
 INSERT INTO route VALUES (959, 0, 4, 'FRIDAY', '2019-01-27 14:21:00', 'Torre Sevilla, Sevilla', '', 7, 10, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 826, 926);
 INSERT INTO route VALUES (960, 0, 4, 'FRIDAY', '2019-06-18 20:40:00', 'Avenida de El Greco, Sevilla', '', 10, 15, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 827, 927);
-INSERT INTO route VALUES (961, 0, 4, 'MONDAY', '2019-04-05 09:12:00', 'Felipe II, Sevilla', '', 5, 15, false, 3, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 827, 927);
+INSERT INTO route VALUES (961, 0, 4, 'MONDAY', '2019-04-05 09:12:00', 'Felipe II, Sevilla', '', 5, 15, false, 3, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 827, 927);
 INSERT INTO route VALUES (962, 0, 4, 'MONDAY', '2019-03-28 06:16:00', 'Macarena, Sevilla', '', 6, 15, false, 0, 'Montequinto, Sevilla', 1.1000000000000001, 827, 927);
 INSERT INTO route VALUES (963, 0, 4, 'SUNDAY', '2019-02-17 20:38:00', 'Avenida de El Greco, Sevilla', '', 5, 5, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 827, 927);
 INSERT INTO route VALUES (964, 0, 1, 'SUNDAY', '2019-03-09 09:27:00', 'Montequinto, Sevilla', '', 11, 15, false, 1, 'Avenida del Cid, Sevilla', 1.1000000000000001, 828, 928);
 INSERT INTO route VALUES (965, 0, 1, 'MONDAY', '2019-05-28 10:02:00', 'Felipe II, Sevilla', '', 5, 10, false, 2, 'Camas, Sevilla', 1.1000000000000001, 828, 928);
-INSERT INTO route VALUES (966, 0, 4, 'TUESDAY', '2019-03-26 18:31:00', 'Felipe II, Sevilla', '', 10, 5, false, 1, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 829, 929);
+INSERT INTO route VALUES (966, 0, 4, 'TUESDAY', '2019-03-26 18:31:00', 'Felipe II, Sevilla', '', 10, 5, false, 1, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 829, 929);
 INSERT INTO route VALUES (967, 0, 4, 'WEDNESDAY', '2019-01-04 20:16:00', 'Macarena, Sevilla', '', 11, 10, false, 3, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 829, 929);
-INSERT INTO route VALUES (968, 0, 4, 'MONDAY', '2019-01-09 10:35:00', 'Los Arcos, Avenida de AndalucÌa, Sevilla', '', 10, 15, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 829, 929);
+INSERT INTO route VALUES (968, 0, 4, 'MONDAY', '2019-01-09 10:35:00', 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', '', 10, 15, false, 3, 'Avenida del Cid, Sevilla', 1.1000000000000001, 829, 929);
 INSERT INTO route VALUES (969, 0, 4, 'THURSDAY', '2019-03-23 08:11:00', 'Avenida del Cid, Sevilla', '', 10, 15, false, 3, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 829, 929);
-INSERT INTO route VALUES (970, 0, 4, 'SATURDAY', '2019-02-26 19:33:00', 'Los Arcos, Avenida de AndalucÌa, Sevilla', '', 5, 10, false, 0, 'El Porvenir, Sevilla', 1.1000000000000001, 830, 930);
+INSERT INTO route VALUES (970, 0, 4, 'SATURDAY', '2019-02-26 19:33:00', 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', '', 5, 10, false, 0, 'El Porvenir, Sevilla', 1.1000000000000001, 830, 930);
 INSERT INTO route VALUES (971, 0, 1, 'WEDNESDAY', '2019-03-09 15:09:00', 'Plaza del Duque de la Victoria, Sevilla', '', 7, 10, false, 3, 'Felipe II, Sevilla', 1.1000000000000001, 831, 931);
 INSERT INTO route VALUES (972, 0, 1, 'THURSDAY', '2019-05-26 20:15:00', 'Torre Sevilla, Sevilla', '', 11, 10, false, 2, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 832, 932);
 INSERT INTO route VALUES (973, 0, 4, 'THURSDAY', '2019-04-13 14:36:00', 'Felipe II, Sevilla', '', 7, 10, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 833, 933);
 INSERT INTO route VALUES (974, 0, 4, 'TUESDAY', '2019-03-24 18:26:00', 'Calle Jilguero, Sevilla', '', 8, 5, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 833, 933);
 INSERT INTO route VALUES (975, 0, 4, 'WEDNESDAY', '2019-06-01 15:37:00', 'Montequinto, Sevilla', '', 3, 10, false, 0, 'Camas, Sevilla', 1.1000000000000001, 833, 933);
-INSERT INTO route VALUES (976, 0, 4, 'TUESDAY', '2019-06-13 10:40:00', 'Montequinto, Sevilla', '', 11, 10, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 834, 934);
+INSERT INTO route VALUES (976, 0, 4, 'TUESDAY', '2019-06-13 10:40:00', 'Montequinto, Sevilla', '', 11, 10, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 834, 934);
 INSERT INTO route VALUES (977, 0, 4, 'SUNDAY', '2019-05-05 09:40:00', 'Avenida de El Greco, Sevilla', '', 4, 10, false, 3, 'Macarena, Sevilla', 1.1000000000000001, 835, 935);
-INSERT INTO route VALUES (978, 0, 4, 'FRIDAY', '2019-04-08 09:36:00', 'Gran Plaza, Sevilla', '', 9, 5, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 835, 935);
+INSERT INTO route VALUES (978, 0, 4, 'FRIDAY', '2019-04-08 09:36:00', 'Gran Plaza, Sevilla', '', 9, 5, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 835, 935);
 INSERT INTO route VALUES (979, 0, 4, 'FRIDAY', '2019-04-24 08:31:00', 'Felipe II, Sevilla', '', 4, 15, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 835, 935);
-INSERT INTO route VALUES (980, 0, 1, 'MONDAY', '2019-04-14 13:37:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 9, 10, false, 0, 'Montequinto, Sevilla', 1.1000000000000001, 836, 936);
-INSERT INTO route VALUES (981, 0, 1, 'SUNDAY', '2019-01-04 19:27:00', 'Torre Sevilla, Sevilla', '', 11, 15, false, 3, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 836, 936);
+INSERT INTO route VALUES (980, 0, 1, 'MONDAY', '2019-04-14 13:37:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 9, 10, false, 0, 'Montequinto, Sevilla', 1.1000000000000001, 836, 936);
+INSERT INTO route VALUES (981, 0, 1, 'SUNDAY', '2019-01-04 19:27:00', 'Torre Sevilla, Sevilla', '', 11, 15, false, 3, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 836, 936);
 INSERT INTO route VALUES (982, 0, 1, 'WEDNESDAY', '2019-02-16 09:16:00', 'Macarena, Sevilla', '', 11, 5, false, 3, 'San Bernardo, Sevilla', 1.1000000000000001, 836, 936);
 INSERT INTO route VALUES (983, 0, 1, 'MONDAY', '2019-05-27 18:18:00', 'Sevilla Este, Sevilla', '', 4, 15, false, 2, 'Camas, Sevilla', 1.1000000000000001, 836, 936);
-INSERT INTO route VALUES (984, 0, 4, 'MONDAY', '2019-03-20 15:23:00', 'Avenida de El Greco, Sevilla', '', 5, 10, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 837, 937);
+INSERT INTO route VALUES (984, 0, 4, 'MONDAY', '2019-03-20 15:23:00', 'Avenida de El Greco, Sevilla', '', 5, 10, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 837, 937);
 INSERT INTO route VALUES (985, 0, 4, 'WEDNESDAY', '2019-02-14 13:15:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 6, 15, false, 1, 'Avenida de El Greco, Sevilla', 1.1000000000000001, 837, 937);
 INSERT INTO route VALUES (986, 0, 4, 'FRIDAY', '2019-02-17 08:29:00', 'San Bernardo, Sevilla', '', 6, 10, false, 3, 'Sevilla Este, Sevilla', 1.1000000000000001, 837, 937);
 INSERT INTO route VALUES (987, 0, 4, 'SUNDAY', '2019-06-09 17:13:00', 'Camas, Sevilla', '', 11, 15, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 838, 938);
@@ -933,33 +978,33 @@ INSERT INTO route VALUES (989, 0, 4, 'WEDNESDAY', '2019-04-04 07:26:00', 'San Be
 INSERT INTO route VALUES (990, 0, 4, 'TUESDAY', '2019-06-17 12:00:00', 'Camas, Sevilla', '', 4, 15, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 838, 938);
 INSERT INTO route VALUES (991, 0, 4, 'TUESDAY', '2019-02-28 07:31:00', 'Gran Plaza, Sevilla', '', 7, 10, false, 3, 'San Bernardo, Sevilla', 1.1000000000000001, 839, 939);
 INSERT INTO route VALUES (992, 0, 4, 'MONDAY', '2019-06-18 14:03:00', 'El Porvenir, Sevilla', '', 3, 5, false, 3, 'Torre Sevilla, Sevilla', 1.1000000000000001, 839, 939);
-INSERT INTO route VALUES (993, 0, 4, 'MONDAY', '2019-02-15 12:27:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 5, 5, false, 2, 'Camas, Sevilla', 1.1000000000000001, 839, 939);
+INSERT INTO route VALUES (993, 0, 4, 'MONDAY', '2019-02-15 12:27:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 5, 5, false, 2, 'Camas, Sevilla', 1.1000000000000001, 839, 939);
 INSERT INTO route VALUES (994, 0, 4, 'SUNDAY', '2019-06-05 13:07:00', 'Montequinto, Sevilla', '', 11, 5, false, 3, 'Gran Plaza, Sevilla', 1.1000000000000001, 840, 940);
 INSERT INTO route VALUES (995, 0, 4, 'WEDNESDAY', '2019-04-02 17:17:00', 'Sevilla Este, Sevilla', '', 3, 5, false, 1, 'Montequinto, Sevilla', 1.1000000000000001, 840, 940);
 INSERT INTO route VALUES (996, 0, 4, 'WEDNESDAY', '2019-04-17 18:28:00', 'Avenida del Cid, Sevilla', '', 7, 15, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 840, 940);
 INSERT INTO route VALUES (997, 0, 1, 'MONDAY', '2019-03-11 11:07:00', 'Gran Plaza, Sevilla', '', 4, 15, false, 2, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 841, 941);
 INSERT INTO route VALUES (998, 0, 1, 'SUNDAY', '2019-05-04 19:10:00', 'Montequinto, Sevilla', '', 9, 10, false, 0, 'Torre Sevilla, Sevilla', 1.1000000000000001, 841, 941);
-INSERT INTO route VALUES (999, 0, 4, 'TUESDAY', '2019-03-18 08:16:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 5, 10, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 842, 942);
-INSERT INTO route VALUES (1000, 0, 4, 'SUNDAY', '2019-01-20 18:17:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 11, 15, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 842, 942);
+INSERT INTO route VALUES (999, 0, 4, 'TUESDAY', '2019-03-18 08:16:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 5, 10, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 842, 942);
+INSERT INTO route VALUES (1000, 0, 4, 'SUNDAY', '2019-01-20 18:17:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 11, 15, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 842, 942);
 INSERT INTO route VALUES (1001, 0, 4, 'MONDAY', '2019-04-28 08:06:00', 'Calle Jilguero, Sevilla', '', 7, 10, false, 0, 'Sevilla Este, Sevilla', 1.1000000000000001, 842, 942);
 INSERT INTO route VALUES (1002, 0, 4, 'THURSDAY', '2019-02-06 15:29:00', 'Plaza del Duque de la Victoria, Sevilla', '', 8, 5, false, 1, 'Torre Sevilla, Sevilla', 1.1000000000000001, 843, 943);
 INSERT INTO route VALUES (1003, 0, 4, 'WEDNESDAY', '2019-03-02 19:26:00', 'Felipe II, Sevilla', '', 7, 10, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 843, 943);
 INSERT INTO route VALUES (1004, 0, 4, 'MONDAY', '2019-02-25 19:07:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 7, 5, false, 2, 'Avenida del Cid, Sevilla', 1.1000000000000001, 843, 943);
 INSERT INTO route VALUES (1005, 0, 4, 'SATURDAY', '2019-01-02 17:05:00', 'Plaza del Duque de la Victoria, Sevilla', '', 4, 10, false, 1, 'Montequinto, Sevilla', 1.1000000000000001, 844, 944);
 INSERT INTO route VALUES (1006, 0, 4, 'SATURDAY', '2019-01-21 07:08:00', 'Plaza del Duque de la Victoria, Sevilla', '', 5, 15, false, 1, 'Sevilla Este, Sevilla', 1.1000000000000001, 844, 944);
-INSERT INTO route VALUES (1007, 0, 4, 'SUNDAY', '2019-03-12 11:39:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 6, 10, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 844, 944);
+INSERT INTO route VALUES (1007, 0, 4, 'SUNDAY', '2019-03-12 11:39:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 6, 10, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 844, 944);
 INSERT INTO route VALUES (1008, 0, 4, 'TUESDAY', '2019-05-10 20:39:00', 'Montequinto, Sevilla', '', 6, 15, false, 2, 'Camas, Sevilla', 1.1000000000000001, 844, 944);
 INSERT INTO route VALUES (1009, 0, 1, 'WEDNESDAY', '2019-04-04 15:29:00', 'San Bernardo, Sevilla', '', 6, 10, false, 3, 'Macarena, Sevilla', 1.1000000000000001, 845, 945);
 INSERT INTO route VALUES (1010, 0, 1, 'THURSDAY', '2019-05-25 09:25:00', 'El Porvenir, Sevilla', '', 7, 5, false, 2, 'Felipe II, Sevilla', 1.1000000000000001, 845, 945);
 INSERT INTO route VALUES (1011, 0, 4, 'SATURDAY', '2019-05-06 19:02:00', 'El Porvenir, Sevilla', '', 11, 5, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 846, 946);
-INSERT INTO route VALUES (1012, 0, 4, 'MONDAY', '2019-02-02 18:27:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 11, 5, false, 1, 'Camas, Sevilla', 1.1000000000000001, 846, 946);
+INSERT INTO route VALUES (1012, 0, 4, 'MONDAY', '2019-02-02 18:27:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 11, 5, false, 1, 'Camas, Sevilla', 1.1000000000000001, 846, 946);
 INSERT INTO route VALUES (1013, 0, 4, 'WEDNESDAY', '2019-06-27 12:28:00', 'Avenida de El Greco, Sevilla', '', 6, 5, false, 1, 'Calle Jilguero, Sevilla', 1.1000000000000001, 846, 946);
 INSERT INTO route VALUES (1014, 0, 4, 'WEDNESDAY', '2019-02-11 14:20:00', 'Felipe II, Sevilla', '', 11, 10, false, 3, 'Gran Plaza, Sevilla', 1.1000000000000001, 846, 946);
 INSERT INTO route VALUES (1015, 0, 4, 'TUESDAY', '2019-06-24 06:06:00', 'Calle Jilguero, Sevilla', '', 4, 15, false, 3, 'Camas, Sevilla', 1.1000000000000001, 847, 947);
-INSERT INTO route VALUES (1016, 0, 4, 'SUNDAY', '2019-03-22 19:11:00', 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', '', 6, 5, false, 2, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 847, 947);
+INSERT INTO route VALUES (1016, 0, 4, 'SUNDAY', '2019-03-22 19:11:00', 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', '', 6, 5, false, 2, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 847, 947);
 INSERT INTO route VALUES (1017, 0, 4, 'FRIDAY', '2019-01-24 14:00:00', 'Macarena, Sevilla', '', 10, 10, false, 3, 'Montequinto, Sevilla', 1.1000000000000001, 847, 947);
 INSERT INTO route VALUES (1018, 0, 4, 'WEDNESDAY', '2019-01-19 11:04:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 10, 5, false, 0, 'Torre Sevilla, Sevilla', 1.1000000000000001, 847, 947);
-INSERT INTO route VALUES (1019, 0, 4, 'FRIDAY', '2019-04-18 15:40:00', 'Gran Plaza, Sevilla', '', 6, 10, false, 0, 'NerviÛn Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 848, 948);
+INSERT INTO route VALUES (1019, 0, 4, 'FRIDAY', '2019-04-18 15:40:00', 'Gran Plaza, Sevilla', '', 6, 10, false, 0, 'Nervi√≥n Plaza, Calle Luis de Morales, Sevilla', 1.1000000000000001, 848, 948);
 INSERT INTO route VALUES (1020, 0, 4, 'FRIDAY', '2019-05-22 18:29:00', 'Avenida del Cid, Sevilla', '', 11, 5, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 848, 948);
 INSERT INTO route VALUES (1021, 0, 4, 'FRIDAY', '2019-06-10 20:02:00', 'Calle Jilguero, Sevilla', '', 7, 15, false, 0, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 848, 948);
 INSERT INTO route VALUES (1022, 0, 4, 'SATURDAY', '2019-06-27 15:29:00', 'Plaza del Duque de la Victoria, Sevilla', '', 11, 10, false, 3, 'Calle Jilguero, Sevilla', 1.1000000000000001, 848, 948);
@@ -968,13 +1013,13 @@ INSERT INTO route VALUES (1024, 0, 1, 'SUNDAY', '2019-01-18 18:21:00', 'Montequi
 INSERT INTO route VALUES (1025, 0, 1, 'WEDNESDAY', '2019-03-22 12:38:00', 'Avenida de El Greco, Sevilla', '', 5, 10, false, 2, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 850, 950);
 INSERT INTO route VALUES (1026, 0, 1, 'FRIDAY', '2019-01-03 20:24:00', 'Torre Sevilla, Sevilla', '', 8, 10, false, 0, 'Avenida del Cid, Sevilla', 1.1000000000000001, 850, 950);
 INSERT INTO route VALUES (1027, 0, 1, 'FRIDAY', '2019-02-23 11:29:00', 'Gran Plaza, Sevilla', '', 11, 15, false, 0, 'Plaza del Duque de la Victoria, Sevilla', 1.1000000000000001, 850, 950);
-INSERT INTO route VALUES (1028, 0, 4, 'MONDAY', '2019-01-05 18:22:00', 'Avenida de El Greco, Sevilla', '', 11, 10, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 851, 951);
+INSERT INTO route VALUES (1028, 0, 4, 'MONDAY', '2019-01-05 18:22:00', 'Avenida de El Greco, Sevilla', '', 11, 10, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 851, 951);
 INSERT INTO route VALUES (1029, 0, 4, 'THURSDAY', '2019-06-01 12:27:00', 'San Bernardo, Sevilla', '', 11, 5, false, 0, 'Sevilla Este, Sevilla', 1.1000000000000001, 851, 951);
 INSERT INTO route VALUES (1030, 0, 4, 'MONDAY', '2019-01-27 10:28:00', 'Avenida de El Greco, Sevilla', '', 3, 5, false, 2, 'Reina Mercedes (Escuela de Arquitectura), Sevilla', 1.1000000000000001, 852, 952);
-INSERT INTO route VALUES (1031, 0, 4, 'SUNDAY', '2019-01-05 15:01:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 7, 15, false, 3, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 852, 952);
+INSERT INTO route VALUES (1031, 0, 4, 'SUNDAY', '2019-01-05 15:01:00', 'Reina Mercedes (Escuela de Arquitectura), Sevilla', '', 7, 15, false, 3, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 852, 952);
 INSERT INTO route VALUES (1032, 0, 4, 'FRIDAY', '2019-03-24 15:37:00', 'Camas, Sevilla', '', 7, 10, false, 2, 'Gran Plaza, Sevilla', 1.1000000000000001, 852, 952);
-INSERT INTO route VALUES (1033, 0, 4, 'WEDNESDAY', '2019-05-23 10:26:00', 'Torre Sevilla, Sevilla', '', 11, 10, false, 1, 'Los Arcos, Avenida de AndalucÌa, Sevilla', 1.1000000000000001, 853, 953);
-INSERT INTO route VALUES (1034, 0, 4, 'MONDAY', '2019-02-28 12:32:00', 'Los Arcos, Avenida de AndalucÌa, Sevilla', '', 11, 5, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 853, 953);
+INSERT INTO route VALUES (1033, 0, 4, 'WEDNESDAY', '2019-05-23 10:26:00', 'Torre Sevilla, Sevilla', '', 11, 10, false, 1, 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', 1.1000000000000001, 853, 953);
+INSERT INTO route VALUES (1034, 0, 4, 'MONDAY', '2019-02-28 12:32:00', 'Los Arcos, Avenida de Andaluc√≠a, Sevilla', '', 11, 5, false, 1, 'El Porvenir, Sevilla', 1.1000000000000001, 853, 953);
 INSERT INTO route VALUES (1035, 0, 4, 'SATURDAY', '2019-05-06 12:31:00', 'Gran Plaza, Sevilla', '', 11, 10, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 853, 953);
 INSERT INTO route VALUES (1036, 0, 1, 'TUESDAY', '2019-02-23 12:12:00', 'El Porvenir, Sevilla', '', 8, 5, false, 0, 'San Bernardo, Sevilla', 1.1000000000000001, 854, 954);
 INSERT INTO route VALUES (1037, 0, 1, 'FRIDAY', '2019-05-07 10:33:00', 'Camas, Sevilla', '', 10, 15, false, 2, 'Montequinto, Sevilla', 1.1000000000000001, 854, 954);
@@ -1512,5 +1557,15 @@ ALTER TABLE ONLY control_point
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
 
+
+-- Completed on 2019-04-12 21:10:17
+
+--
+-- PostgreSQL database dump complete
+--
 
