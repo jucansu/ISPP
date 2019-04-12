@@ -119,8 +119,8 @@
 										</div>
 									</jstl:if>
 								<p>
-									<a href="vehicle/driver/edit.do?vehicleId=${vehicle.id}" class="btn btn-success" role="button">Editar</a> <a
-										href="#" class="btn btn-default" role="button">Eliminar</a>
+									<a href="vehicle/driver/edit.do?vehicleId=${vehicle.id}" class="btn btn-success" role="button">Editar</a> 
+									
 								</p>
 							</div>
 						</div>
