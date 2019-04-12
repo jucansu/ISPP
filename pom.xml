@@ -324,6 +324,14 @@
     		<artifactId>decimal4j</artifactId>
     		<version>1.0.3</version>
 		</dependency>
+		
+		<!-- Stripe -->
+		
+		<dependency>
+		  <groupId>com.stripe</groupId>
+		  <artifactId>stripe-java</artifactId>
+		  <version>9.1.0</version>
+		</dependency>
 
 	</dependencies>
 

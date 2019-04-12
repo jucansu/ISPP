@@ -33,18 +33,6 @@
 
 <security:authorize access="hasRole('PASSENGER')">
 	<center>
-		
-		<form:form method="post" action="${requestURI}">
-			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			data-key="${stripePublicKey}"
-			data-amount="0"
-			data-name="Trond"
-			data-description="Request seats"
-			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-			data-locale="auto"
-			data-currency="${currency}" >
-			</script>
-		</form:form>
 	
 		<form:form action="${requestURI}" modelAttribute="reservation">
 			<form:hidden path="route"/>
@@ -106,8 +94,24 @@
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
 
+<<<<<<< Updated upstream
 			<input type="submit" name="save" class="btn btn btn-success"
 				value="<spring:message code="route.save" />" />
+=======
+			
+			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			data-key="${stripePublicKey}"
+			data-amount="0"
+			data-name="Trond"
+			data-description="Request seats"
+			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+			data-locale="auto"
+			data-currency="${currency}" >
+			</script>
+
+<!-- 			<input type="submit" name="save" class="btn btn btn-success" -->
+<%-- 				value="<spring:message code="route.save" />" /> --%>
+>>>>>>> Stashed changes
 			<input type="button" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
 				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
@@ -145,5 +149,9 @@
 			}
 		};
 		calculatePrice();
+		
 	</script>
+	
+	
+	
 </security:authorize>

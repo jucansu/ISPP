@@ -61,15 +61,15 @@ public class ReservationPassengerController extends AbstractController {
 		super();
 	}
 	// Create ---------------------------------------------------------------		
-	
-	@RequestMapping(value="/save", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save2(HttpServletRequest request) {
 		System.out.println(request.getParameter("stripeToken"));
 		ModelAndView result = new ModelAndView();
 		result.addObject("param1", "value1");
 		return result;
 	}
-	
+
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int routeId) {
 		ModelAndView result;
@@ -86,14 +86,13 @@ public class ReservationPassengerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/save2", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
+
 		ModelAndView result = null;
-		System.out.println("HE LLEGADOOOO!!!");
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(reservationForm);
-		}
-		else {
+		} else {
 			try {
 				final Passenger passenger = (Passenger) this.actorService.findByPrincipal();
 
