@@ -449,17 +449,20 @@
 								<!-- SI EL VIAJE NO HA EMPEZADO, EL PASAJERO PUEDE CANCELAR LA RESERVA -->
 								<jstl:if test="${startedRoute == false }">
 									<dd>
+										
 										<form name="cancelReservation" method="POST"
 											action="reservation/passenger/cancelReservation.do?reservationId=${reservation.id}">
-											<button type="submit" name="cancelReservation"
+											<button type="submit" name="cancelReservation" onclick="alertBox()"
 												class="btn btn-danger">
 												<spring:message code="route.reserv.cancel" />
-											</button>
+											</button>	
 										</form>
 									</dd>
+									
 								</jstl:if>
 
 							</jstl:if>
+							
 							<!-- SI LA RESERVA HA SIDO DENEGADA, SE MUESTRA MENSAJE DE "SOLICITUD DENEGADA" -->
 							<jstl:if test="${reservation.status eq 'REJECTED' }">
 								<spring:message code="route.reserv.rejected" var="rrr" />
@@ -612,6 +615,11 @@
 	
 </div>
 
+    <script type="text/javascript">
+		function alertBox() {
+					window.confirm("Patata");
+		}
+	</script>
 		<!-- ************************************************************************************************************************* -->
 	
 	<%-- 
