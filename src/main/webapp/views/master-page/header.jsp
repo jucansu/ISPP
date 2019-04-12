@@ -108,13 +108,23 @@ window.cookieconsent.initialise({
 	</div>
 	
 	<div class="header_nav backgroundcolor-pink">
-		<nav class="nav-bar navbar-expand-lg">
-			<!-- <ul class="navbar-nav mr-auto">
+		<div class="add_search">
+			<security:authorize access="hasRole('DRIVER')">
+				<a href="route/driver/create.do" class="p-1 text-white"><i class="fas fa-plus btn btn-success rounded-circle m-2"></i><spring:message code="master.page.addRoute" /></a>
+			</security:authorize>
+			<security:authorize access="hasRole('PASSENGER')">
+				<!-- btn btn-success rounded-circle m-2 -->
+					<a href="route/search.do" class="p-1 text-white"><i class="fas fa-search btn btn-success rounded-circle m-2"></i><spring:message code="master.page.searchRoute" /></a>
+					<!-- <spring:message code="master.page.searchRoute" /> -->
+			</security:authorize>
+		</div>
+		<!-- <nav class="nav-bar navbar-expand-lg">
+			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 	        		<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
 	      		</li>
-			</ul> -->
-		</nav>
+			</ul>
+		</nav> -->
 	</div>
 	
 	<!-- --- -->

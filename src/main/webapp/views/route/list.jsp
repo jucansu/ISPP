@@ -38,6 +38,9 @@
 <div class="text-center active-routes">
 	<h3><spring:message code="activeRoutes" /></h3>
 </div>
+
+<div class="content-principal">
+
 <jstl:forEach var="route" items="${routes }">
 	<div class="title listRoute"></div>
 	<div class="route d-flex flex-column align-items-center">
@@ -80,11 +83,6 @@
 	<div class="circle background_blue"></div>
 	<div class="circle background_green"></div>
 </div>
+</div>
 
 
-<security:authorize access="hasRole('DRIVER')">
-	<a href="route/driver/create.do" class="btn btn-success btn-circle btn-xl"><i class="fas fa-plus fa-2x"></i></a>
-</security:authorize>
-<security:authorize access="hasRole('PASSENGER')">
-	<a href="route/search.do" class="btn btn-primary btn-circle btn-xl"><i class="fas fa-search fa-2x"></i></a>
-</security:authorize>
