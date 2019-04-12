@@ -56,6 +56,15 @@ span{
 	border-radius:100%
 }
 
+.rectangle{
+	width: 45px;
+    height: 15px;
+	content:'';
+	position: relative;
+	margin:40px 4px;
+	border-radius:10%
+}
+
  /**** VAR. COLORS ****/
 
 .color_pink{
@@ -96,4 +105,8 @@ span{
 
 .background_orange{
 	background-color: #FFA513;
+}
+
+.background_red{
+	background-color: #ce4848;
 }

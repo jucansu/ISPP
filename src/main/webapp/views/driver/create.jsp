@@ -38,17 +38,18 @@
 
 		<div class="form-row">
 			<div class="col">
-
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.name"/>>
+			<spring:message code="driver.name" var="driverName"/>
+				<form:input path="name" type="text" class="form-control"
+					placeholder="${driverName}"/>
 				<form:errors cssClass="error" path="name" />
 				<br />
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.surname"/>>
+			<spring:message code="driver.surname" var="driverSurname"/>
+				<form:input path="surname" type="text" class="form-control"
+					placeholder="${driverSurname }"/>
 				<form:errors cssClass="error" path="surname" />
 				<br />
 			</div>
@@ -58,17 +59,18 @@
 
 		<div class="form-row">
 			<div class="col">
-
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.country"/>>
+			<spring:message code="driver.country" var="driverCountry"/>
+				<form:input path="country" type="text" class="form-control"
+					placeholder="${driverCountry }"/>
 				<form:errors cssClass="error" path="country" />
 				<br />
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.city"/>>
+			<spring:message code="driver.city" var="driverCity"/>
+				<form:input path="city" type="text" class="form-control"
+					placeholder="${driverCity }"/>
 				<form:errors cssClass="error" path="city" />
 				<br />
 
@@ -78,9 +80,9 @@
 
 		<div class="form-row">
 			<div class="col">
-
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.phone"/>>
+			<spring:message code="driver.phone" var="driverPhone"/>
+				<form:input path="phone" type="text" class="form-control"
+					placeholder="${driverPhone }"/>
 				<form:errors cssClass="error" path="phone" />
 				<br />
 			</div>
@@ -89,16 +91,18 @@
 
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.username"/>>
+			<spring:message code="driver.username" var="driverUsername"/>
+				<form:input path="userAccount.username" type="text" class="form-control"
+					placeholder="${driverUsername }"/>
 				<form:errors cssClass="error" path="userAccount.username" />
 				<br />
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="userAccount.password"/>>
+			<spring:message code="driver.password" var="driverPass"/>
+				<form:input path="userAccount.password" type="text" class="form-control"
+					placeholder="${driverPass }"/>
 				<form:errors cssClass="error" path="userAccount.password" />
 				<br />
 			</div>
@@ -106,8 +110,9 @@
 		
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="creditCard.number"/>>
+			<spring:message code="creditCard.number" var="driverCreditCard"/>
+				<form:input path="creditCard.number" type="text" class="form-control"
+					placeholder="${driverCreditCard }"/>
 				<form:errors cssClass="error" path="creditCard.number" />
 				<br />
 			</div>
@@ -117,8 +122,9 @@
 
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="creditCard.expMonth"/>>
+			<spring:message code="creditCard.expMonth" var="driverExpMonth"/>
+				<form:input path="creditCard.expMonth" type="text" class="form-control"
+					placeholder="${driverExpMonth }"/>
 				<form:errors cssClass="error" path="creditCard.expMonth" />
 				<br />
 			</div>
@@ -128,8 +134,9 @@
 
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="creditCard.expYear"/>>
+			<spring:message code="creditCard.expYear" var="driverExpYear"/>
+				<form:input path="creditCard.expYear" type="text" class="form-control"
+					placeholder="${driverExpYear }"/>
 				<form:errors cssClass="error" path="creditCard.expYear" />
 				<br />
 			</div>
@@ -138,8 +145,9 @@
 
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="creditCard.cvv"/>>
+			<spring:message code="creditCard.cvv" var="driverCVV"/>
+				<form:input path="creditCard.cvv" type="text" class="form-control"
+					placeholder="${driverCVV }"/>
 				<form:errors cssClass="error" path="creditCard.cvv" />
 				<br />
 			</div>
@@ -149,8 +157,9 @@
 
 		<div class="form-row">
 			<div class="col">
-				<input type="text" class="form-control"
-					placeholder=<spring:message code="driver.bankAccountNumber"/>>
+			<spring:message code="driver.bankAccountNumber" var="driverBA"/>
+				<form:input path="bankAccountNumber" type="text" class="form-control"
+					placeholder="${driverBA }"/>
 				<form:errors cssClass="error" path="bankAccountNumber" />
 				<br />
 			</div>
@@ -160,30 +169,29 @@
 			<div class="col">
 				<spring:message code="driver.preferences"/></br>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox1" value="option1"> <label
+					 <form:checkbox path="childs" cssClass="form-check-input" id="inlineCheckbox4" value="option1"/>
+					 <label
 						class="form-check-label" for="inlineCheckbox1">Childs</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox2" value="option2"> <label
+					<form:checkbox path="pets" cssClass="form-check-input" id="inlineCheckbox4" value="option2"/>
+					<label
 						class="form-check-label" for="inlineCheckbox2">Pets</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox2" value="option3"> <label
-						class="form-check-label" for="inlineCheckbox2">Smoking</label>
+					<form:checkbox path="smoke" cssClass="form-check-input" id="inlineCheckbox4" value="option3"/>
+					 <label
+						class="form-check-label" for="inlineCheckbox3">Smoking</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox2" value="option4"> <label
-						class="form-check-label" for="inlineCheckbox2">Music</label>
+					<form:checkbox path="music" cssClass="form-check-input" id="inlineCheckbox4" value="option4"/>
+					 <label
+						class="form-check-label" for="inlineCheckbox4">Music</label>
 				</div>
 
 			</div>
-		</div>
 
-
+	</div>
 
 		<input type="submit" class="btn btn-success" name="save"
 			value="<spring:message code="driver.register"/>" /> <input

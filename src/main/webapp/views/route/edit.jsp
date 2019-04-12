@@ -24,7 +24,7 @@
 <link rel="stylesheet"
 	href="/path/to/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 <div class="text-center active-routes">
-	<h3>Create route</h3>
+	<h3><spring:message code="createRoute" /></h3>
 </div>
 
 

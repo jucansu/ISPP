@@ -87,26 +87,20 @@ window.cookieconsent.initialise({
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 				<security:authorize access="hasRole('DRIVER')">
-					<a class="dropdown-item" href="driver/displayPrincipal.do">Visit my profile</a> 
-					<!-- driver/display.do?driverId= -->
+					<a class="dropdown-item" href="driver/displayPrincipal.do"><spring:message code="master.page.myProfile" /></a>
+					<a class="dropdown-item" href="vehicle/driver/list.do"><spring:message code="master.page.myVehicles" /></a>
+					<a class="dropdown-item" href="driver/edit.do"><spring:message code="master.page.editProfile" /></a>
+					<a class="dropdown-item" href="driver/editCredentials.do"><spring:message code="master.page.editCredentials" /></a>
 				</security:authorize>
+				
 				<security:authorize access="hasRole('PASSENGER')">
-					<a class="dropdown-item" href="passenger/displayPrincipal.do">Visit my profile</a> 
-					<!-- passenger/display.do?passengerId= -->
+					<a class="dropdown-item" href="passenger/displayPrincipal.do"><spring:message code="master.page.myProfile" /></a>
+					<a class="dropdown-item" href="passenger/edit.do"><spring:message code="master.page.editProfile" /></a>
+					<a class="dropdown-item" href="passenger/editCredentials.do"><spring:message code="master.page.editCredentials" /></a>
 				</security:authorize>
-				<security:authorize access="hasRole('DRIVER')">
-					<a class="dropdown-item" href="driver/edit.do">Edit Profile</a> 
-					<!-- driver/edit.do -->
-				</security:authorize>
-				<security:authorize access="hasRole('PASSENGER')">
-					<a class="dropdown-item" href="passenger/edit.do">Edit Profile</a> 
-					<!-- passenger/edit.do -->
-				</security:authorize>
-				<!--<security:authorize access="hasAnyRole('DRIVER', 'PASSENGER')">
-					<a class="dropdown-item" href="#">Configuration</a>
-				</security:authorize> -->
+				
 				<security:authorize access="hasAnyRole('DRIVER', 'PASSENGER')">
-				<div class="dropdown-divider"></div>
+					<div class="dropdown-divider"></div>
 				</security:authorize>
 					<a class="dropdown-item" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a>
 			</div>
