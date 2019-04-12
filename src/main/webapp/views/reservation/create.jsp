@@ -95,9 +95,9 @@
 			
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
-
+			<spring:message code="reserv.save.confirm" var="confirm" />
 			<input type="submit" id="subHidden" hidden="true" name="save" class="btn btn btn-success"
-				value="<spring:message code="route.save" />" />
+				value="<spring:message code="route.save" />"   onclick="return confirm('${confirm}')"/>
 			<input type="button" id="canHidden" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
 				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
