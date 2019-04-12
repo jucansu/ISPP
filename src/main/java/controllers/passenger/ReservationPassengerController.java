@@ -80,9 +80,11 @@ public class ReservationPassengerController extends AbstractController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
 		ModelAndView result = null;
-		if (binding.hasErrors())
+		System.out.println("HE LLEGADOOOO!!!");
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(reservationForm);
-		else
+		}
+		else {
 			try {
 				final Passenger passenger = (Passenger) this.actorService.findByPrincipal();
 
@@ -96,6 +98,7 @@ public class ReservationPassengerController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(reservationForm, "reservation.commit.error");
 			}
+		}
 		return result;
 	}
 
@@ -108,6 +111,8 @@ public class ReservationPassengerController extends AbstractController {
 		result.addObject("reservation", reservation);
 		result.addObject("requestURI", "reservation/passenger/save.do");
 		result.addObject("message", message);
+		result.addObject("stripePublicKey", "pk_test_lx9QYYAhpwYKowZ5iqmKbs4Z00CaE1E067");
+		result.addObject("currency", "EUR");
 
 		return result;
 	}

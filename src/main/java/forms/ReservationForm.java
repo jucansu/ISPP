@@ -21,6 +21,8 @@ public class ReservationForm {
 	private Integer				requestedSeats;
 	private LuggageSize			luggageSize;
 	private Integer				availableSeats;
+	private String				stripeToken;
+	private String				stripeEmail;
 	
 	@NotNull
 	@Valid
@@ -78,6 +80,22 @@ public class ReservationForm {
 	
 	public void setAvailableSeats(Integer availableSeats) {
 		this.availableSeats = availableSeats;
+	}
+	
+	public String getStripeToken() {
+		return stripeToken;
+	}
+
+	public void setStripeToken(String stripeToken) {
+		this.stripeToken = stripeToken;
+	}
+	
+	public String getStripeEmail() {
+		return stripeEmail;
+	}
+
+	public void setStripeEmail(String stripeEmail) {
+		this.stripeEmail = stripeEmail;
 	}
 
 }
