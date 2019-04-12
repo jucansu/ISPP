@@ -10,15 +10,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.decimal4j.util.DoubleRounder;
-import org.joda.time.LocalTime;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 
 import repositories.RouteRepository;
 import domain.ControlPoint;
@@ -29,6 +31,8 @@ import domain.Reservation;
 import domain.ReservationStatus;
 import domain.Route;
 import domain.VehicleType;
+import forms.ControlPointFormCreate;
+import forms.RouteForm;
 
 @Service
 @Transactional
@@ -43,34 +47,64 @@ public class RouteService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private ControlPointService	controlPointService;
+
 	@Autowired
 	private ReservationService	reservationService;
-
+	@Autowired
+	private DriverService	driverService;
 
 	//Simple CRUD methods
 
 	public Route create() {
 		final Route r = new Route();
 
-		final Driver d = (Driver) this.actorService.findByPrincipal();
-		r.setDriver(d);
+		//		final Driver d = (Driver) this.actorService.findByPrincipal();
+		//		r.setDriver(d);
+		r.setAvailableSeats(1);
+		r.setDistance(0d);
 		r.setIsCancelled(false);
 		r.setReservations(new ArrayList<Reservation>());
 		r.setControlPoints(new ArrayList<ControlPoint>());
 		r.setDaysRepeat("");
 		r.setEstimatedDuration(1);
+		r.setMaxLuggage(LuggageSize.NOTHING);
+		r.setPricePerPassenger(1.10d);
 
 		return r;
 	}
-
+	
+	public Finder createFinder() {
+		Finder result = new Finder();
+		result.setAvailableSeats(1);
+//		result.setDepartureDate(new Date(new Date().getTime() + 600000));
+		return result;
+	}
+	
 	public Route findOne(final int id) {
-		Assert.notNull(id);
-
+		Assert.isTrue(id > 0);
 		return this.routeRepository.findOne(id);
 	}
 
 	public Collection<Route> findAll() {
 		return this.routeRepository.findAll();
+	}
+
+	public Route save2(final Route r) {
+		Assert.notNull(r);
+		final Route saved = this.routeRepository.save(r);
+		//		saved.setControlPoints(r.getControlPoints());
+
+		for (ControlPoint cp : r.getControlPoints()) {
+			cp.setRoute(saved);
+			cp = this.controlPointService.save2(cp);
+		}
+
+		this.routeRepository.flush();
+		this.controlPointService.flush();
+		return saved;
 	}
 
 	public Route save(final Route r) {
@@ -111,6 +145,17 @@ public class RouteService {
 		r.setPricePerPassenger(price);
 		r.setDistance(distance);
 		final Route saved = this.routeRepository.save(r);
+		
+		if (this.actorService.findByPrincipal() instanceof Driver){
+			Driver driver = saved.getDriver();
+			
+			Collection<Route> routes = driver.getRoutes();
+			routes.add(saved);
+			driver.setRoutes(routes);
+			this.driverService.save(driver);
+			
+		}
+		
 
 		return saved;
 	}
@@ -190,7 +235,7 @@ public class RouteService {
 
 	}
 
-	public Double getPrice(final Double distance) {
+	/*public Double getPrice(final Double distance) {
 		Double price = 0.0;
 		final Double price3km = 0.33;
 		final Double profit = 0.10;
@@ -203,11 +248,134 @@ public class RouteService {
 
 		}
 		return DoubleRounder.round(price, 2);
+	}*/
+	
+	public Double getPrice(final double distance) {
+		Assert.isTrue(distance >= 0);
+		double result = 1.1d;
+		if (distance > 9d) {
+			result += (distance - 9d) * 0.11d;
+		}
+		return DoubleRounder.round(result, 2);
+	}
+	
+	public Integer getCurrentAvailableSeats(final int routeId) {
+		return getCurrentAvailableSeats(findOne(routeId));
+	}
+	
+	public Integer getCurrentAvailableSeats(final Route route) {
+		Assert.notNull(route);
+		Assert.isTrue(route.getId() > 0);
+		Collection<Reservation> reservations = reservationService.findReservationsByRouteAndStatus(route.getId(), ReservationStatus.ACCEPTED);
+		int occupiedSeats = 0;
+		for (Reservation r : reservations) {
+			occupiedSeats += r.getSeat();
+		}
+		return route.getAvailableSeats() - occupiedSeats;
 	}
 
 	//Finder 
 
-	public Collection<Route> searchRoutes(final Finder finder) {
+	public Collection<Route> searchRoutes(Finder finder, BindingResult binding) {
+		Assert.notNull(finder);
+		Assert.notNull(binding);
+		
+		Collection<Route> queryResult = null;
+		queryResult = routeRepository.search(finder.getDestination(), finder.getAvailableSeats());
+		Collection<Route> result = new ArrayList<Route>();
+		
+		for (Route r : queryResult) {
+			// Filtrar por preferencias
+			if (finder.getChilds() && !r.getDriver().getChilds()) {
+				continue;
+			}
+			if (finder.getMusic() && !r.getDriver().getMusic()) {
+				continue;
+			}
+			if (finder.getPets() && !r.getDriver().getPets()) {
+				continue;
+			}
+			if (finder.getSmoke() && !r.getDriver().getSmoke()) {
+				continue;
+			}
+			
+			// Filtrar por vehículo
+			if (finder.getVehicleType() != null) {
+				if (finder.getVehicleType() == 1 && r.getVehicle().getType() != VehicleType.CAR) {
+					continue;
+				}
+				if (finder.getVehicleType() == 2 && r.getVehicle().getType() != VehicleType.BIKE) {
+					continue;
+				}
+			}
+			
+			// Filtrar por tamaño del equipaje
+			if (finder.getLuggageSize() != null && r.getMaxLuggage().getId() < finder.getLuggageSize().getId()) {
+				continue;
+			}
+			
+			// Filtrar por asientos disponibles
+			int availableSeats = r.getAvailableSeats();
+			for (Reservation re : r.getReservations()) {
+				if (re.getStatus() == ReservationStatus.ACCEPTED) {
+					availableSeats -= re.getSeat();
+				}
+			}
+			if (availableSeats < finder.getAvailableSeats()) {
+				continue;
+			}
+			
+			// Obtener el controlpoint de destino
+			String destinationLocation = finder.getDestination().trim().toLowerCase();
+			ControlPoint destination = null;
+			for (ControlPoint cp : r.getControlPoints()) {
+				if (cp.getLocation().toLowerCase().contains(destinationLocation)) {
+					destination = cp;
+				}
+			}
+			
+			// Filtrar por fecha y hora de llegada
+			if (finder.getArrivalDate() != null) {
+				Date minTime = new Date(finder.getArrivalDate().getTime() - 900000);
+				Date maxTime = new Date(finder.getArrivalDate().getTime() + 900000);
+				if (destination.getArrivalTime().before(minTime) || destination.getArrivalTime().after(maxTime)) {
+					continue;
+				}
+			}
+			
+			// Filtrar por origen
+			ControlPoint origin = null;
+			if (finder.getOrigin() != null && !finder.getOrigin().trim().isEmpty()) {
+				String originLocation = finder.getOrigin().trim().toLowerCase();
+				for (ControlPoint cp : r.getControlPoints()) {
+					if (cp.getLocation().toLowerCase().contains(originLocation)) {
+						origin = cp;
+						break;
+					}
+				}
+				// No existe la ubicación de origen en la ruta, o es una parada posterior al destino
+				if (origin == null || destination.getArrivalOrder() <= origin.getArrivalOrder()) {
+					continue;
+				}
+			}
+			
+			// Filtrar por fecha de salida
+			if (finder.getDepartureDate() != null && origin != null) {
+				Date minTime = new Date(finder.getDepartureDate().getTime() - 900000);
+				Date maxTime = new Date(finder.getDepartureDate().getTime() + 900000);
+				if (origin.getArrivalTime().before(minTime) || origin.getArrivalTime().after(maxTime)) {
+					continue;
+				}
+			}
+			
+			result.add(r);
+		}
+		
+		return result;
+	}
+	
+	/*
+	public Collection<Route> searchRoutes2(final Finder finder) {
 
 		this.validateFinder(finder);
 
@@ -299,6 +467,7 @@ public class RouteService {
 
 		return finalResult;
 	}
+
 	private void validateFinder(final Finder finder) {
 
 		Assert.notNull(finder);
@@ -319,7 +488,8 @@ public class RouteService {
 			Assert.isTrue(de.get(Calendar.DAY_OF_YEAR) >= now.get(Calendar.DAY_OF_YEAR));
 		}
 	}
-
+	*/
+	
 	public Collection<Route> findActiveRoutesByPassenger(final int passengerId) {
 		Assert.isTrue(passengerId != 0);
 
@@ -347,6 +517,124 @@ public class RouteService {
 		Collection<Route> result;
 
 		result = this.routeRepository.findActiveRoutesByDriver(driverId, now);
+
+		return result;
+	}
+
+	// Construct
+
+	public RouteForm construct(final Route route) {
+		Assert.notNull(route);
+		final RouteForm routeForm = new RouteForm();
+		routeForm.setId(route.getId());
+		routeForm.setAvailableSeats(route.getAvailableSeats());
+		if (route.getControlPoints().isEmpty()) {
+			routeForm.setOrigin(this.controlPointService.constructCreate(this.controlPointService.create(), route));
+			final ControlPoint cp = this.controlPointService.create();
+			cp.setArrivalOrder(1);
+			ControlPointFormCreate cpfc = this.controlPointService.constructCreate(cp, route);
+			cpfc.setEstimatedTime(1);
+			routeForm.setDestination(cpfc);
+			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
+		} else {
+			final LinkedList<ControlPoint> cps = new LinkedList<ControlPoint>(route.getControlPoints());
+			routeForm.setOrigin(this.controlPointService.constructCreate(cps.removeFirst(), route));
+			routeForm.setDestination(this.controlPointService.constructCreate(cps.removeLast(), route));
+			routeForm.setControlpoints(new ArrayList<ControlPointFormCreate>());
+
+			for (final ControlPoint cp : cps) {
+				routeForm.getControlpoints().add(this.controlPointService.constructCreate(cp, route));
+			}
+		}
+		routeForm.setDepartureDate(route.getDepartureDate());
+		routeForm.setDetails(route.getDetails());
+		routeForm.setDistance(route.getDistance());
+		routeForm.setMaxLuggage(route.getMaxLuggage());
+		routeForm.setPricePerPassenger(route.getPricePerPassenger());
+		routeForm.setVehicle(route.getVehicle());
+
+		return routeForm;
+	}
+
+	public Route reconstruct(RouteForm routeForm, Driver driver, BindingResult binding) {
+		Assert.notNull(driver);
+		Assert.notNull(routeForm);
+//		Assert.notNull(routeForm.getOrigin());
+//		Assert.notNull(routeForm.getDestination());
+//		Assert.notNull(routeForm.getVehicle());
+//		Assert.isTrue(routeForm.getAvailableSeats() < routeForm.getVehicle().getSeatsCapacity());
+//		Assert.isTrue(routeForm.getDepartureDate().after(new Date(new Date().getTime() + 960000l))); // 16 minutos en ms
+//		Assert.isTrue(routeForm.getVehicle().getDriver().getId() == driver.getId());
+		boolean keepGoing = true;
+		if (routeForm.getAvailableSeats() >= routeForm.getVehicle().getSeatsCapacity()) {
+			binding.rejectValue("availableSeats", "route.error.seatsCapacity");
+			keepGoing = false;
+		}
+		if (!routeForm.getDepartureDate().after(new Date(new Date().getTime() + 900000l))) {
+			binding.rejectValue("departureDate", "route.error.dateTooSoon");
+			keepGoing = false;
+		}
+		if (routeForm.getVehicle().getDriver().getId() != driver.getId()) {
+			binding.rejectValue("vehicle", "route.error.incorrectVehicle");
+			keepGoing = false;
+		}
+		
+		Route result = null;
+		if (keepGoing) {
+			List<ControlPointFormCreate> cps = new ArrayList<ControlPointFormCreate>();
+			cps.add(routeForm.getOrigin());
+			if (routeForm.getControlpoints() != null) {
+				for (ControlPointFormCreate cp : routeForm.getControlpoints()) {
+					cps.add(cp);
+				}
+			}
+			cps.add(routeForm.getDestination());
+			List<ControlPoint> controlPoints = this.controlPointService.reconstructCreate(cps, routeForm.getDepartureDate());
+	
+			double routeDistance = 0d;
+			for (ControlPoint cp : controlPoints) {
+				routeDistance += cp.getDistance();
+			}
+	
+			int estimatedDuration = 0;
+			for (ControlPointFormCreate cp : cps) {
+				estimatedDuration += cp.getEstimatedTime();
+			}
+			/*
+			 * for (ControlPoint cp : controlPoints) {
+			 * routeDistance += cp.getDistance();
+			 * if (lastTime != 0l) {
+			 * estimatedDuration += TimeUnit.MINUTES.convert(cp.getArrivalTime().getTime() - lastTime, TimeUnit.MILLISECONDS);
+			 * }
+			 * lastTime = cp.getArrivalTime().getTime();
+			 * }
+			 */
+	
+			double pricePerPassenger = getPrice(routeDistance);
+	
+			result = this.create();
+	
+			result.setAvailableSeats(routeForm.getAvailableSeats());
+			result.setDaysRepeat(null);
+			result.setDepartureDate(routeForm.getDepartureDate());
+			result.setMaxLuggage(routeForm.getMaxLuggage());
+			result.setDetails(routeForm.getDetails());
+			result.setDriver(driver);
+			result.setId(0);
+			result.setIsCancelled(false);
+			result.setVehicle(routeForm.getVehicle());
+			result.setVersion(0);
+	
+			result.setControlPoints(controlPoints);
+			//		result.setDestination(controlPoints.last().getLocation());
+			result.setDestination(controlPoints.get(controlPoints.size() - 1).getLocation());
+			result.setDistance(routeDistance);
+			result.setEstimatedDuration(estimatedDuration);
+			//		result.setOrigin(controlPoints.first().getLocation());
+			result.setOrigin(controlPoints.get(0).getLocation());
+			result.setPricePerPassenger(pricePerPassenger);
+			result.setReservations(null);
+		}
 
 		return result;
 	}
