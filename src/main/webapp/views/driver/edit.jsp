@@ -37,7 +37,7 @@
 	<div class="nav-profile-enlaces d-flex flex-row">
 		<a class="nav-link active text-white" href="driver/edit.do"><spring:message code="driver.nav.profile" /></a>
 		<a class="nav-link text-white" href="vehicle/driver/list.do"><spring:message code="driver.nav.vehicles" /></a>
-		<a class="nav-link text-white" href="payment/driver/edit.do"><spring:message code="driver.nav.payment" /></a>
+		<%-- PAYMENT <a class="nav-link text-white" href="payment/driver/edit.do"><spring:message code="driver.nav.payment" /></a> --%>
 		<a class="nav-link text-white" href="driver/editCredentials.do"><spring:message code="driver.nav.credentials" /></a>
 	</div>
 </div>

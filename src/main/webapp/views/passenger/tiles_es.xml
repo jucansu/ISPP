@@ -24,7 +24,7 @@
 	</definition>
 	
 	<definition name="driver/editCredentials" extends="master.page">	
-		<put-attribute name="title" value="Editar Credenciales" />
+		<put-attribute name="title" value="" /><!-- Editar Credenciales -->
 		<put-attribute name="body" value="/views/driver/edit_credentials.jsp" />
 	</definition>
 	

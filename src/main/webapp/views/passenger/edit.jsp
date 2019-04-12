@@ -33,12 +33,9 @@
 
 <div class="nav-profile-management nav background_orange">
 	<div class="nav-profile-enlaces d-flex flex-row">
-		<a class="nav-link active text-white" href="passenger/edit.do"><spring:message
-				code="driver.nav.profile" /></a> <a class="nav-link text-white"
-			href="payment/passenger/edit.do"><spring:message
-				code="driver.nav.payment" /></a> <a class="nav-link text-white"
-			href="passenger/editCredentials.do"><spring:message
-				code="driver.nav.credentials" /></a>
+		<a class="nav-link active text-white" href="passenger/edit.do"><spring:message code="driver.nav.profile" /></a> 
+		<%-- PAYMENT <a class="nav-link text-white" href="payment/passenger/edit.do"><spring:message code="driver.nav.payment" /></a> --%> 
+		<a class="nav-link text-white" href="passenger/editCredentials.do"><spring:message code="driver.nav.credentials" /></a>
 	</div>
 </div>
 

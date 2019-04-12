@@ -17,12 +17,12 @@
 <tiles-definitions>
 
 	<definition name="vehicle/driver/edit" extends="master.page">	
-		<put-attribute name="title" value="Vehicle" />
+		<put-attribute name="title" value="" /> <!-- Vehicle -->
 		<put-attribute name="body" value="/views/vehicle/edit.jsp" />
 	</definition>
 	
 	<definition name="vehicle/driver/create" extends="master.page">	
-		<put-attribute name="title" value="New Vehicle" />
+		<put-attribute name="title" value="" /><!-- New Vehicle -->
 		<put-attribute name="body" value="/views/vehicle/edit.jsp" />
 	</definition>
 	
@@ -32,7 +32,7 @@
 	</definition>
 	
 	<definition name="vehicle/driver/list" extends="master.page">	
-		<put-attribute name="title" value="Vehicle list" />
+		<put-attribute name="title" value="" /><!-- Vehicle list -->
 		<put-attribute name="body" value="/views/vehicle/list.jsp" />
 	</definition>
 	

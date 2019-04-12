@@ -23,6 +23,11 @@
 		<put-attribute name="body" value="/views/driver/edit.jsp" />
 	</definition>
 	
+	<definition name="driver/editCredentials" extends="master.page">	
+		<put-attribute name="title" value="" /><!-- Edit Credentials -->
+		<put-attribute name="body" value="/views/driver/edit_credentials.jsp" />
+	</definition>
+	
 	<definition name="driver/create" extends="master.page">	
 		<put-attribute name="title" value="Registrar Conductor" />
 		<put-attribute name="body" value="/views/driver/create.jsp" />
