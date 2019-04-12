@@ -31,9 +31,7 @@
 <spring:url value="/styles/profile.css" var="profilecss" />
 <link href="${profilecss}" rel="stylesheet" />
 <script src="${profilecss}"></script>
-<div class="text-center active-routes">
-	<h3><spring:message code="displayDriver" /></h3>
-</div>
+
 <div
 	class="resume d-flex flex-column justify-content-center align-items-center">
 
@@ -174,9 +172,10 @@
 <div class="card_">
 	<div class="card-header_" id="headingTwo">
 		<h2 class="mb-0">
+		<spring:message code="driver.comment"  var = "commentsMsg"/>
 			<button class="btn btn-link collapsed" data-toggle="collapse"
 				data-target="#collapseTwo" aria-expanded="false"
-				aria-controls="collapseTwo">Comments</button>
+				aria-controls="collapseTwo">${commentsMsg}</button>
 		</h2>
 	</div>
 </div>
@@ -321,9 +320,10 @@
 <div class="card_">
 	<div class="card-header_" id="headingTwo">
 		<h2 class="mb-0">
+		<spring:message code="driver.route"  var = "routeMsg"/>
 			<button class="btn btn-link collapsed" data-toggle="collapse"
 				data-target="#collapseOne" aria-expanded="false"
-				aria-controls="collapseOne">Routes</button>
+				aria-controls="collapseOne">${routeMsg}</button>
 		</h2>
 	</div>
 </div>

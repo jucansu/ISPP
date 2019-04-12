@@ -15,6 +15,8 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
+
 <script type="text/javascript"
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript"
@@ -30,6 +32,7 @@
 <div class="text-center active-routes">
 	<h3><spring:message code="makeReservation" /></h3>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <security:authorize access="hasRole('PASSENGER')">
 	<center>
@@ -80,11 +83,15 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="luggage2"><spring:message code="reservation.luggage" /></span>
 					</div>
+				<spring:message code="reserv.luggage.none"  var = "noneMsg"/>	
+				<spring:message code="reserv.luggage.small"  var = "smallMsg"/>
+				<spring:message code="reserv.luggage.medium"  var = "mediumMsg"/>
+				<spring:message code="reserv.luggage.big"  var = "bigMsg"/>
 					<form:select path="luggageSize" class="form-control" required="true" id="luggage">
-						<form:option value="NOTHING" label="Nothing"/>
-						<form:option value="SMALL" label="Small"/>
-						<form:option value="MEDIUM" label="Medium"/>
-						<form:option value="BIG" label="Big"/>
+						<form:option value="NOTHING" label="${noneMsg}"/>
+						<form:option value="SMALL" label="${smallMsg}"/>
+						<form:option value="MEDIUM" label="${mediumMsg}"/>
+						<form:option value="BIG" label="${bigMsg}"/>
 					</form:select>
 				</div>
 				<form:errors cssClass="error" path="luggageSize" />
@@ -92,10 +99,10 @@
 			
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
-
-			<input type="submit" name="save" class="btn btn btn-success"
-				value="<spring:message code="route.save" />" />
-			<input type="button" name="cancel" class="btn btn-danger"
+			<spring:message code="reserv.save.confirm" var="confirm" />
+			<input type="submit" id="subHidden" hidden="true" name="save" class="btn btn btn-success"
+				value="<spring:message code="route.save" />"   onclick="return confirm('${confirm}')"/>
+			<input type="button" id="canHidden" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
 				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
 			<br />
@@ -133,4 +140,33 @@
 		};
 		calculatePrice();
 	</script>
+ <script
+    src="https://www.paypal.com/sdk/js?client-id=AbV1oH0J1AvYtUC1msIZkIc8P2OlSEpbcdalsYTCDhwcCt4VOqczhC0zZ3LytbeFPxomTTb627YX4dAW&currency=EUR">
+ </script>
+	<center>
+	 <div id="paypal-button-container" style="padding-top: 20px; width: 200px"></div>
+	</center>
+<script>
+	  paypal.Buttons({
+	    createOrder: function(data, actions) {
+	      return actions.order.create({
+	        purchase_units: [{
+	          amount: {
+	            value: parseFloat(document.getElementById("price").innerHTML)
+	          }
+	        }]
+	      });
+	    },
+	    onApprove: function(data, actions) {
+	      return actions.order.capture().then(function(details) {
+	    	  document.getElementById("subHidden").removeAttribute("hidden");
+	    	  document.getElementById("canHidden").setAttribute("hidden",true);
+	        // Call your server to save the transaction
+	        document.getElementById("fmID").setAttribute("action", document.getElementById("fmID").getAttribute("action") +"?orderId="+ data.orderID);
+	      });
+	    }
+	  }).render('#paypal-button-container');
+</script>
+	
+	
 </security:authorize>
