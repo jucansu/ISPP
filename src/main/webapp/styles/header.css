@@ -6,8 +6,9 @@
 	/* width: 30px;
 	height: 30px; */
 	position: relative;
-    float: right;
-    right: 28%;
+	float: right;
+	right: 26%;
+	top: 8%;
 }
 
 .header_nav{
