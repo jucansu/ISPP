@@ -160,9 +160,10 @@
 <div class="card_">
 	<div class="card-header_" id="headingTwo">
 		<h2 class="mb-0">
+		<spring:message code="driver.comment"  var = "commentsMsg"/>
 			<button class="btn btn-link collapsed" data-toggle="collapse"
 				data-target="#collapseTwo" aria-expanded="false"
-				aria-controls="collapseTwo">Comments</button>
+				aria-controls="collapseTwo">${commentsMsg}</button>
 		</h2>
 	</div>
 </div>
@@ -308,9 +309,10 @@
 <div class="card_">
 	<div class="card-header_" id="headingTwo">
 		<h2 class="mb-0">
+		<spring:message code="passenger.route"  var = "routeMsg"/>
 			<button class="btn btn-link collapsed" data-toggle="collapse"
 				data-target="#collapseOne" aria-expanded="false"
-				aria-controls="collapseOne">Routes</button>
+				aria-controls="collapseOne">${routeMsg}</button>
 		</h2>
 	</div>
 </div>

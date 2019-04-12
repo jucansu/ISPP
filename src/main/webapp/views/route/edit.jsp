@@ -232,12 +232,17 @@
 						<span class="input-group-text" id="routeMaxLuggage"><spring:message
 								code="route.maxLuggage" /></span>
 					</div>
+					
+		<spring:message code="route.luggage.none"  var = "noneMsg"/>	
+		<spring:message code="route.luggage.small"  var = "smallMsg"/>
+		<spring:message code="route.luggage.medium"  var = "mediumMsg"/>
+		<spring:message code="route.luggage.big"  var = "bigMsg"/>
 					<form:select path="maxLuggage" class="form-control"
 						aria-describedby="routeMaxLuggage">
-						<form:option label="None" value="NOTHING" />
-						<form:option label="Small" value="SMALL" />
-						<form:option label="Medium" value="MEDIUM" />
-						<form:option label="Big" value="BIG" />
+						<form:option label="${noneMsg}" value="NOTHING" />
+						<form:option label="${smallMsg}" value="SMALL" />
+						<form:option label="${mediumMsg}" value="MEDIUM" />
+						<form:option label="${bigMsg}" value="BIG" />
 					</form:select>
 				</div>
 				<form:errors path="maxLuggage" cssClass="error" />
