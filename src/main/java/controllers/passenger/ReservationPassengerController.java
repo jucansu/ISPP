@@ -15,8 +15,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ import security.UserAccount;
 import services.ActorService;
 import services.ReservationService;
 import services.RouteService;
+
+import com.stripe.model.Charge;
+
 import controllers.AbstractController;
 import domain.Actor;
 import domain.Administrator;
@@ -62,14 +66,6 @@ public class ReservationPassengerController extends AbstractController {
 	}
 	// Create ---------------------------------------------------------------		
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save2(HttpServletRequest request) {
-		System.out.println(request.getParameter("stripeToken"));
-		ModelAndView result = new ModelAndView();
-		result.addObject("param1", "value1");
-		return result;
-	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int routeId) {
 		ModelAndView result;
@@ -88,7 +84,6 @@ public class ReservationPassengerController extends AbstractController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
-
 		ModelAndView result = null;
 		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(reservationForm);
@@ -100,10 +95,19 @@ public class ReservationPassengerController extends AbstractController {
 				if (binding.hasErrors())
 					result = this.createEditModelAndView(reservationForm);
 				else {
+					
+					Map<String, Object> chargeParams = new HashMap<>();
+					chargeParams.put("amount", "110.0");
+					chargeParams.put("currency", "EUR");
+					chargeParams.put("description", "Request seats");
+					chargeParams.put("source", reservationForm.getStripeToken());
+					Charge.create(chargeParams);
+					
 					reservation = this.reservationService.save2(reservation);
 					result = new ModelAndView("redirect:/route/display.do?routeId=" + reservation.getRoute().getId());
 				}
 			} catch (final Throwable oops) {
+				oops.printStackTrace();
 				result = this.createEditModelAndView(reservationForm, "reservation.commit.error");
 			}
 		}
@@ -121,6 +125,7 @@ public class ReservationPassengerController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("stripePublicKey", "pk_test_lx9QYYAhpwYKowZ5iqmKbs4Z00CaE1E067");
 		result.addObject("currency", "EUR");
+		result.addObject("amount", "110.0");
 
 		return result;
 	}

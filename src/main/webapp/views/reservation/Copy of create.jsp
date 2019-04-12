@@ -33,7 +33,6 @@
 
 <security:authorize access="hasRole('PASSENGER')">
 	<center>
-	
 		<form:form action="${requestURI}" modelAttribute="reservation">
 			<form:hidden path="route"/>
 			<form:hidden path="availableSeats"/>
@@ -93,10 +92,11 @@
 			
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
+
 			
-			<script id="botonStripe" src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 			data-key="${stripePublicKey}"
-			data-amount="110"
+			data-amount="0"
 			data-name="Trond"
 			data-description="Request seats"
 			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
@@ -104,6 +104,8 @@
 			data-currency="${currency}" >
 			</script>
 
+			<input type="submit" name="save" class="btn btn btn-success"
+				value="<spring:message code="route.save" />" />
 			<input type="button" name="cancel" class="btn btn-danger"
 				value="<spring:message code="route.cancel" />"
 				onclick="javascript: relativeRedir('route/display.do?routeId=${reservation.route.id}');" />
@@ -135,26 +137,11 @@
 				price = price * parseInt(document.getElementById("seats").value);
 				price = Number.parseFloat(price + 0.1).toFixed(2);
 				document.getElementById("price").innerHTML = price.toString().concat("&euro;");
-				console.log("asdasdasdasd");
-				var finalPrice = price * 100.0;
-				console.log(finalPrice.toString());
-				var stripeButton = document.getElementById("botonStripe");
-				console.log(stripeButton);
-				document.getElementById("price").innerHTML = price.toString();
-				stripeButton.setAttribute("data-amount", finalPrice.toString());
-				console.log("--------");
-				console.log(stripeButton);
 			}
 			else {
-// 				var p = 110.0;
-// 				document.getElementByClass("stripe-button").setAttribute("data-amount", p.toString());
 				document.getElementById("price").innerHTML = "ERROR";
 			}
 		};
 		calculatePrice();
-		
 	</script>
-	
-	
-	
 </security:authorize>
