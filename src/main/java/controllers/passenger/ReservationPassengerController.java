@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,15 @@ public class ReservationPassengerController extends AbstractController {
 		super();
 	}
 	// Create ---------------------------------------------------------------		
-
+	
+	@RequestMapping(value="/save", method = RequestMethod.POST)
+	public ModelAndView save2(HttpServletRequest request) {
+		System.out.println(request.getParameter("stripeToken"));
+		ModelAndView result = new ModelAndView();
+		result.addObject("param1", "value1");
+		return result;
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int routeId) {
 		ModelAndView result;
@@ -77,7 +86,7 @@ public class ReservationPassengerController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/save2", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@ModelAttribute(value = "reservation") @Valid final ReservationForm reservationForm, final BindingResult binding) {
 		ModelAndView result = null;
 		System.out.println("HE LLEGADOOOO!!!");

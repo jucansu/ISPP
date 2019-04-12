@@ -33,11 +33,22 @@
 
 <security:authorize access="hasRole('PASSENGER')">
 	<center>
+		
+		<form:form method="post" action="${requestURI}">
+			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+			data-key="${stripePublicKey}"
+			data-amount="0"
+			data-name="Trond"
+			data-description="Request seats"
+			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+			data-locale="auto"
+			data-currency="${currency}" >
+			</script>
+		</form:form>
+	
 		<form:form action="${requestURI}" modelAttribute="reservation">
 			<form:hidden path="route"/>
 			<form:hidden path="availableSeats"/>
-			<form:hidden path="stripeToken"/>
-			<form:hidden path="stripeEmail"/>
 			
 			<div class="form-group col-md-6">
 				<div class="input-group">
@@ -94,17 +105,6 @@
 			
 			<h4><spring:message code="reservation.price" />: <span class="badge badge-success" id="price"></span></h4>
 			<br />
-
-			
-			<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			data-key="${stripePublicKey}"
-			data-amount="0"
-			data-name="Trond"
-			data-description="Request seats"
-			data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-			data-locale="auto"
-			data-currency="${currency}" >
-			</script>
 
 			<input type="submit" name="save" class="btn btn btn-success"
 				value="<spring:message code="route.save" />" />
